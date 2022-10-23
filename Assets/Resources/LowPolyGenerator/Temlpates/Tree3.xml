@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowTreeGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/Brown.mat" Material2="Assets/LowPolyGenerator/Examples/Materials/Dark_Green.mat" Seed="0" TreeNoiseForce="0.5" TreeNoiseSeed="0" />
+    <Trunk Iterations="2" Parts="7" Segments="5" SkipBranch="1" HideOnLeaves="False">
+      <SegmentLength Size="2">
+        <Key_0 Time="0" Value="3" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="3" Mode="0" In="0" Out="0" />
+      </SegmentLength>
+      <LevelLength Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0.3" Mode="0" In="-0.5" Out="-0.5" />
+      </LevelLength>
+      <Thickness Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.8" Out="-0.8" />
+        <Key_1 Time="1" Value="0.15" Mode="0" In="0" Out="0" />
+      </Thickness>
+      <MaxBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.5" Out="0.5" />
+      </MaxBranch>
+      <MinBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.5" Out="0.5" />
+      </MinBranch>
+      <Twirl Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.8" Out="-0.8" />
+        <Key_1 Time="1" Value="-0.15" Mode="0" In="-0.5" Out="-0.5" />
+      </Twirl>
+    </Trunk>
+    <Branch Segments="3" SkipSubBranch="1">
+      <BranchThickness Size="2">
+        <Key_0 Time="0" Value="0.5" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0.1" Mode="0" In="-0.5" Out="-0.5" />
+      </BranchThickness>
+      <MaxSubBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.5" Out="0.5" />
+      </MaxSubBranch>
+      <MinSubBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.5" Out="0.5" />
+      </MinSubBranch>
+      <InnerTwirl Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="0" Mode="0" In="0" Out="0" />
+      </InnerTwirl>
+    </Branch>
+    <Root Iterations="1" Segments="2" SkipRootBranch="1" Thickness="0.6" BranchCount="7" RootNoiseForce="1.5" RootNoiseSeed="0">
+      <RootSegmentLength Size="2">
+        <Key_0 Time="0" Value="3" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="3" Mode="0" In="0" Out="0" />
+      </RootSegmentLength>
+      <RootLevelLength Size="2">
+        <Key_0 Time="0" Value="0.5" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0.35" Mode="0" In="-0.5" Out="-0.5" />
+      </RootLevelLength>
+      <RootTwirl Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0" Mode="0" In="-0.5" Out="-0.5" />
+      </RootTwirl>
+    </Root>
+    <Leaves Type="Normal" StartIteration="1" EndIteration="2" StartSegment="1" CountSegment="1" Scale="5, 3.49, 5" Offset="10.36" Detail="0" NoiseForce="0.5" NoiseSeed="0">
+      <ScaleCurve Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0" Mode="0" In="-0.5" Out="-0.5" />
+      </ScaleCurve>
+      <ScaleSeg Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="2" Mode="0" In="0.5" Out="0.5" />
+      </ScaleSeg>
+      <OffsetCurve Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0" Mode="0" In="-0.5" Out="-0.5" />
+      </OffsetCurve>
+    </Leaves>
+  </LowTreeGenerator>
+</body>

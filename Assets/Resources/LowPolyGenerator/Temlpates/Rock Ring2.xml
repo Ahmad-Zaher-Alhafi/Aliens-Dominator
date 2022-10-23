@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowSimpleGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/White.mat" Material2="" Detail="0" BoxSize="0.3, 0.3, 0.3" DownForce="1.19" Center="0, 0.49, 0" NoiseForce="0.12" NoiseSeed="16" />
+    <Surfase SurfaceType="Noise" SSSModCount="1" SSSModRadius="1.47">
+      <SSSModCurve Size="4">
+        <Key_0 Time="0.07942756" Value="0.9366597" Mode="34" In="-1.229438" Out="-1.229438" />
+        <Key_1 Time="0.2227024" Value="0.7605122" Mode="0" In="-0.1250404" Out="-0.1250404" />
+        <Key_2 Time="0.3832991" Value="0.2953879" Mode="0" In="-0.9396672" Out="-0.9396672" />
+        <Key_3 Time="0.9678676" Value="0.06459726" Mode="34" In="-0.3948052" Out="-0.3948052" />
+      </SSSModCurve>
+    </Surfase>
+    <Spray Original="False" Count="12" Box="2, 0, 2" Seed="95">
+      <Pos Size="2">
+        <Key_0 Time="-0.00186554" Value="1.02868" Mode="0" In="-0.003224889" Out="-0.003224889" />
+        <Key_1 Time="0.9887431" Value="1.014213" Mode="0" In="0.01618871" Out="0.01618871" />
+      </Pos>
+      <Scale Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0" Out="0" />
+      </Scale>
+      <Normal Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.5" Out="0.5" />
+      </Normal>
+    </Spray>
+  </LowSimpleGenerator>
+</body>

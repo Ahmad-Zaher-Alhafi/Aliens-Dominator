@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowSimpleGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/Red.mat" Material2="" Detail="1" BoxSize="1.57, 2.02, 1.18" DownForce="0" Center="0, 0, 0" NoiseForce="0.12" NoiseSeed="58" />
+    <Surfase SurfaceType="Crystal" SSSModCount="5" SSSModRadius="1">
+      <SSSModCurve Size="3">
+        <Key_0 Time="0.03383195" Value="0.5004294" Mode="34" In="0.010918" Out="0.010918" />
+        <Key_1 Time="0.8192617" Value="0.5090047" Mode="0" In="0.01294623" Out="0.01294623" />
+        <Key_2 Time="0.9844443" Value="0.7401604" Mode="34" In="1.399395" Out="1.399395" />
+      </SSSModCurve>
+    </Surfase>
+    <Spray Original="True" Count="7" Box="0.44, 0, 0.85" Seed="17">
+      <Pos Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.01523585" Out="-0.01523585" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0.004585173" Out="0.004585173" />
+      </Pos>
+      <Scale Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="0.9912664" Value="0.6815885" Mode="0" In="-0.5" Out="-0.5" />
+      </Scale>
+      <Normal Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1.008036" Value="0.7430226" Mode="0" In="0.5" Out="0.5" />
+      </Normal>
+    </Spray>
+  </LowSimpleGenerator>
+</body>

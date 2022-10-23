@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Spawner
+  - Enemy
+  - OnStartWaves
+  - Wall
+  - Arrow
+  - BloodEffect
+  - CinematicCreature
+  - SuppliesCaller
+  - ArrowBallon
+  - PlayerAttackPoint
+  - PlayerLookAtPoint
+  - PlayerShootAtPoint
+  - SecuritySensor
+  - SecurityWeapon
+  - EnemyHead
+  - EnemyBody
+  - EnemyLegs
+  - EnemyArms
+  - EnemyTail
+  - GateDoor
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Terrain
+  - Water
+  - UI
+  - Enemy
+  - Arrow
+  - Projectile
+  - Base
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: ArrowUpdateParticles
+    uniqueID: 2972833783
+    locked: 0

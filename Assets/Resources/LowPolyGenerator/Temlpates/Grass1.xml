@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowSimpleGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/Dark_Green.mat" Material2="" Detail="4" BoxSize="1, 1, 0.24" DownForce="-0.04" Center="0, 0, 0" NoiseForce="0.03" NoiseSeed="0" />
+    <Surfase SurfaceType="Grass" SSSModCount="2" SSSModRadius="1.29">
+      <SSSModCurve Size="2">
+        <Key_0 Time="0" Value="0.001047319" Mode="0" In="0.1619041" Out="0.1619041" />
+        <Key_1 Time="0.9952555" Value="0.01661763" Mode="0" In="-0.3343408" Out="-0.3343408" />
+      </SSSModCurve>
+    </Surfase>
+    <Spray Original="True" Count="14" Box="1, 0, 1" Seed="27">
+      <Pos Size="2">
+        <Key_0 Time="0" Value="0.1700508" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="0.9981203" Value="0.9949238" Mode="0" In="0.5" Out="0.5" />
+      </Pos>
+      <Scale Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="0.5" Mode="0" In="0" Out="0" />
+      </Scale>
+      <Normal Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.883006" Out="0.883006" />
+        <Key_1 Time="1" Value="0.5" Mode="0" In="0.3106646" Out="0.3106646" />
+      </Normal>
+    </Spray>
+  </LowSimpleGenerator>
+</body>

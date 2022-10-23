@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowTreeGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/Green.mat" Material2="Assets/LowPolyGenerator/Examples/Materials/Yellow.mat" Seed="5" TreeNoiseForce="0.27" TreeNoiseSeed="8" />
+    <Trunk Iterations="1" Parts="5" Segments="5" SkipBranch="2" HideOnLeaves="False">
+      <SegmentLength Size="2">
+        <Key_0 Time="0" Value="2" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="0.5" Mode="0" In="0" Out="0" />
+      </SegmentLength>
+      <LevelLength Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0.0332556" Out="0.0332556" />
+        <Key_1 Time="1" Value="0.6" Mode="0" In="0" Out="0" />
+      </LevelLength>
+      <Thickness Size="2">
+        <Key_0 Time="0" Value="0.5" Mode="0" In="0.000584836" Out="0.000584836" />
+        <Key_1 Time="1" Value="0.5" Mode="0" In="0" Out="0" />
+      </Thickness>
+      <MaxBranch Size="3">
+        <Key_0 Time="0" Value="-0.001201533" Mode="0" In="7.704226" Out="7.704226" />
+        <Key_1 Time="0.3893515" Value="1.023705" Mode="0" In="0.01246028" Out="0.01246028" />
+        <Key_2 Time="1" Value="0" Mode="0" In="-4.860997" Out="-4.860997" />
+      </MaxBranch>
+      <MinBranch Size="3">
+        <Key_0 Time="0" Value="0" Mode="0" In="1.026767" Out="1.026767" />
+        <Key_1 Time="0.3427948" Value="0.5024647" Mode="0" In="0.004333866" Out="0.004333866" />
+        <Key_2 Time="1" Value="0" Mode="0" In="-1.774366" Out="-1.774366" />
+      </MinBranch>
+      <Twirl Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0.01022213" Out="0.01022213" />
+        <Key_1 Time="1" Value="1" Mode="0" In="2.624897E-07" Out="2.624897E-07" />
+      </Twirl>
+    </Trunk>
+    <Branch Segments="3" SkipSubBranch="1">
+      <BranchThickness Size="3">
+        <Key_0 Time="0.01433692" Value="0.5889632" Mode="0" In="-0.003991419" Out="-0.003991419" />
+        <Key_1 Time="0.8781269" Value="0.5906774" Mode="0" In="-0.003563564" Out="-0.003563564" />
+        <Key_2 Time="1" Value="0.1" Mode="0" In="-0.5" Out="-0.5" />
+      </BranchThickness>
+      <MaxSubBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="-0.009185719" Out="-0.009185719" />
+        <Key_1 Time="1" Value="0" Mode="0" In="0.001165137" Out="0.001165137" />
+      </MaxSubBranch>
+      <MinSubBranch Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="0.004592984" Out="0.004592984" />
+        <Key_1 Time="1" Value="0" Mode="0" In="0.02342347" Out="0.02342347" />
+      </MinSubBranch>
+      <InnerTwirl Size="2">
+        <Key_0 Time="0" Value="0" Mode="34" In="-0.1360201" Out="-0.1360201" />
+        <Key_1 Time="0.9750549" Value="-0.1326271" Mode="34" In="-0.1360201" Out="-0.1360201" />
+      </InnerTwirl>
+    </Branch>
+    <Root Iterations="1" Segments="3" SkipRootBranch="1" Thickness="0.23" BranchCount="5" RootNoiseForce="0.4" RootNoiseSeed="3">
+      <RootSegmentLength Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0" Out="0" />
+      </RootSegmentLength>
+      <RootLevelLength Size="2">
+        <Key_0 Time="0" Value="0.5" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0.35" Mode="0" In="-0.5" Out="-0.5" />
+      </RootLevelLength>
+      <RootTwirl Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="-0.5" Out="-0.5" />
+        <Key_1 Time="1" Value="0" Mode="0" In="-0.5" Out="-0.5" />
+      </RootTwirl>
+    </Root>
+    <Leaves Type="Normal" StartIteration="0" EndIteration="1" StartSegment="1" CountSegment="1" Scale="6, 6, 6" Offset="7.98" Detail="0" NoiseForce="0.16" NoiseSeed="0">
+      <ScaleCurve Size="2">
+        <Key_0 Time="-0.008306099" Value="0.0415431" Mode="0" In="-0.006488556" Out="-0.006488556" />
+        <Key_1 Time="1.002579" Value="0.02667868" Mode="0" In="-0.07506605" Out="-0.07506605" />
+      </ScaleCurve>
+      <ScaleSeg Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="1" Value="2" Mode="0" In="0.5" Out="0.5" />
+      </ScaleSeg>
+      <OffsetCurve Size="2">
+        <Key_0 Time="0" Value="1.001203" Mode="0" In="-0.1733789" Out="-0.1733789" />
+        <Key_1 Time="0.986061" Value="0.9347042" Mode="0" In="-0.04260014" Out="-0.04260014" />
+      </OffsetCurve>
+    </Leaves>
+  </LowTreeGenerator>
+</body>

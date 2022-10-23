@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <LowSimpleGenerator Version="1.0">
+    <General Material1="Assets/LowPolyGenerator/Examples/Materials/Orange.mat" Material2="" Detail="5" BoxSize="-0.69, 1, 0" DownForce="0.1" Center="0, 0, 0" NoiseForce="0.03" NoiseSeed="0" />
+    <Surfase SurfaceType="Grows" SSSModCount="5" SSSModRadius="1.79">
+      <SSSModCurve Size="5">
+        <Key_0 Time="0" Value="0" Mode="0" In="3.433288" Out="3.433288" />
+        <Key_1 Time="0.02914785" Value="0.02256522" Mode="0" In="0.5925159" Out="0.5925159" />
+        <Key_2 Time="0.3845925" Value="0.09623633" Mode="0" In="0.4595518" Out="0.4595518" />
+        <Key_3 Time="0.7026087" Value="0.161672" Mode="0" In="0.2035499" Out="0.2035499" />
+        <Key_4 Time="0.9989268" Value="0.1435186" Mode="0" In="-0.3343408" Out="-0.3343408" />
+      </SSSModCurve>
+    </Surfase>
+    <Spray Original="True" Count="0" Box="0.8, 0, 0.28" Seed="0">
+      <Pos Size="2">
+        <Key_0 Time="0" Value="0.1700508" Mode="0" In="0.5" Out="0.5" />
+        <Key_1 Time="0.9981203" Value="0.9949238" Mode="0" In="0.5" Out="0.5" />
+      </Pos>
+      <Scale Size="2">
+        <Key_0 Time="0" Value="1" Mode="0" In="0" Out="0" />
+        <Key_1 Time="1" Value="1" Mode="0" In="0" Out="0" />
+      </Scale>
+      <Normal Size="2">
+        <Key_0 Time="0" Value="0" Mode="0" In="-0.4097032" Out="-0.4097032" />
+        <Key_1 Time="1.00188" Value="-0.3527918" Mode="0" In="-0.6065155" Out="-0.6065155" />
+      </Normal>
+    </Spray>
+  </LowSimpleGenerator>
+</body>

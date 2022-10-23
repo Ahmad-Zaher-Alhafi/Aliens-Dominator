@@ -1,0 +1,17 @@
+{
+    "name": "Pinwheel.Jupiter.Editor",
+    "references": [
+        "GUID:a207fb5abba378d4982df876ed6c7072"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

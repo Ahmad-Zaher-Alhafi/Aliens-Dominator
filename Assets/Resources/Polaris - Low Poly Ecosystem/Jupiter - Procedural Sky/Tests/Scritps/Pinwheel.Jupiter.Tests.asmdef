@@ -1,0 +1,20 @@
+{
+    "name": "Pinwheel.Jupiter.Tests",
+    "references": [
+        "GUID:a207fb5abba378d4982df876ed6c7072",
+        "GUID:61110a8d8ce4b8046a95904b4b33c653"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
