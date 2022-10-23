@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 4094902095222032911}
   - component: {fileID: 4094902095998955231}
   m_Layer: 0
-  m_Name: Archery Rig 1
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
