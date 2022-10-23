@@ -1,24 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
- 
-public class AISpawn : MonoBehaviour
-{
-private GameObject objSpawn;
-private int SpawnerID;
+﻿using UnityEngine;
+public class AISpawn : MonoBehaviour {
+    private GameObject objSpawn;
+    private int SpawnerID;
 
-void Start () {
-	objSpawn = (GameObject) GameObject.FindWithTag ("Spawner");
-}
+    private void Start() {
+        objSpawn = GameObject.FindWithTag("Spawner");
+    }
 
-void removeMe ()
-{
-	objSpawn.BroadcastMessage("killEnemy", SpawnerID);
-	Destroy(gameObject);
-}
+    private void removeMe() {
+        objSpawn.BroadcastMessage("killEnemy", SpawnerID);
+        Destroy(gameObject);
+    }
 
-void setName(int sName)
-{
-	SpawnerID = sName;
-}
+    private void setName(int sName) {
+        SpawnerID = sName;
+    }
 }

@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-
-public abstract class Hitable : MonoBehaviour
-{
+﻿using Arrows;
+using UnityEngine;
+public abstract class Hitable : MonoBehaviour {
     public abstract void HandleArrowHit(ArrowBase arrow);
 }

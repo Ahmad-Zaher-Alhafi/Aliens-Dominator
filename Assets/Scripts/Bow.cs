@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Bow : MonoBehaviour
-{
+﻿using UnityEngine;
+public class Bow : MonoBehaviour {
     [SerializeField] private float drawingSpeed;
     [SerializeField] private float releaseSpeed;
     [SerializeField] private float maxZPos;
@@ -15,25 +11,24 @@ public class Bow : MonoBehaviour
     public Transform pointB;
 
     public Vector3 arrowPosition;
-    private Vector3 maxArrowPosition;
-
-    private float drawAngle = 0;
     public float maxDrawangle = 45;
-
-    private LineRenderer lr;
 
     [Header("Bow following camera speed")]
     public float Speed = 5f;
- 
+
     private Vector3 CachedLocalPos;
     private Transform CachedParent;
     private Transform CachedTransform;
-    private bool shootRoutine = false;
 
-    void Start()
-    {
+    private float drawAngle;
+
+    private LineRenderer lr;
+    private Vector3 maxArrowPosition;
+    private readonly bool shootRoutine = false;
+
+    private void Start() {
         arrowPosition = arrowParent.localPosition;
-        maxArrowPosition = arrowParent.localPosition + Vector3.back  * maxZPos;
+        maxArrowPosition = arrowParent.localPosition + Vector3.back * maxZPos;
         lr = GetComponent<LineRenderer>();
 
         CachedTransform = transform; // Cache inital position of the bow
@@ -43,22 +38,11 @@ public class Bow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (shootRoutine)
-        {
+    private void Update() {
+        if (shootRoutine) return;
 
-            return;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            drawAngle += drawingSpeed * Time.deltaTime;
-        }
-        else
-        {
-            drawAngle += -releaseSpeed * Time.deltaTime;
-        }
+        if (Input.GetMouseButton(0)) drawAngle += drawingSpeed * Time.deltaTime;
+        else drawAngle += -releaseSpeed * Time.deltaTime;
 
         drawAngle = Mathf.Clamp(drawAngle, 0, maxDrawangle);
 
@@ -72,16 +56,15 @@ public class Bow : MonoBehaviour
     }
 
 
-    void LateUpdate()
-    {
-        Vector3[] linePositions = new Vector3[3];
+    private void LateUpdate() {
+        var linePositions = new Vector3[3];
         linePositions[0] = pointA.position;
         linePositions[1] = arrow.position;
         linePositions[2] = pointB.position;
         lr.SetPositions(linePositions);
 
         // Follow the unlinked parent position and rotation with a delay
-        var destination = CachedParent.TransformPoint(CachedLocalPos);
+        Vector3 destination = CachedParent.TransformPoint(CachedLocalPos);
         CachedTransform.position = Vector3.Lerp(CachedTransform.position, destination, Speed * Time.deltaTime);
         CachedTransform.rotation = CachedParent.rotation;
     }
