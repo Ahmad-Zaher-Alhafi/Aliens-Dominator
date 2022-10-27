@@ -5,8 +5,12 @@ using Player;
 using Projectiles;
 using UnityEngine;
 
-namespace Creature {
-    public class FlyingSystem : MonoBehaviour {
+namespace Creatures {
+    public interface IFlyingCreature {
+        
+    }
+    
+    public class FlyingCreature : NPCSimplePatrol {
         [HideInInspector]
         public bool IsItTheLeader;
         [HideInInspector]
@@ -76,7 +80,6 @@ namespace Creature {
             if (isNotTargetingPlayer == 1) FindTarget();
 
             creature = GetComponent<Creature>();
-            creature.WasDied = false;
             isFormingBack = false;
 
 
@@ -118,7 +121,7 @@ namespace Creature {
         }
 
         private void Update() {
-            if (!creature.WasDied) {
+            if (creature.CurrentState != Creature.CreatureState.Dead) {
                 if (CompareTag(Constants.OnStartWaves)) {
                     if (!hasToRunAway) {
                         RotateToTheWantedAngle(nextCinematicPatrolPoint);
@@ -140,7 +143,7 @@ namespace Creature {
         }
 
         private void LateUpdate() {
-            if (!creature.WasDied)
+            if (creature.CurrentState != Creature.CreatureState.Dead)
                 if (IsItGroupMember && isFormingBack) //if it was going back to it's position in the group then keep calculating it's point in gorup position so in case the leader moved so we still getting the updated position as soon as it's position depends on the leader position
                     randomPatrolPosiotion = CreaturePointInGroup.position;
         }
@@ -175,7 +178,7 @@ namespace Creature {
 
         public void PatrolCinematicCreature() {
             if (Mathf.Abs(Vector3.Distance(transform.position, nextCinematicPatrolPoint.position)) >= .2f) //if the creature has reached the nextTargetPoint point && not patrolling
-                transform.position = Vector3.Lerp(transform.position, nextCinematicPatrolPoint.position, creature.EnemySpeed * Time.deltaTime / Vector3.Distance(transform.position, nextCinematicPatrolPoint.position)); //make the creature moves
+                transform.position = Vector3.Lerp(transform.position, nextCinematicPatrolPoint.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, nextCinematicPatrolPoint.position)); //make the creature moves
             else nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)]; //get a random patrol air point
         }
 
@@ -199,7 +202,7 @@ namespace Creature {
                 if (isNotTargetingPlayer == 1) StartPatrolling(target);
                 else StartPatrolling(pointToAttackThePlayer);
             } else {
-                if (!IsItGroupMember || IsItTheLeader) transform.position = Vector3.Lerp(transform.position, target.position, creature.EnemySpeed * Time.deltaTime / Vector3.Distance(transform.position, target.position)); //make the creature moves
+                if (!IsItGroupMember || IsItTheLeader) transform.position = Vector3.Lerp(transform.position, target.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, target.position)); //make the creature moves
             }
         }
 
@@ -407,7 +410,7 @@ namespace Creature {
                 creature.Suicide(); //die
             } else {
                 RotateToTheWantedAngle(runAwayPoint);
-                transform.position = Vector3.Lerp(transform.position, runAwayPoint.position, creature.EnemySpeed * Time.deltaTime / Vector3.Distance(transform.position, runAwayPoint.position)); //make the creature moves
+                transform.position = Vector3.Lerp(transform.position, runAwayPoint.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, runAwayPoint.position)); //make the creature moves
                 //transform.position += transform.forward * creature.EnemySpeed * Time.deltaTime;//make the creature moves forward
             }
         }
@@ -440,10 +443,6 @@ namespace Creature {
             IsItTheLeader = false;
             isFormingBack = false;
             StopCoroutine(OrderToPatrolWithDlay());
-        }
-
-        public void StopMovingWhenDie() {
-            creature.WasDied = true;
         }
     }
 }

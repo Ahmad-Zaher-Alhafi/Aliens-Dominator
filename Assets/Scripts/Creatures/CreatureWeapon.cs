@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Creature {
+namespace Creatures {
     public class CreatureWeapon : MonoBehaviour {
         [SerializeField] private Creature creature; //owner of the gun
         [SerializeField] private GameObject bulletPrefab;
@@ -54,7 +54,7 @@ namespace Creature {
         private IEnumerator Shoot() //to create bullets(stinky balls) and shoot them
         {
             //EndPoint is the point the enemy gets assigned when leaving the normal waypoints and is about to attack the wall
-            while (hasToShoot && !creature.IsDead && !NPCSimplePatrol.EndPoint) //while was not orderd to stop shooting
+            while (hasToShoot && creature.CurrentState != Creature.CreatureState.Dead && !NPCSimplePatrol.EndPoint) //while was not orderd to stop shooting
             {
                 audioSource.PlayOneShot(enemyBulletSound.audioClip, enemyBulletSound.volume);
                 GameObject bullet = Instantiate(bulletPrefab, bulletCreatPoint.position, bulletPrefab.transform.rotation);

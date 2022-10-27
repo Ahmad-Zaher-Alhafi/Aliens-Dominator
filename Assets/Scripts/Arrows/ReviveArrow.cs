@@ -1,4 +1,4 @@
-using Creature;
+using Creatures;
 using UnityEngine;
 
 namespace Arrows {
@@ -18,7 +18,7 @@ namespace Arrows {
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {
-                var creature = target.GetComponentInParent<Creature.Creature>();
+                var creature = target.GetComponentInParent<Creatures.Creature>();
 
                 creature.RigBody.GetComponent<RagdollRewind>().DoRewind();
             } else {

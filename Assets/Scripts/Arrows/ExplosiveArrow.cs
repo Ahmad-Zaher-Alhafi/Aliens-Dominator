@@ -34,7 +34,7 @@ namespace Arrows {
                 if (enemy) {
                     float dist = Vector3.Distance(transform.position, enemy.transform.position);
 
-                    if (dist <= radius) enemy.GetComponent<Creature.Creature>().ReceiveExplosionDamage(this, impactDamage, hitForce);
+                    if (dist <= radius) enemy.GetComponent<Creatures.Creature>().ReceiveExplosionDamage(this, impactDamage, hitForce);
                 }
 
             StartCoroutine(DestroyArrow());

@@ -1,13 +1,17 @@
 using System.Collections;
-using Creature;
+using ManagersAndControllers;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ManagersAndControllers {
-    public class BugsSpawner : MonoBehaviour {
+namespace Creatures {
+    public interface IBugsSpawningCreature {
+        
+    }
+    
+    public class BugsSpawningCreature : Creature {
         [Header("For Bugs Spawner Only")]
         [SerializeField] private float numOfCreaturesToSpawn;
-        [SerializeField] private Creature.Creature bugPrefabToSpawn;
+        [SerializeField] private Creatures.Creature bugPrefabToSpawn;
         [SerializeField] private float secondsBetweenEachCreatureSpawning;
 
         [SerializeField] private Transform creatureSpawningPoint;
@@ -15,26 +19,26 @@ namespace ManagersAndControllers {
         [Header("For bugs spawner Boss only")]
         [SerializeField] private float secondsBetweenEachSpawnOrder;
         private Animator animator;
-        private Creature.Creature creature;
+        private Creatures.Creature creature;
         private NPCSimplePatrol nPCSimplePatrol;
 
         private float oldSpeed;
         private Spawner spawner;
 
         private void Start() {
-            creature = GetComponent<Creature.Creature>();
+            creature = GetComponent<Creatures.Creature>();
             animator = GetComponent<Animator>();
             spawner = FindObjectOfType<Spawner>();
             nPCSimplePatrol = GetComponent<NPCSimplePatrol>();
 
-            if (creature.IsItBoss) OrderToSpawnCreatures(creature.IsItBoss);
+            OrderToSpawnCreatures();
         }
 
-        public void OrderToSpawnCreatures(bool isItBoss) {
-            StartCoroutine(SpawnCreatures(isItBoss));
+        public void OrderToSpawnCreatures() {
+            StartCoroutine(SpawnCreatures());
         }
 
-        private IEnumerator SpawnCreatures(bool isITBoss) {
+        private IEnumerator SpawnCreatures() {
             do {
                 oldSpeed = nPCSimplePatrol.NavMeshAgent.speed;
                 nPCSimplePatrol.NavMeshAgent.speed = 0;
@@ -42,7 +46,7 @@ namespace ManagersAndControllers {
                 for (int i = 0; i < numOfCreaturesToSpawn; i++) {
                     animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.SpawnFromMouth));
                     yield return new WaitForSeconds(.3f);
-                    if (creature.IsDead) break;
+                    if (creature.CurrentState == Creature.CreatureState.Dead) break;
                     var navMeshAgent = spawner.SpawnBug(creatureSpawningPoint, bugPrefabToSpawn.gameObject, nPCSimplePatrol).GetComponent<NavMeshAgent>();
                     BugSpawnParticles.Play();
                     navMeshAgent.enabled = false;
@@ -54,7 +58,7 @@ namespace ManagersAndControllers {
                 nPCSimplePatrol.NavMeshAgent.speed = oldSpeed;
 
                 yield return new WaitForSeconds(secondsBetweenEachSpawnOrder);
-            } while (isITBoss && !creature.IsDead);
+            } while (creature.CurrentState != Creature.CreatureState.Dead);
         }
     }
 }

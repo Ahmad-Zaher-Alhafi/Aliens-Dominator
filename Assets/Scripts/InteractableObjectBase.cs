@@ -11,7 +11,7 @@ public abstract class InteractableObjectBase : Hitable {
         GameHandler = FindObjectOfType<GameHandler>();
     }
 
-    protected void CalculateDamageByDistance(Creature.Creature creature) {
+    protected void CalculateDamageByDistance(Creatures.Creature creature) {
         float distance = Vector3.Distance(transform.position, creature.transform.position);
         if (distance > Range) return;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Creature;
+using Creatures;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,7 +9,7 @@ namespace ManagersAndControllers {
     [Serializable]
     public class Paths {
         public List<waypoint> Waypoints;
-        public EnemyType EnemyType = EnemyType.Grounded;
+        public Creature.CreatureType creatureType = Creature.CreatureType.Grounded;
     }
 
     [Serializable]
@@ -27,7 +27,7 @@ namespace ManagersAndControllers {
 
     [Serializable]
     public class EnemyClass {
-        public Creature.Creature Enemy;
+        public Creatures.Creature Enemy;
         public List<EnemyProperties> EnemyProperties = new();
     }
 
@@ -103,7 +103,7 @@ namespace ManagersAndControllers {
 
         private GameObject CreateEnemy(List<EnemyClass> enemies, int wave, PoolManager poolManager) {
             EnemyClass eClass = enemies[Random.Range(0, enemies.Count)];
-            Creature.Creature creature = eClass.Enemy;
+            Creatures.Creature creature = eClass.Enemy;
             List<EnemyProperties> properties = eClass.EnemyProperties;
 
             if (wave % WhenToIncreaseDifficultyOfEnemy != 0) return poolManager.InstantiateCreature(creature.gameObject);
@@ -130,7 +130,7 @@ namespace ManagersAndControllers {
 
             GameObject go = poolManager.InstantiateCreature(creature.gameObject);
 
-            var _creature = go.GetComponent<Creature.Creature>();
+            var _creature = go.GetComponent<Creatures.Creature>();
 
             _creature.AttackDamage = properties[rest].Damage;
             _creature.Health = properties[rest].Health;
@@ -318,13 +318,13 @@ namespace ManagersAndControllers {
 
             GameObject Enemy = null;
             Transform spawnPos = null;
-            EnemyType typeOfEnemy;
+            Creature.CreatureType creatureTypeOf;
 
             Enemy = LevelSettings.GetEnemy(GameHandler.PoolManager, LevelSettings.CurrentWave, isItBoss);
             Enemy.SetActive(true);
 
-            typeOfEnemy = Enemy.GetComponent<Creature.Creature>().EnemyType;
-            spawnPos = GetSpawnPos(typeOfEnemy);
+            creatureTypeOf = Enemy.GetComponent<Creatures.Creature>().Type;
+            spawnPos = GetSpawnPos(creatureTypeOf);
 
             var _agent = Enemy.GetComponent<NavMeshAgent>();
             if (_agent) _agent.enabled = false;
@@ -340,15 +340,15 @@ namespace ManagersAndControllers {
 
             List<Paths> waypoints = null;
 
-            waypoints = SpawnList.Find(s => s.Spawn == spawnPos).Paths.FindAll(p => p.EnemyType == typeOfEnemy);
+            waypoints = SpawnList.Find(s => s.Spawn == spawnPos).Paths.FindAll(p => p.creatureType == creatureTypeOf);
 
             if (waypoints == null || waypoints.Count <= 0) {
                 Debug.LogError("No waypoints were added");
                 return;
             }
 
-            if (typeOfEnemy == EnemyType.Flying) {
-                Enemy.GetComponent<FlyingSystem>().CreaturePathes = waypoints;
+            if (creatureTypeOf == Creature.CreatureType.Flying) {
+                Enemy.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
             } else {
                 var patrol = Enemy.GetComponent<NPCSimplePatrol>();
 
@@ -359,9 +359,8 @@ namespace ManagersAndControllers {
                 patrol.Spawner = this;
             }
 
-            var creature = Enemy.GetComponent<Creature.Creature>();
-            creature.ChanceOfDroppingArrow = ChanceOfSpawningItem;
-            creature.EnemyId = id;
+            var creature = Enemy.GetComponent<Creatures.Creature>();
+            creature.Init(id);
 
             numEnemy++;
             spawnedEnemy++;
@@ -373,15 +372,15 @@ namespace ManagersAndControllers {
         public GameObject SpawnBug(Transform spawnPoint, GameObject creaturToInstantioate, NPCSimplePatrol BugSpawner) {
             GameObject Enemy = null;
             Transform spawnPos = null;
-            EnemyType typeOfEnemy;
+            Creature.CreatureType creatureTypeOf;
 
             Enemy = creaturToInstantioate;
-            typeOfEnemy = Enemy.GetComponent<Creature.Creature>().EnemyType;
+            creatureTypeOf = Enemy.GetComponent<Creatures.Creature>().Type;
             spawnPos = spawnPoint;
 
 
             GameObject enemyInstantiated = Instantiate(Enemy, spawnPos.position, Quaternion.identity);
-            var creature = enemyInstantiated.GetComponent<Creature.Creature>();
+            var creature = enemyInstantiated.GetComponent<Creatures.Creature>();
             creature.IsItBug = true;
             string id = GenerateId();
 
@@ -397,8 +396,8 @@ namespace ManagersAndControllers {
                 return null;
             }
 
-            if (typeOfEnemy == EnemyType.Flying) {
-                enemyInstantiated.GetComponent<FlyingSystem>().CreaturePathes = waypoints;
+            if (creatureTypeOf == Creature.CreatureType.Flying) {
+                enemyInstantiated.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
             } else {
                 var patrol = enemyInstantiated.GetComponent<NPCSimplePatrol>();
                 if (!patrol) return null;
@@ -409,8 +408,7 @@ namespace ManagersAndControllers {
                 patrol.Spawner = this;
             }
 
-            creature.ChanceOfDroppingArrow = ChanceOfSpawningItem;
-            creature.EnemyId = id;
+            creature.Init(id);
 
             numEnemy++;
             spawnedEnemy++;
@@ -421,8 +419,8 @@ namespace ManagersAndControllers {
             return enemyInstantiated;
         }
 
-        private Transform GetSpawnPos(EnemyType type) {
-            List<SpawnListItem> items = SpawnList.FindAll(s => s.Paths.Find(p => p.EnemyType == type) != null);
+        private Transform GetSpawnPos(Creature.CreatureType creatureType) {
+            List<SpawnListItem> items = SpawnList.FindAll(s => s.Paths.Find(p => p.creatureType == creatureType) != null);
 
             int rand = Random.Range(0, items.Count);
             if (LastPos == -1) {
@@ -430,7 +428,7 @@ namespace ManagersAndControllers {
                 return items[rand].Spawn;
             }
             if (rand == LastPos)
-                return GetSpawnPos(type);
+                return GetSpawnPos(creatureType);
 
             LastPos = rand;
             return items[rand].Spawn;
@@ -453,10 +451,10 @@ namespace ManagersAndControllers {
 
         public void SpawnAirCircleGroup() {
             GameObject enemyInstantiated;
-            FlyingSystem flyingSystem;
+            FlyingCreature flyingCreature;
             Transform leader = null;
 
-            Transform spawnPos = GetSpawnPos(EnemyType.Flying);
+            Transform spawnPos = GetSpawnPos(Creature.CreatureType.Flying);
 
             for (int i = 0; i < numOfGroupCreatures; i++) {
                 float angle = i * (360 / (numOfGroupCreatures - 1));
@@ -468,18 +466,18 @@ namespace ManagersAndControllers {
                     enemyInstantiated = Instantiate(airCreature, spawnPos.position, Quaternion.identity);
                     enemyInstantiated.transform.localScale *= 2;
                     leader = enemyInstantiated.transform;
-                    flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                    flyingSystem.IsItTheLeader = true;
-                    flyingSystem.IsItGroupMember = true;
+                    flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                    flyingCreature.IsItTheLeader = true;
+                    flyingCreature.IsItGroupMember = true;
                 } else {
                     enemyInstantiated = Instantiate(airCreature, position, Quaternion.identity);
                     enemyInstantiated.transform.parent = leader;
-                    flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                    flyingSystem.IsItTheLeader = false;
-                    flyingSystem.IsItGroupMember = true;
+                    flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                    flyingCreature.IsItTheLeader = false;
+                    flyingCreature.IsItGroupMember = true;
                 }
 
-                DoTheRest(enemyInstantiated, leader, flyingSystem, spawnPos);
+                DoTheRest(enemyInstantiated, leader, flyingCreature, spawnPos);
             }
         }
 
@@ -490,10 +488,10 @@ namespace ManagersAndControllers {
             //
 
             GameObject enemyInstantiated;
-            FlyingSystem flyingSystem;
+            FlyingCreature flyingCreature;
             Transform leader = null;
 
-            Transform spawnPos = GetSpawnPos(EnemyType.Flying);
+            Transform spawnPos = GetSpawnPos(Creature.CreatureType.Flying);
 
             Vector3 position = spawnPos.position;
             Vector3 leaderPos = Vector3.zero;
@@ -510,28 +508,28 @@ namespace ManagersAndControllers {
                         enemyInstantiated = Instantiate(airCreature, leaderPos + new Vector3(-.8f, -.5f), Quaternion.identity);
                         enemyInstantiated.transform.localScale *= 2;
                         leader = enemyInstantiated.transform;
-                        flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                        flyingSystem.IsItTheLeader = true;
-                        flyingSystem.IsItGroupMember = true;
+                        flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                        flyingCreature.IsItTheLeader = true;
+                        flyingCreature.IsItGroupMember = true;
                         position += new Vector3(1, 0, 0) * distanceBetweenEachCreature;
                     } else if (i == Mathf.CeilToInt(groupRectangleRowsColumnsNum.x / 2) - 1 && j == Mathf.CeilToInt(groupRectangleRowsColumnsNum.y / 2) - 1) {
                         enemyInstantiated = Instantiate(airCreature, spawnPos.position, Quaternion.identity);
                         enemyInstantiated.transform.parent = leader;
-                        flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                        flyingSystem.IsItTheLeader = false;
-                        flyingSystem.IsItGroupMember = true;
+                        flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                        flyingCreature.IsItTheLeader = false;
+                        flyingCreature.IsItGroupMember = true;
                         position += new Vector3(1, 0, 0) * distanceBetweenEachCreature;
                     } else {
                         enemyInstantiated = Instantiate(airCreature, position, Quaternion.identity);
                         enemyInstantiated.transform.parent = leader;
-                        flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                        flyingSystem.IsItTheLeader = false;
-                        flyingSystem.IsItGroupMember = true;
+                        flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                        flyingCreature.IsItTheLeader = false;
+                        flyingCreature.IsItGroupMember = true;
                         position += new Vector3(1, 0, 0) * distanceBetweenEachCreature;
 
                     }
 
-                    DoTheRest(enemyInstantiated, leader, flyingSystem, spawnPos);
+                    DoTheRest(enemyInstantiated, leader, flyingCreature, spawnPos);
                 }
                 position.x = spawnPos.position.x;
                 position -= new Vector3(0, 1, 0) * distanceBetweenEachCreature;
@@ -545,10 +543,10 @@ namespace ManagersAndControllers {
             //
 
             GameObject enemyInstantiated;
-            FlyingSystem flyingSystem;
+            FlyingCreature flyingCreature;
             Transform leader = null;
 
-            Transform spawnPos = GetSpawnPos(EnemyType.Flying);
+            Transform spawnPos = GetSpawnPos(Creature.CreatureType.Flying);
 
             Vector3 position = spawnPos.position;
 
@@ -559,20 +557,20 @@ namespace ManagersAndControllers {
                         enemyInstantiated = Instantiate(airCreature, position + new Vector3(0, -1.2f), Quaternion.identity);
                         enemyInstantiated.transform.localScale *= 2;
                         leader = enemyInstantiated.transform;
-                        flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                        flyingSystem.IsItTheLeader = true;
-                        flyingSystem.IsItGroupMember = true;
+                        flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                        flyingCreature.IsItTheLeader = true;
+                        flyingCreature.IsItGroupMember = true;
                         position += new Vector3(1, 0, 0) * distanceBetweenEachCreature;
                     } else {
                         enemyInstantiated = Instantiate(airCreature, position, Quaternion.identity);
                         enemyInstantiated.transform.parent = leader;
-                        flyingSystem = enemyInstantiated.GetComponent<FlyingSystem>();
-                        flyingSystem.IsItTheLeader = false;
-                        flyingSystem.IsItGroupMember = true;
+                        flyingCreature = enemyInstantiated.GetComponent<FlyingCreature>();
+                        flyingCreature.IsItTheLeader = false;
+                        flyingCreature.IsItGroupMember = true;
                         position += new Vector3(1, 0, 0) * distanceBetweenEachCreature;
                     }
 
-                    DoTheRest(enemyInstantiated, leader, flyingSystem, spawnPos);
+                    DoTheRest(enemyInstantiated, leader, flyingCreature, spawnPos);
                 }
                 spawnPos.position = spawnPos.position - new Vector3(+.5f, 0) * distanceBetweenEachCreature;
                 position.x = spawnPos.position.x;
@@ -580,18 +578,18 @@ namespace ManagersAndControllers {
             }
         }
 
-        public void DoTheRest(GameObject enemyInstantiated, Transform leader, FlyingSystem flyingSystem, Transform spawnPos) //this function does lot of things and we make it to prevents repeating the code inside it for 3 or 4 times
+        public void DoTheRest(GameObject enemyInstantiated, Transform leader, FlyingCreature flyingCreature, Transform spawnPos) //this function does lot of things and we make it to prevents repeating the code inside it for 3 or 4 times
         {
 
             GameObject point = Instantiate(creaturePointInGroup, enemyInstantiated.transform.position, Quaternion.identity); //creat a point that where the member position should be in the group
             point.transform.parent = leader; //attach this point to the leader o we make sure that it's gonna move with it
-            flyingSystem.CreaturePointInGroup = point.transform;
+            flyingCreature.CreaturePointInGroup = point.transform;
 
             string id = GenerateId();
 
             Ids.Add(id);
 
-            List<Paths> waypoints = SpawnList.Find(s => s.Spawn == spawnPos).Paths.FindAll(p => p.EnemyType == EnemyType.Flying);
+            List<Paths> waypoints = SpawnList.Find(s => s.Spawn == spawnPos).Paths.FindAll(p => p.creatureType == Creature.CreatureType.Flying);
 
             if (waypoints == null || waypoints.Count <= 0) {
                 Debug.LogError("No waypoints were added");
@@ -599,11 +597,10 @@ namespace ManagersAndControllers {
             }
 
 
-            flyingSystem.CreaturePathes = waypoints;
+            flyingCreature.CreaturePathes = waypoints;
 
-            var creature = enemyInstantiated.GetComponent<Creature.Creature>();
-            creature.ChanceOfDroppingArrow = ChanceOfSpawningItem;
-            creature.EnemyId = id;
+            var creature = enemyInstantiated.GetComponent<Creatures.Creature>();
+            creature.Init(id);
 
             numEnemy++;
             spawnedEnemy++;

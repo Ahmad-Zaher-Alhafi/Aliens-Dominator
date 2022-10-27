@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Creatures;
+
 public static class Constants {
 
 
@@ -15,16 +17,6 @@ public static class Constants {
         Spin,
         SpinToIdel,
         SpawnFromMouth
-    }
-
-
-    public enum BodyParts //Stores the body tags in enum, so its easier to setup in inspector
-    {
-        Head,
-        Body,
-        Legs,
-        Arms,
-        Tail
     }
 
     public enum GroupsTypes //Stinky Ball and Block Vision particles and creatures colors
@@ -112,14 +104,7 @@ public static class Constants {
 
     private static readonly string[] ulifoAttackAnimations = new string[4] { "Left Slice Attack", "Leg Attack", "Right Slice Attack", "Stomp Attack" };
 
-    //Tags for the body parts in a dictionary, so the 
-    public static Dictionary<string, BodyParts> EnemyBodyParts { get; } = new() {
-        { "EnemyHead", BodyParts.Head },
-        { "EnemyBody", BodyParts.Body },
-        { "EnemyLegs", BodyParts.Legs },
-        { "EnemyArms", BodyParts.Arms },
-        { "EnemyTail", BodyParts.Tail }
-    };
+    
 
     /// <summary>
     /// </summary>

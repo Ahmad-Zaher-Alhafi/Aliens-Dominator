@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-namespace Creature {
+namespace Creatures {
     public class NPCSimplePatrol : MonoBehaviour {
         [SerializeField]
         public bool _patrolWaiting;
@@ -38,6 +38,9 @@ namespace Creature {
         [SerializeField] private float TimeToWaitForAnimation = 3f;
         [SerializeField] private float TimeToRoar = 1f;
 
+        [SerializeField] private float MaxSpeed = 10f;
+        [SerializeField] private float HypnotizedSpeedBonus = 1f;
+
         [Header("Rotating towards wall")]
         public float SmoothRotating = 8f;
 
@@ -67,7 +70,12 @@ namespace Creature {
 
         private GameHandler GameHandler;
         private bool isDefending;
-
+        public float speedDivider = 2f;
+        public float Speed = 5f;
+        public float TotalShootTime = 10f;
+        public float TotalDiggingTime = 5f;
+        public float TotalTeleportTime = 5f;
+        public int ChanceToMakeSpecialAction;
         /// <summary>
         ///     Only applies for start enemies, so they stop moving or creating paths while playing an animation
         /// </summary>
@@ -135,7 +143,7 @@ namespace Creature {
                 StartMovingAnimation();
 
                 //Dont move anymore when attacking wall
-                if (Stop || Creature.WasDied) return;
+                if (Stop || Creature.CurrentState == Creature.CreatureState.Dead) return;
 
                 if (!NavMeshAgent.enabled) return;
 
@@ -148,7 +156,7 @@ namespace Creature {
                     return;
                 }
                 if (IsHypnotized && DistanceFromWaypoint > 0.3f) {
-                    NavMeshAgent.speed = Creature.EnemySpeed + Creature.HypnotizedSpeedBonus;
+                    NavMeshAgent.speed = Speed + HypnotizedSpeedBonus;
 
                     GameObject go = EnemyToFollow;
 
@@ -253,8 +261,14 @@ namespace Creature {
 
                 if (MakeSpecialAction()) {
                     //Attack using guns if creature is fighter and only shoot by 50% chance and first start shooting when offset was reached
-                    if (Creature.IsItFighter && actionType == 0) {
-                        if (!Creature.IsItBoss) {
+                    if (actionType == 0) {
+                        if (Creature is BossCreature) {
+                            NavMeshAgent.speed = 0f;
+                            StartMovingAnimation();
+
+                            FighterRoutine = EnableShootingForEnemy();
+                            StartCoroutine(FighterRoutine);
+                        } else if (Creature is IFightingCreature) {
                             if (CurrentPatrolIndex > Creature.WaypointOffsetToActivateSpecialActions) {
                                 NavMeshAgent.speed = 0f;
                                 StartMovingAnimation();
@@ -262,19 +276,13 @@ namespace Creature {
                                 FighterRoutine = EnableShootingForEnemy();
                                 StartCoroutine(FighterRoutine);
                             }
-                        } else {
-                            NavMeshAgent.speed = 0f;
-                            StartMovingAnimation();
-
-                            FighterRoutine = EnableShootingForEnemy();
-                            StartCoroutine(FighterRoutine);
                         }
-                    } else if (!Creature.IsItBoss && Creature.IsItBugsSpawner && actionType == 1 && !wasSpawnningBugs) {
+                    } else if (Creature is BugsSpawningCreature && actionType == 1 && !wasSpawnningBugs) {
                         if (CurrentPatrolIndex > Creature.WaypointOffsetToActivateSpecialActions) {
                             wasSpawnningBugs = true;
-                            GetComponent<BugsSpawner>().OrderToSpawnCreatures(false);
+                            GetComponent<BugsSpawningCreature>().OrderToSpawnCreatures();
                         }
-                    } else if (Creature.IsItDigger) {
+                    } else if (Creature is DiggingCreature) {
                         if (CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count) {
                             if (!wasDigging && actionType == 0) {
                                 NavMeshAgent.speed = 0f;
@@ -287,7 +295,7 @@ namespace Creature {
                                 wasSpinning = true;
                             }
                         }
-                    } else if (Creature.IsItTransporter && CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count && !wasTeleporting) {
+                    } else if (Creature is TransportingCreature && CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count && !wasTeleporting) {
                         NavMeshAgent.speed = 0f;
 
                         StartCoroutine(Teleport());
@@ -303,7 +311,7 @@ namespace Creature {
         }
 
         private bool MakeSpecialAction() {
-            int chance = Creature.ChanceToMakeSpecialAction;
+            int chance = ChanceToMakeSpecialAction;
             int selectedNum = Random.Range(1, 101);
 
             if (selectedNum <= chance) return true;
@@ -312,7 +320,7 @@ namespace Creature {
         }
 
         private IEnumerator EnableShootingForEnemy() {
-            if (EndPoint || Stop || Creature.IsDead) {
+            if (EndPoint || Stop || Creature.CurrentState == Creature.CreatureState.Dead) {
                 StopCoroutine(FighterRoutine);
                 yield break;
             }
@@ -321,16 +329,16 @@ namespace Creature {
             NavMeshAgent.enabled = false;
             Creature.AttackUsingGun();
 
-            yield return new WaitForSeconds(Creature.TotalShootTime);
+            yield return new WaitForSeconds(TotalShootTime);
 
             //If creature not dead and not at wall, continue moving
-            if (!NavMeshAgent.enabled && !Creature.IsDead && !EndPoint && !Stop) {
+            if (!NavMeshAgent.enabled && Creature.CurrentState != Creature.CreatureState.Dead && !EndPoint && !Stop) {
                 Creature.OrderToStopShooting();
 
                 NavMeshAgent.enabled = true;
 
                 SetGroundedEnemyWaypoint();
-                NavMeshAgent.speed = Creature.EnemySpeed;
+                NavMeshAgent.speed = Speed;
 
                 StopCoroutine(FighterRoutine);
             } else {
@@ -342,11 +350,11 @@ namespace Creature {
         private IEnumerator EnableDigging() {
             wasDigging = true;
             Transform toGo = PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex + 1].transform;
-            var digger = GetComponent<Digger>();
+            var digger = GetComponent<DiggingCreature>();
 
             digger.DigDown(toGo);
 
-            yield return new WaitForSeconds(Creature.TotalDiggingTime);
+            yield return new WaitForSeconds(TotalDiggingTime);
 
             wasDigging = false;
             ++CurrentPatrolIndex;
@@ -354,15 +362,15 @@ namespace Creature {
             NavMeshAgent.enabled = true;
 
             SetGroundedEnemyWaypoint();
-            NavMeshAgent.speed = Creature.EnemySpeed;
+            NavMeshAgent.speed = Speed;
         }
 
         private IEnumerator Teleport() {
             wasTeleporting = true;
             NavMeshAgent.enabled = false;
-            GetComponent<Transporter>().OrderToTransport(PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex + 1].transform);
+            GetComponent<TransportingCreature>().OrderToTransport(PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex + 1].transform);
 
-            yield return new WaitForSeconds(Creature.TotalTeleportTime);
+            yield return new WaitForSeconds(TotalTeleportTime);
 
             wasTeleporting = false;
             ++CurrentPatrolIndex;
@@ -370,11 +378,11 @@ namespace Creature {
             NavMeshAgent.enabled = true;
 
             SetGroundedEnemyWaypoint();
-            NavMeshAgent.speed = Creature.EnemySpeed;
+            NavMeshAgent.speed = Speed;
         }
 
         private void LastWaypointReached() {
-            waypoint newPos = GameHandler.GetSpot(Creature.EnemyType);
+            waypoint newPos = GameHandler.GetSpot(Creature.Type);
 
             EndPoint = newPos;
             SetEndPoint(newPos);
@@ -388,7 +396,7 @@ namespace Creature {
 
         //Sets path of ground enemies
         public void SetGroundedEnemyWaypoint() {
-            if (!NavMeshAgent || !NavMeshAgent.enabled || Creature.IsDead) return;
+            if (!NavMeshAgent || !NavMeshAgent.enabled || Creature.CurrentState == Creature.CreatureState.Dead) return;
 
             NavMesh.CalculatePath(transform.position, PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex >= PatrolPoints[currentPath].Waypoints.Count ? CurrentPatrolIndex - 1 : CurrentPatrolIndex].transform.position, NavMesh.AllAreas, Path);
             NavMeshAgent.SetPath(Path);
@@ -424,7 +432,7 @@ namespace Creature {
             GameObject enemy = EnemyToFollow;
 
             if (!enemy) {
-                NavMeshAgent.speed = Creature.EnemySpeed;
+                NavMeshAgent.speed = Speed;
 
                 Creature.AttackerId = null;
                 TrackEnemyID = null;
@@ -449,7 +457,7 @@ namespace Creature {
             //Change speed randomly
             ChangeSpeedTimer += Time.deltaTime;
             if (ChangeSpeedTimer >= ChangeTimeMax) {
-                NewSpeed = Creature.MaxSpeed * Random.Range(0f, 2f);
+                NewSpeed = MaxSpeed * Random.Range(0f, 2f);
                 ChangeTimeMax = Random.Range(3f, 11f);
                 ChangeSpeedTimer = 0f;
             }
@@ -496,7 +504,7 @@ namespace Creature {
 
             if (cinematicEnemyHit) {
                 CinematicEnemyHit = true;
-                NavMeshAgent.speed = Creature.MaxSpeed * 2;
+                NavMeshAgent.speed = MaxSpeed * 2;
 
                 //Update run animation
                 StartMovingAnimation();
@@ -505,7 +513,7 @@ namespace Creature {
             } else {
                 List<waypoint> waypoints = Spawner.GroundCinematicEnemyWaypoints;
 
-                NavMeshAgent.speed = Creature.EnemySpeed;
+                NavMeshAgent.speed = Speed;
 
                 if (NavMesh.CalculatePath(transform.position, waypoints[StartPoint].transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
 
@@ -519,7 +527,7 @@ namespace Creature {
         ///     to activate the animator and start moving animation
         /// </summary>
         public void StartMovingAnimation() {
-            animator.SetFloat("WalkSpeed", NavMeshAgent.speed / Creature.MaxSpeed);
+            animator.SetFloat("WalkSpeed", NavMeshAgent.speed / MaxSpeed);
         }
 
         //Find enemy and start decreasing your health
@@ -538,7 +546,7 @@ namespace Creature {
 
                 StartCoroutine(DecreaseHealth());
 
-                NavMeshAgent.speed = Creature.EnemySpeed + Creature.HypnotizedSpeedBonus;
+                NavMeshAgent.speed = Speed + HypnotizedSpeedBonus;
 
                 if (NavMesh.CalculatePath(transform.position, enemyToTrack.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
             } else if (!creature) {
@@ -572,7 +580,7 @@ namespace Creature {
         private IEnumerator DecreaseHealth() {
             yield return new WaitForSeconds(5f);
 
-            if (!Creature.IsDead) {
+            if (Creature.CurrentState != Creature.CreatureState.Dead) {
                 Creature.Health -= ApplyDamageWhenHypnotized;
 
                 if (Creature.Health <= 0f) {
@@ -611,7 +619,7 @@ namespace Creature {
 
                 if (creature.EnemyId == Creature.EnemyId) return false;
 
-                if (creature.EnemyType != EnemyType.Grounded) return false;
+                if (creature.Type != Creature.CreatureType.Grounded) return false;
 
                 return true;
             });
@@ -649,6 +657,64 @@ namespace Creature {
             NavMeshAgent.speed = 0.3f;
 
             if (NavMesh.CalculatePath(transform.position, EnemyToFollow.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
+        }
+
+        private IEnumerator SlowDown() {
+            GameObject[] enemies = GameHandler.AllEnemies.ToArray();
+
+            foreach (GameObject e in enemies)
+                if (e) {
+                    var agent = e.GetComponent<NavMeshAgent>();
+                    var creature = e.GetComponent<Creature>();
+
+                    // If the creature is not slowed down 
+                    if (!creature.IsSlowedDown) {
+                        // If it was a ground creature so it has a nave mesh agent
+                        if (agent != null) {
+
+                            agent.speed /= speedDivider;
+                        } else { //if it was air creature
+
+                            Speed /= speedDivider;
+                            creature.GetComponent<FlyingCreature>().SetPatrollingSpeed(speedDivider, true);
+                        }
+
+
+                    }
+                }
+
+            yield return new WaitForSeconds(1);
+            foreach (GameObject e in enemies) {
+                if (e) {
+                    var agent = e.GetComponent<NavMeshAgent>();
+                    var creature = e.GetComponent<Creatures.Creature>();
+
+                    // If the creature is slowed down 
+                    if (creature.IsSlowedDown) {
+                        //if it was a ground creature so it has a nave mesh agent
+                        if (agent != null) {
+
+                            agent.speed *= speedDivider;
+                        } else { //if it was air creature
+
+                            Speed *= speedDivider;
+                            creature.GetComponent<FlyingCreature>().SetPatrollingSpeed(speedDivider, false);
+                        }
+                    }
+                }
+            }
+        }
+
+        private IEnumerator UpdateCreatureSpeed() {
+            if (Creature.Type == Creature.CreatureType.Flying) {
+                Speed /= 4;
+                yield return new WaitForSeconds(.5f);
+                Speed *= 4;
+            } else {
+                Speed /= 4;
+                yield return new WaitForSeconds(.5f);
+                Speed *= 4;
+            }
         }
     }
 }

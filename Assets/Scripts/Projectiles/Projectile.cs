@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Creature;
+using Creatures;
 using UnityEngine;
 
 namespace Projectiles {
@@ -23,7 +23,7 @@ namespace Projectiles {
         private bool hasToFollowTarget;
         private CapsuleCollider rocketCapsuleCollider;
 
-        private Creature.Creature target;
+        private Creatures.Creature target;
         private Vector3 wantedAngle, oldAngle; //wanted angle is the angle that the creature has to rotate to it to reach the wanted point, old angle is the current angle
 
         private void Start() {
@@ -66,7 +66,7 @@ namespace Projectiles {
             if (gameObject != null) Destroy(gameObject);
         }
 
-        public void FollowTarget(Creature.Creature target) {
+        public void FollowTarget(Creatures.Creature target) {
             WasShoot = true;
             StartCoroutine(DestroyAfterTime(15));
             audioSource.PlayOneShot(rocketLaunch.audioClip, rocketLaunch.volume);
@@ -79,13 +79,13 @@ namespace Projectiles {
         ///     To put the projectile in the right rotation
         /// </summary>
         /// <param name="objectToLookAt">the object that you want the projectile to look at while he is moving</param>
-        private void RotateToTheWantedAngle(Creature.Creature objectToLookAt) {
-            if (objectToLookAt == null || objectToLookAt.WasDied) return;
+        private void RotateToTheWantedAngle(Creatures.Creature objectToLookAt) {
+            if (objectToLookAt == null || objectToLookAt.CurrentState == Creature.CreatureState.Dead) return;
 
             //I'm doing that as a trick to get the wanted angle and after that i'm resetting the angle to it's old angle and that because we need to rotates the projectile smoothly and not suddenly which make it cooler
             oldAngle = transform.eulerAngles; //save old angle
 
-            if (objectToLookAt.EnemyType == EnemyType.Flying) // if it was air creature then we need to douple the offset because of the animation problem
+            if (objectToLookAt.Type == Creature.CreatureType.Flying) // if it was air creature then we need to douple the offset because of the animation problem
                 transform.LookAt(objectToLookAt.transform.position + targetOffset * 2); //look at the target
             else transform.LookAt(objectToLookAt.transform.position + targetOffset); //look at the target
             wantedAngle = transform.eulerAngles; //get the wanted eural angle after he looked

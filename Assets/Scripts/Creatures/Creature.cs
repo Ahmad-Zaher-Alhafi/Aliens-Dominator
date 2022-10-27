@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Arrows;
@@ -12,59 +11,41 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Creature {
-    public enum EnemyType {
-        Grounded,
-        Flying
-    }
+namespace Creatures {
 
-    [Serializable]
-    public class WeightOnBodyPart {
-        [Range(0f, 5f)]
-        public float Weight = 1f; //1 = full damage of the arrow gets applied
-        public Constants.BodyParts BodyPart; //The tag where the weight gets applied
-    }
+    public abstract class Creature : MonoBehaviour {
+        public enum CreatureType {
+            Grounded,
+            Flying
+        }
 
-    public class Creature : MonoBehaviour {
+        public enum CreatureState {
+            Idle,
+            FollowingPath,
+            GotHit,
+            Attacking,
+            Chasing,
+            Dead
+        }
 
-        /// <summary>
-        ///     Specifies which body part takes how much damage
-        /// </summary>
-        public List<WeightOnBodyPart> Weights = new();
-        public EnemyType EnemyType = EnemyType.Grounded;
-
-        [HideInInspector]
-        public string EnemyId;
-        //public float forceToApplyOnGateDoor;
-        public float MaxSpeed = 10f;
-        public float HypnotizedSpeedBonus = 1f;
-
-        public float EnemySpeed = 5f;
+        public CreatureType Type = CreatureType.Grounded;
+        public CreatureState CurrentState;
+        public CreatureState PreviousState;
+        public float slowdownTimer = 6f;
+        public string EnemyId { get; private set; }
         public float AttackDamage = 10f;
-        public float TotalShootTime = 10f;
-        public float TotalDiggingTime = 5f;
-        public float TotalTeleportTime = 5f;
+
         public GameObject CreatureStateCanves;
         public Slider CreatureHealthBar;
-        public int ChanceToMakeSpecialAction;
+
         public int ScorePoints = 100;
-
-        [HideInInspector]
-        public bool IsDead;
-
-        [HideInInspector]
-        public bool WasRevived;
-
         public float hitForce = 1000;
-
         public float Health = 100f;
 
-        public string WalkAnimationParamter;
         public List<TextMotionBehavior> textsMotionBehavior;
+
         [HideInInspector]
         public int ChanceOfDroppingArrow;
-        [HideInInspector] public bool WasDied;
-        public bool IsItBoss;
         public bool IsItFighter; //if this creature has a weapon to shoot using it or not
         public bool IsItBugsSpawner; //if this creature has the ability to spawn creatures from his mouth
         public bool IsItDigger; //if this creature can dig in the ground to go to another waypoint under the ground
@@ -98,32 +79,20 @@ namespace Creature {
         private Transform playerLookAtPoint; //point where the creature canves is gonna look at
         private Transform playerShootAtPoint; //point where the creature is gonna look at to shoot
         private Rigidbody rig;
-
+        private Coroutine slowdownCoroutine;
         private Spawner Spawner;
-
-        public Animator Animator {
-            get;
-            private set;
-        }
+        private CreatureAnimator animator;
         public bool IsSlowedDown {
             get;
             set;
         }
         public Constants.ObjectsColors CreatureColor => creatureColor;
 
-        private void Awake() {
-            InitEnemy();
-        }
-
         private void Update() {
             if (IsItFighter && hasToLookAtTheTarget) //if this creatur has guns and has to start rotating towards the player
                 LookAtTheTarget(playerShootAtPoint);
 
             CreatureStateCanves.transform.LookAt(playerLookAtPoint);
-        }
-
-        private void OnEnable() {
-            InitEnemy();
         }
 
         private void OnDestroy() {
@@ -146,12 +115,12 @@ namespace Creature {
 
                 if (!securitySensor.IsItAirPlaneSensor) //if this sensore is a gun sensor
                 {
-                    if (securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.ground && EnemyType == EnemyType.Grounded || securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.air && EnemyType == EnemyType.Flying)
-                        if (!WasDied)
+                    if (securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.ground && Type == CreatureType.Grounded || securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.air && Type == CreatureType.Flying)
+                        if (CurrentState != CreatureState.Dead)
                             securitySensor.Targets.Add(this); //add it to the targets list of that security weapon
                 } else //if this sensor is a fighter airplane sensor
                 {
-                    if (!WasDied) securitySensor.Targets.Add(this);
+                    if (CurrentState != CreatureState.Dead) securitySensor.Targets.Add(this);
                 }
             }
         }
@@ -165,7 +134,7 @@ namespace Creature {
                 var securitySensor = other.GetComponent<SecuritySensor>();
 
                 if (!securitySensor.IsItAirPlaneSensor) {
-                    if (securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.ground && EnemyType == EnemyType.Grounded || securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.air && EnemyType == EnemyType.Flying) {
+                    if (securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.ground && Type == CreatureType.Grounded || securitySensor.SecurityWeapon.weaponType == Constants.SecurityWeaponsTypes.air && Type == CreatureType.Flying) {
                         securitySensor.Targets.Remove(this);
 
                         if (securitySensor.Target != null && this == securitySensor.Target) //if that target who exited the security area is the target that the weapon was shooting at him then stop it from shooting at him
@@ -187,7 +156,9 @@ namespace Creature {
             }
         }
 
-        private void InitEnemy() {
+        public void Init(string enemyID) {
+            EnemyId = enemyID;
+
             if (IsItBug) EventsManager.onBossDie += killBugs;
 
             CreatureStateCanves.SetActive(true);
@@ -195,8 +166,6 @@ namespace Creature {
 
             rig = GetComponent<Rigidbody>();
             isInsideSeacurityArea = false;
-            WasDied = false;
-            IsDead = false;
             playerShootAtPoint = GameObject.FindGameObjectWithTag(Constants.PlayerShootAtPoint).transform;
             playerLookAtPoint = GameObject.FindGameObjectWithTag(Constants.PlayerLookAtPoint).transform;
 
@@ -208,15 +177,10 @@ namespace Creature {
 
             audioSource = GetComponent<AudioSource>();
             body = GetComponent<Rigidbody>();
-            Animator = GetComponent<Animator>();
+
             movement = GetComponent<NPCSimplePatrol>();
+            animator = GetComponent<CreatureAnimator>();
 
-            if (EnemyType == EnemyType.Grounded) {
-                agent = GetComponent<NavMeshAgent>();
-                agent.speed = EnemySpeed;
-            }
-
-            if (gameObject.tag != "OnStartWaves") Animator.SetBool(WalkAnimationParamter, true);
 
             Spawner = FindObjectOfType<Spawner>();
 
@@ -230,8 +194,6 @@ namespace Creature {
         }
 
         public void EnableRagdoll(bool enabled, GameObject hit, float force = 150f) {
-            Animator.enabled = !enabled;
-
             for (int i = 0; i < ChildrenRigidbody.Length; i++)
                 if (!ChildrenRigidbody[i].CompareTag("BloodEffect")) {
                     ChildrenRigidbody[i].isKinematic = !enabled;
@@ -249,7 +211,7 @@ namespace Creature {
 
             if (agent) agent.enabled = !enabled;
 
-            if (EnemyType == EnemyType.Grounded)
+            if (Type == CreatureType.Grounded)
                 if (movement)
                     movement.enabled = !enabled;
 
@@ -270,34 +232,19 @@ namespace Creature {
         /// <param name="arrow"></param>
         /// <param name="tag">Tag of body part</param>
         public void HandleHit(ArrowBase arrow, string tag) {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
             float multiplier = 1f;
 
             //Debug.Log(tag);
-
-            //Find the custom weight property set to the body part, if none was found set weight to 1
-            WeightOnBodyPart weight = Weights.Find(w => {
-                if (!Constants.EnemyBodyParts.ContainsKey(tag)) return false;
-
-                KeyValuePair<string, Constants.BodyParts> pair = Constants.EnemyBodyParts.First(p => p.Value == w.BodyPart);
-
-                if (pair.Key != tag) return false;
-
-                return true;
-            });
-
-            if (weight != null) multiplier = weight.Weight;
-            else Debug.LogError("No weight setup for this body part, using default value which is 100%");
-
             float dmg = arrow.damage * multiplier;
 
             ShowDamageText(dmg);
 
             Health -= dmg;
 
-            StartCoroutine(UpdateCreatureSpeed());
-            Animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
+            PreviousState = CreatureState.GotHit;
+
             ApplyDamage(arrow.gameObject, hitForce, arrow.transform.position);
         }
 
@@ -321,30 +268,27 @@ namespace Creature {
         }
 
         public void ReceiveExplosionDamage(ArrowBase arrow, float dmg, float force) {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
             Health -= dmg;
 
-            StartCoroutine(UpdateCreatureSpeed());
-            Animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
+            PreviousState = CreatureState.GotHit;
             ApplyDamage(arrow.gameObject, force, arrow.transform.position);
         }
 
         public void ReceiveDamageFromObject(float dmg, float force, Vector3 damagedPosition = new()) {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
             Health -= dmg;
-            StartCoroutine(UpdateCreatureSpeed());
-            Animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
+            PreviousState = CreatureState.GotHit;
 
             ApplyDamage(null, force, damagedPosition);
         }
 
         public void ReceiveDamageFromEnemy(GameObject enemy, float dmg, float force) {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
-            StartCoroutine(UpdateCreatureSpeed());
-            Animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
+            PreviousState = CreatureState.GotHit;
 
             Health -= dmg;
 
@@ -362,7 +306,7 @@ namespace Creature {
         }
 
         public void Hypnotize(float bonusHealth) {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
             Health += bonusHealth;
             movement.GetHypnotized();
@@ -376,7 +320,7 @@ namespace Creature {
         public void BringBackToLife(float bonusHealth, Transform bodyPoint) {
             //print("Back To Life");
             //animator.enabled = true;
-            if (!IsDead || EnemyType != EnemyType.Grounded) return;
+            if (CurrentState != CreatureState.Dead || Type != CreatureType.Grounded) return;
 
             transform.position = bodyPoint.position;
             //transform.rotation = Quaternion.identity;
@@ -388,9 +332,7 @@ namespace Creature {
             agent.enabled = true;
             //}
 
-            WasRevived = true;
-            IsDead = false;
-            WasDied = false;
+            CurrentState = CreatureState.Idle;
             Spawner.Ids.Add(EnemyId);
             GameHandler.AllEnemies.Add(gameObject);
             Health = 100 + bonusHealth;
@@ -398,7 +340,7 @@ namespace Creature {
         }
 
         public void Suicide() {
-            if (IsDead) return;
+            if (CurrentState == CreatureState.Dead) return;
 
             Health = 0f;
             ApplyDamage(null, 100f);
@@ -418,14 +360,11 @@ namespace Creature {
             CreatureHealthBar.normalizedValue = Health / initialHealth;
             ActivateBloodEffect(damagedPosition); //activate the blood effect
 
-            if (Health <= 0f && !WasDied) {
+            if (Health <= 0f && CurrentState != CreatureState.Dead) {
                 PlayDeathSound(); //play creature death sound
-                WasDied = true;
 
                 if (isInsideSeacurityArea) //if it was inside the security area then call an event to remove it from the targets list of the security sensor
                     EventsManager.OnEnemyDiesInsideSecurityArea(this);
-
-                if (EnemyType == EnemyType.Flying) GetComponent<FlyingSystem>().StopMovingWhenDie(); //to prevent the air creature from moving after being hit
 
                 if (!GameHandler.WasCinematicCreatuerDied && CompareTag("OnStartWaves")) {
                     GameHandler.WasCinematicCreatuerDied = true;
@@ -445,18 +384,18 @@ namespace Creature {
                 if (CompareTag("OnStartWaves")) {
                     timeToDestroyDeadBody += 5; //to give the air creature exestra time to fall down before it gets destroied
                 } else {
-                    if (EnemyType == EnemyType.Flying && GetComponent<FlyingSystem>().IsItTheLeader) //if this creature was a air group leader
+                    if (Type == CreatureType.Flying && GetComponent<FlyingCreature>().IsItTheLeader) //if this creature was a air group leader
                         EventsManager.OnAirLeaderDeath(); //call an event to break the group and unparent the children from the leader
                 }
 
                 StartCoroutine(DestroyEnemyObject());
 
-                if (IsItBoss) EventsManager.OnBossDie();
+                // if (IsItBoss) EventsManager.OnBossDie();
 
                 if (gameObject.tag != "OnStartWaves") {
-                    //print("Recording");
-                    var ragdollRewind = RigBody.GetComponent<RagdollRewind>();
-                    ragdollRewind.StartRecording(1, .1f, Animator);
+
+                    /*var ragdollRewind = RigBody.GetComponent<RagdollRewind>();
+                    ragdollRewind.StartRecording(1, .1f, Animator);*/
 
                     if (movement)
                         movement.EndRoutine();
@@ -468,17 +407,12 @@ namespace Creature {
                     GameHandler.AllEnemies.RemoveAt(GameHandler.AllEnemies.FindIndex(e => e == gameObject));
                 }
 
-                IsDead = true;
+                CurrentState = CreatureState.Dead;
             }
         }
 
         private IEnumerator DestroyEnemyObject() {
             yield return new WaitForSeconds(timeToDestroyDeadBody);
-
-            if (WasRevived) {
-                WasRevived = false;
-                yield break;
-            }
 
             if (!CompareTag("OnStartWaves")) {
                 CreatureStateCanves.SetActive(false);
@@ -572,7 +506,7 @@ namespace Creature {
 
         private IEnumerator GiveAttackOrders(Transform target) {
             for (int i = 0; i < creatureWeapons.Length; i++)
-                if (!IsDead) {
+                if (CurrentState != CreatureState.Dead) {
                     creatureWeapons[i].PrepareToShoot(target); //let the player prepare themslevs to shoot(to rotates towards the player)
                     yield return new WaitForSeconds(secondsBetweenRightAndLeftGunsShots); //make delay between the right gun shot and the left gun shot
                 }
@@ -588,17 +522,18 @@ namespace Creature {
             for (int i = 0; i < creatureWeapons.Length; i++) creatureWeapons[i].StopShooting(); //orders guns to stop shooting
         }
 
-
-        private IEnumerator UpdateCreatureSpeed() {
-            if (EnemyType == EnemyType.Flying) {
-                EnemySpeed /= 4;
-                yield return new WaitForSeconds(.5f);
-                EnemySpeed *= 4;
-            } else {
-                agent.speed /= 4;
-                yield return new WaitForSeconds(.5f);
-                agent.speed *= 4;
+        public void GotHit() {
+            if (slowdownCoroutine != null) {
+                StopCoroutine(slowdownCoroutine);
             }
+
+            slowdownCoroutine = StartCoroutine(SlowDown());
+        }
+
+        private IEnumerator SlowDown() {
+            IsSlowedDown = true;
+            yield return new WaitForSeconds(slowdownTimer);
+            IsSlowedDown = false;
         }
     }
 }

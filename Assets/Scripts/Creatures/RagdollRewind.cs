@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Creature {
+namespace Creatures {
     public class RagdollRewind : MonoBehaviour {
         public bool DoneRecodring;
         public List<Transform> bones;
@@ -134,9 +134,6 @@ namespace Creature {
         }
 
         public void DoRewind() {
-            //print("Rewind");
-            creature.WasRevived = true;
-
             rootInterpolating = true;
             rootRig.isKinematic = true;
             rig.isKinematic = true;

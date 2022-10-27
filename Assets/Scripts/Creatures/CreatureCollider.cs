@@ -1,6 +1,6 @@
 using Arrows;
 
-namespace Creature {
+namespace Creatures {
     public class CreatureCollider : Hitable {
         private Creature Creature;
 

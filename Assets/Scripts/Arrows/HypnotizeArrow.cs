@@ -16,7 +16,7 @@ namespace Arrows {
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {
-                var creature = target.GetComponentInParent<Creature.Creature>();
+                var creature = target.GetComponentInParent<Creatures.Creature>();
 
                 if (creature.gameObject.tag == "OnStartWaves") {
                     target.HandleArrowHit(this);

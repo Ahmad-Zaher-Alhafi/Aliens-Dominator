@@ -9,7 +9,7 @@ namespace ManagersAndControllers {
         public static event Action<Constants.ObjectsColors> onStinkyBallHit; //event that beaing shot when the player get hit by a stinky ball
         public static event Action<Transform> onAirLeaderPatrolling; //event that beaing shot when the leader of the air creatures group reachs the last point and start to patrol around
         public static event Action onAirLeaderDeath; //event that beaing shot when the leader of the air group dies
-        public static event Action<Creature.Creature> onEnemyDiesInsideSecurityArea; //event that beaing shot when a creature dies inside the seacurity area of the seacurity weapon
+        public static event Action<Creatures.Creature> onEnemyDiesInsideSecurityArea; //event that beaing shot when a creature dies inside the seacurity area of the seacurity weapon
         public static event Action<Constants.SuppliesTypes, int> onTakingAmmo; //event that beaing shot when the player takes a rocket ammo
         public static event Action onLevelFinishs; //event that beaing shot when the a level finishs
         public static event Action onLevelStarts; //event that beaing shot when the a level starts
@@ -42,7 +42,7 @@ namespace ManagersAndControllers {
             onAirLeaderDeath?.Invoke();
         }
 
-        public static void OnEnemyDiesInsideSecurityArea(Creature.Creature creature) {
+        public static void OnEnemyDiesInsideSecurityArea(Creatures.Creature creature) {
             onEnemyDiesInsideSecurityArea?.Invoke(creature);
         }
 

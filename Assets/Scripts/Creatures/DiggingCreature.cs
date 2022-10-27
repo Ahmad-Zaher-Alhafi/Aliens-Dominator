@@ -2,8 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Creature {
-    public class Digger : MonoBehaviour {
+namespace Creatures {
+    public interface IDiggingCreature {
+        
+    }
+    
+    public class DiggingCreature : Creature {
         [SerializeField] private Transform rigParent;
         [SerializeField] private Vector3 digDownRotateAngle;
         [SerializeField] private Vector3 digUpRotateAngle;

@@ -2,8 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Creature {
-    public class Transporter : MonoBehaviour {
+namespace Creatures {
+    public interface ITransportingCreature {
+        
+    }
+
+    public class TransportingCreature : BossCreature {
         [SerializeField] private ParticleSystem portalPaticles;
         [SerializeField] private float secondsForParticlesCreating;
         [SerializeField] private GameObject creatureMesh;

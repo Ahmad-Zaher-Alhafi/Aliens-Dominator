@@ -18,11 +18,11 @@ TagManager:
   - PlayerShootAtPoint
   - SecuritySensor
   - SecurityWeapon
-  - EnemyHead
-  - EnemyBody
-  - EnemyLegs
-  - EnemyArms
-  - EnemyTail
+  - Head
+  - Body
+  - Leg
+  - Arm
+  - Tail
   - GateDoor
   layers:
   - Default

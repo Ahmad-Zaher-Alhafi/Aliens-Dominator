@@ -288,7 +288,7 @@ namespace Defence_Weapons {
                     if (HasToUseRockets && isItTimeToShootAgain) {
                         StartCoroutine(WaitForShootingAgain());
                         if (securitySensor.Targets.Count > 0)
-                            foreach (Creature.Creature trgt in securitySensor.Targets) {
+                            foreach (Creatures.Creature trgt in securitySensor.Targets) {
                                 if (trgt != null)
                                     for (int i = 0; i < airRockets.Count; i++)
                                         if (airRockets[i] != null && !airRockets[i].IsUsed) {
@@ -311,7 +311,7 @@ namespace Defence_Weapons {
                             GameObject projectile = Instantiate(projectilePrefab, projectileCreatPoint.position, projectilePrefab.transform.rotation);
                             if (target != null) {
                                 projectile.transform.LookAt(target);
-                                projectile.GetComponent<Projectile>().FollowTarget(target.GetComponent<Creature.Creature>());
+                                projectile.GetComponent<Projectile>().FollowTarget(target.GetComponent<Creatures.Creature>());
                             }
                             yield return new WaitForSeconds(secondsBetweenEachProjectile);
                         }

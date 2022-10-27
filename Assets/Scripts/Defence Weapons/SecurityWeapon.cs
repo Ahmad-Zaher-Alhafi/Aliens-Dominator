@@ -208,7 +208,7 @@ namespace Defence_Weapons {
                             rocket.transform.parent = null;
                             if (target != null) {
                                 rocket.transform.LookAt(target);
-                                rocket.FollowTarget(target.GetComponent<Creature.Creature>());
+                                rocket.FollowTarget(target.GetComponent<Creatures.Creature>());
                             }
                             StartCoroutine(SetCoolDownTime());
                         }
@@ -221,7 +221,7 @@ namespace Defence_Weapons {
                         projectile.transform.LookAt(target);
                         var projectileScript = projectile.GetComponent<Projectile>();
                         projectileScript.DamageCost *= weaponLevel;
-                        projectileScript.FollowTarget(target.GetComponent<Creature.Creature>());
+                        projectileScript.FollowTarget(target.GetComponent<Creatures.Creature>());
                         StartCoroutine(SetCoolDownTime());
                     }
                 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Collectables;
-using Creature;
+using Creatures;
 using Defence_Weapons;
 using Particles;
 using Player;
@@ -16,7 +16,7 @@ namespace ManagersAndControllers {
     [Serializable]
     public class AttackPoint {
         public waypoint Waypoint;
-        public EnemyType EnemyType = EnemyType.Grounded;
+        public Creature.CreatureType creatureType = Creature.CreatureType.Grounded;
     }
 
     public class GameHandler : MonoBehaviour {
@@ -76,7 +76,7 @@ namespace ManagersAndControllers {
         }
 
         public void ClearScene() {
-            List<Creature.Creature> enemies = FindObjectsOfType<Creature.Creature>().ToList();
+            List<Creatures.Creature> enemies = FindObjectsOfType<Creatures.Creature>().ToList();
 
             enemies.ForEach(e => {
                 Destroy(e.gameObject);
@@ -102,8 +102,8 @@ namespace ManagersAndControllers {
             UIManager.UpdateStatus(wave, maxWave, level);
         }
 
-        public waypoint GetSpot(EnemyType type) {
-            List<AttackPoint> points = AttackPoints.FindAll(a => a.EnemyType == type);
+        public waypoint GetSpot(Creature.CreatureType creatureType) {
+            List<AttackPoint> points = AttackPoints.FindAll(a => a.creatureType == creatureType);
 
             return points[Random.Range(0, points.Count)].Waypoint;
         }
