@@ -24,7 +24,7 @@ namespace Defence_Weapons {
             EventsManager.onEnemyDiesInsideSecurityArea += RemoveDeadTarget;
         }
 
-        private void FixedUpdate() {
+        /*private void FixedUpdate() {
             if (!IsItAirPlaneSensor) {
                 if (SecurityWeapon.HasToDefend) {
                     if (!SecurityWeapon.IsShooting && (Target == null || Target.CurrentState == Creature.CreatureState.Dead)) //if the waepon is not busy and the target is not null or dead
@@ -63,7 +63,7 @@ namespace Defence_Weapons {
                         }
                 }
             }
-        }
+        }*/
 
         private void OnDestroy() {
             EventsManager.onEnemyDiesInsideSecurityArea -= RemoveDeadTarget;

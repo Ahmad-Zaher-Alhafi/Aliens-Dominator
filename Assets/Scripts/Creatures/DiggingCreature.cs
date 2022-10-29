@@ -3,11 +3,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Creatures {
-    public interface IDiggingCreature {
-        
-    }
-    
-    public class DiggingCreature : Creature {
+    public interface IDiggingCreature { }
+
+    public class DiggingCreature : Creature, IDiggingCreature {
         [SerializeField] private Transform rigParent;
         [SerializeField] private Vector3 digDownRotateAngle;
         [SerializeField] private Vector3 digUpRotateAngle;

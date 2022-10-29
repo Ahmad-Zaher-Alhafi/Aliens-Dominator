@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Arrows;
@@ -21,44 +22,48 @@ namespace Creatures {
 
         public enum CreatureState {
             Idle,
+            Patrolling,
             FollowingPath,
-            GotHit,
+            GettingHit,
             Attacking,
             Chasing,
             Dead
         }
 
+        public enum CreatureAction {
+            StayIdle,
+            Patrol,
+            FollowPath,
+            GetHit,
+            Attack,
+            Chase,
+            Die
+        }
+
+        public string EnemyId { get; private set; }
+        public int ScorePoints = 100;
+
         public CreatureType Type = CreatureType.Grounded;
         public CreatureState CurrentState;
         public CreatureState PreviousState;
-        public float slowdownTimer = 6f;
-        public string EnemyId { get; private set; }
-        public float AttackDamage = 10f;
 
-        public GameObject CreatureStateCanves;
-        public Slider CreatureHealthBar;
+        [SerializeField] private float slowdownTimer = 6f;
+        [SerializeField] private float attackDamage = 10f;
 
-        public int ScorePoints = 100;
-        public float hitForce = 1000;
-        public float Health = 100f;
+        [SerializeField] private GameObject CreatureStateCanves;
+        [SerializeField] private Slider CreatureHealthBar;
 
-        public List<TextMotionBehavior> textsMotionBehavior;
+        [SerializeField] private float hitForce = 1000;
+        [SerializeField] private float health = 100f;
 
-        [HideInInspector]
-        public int ChanceOfDroppingArrow;
-        public bool IsItFighter; //if this creature has a weapon to shoot using it or not
-        public bool IsItBugsSpawner; //if this creature has the ability to spawn creatures from his mouth
-        public bool IsItDigger; //if this creature can dig in the ground to go to another waypoint under the ground
-        public bool IsItTransporter; //if this creature can transport from a waypoint to another waypoint using the portals
-        public bool IsItBug;
-        public int WaypointOffsetToActivateSpecialActions = 2; //We dont want the enemies to start shooting from the spawn waypoint
-        public float secondsBetweenGunShots; //fire rate
-        public float gunBulletSpeed;
-        [SerializeField] private ParticleSystem bloodEffect; //blood effect of the creature
+        [SerializeField] private List<TextMotionBehavior> textsMotionBehavior;
+        [SerializeField] private int chanceOfDroppingArrow;
+
+        [SerializeField] private int waypointMinIndexToActivateSpecialActions = 2; // We dont want the enemies to start shooting from the spawn waypoint
         [SerializeField] private float timeToDestroyDeadBody = 3; //time needed before destroying the dead body of the creature
         [SerializeField] private Constants.ObjectsColors creatureColor;
         public GameObject RigBody; //the RigMain object that is inside the creature object
-        [SerializeField] private CreatureWeapon[] creatureWeapons; //creature guns
+
         [SerializeField] private float secondsBetweenRightAndLeftGunsShots; //time between the right bullet from the right gun and the left bullet from the left gun
 
         public float AttackTimer = 3f;
@@ -75,28 +80,63 @@ namespace Creatures {
         private float initialHealth;
         private bool isInsideSeacurityArea; //true if it entred the security area of the security weapon
 
-        private NPCSimplePatrol movement;
+        private GroundCreatureMover movement;
         private Transform playerLookAtPoint; //point where the creature canves is gonna look at
         private Transform playerShootAtPoint; //point where the creature is gonna look at to shoot
         private Rigidbody rig;
         private Coroutine slowdownCoroutine;
         private Spawner Spawner;
+        private CreatureMover creatureMover;
         private CreatureAnimator animator;
-        public bool IsSlowedDown {
-            get;
-            set;
-        }
+        [SerializeField] private float applyDamageWhenHypnotized = 5f;
+        public bool IsSlowedDown { get; set; }
         public Constants.ObjectsColors CreatureColor => creatureColor;
 
-        private void Update() {
-            if (IsItFighter && hasToLookAtTheTarget) //if this creatur has guns and has to start rotating towards the player
+        private void Awake() {
+            creatureMover = GetComponent<CreatureMover>();
+        }
+
+        private void FixedUpdate() {
+            if (creatureMover.IsBusy) return;
+
+            CurrentState = GetRandomActionToDo() switch {
+                CreatureAction.StayIdle => CreatureState.Idle,
+                CreatureAction.Patrol => CreatureState.Patrolling,
+                _ => CurrentState
+            };
+
+            /*if (this is IFightingCreature && hasToLookAtTheTarget) //if this creature has guns and has to start rotating towards the player
                 LookAtTheTarget(playerShootAtPoint);
 
-            CreatureStateCanves.transform.LookAt(playerLookAtPoint);
+            CreatureStateCanves.transform.LookAt(playerLookAtPoint);*/
+        }
+
+        private CreatureAction GetRandomActionToDo() {
+            int randomNumber = Random.Range(0, 2);
+            return randomNumber == 0 ? CreatureAction.StayIdle : CreatureAction.Patrol;
         }
 
         private void OnDestroy() {
-            if (IsItBug) EventsManager.onBossDie -= killBugs;
+            if (this is IBugCreature) EventsManager.onBossDie -= killBugs;
+        }
+
+        /// <summary>
+        ///     This is for hypnotized enemies, so they can't kill all enemies (basically balancing)
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator DecreaseHealth() {
+            yield return new WaitForSeconds(5f);
+
+            if (CurrentState != CreatureState.Dead) {
+                health -= applyDamageWhenHypnotized;
+
+                if (health <= 0f) {
+                    Suicide();
+                    Debug.Log("Enemy died due to hypnotization");
+                } else {
+                    StartCoroutine(DecreaseHealth());
+                }
+            }
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -159,7 +199,7 @@ namespace Creatures {
         public void Init(string enemyID) {
             EnemyId = enemyID;
 
-            if (IsItBug) EventsManager.onBossDie += killBugs;
+            if (this is IBugCreature) EventsManager.onBossDie += killBugs;
 
             CreatureStateCanves.SetActive(true);
             gameObject.SetActive(true);
@@ -178,16 +218,15 @@ namespace Creatures {
             audioSource = GetComponent<AudioSource>();
             body = GetComponent<Rigidbody>();
 
-            movement = GetComponent<NPCSimplePatrol>();
+            movement = GetComponent<GroundCreatureMover>();
             animator = GetComponent<CreatureAnimator>();
-
 
             Spawner = FindObjectOfType<Spawner>();
 
             ChildrenRigidbody = GetComponentsInChildren<Rigidbody>();
 
             EnableRagdoll(false, null);
-            initialHealth = Health;
+            initialHealth = health;
             CreatureHealthBar.maxValue = initialHealth;
             CreatureHealthBar.minValue = 0;
             CreatureStateCanves.SetActive(false);
@@ -241,9 +280,9 @@ namespace Creatures {
 
             ShowDamageText(dmg);
 
-            Health -= dmg;
+            health -= dmg;
 
-            PreviousState = CreatureState.GotHit;
+            PreviousState = CreatureState.GettingHit;
 
             ApplyDamage(arrow.gameObject, hitForce, arrow.transform.position);
         }
@@ -270,17 +309,17 @@ namespace Creatures {
         public void ReceiveExplosionDamage(ArrowBase arrow, float dmg, float force) {
             if (CurrentState == CreatureState.Dead) return;
 
-            Health -= dmg;
+            health -= dmg;
 
-            PreviousState = CreatureState.GotHit;
+            PreviousState = CreatureState.GettingHit;
             ApplyDamage(arrow.gameObject, force, arrow.transform.position);
         }
 
         public void ReceiveDamageFromObject(float dmg, float force, Vector3 damagedPosition = new()) {
             if (CurrentState == CreatureState.Dead) return;
 
-            Health -= dmg;
-            PreviousState = CreatureState.GotHit;
+            health -= dmg;
+            PreviousState = CreatureState.GettingHit;
 
             ApplyDamage(null, force, damagedPosition);
         }
@@ -288,9 +327,9 @@ namespace Creatures {
         public void ReceiveDamageFromEnemy(GameObject enemy, float dmg, float force) {
             if (CurrentState == CreatureState.Dead) return;
 
-            PreviousState = CreatureState.GotHit;
+            PreviousState = CreatureState.GettingHit;
 
-            Health -= dmg;
+            health -= dmg;
 
             if (AttackerId == null && movement.TrackEnemyID == null) {
                 //Debug.Log("Fight back");
@@ -305,10 +344,22 @@ namespace Creatures {
             ApplyDamage(enemy, force);
         }
 
+        private Coroutine Coroutine;
+        //Apply damage to wall mainly for grounded enemies
+        private IEnumerator AttackWall() {
+            yield return new WaitForSeconds(3f);
+
+            var wallManager = FindObjectOfType<WallManager>();
+
+            //animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.Attack));
+            wallManager.ReduceHealth(attackDamage);
+            Coroutine = StartCoroutine(AttackWall());
+        }
+
         public void Hypnotize(float bonusHealth) {
             if (CurrentState == CreatureState.Dead) return;
 
-            Health += bonusHealth;
+            health += bonusHealth;
             movement.GetHypnotized();
         }
 
@@ -335,14 +386,14 @@ namespace Creatures {
             CurrentState = CreatureState.Idle;
             Spawner.Ids.Add(EnemyId);
             GameHandler.AllEnemies.Add(gameObject);
-            Health = 100 + bonusHealth;
+            health = 100 + bonusHealth;
             movement.GetHypnotized();
         }
 
         public void Suicide() {
             if (CurrentState == CreatureState.Dead) return;
 
-            Health = 0f;
+            health = 0f;
             ApplyDamage(null, 100f);
         }
 
@@ -357,10 +408,9 @@ namespace Creatures {
         private void ApplyDamage(GameObject hit, float force, Vector3 damagedPosition = new()) {
             if (!CreatureStateCanves.gameObject.activeInHierarchy) CreatureStateCanves.SetActive(true);
 
-            CreatureHealthBar.normalizedValue = Health / initialHealth;
-            ActivateBloodEffect(damagedPosition); //activate the blood effect
+            CreatureHealthBar.normalizedValue = health / initialHealth;
 
-            if (Health <= 0f && CurrentState != CreatureState.Dead) {
+            if (health <= 0f && CurrentState != CreatureState.Dead) {
                 PlayDeathSound(); //play creature death sound
 
                 if (isInsideSeacurityArea) //if it was inside the security area then call an event to remove it from the targets list of the security sensor
@@ -368,12 +418,12 @@ namespace Creatures {
 
                 if (!GameHandler.WasCinematicCreatuerDied && CompareTag("OnStartWaves")) {
                     GameHandler.WasCinematicCreatuerDied = true;
-                    GameHandler.CinematicEnemies.Remove(gameObject.GetComponent<NPCSimplePatrol>()); //remove the dead creature from the list
+                    GameHandler.CinematicEnemies.Remove(gameObject.GetComponent<GroundCreatureMover>()); //remove the dead creature from the list
                     EventsManager.OnStartEnemyDeath(); //call an event that says one of the start enemies was died
                 }
 
                 int rand = Random.Range(1, 101);
-                if (rand <= ChanceOfDroppingArrow) SpawnBallon();
+                if (rand <= chanceOfDroppingArrow) SpawnBallon();
 
                 Spawner.Ids.Remove(EnemyId);
 
@@ -455,25 +505,6 @@ namespace Creatures {
             return list[Random.Range(0, list.Count)];
         }
 
-        //Zaher added this
-
-        /// <summary>
-        ///     function to play blood effect particle system when the creature get hit by an arrow
-        /// </summary>
-        /// <param name="damagedPosition">
-        ///     it's the position where the arrow hit the creature if it was hit by an arrow otherwise
-        ///     it's null and blood will be in the meddle of the creautre
-        /// </param>
-        public void ActivateBloodEffect(Vector3 damagedPosition) {
-            if (bloodEffect != null) {
-                if (damagedPosition == null) damagedPosition = transform.position;
-
-                bloodEffect.transform.position = damagedPosition; //let the particles be in the same posiotin where the arrow hit the creature
-                bloodEffect.gameObject.SetActive(true);
-                bloodEffect.Play();
-            }
-        }
-
         /// <summary>
         ///     function to play creature death sound when it dies
         /// </summary>
@@ -500,27 +531,27 @@ namespace Creatures {
             if (Quaternion.Angle(transform.rotation, targetAngle) <= .2f) //if the creature finished rotating to the correct angle wihch is the player angle
             {
                 hasToLookAtTheTarget = false;
-                StartCoroutine(GiveAttackOrders(target)); //give orders to guns to rotate towards the player to shoot
+                //StartCoroutine(GiveAttackOrders(target)); //give orders to guns to rotate towards the player to shoot
             }
         }
 
-        private IEnumerator GiveAttackOrders(Transform target) {
+        /*private IEnumerator GiveAttackOrders(Transform target) {
             for (int i = 0; i < creatureWeapons.Length; i++)
                 if (CurrentState != CreatureState.Dead) {
                     creatureWeapons[i].PrepareToShoot(target); //let the player prepare themslevs to shoot(to rotates towards the player)
                     yield return new WaitForSeconds(secondsBetweenRightAndLeftGunsShots); //make delay between the right gun shot and the left gun shot
                 }
-        }
+        }*/
 
         public void AttackUsingGun() //Function to call when you want the creature to shoot at the player
         {
             hasToLookAtTheTarget = true; //allow the rotating towards the player
         }
 
-        public void OrderToStopShooting() //function to stop the creature from shooting at the player
+        /*public void OrderToStopShooting() //function to stop the creature from shooting at the player
         {
             for (int i = 0; i < creatureWeapons.Length; i++) creatureWeapons[i].StopShooting(); //orders guns to stop shooting
-        }
+        }*/
 
         public void GotHit() {
             if (slowdownCoroutine != null) {

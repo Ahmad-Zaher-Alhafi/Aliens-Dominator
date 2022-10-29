@@ -3,11 +3,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Creatures {
-    public interface ITransportingCreature {
-        
-    }
+    public interface ITransportingCreature { }
 
-    public class TransportingCreature : BossCreature {
+    public class TransportingCreature : BossCreature, ITransportingCreature {
         [SerializeField] private ParticleSystem portalPaticles;
         [SerializeField] private float secondsForParticlesCreating;
         [SerializeField] private GameObject creatureMesh;

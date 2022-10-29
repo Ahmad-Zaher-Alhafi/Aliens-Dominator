@@ -6,11 +6,9 @@ using Projectiles;
 using UnityEngine;
 
 namespace Creatures {
-    public interface IFlyingCreature {
-        
-    }
-    
-    public class FlyingCreature : NPCSimplePatrol {
+    public interface IFlyingCreature { }
+
+    public class FlyingCreature : Creature, IFlyingCreature {
         [HideInInspector]
         public bool IsItTheLeader;
         [HideInInspector]
@@ -66,7 +64,7 @@ namespace Creatures {
             set => creaturePathes = value;
         }
 
-        private void Start() {
+        /*private void Start() {
             animator = GetComponent<Animator>();
             hasToRunAway = false;
             gameHandler = FindObjectOfType<GameHandler>();
@@ -118,9 +116,9 @@ namespace Creatures {
 
             nextTargetPoint = airWayPoints[airPointIndex]; //creature takes the first point in the array 
             nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)]; //get a random patrol air point
-        }
+        }*/
 
-        private void Update() {
+        /*private void Update() {
             if (creature.CurrentState != Creature.CreatureState.Dead) {
                 if (CompareTag(Constants.OnStartWaves)) {
                     if (!hasToRunAway) {
@@ -140,13 +138,13 @@ namespace Creatures {
                     }
                 }
             }
-        }
+        }*/
 
-        private void LateUpdate() {
+        /*private void LateUpdate() {
             if (creature.CurrentState != Creature.CreatureState.Dead)
                 if (IsItGroupMember && isFormingBack) //if it was going back to it's position in the group then keep calculating it's point in gorup position so in case the leader moved so we still getting the updated position as soon as it's position depends on the leader position
                     randomPatrolPosiotion = CreaturePointInGroup.position;
-        }
+        }*/
 
         private void OnDestroy() {
             if (CompareTag(Constants.OnStartWaves)) EventsManager.onStartEnemyDeath -= OrderToRunAway;
@@ -176,13 +174,7 @@ namespace Creatures {
             }
         }
 
-        public void PatrolCinematicCreature() {
-            if (Mathf.Abs(Vector3.Distance(transform.position, nextCinematicPatrolPoint.position)) >= .2f) //if the creature has reached the nextTargetPoint point && not patrolling
-                transform.position = Vector3.Lerp(transform.position, nextCinematicPatrolPoint.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, nextCinematicPatrolPoint.position)); //make the creature moves
-            else nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)]; //get a random patrol air point
-        }
-
-        public void FollowTarget(Transform target) {
+        /*public void FollowTarget(Transform target) {
             if (Mathf.Abs(Vector3.Distance(transform.position, target.position)) <= .2f && !hasToPatrol) //if the creature has reached the nextTargetPoint point && not patrolling
             {
                 if (!CompareTag(Constants.OnStartWaves)) //if it was not a cinematic enemy
@@ -204,7 +196,7 @@ namespace Creatures {
             } else {
                 if (!IsItGroupMember || IsItTheLeader) transform.position = Vector3.Lerp(transform.position, target.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, target.position)); //make the creature moves
             }
-        }
+        }*/
 
 
         //public void FollowAirWayPoints()
@@ -403,7 +395,7 @@ namespace Creatures {
             hasToRunAway = true;
         }
 
-        public void RunAway() {
+        /*public void RunAway() {
             if (Mathf.Abs(Vector3.Distance(transform.position, runAwayPoint.position)) <= .2f) //if the cinematic creature has reached the runAwayPoint point
             {
                 hasToRunAway = false;
@@ -413,7 +405,7 @@ namespace Creatures {
                 transform.position = Vector3.Lerp(transform.position, runAwayPoint.position, Speed * Time.deltaTime / Vector3.Distance(transform.position, runAwayPoint.position)); //make the creature moves
                 //transform.position += transform.forward * creature.EnemySpeed * Time.deltaTime;//make the creature moves forward
             }
-        }
+        }*/
 
         public void OrderToPatrol(Transform leader = null) //usually used for group members
         {

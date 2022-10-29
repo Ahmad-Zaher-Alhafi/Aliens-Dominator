@@ -30,8 +30,8 @@ namespace ManagersAndControllers {
         public UIManager UIManager;
         [HideInInspector]
         public List<GameObject> AllEnemies = new();
-        public List<NPCSimplePatrol> CinematicEnemies = new();
-
+        public List<GroundCreatureMover> CinematicEnemies = new();
+        
         [HideInInspector]
         public bool WasCinematicCreatuerDied; //true when one of the cinematics creature dies
         [SerializeField] private ParticleSystem arrowUpdateParticlesPhase1; //phase one is particles without noise
@@ -42,7 +42,7 @@ namespace ManagersAndControllers {
         [SerializeField] private ArcheryRig archeryRig;
         [SerializeField] private List<GameObject> airplanes = new();
         [SerializeField] private List<BlockVisionParticles> blockVisionParticles = new(); //list of the particles of player block vision
-
+        private List<NavMeshSurface> navMeshSurfaces;
         /// <summary>
         ///     Handles pooling objects
         /// </summary>
@@ -50,6 +50,14 @@ namespace ManagersAndControllers {
 
         private bool GameEnded;
         private int numOfSppliesGathered; //number of supplies object that you have gatherd it till now
+
+        private void Awake() {
+            navMeshSurfaces = FindObjectsOfType<NavMeshSurface>().ToList();
+            foreach (NavMeshSurface navMeshSurface in navMeshSurfaces)
+            {
+                navMeshSurface.BuildNavMesh();
+            }
+        }
 
         private void Start() {
             UpdateResourcesCount(0);

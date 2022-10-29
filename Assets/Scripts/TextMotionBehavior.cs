@@ -9,7 +9,7 @@ public class TextMotionBehavior : MonoBehaviour {
     private Transform playerLookAtPoint;
 
 
-    private void Awake() {
+    /*private void Awake() {
         IsItBusy = false;
         playerLookAtPoint = GameObject.FindGameObjectWithTag(Constants.PlayerLookAtPoint).transform;
         animator = damadeTakenText.GetComponent<Animator>();
@@ -19,7 +19,7 @@ public class TextMotionBehavior : MonoBehaviour {
     private void Update() {
         damadeTakenText.transform.LookAt(playerLookAtPoint);
         if (damadeTakenText.transform.localScale.x > 0) damadeTakenText.transform.localScale = damadeTakenText.transform.localScale - Vector3.one * decreaseTextSizeSpeed * Time.deltaTime;
-    }
+    }*/
 
     public void ShowDamageTakenText(float dmg) {
         IsItBusy = true;

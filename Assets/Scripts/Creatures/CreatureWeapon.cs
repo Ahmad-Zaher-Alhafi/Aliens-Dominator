@@ -12,7 +12,7 @@ namespace Creatures {
         [SerializeField] private Sound enemyBulletSound;
         private bool hasToLookAtTheTarget; //true if gun has to look towards the target (the player)
         private bool hasToShoot; //true if has to shoot
-        private NPCSimplePatrol NPCSimplePatrol;
+        private GroundCreatureMover groundCreatureMover;
         private Transform playerShootAtPoint; //point where the gun is gonna shoot at
 
         private void Start() {
@@ -20,7 +20,7 @@ namespace Creatures {
             hasToLookAtTheTarget = false;
 
             //Had to implement the NPCSimplePatrol script, otherwise it wouldnt stop shooting. Don't haunt me down, I just felt desperate and exhausted about this bug.
-            NPCSimplePatrol = creature.GetComponent<NPCSimplePatrol>();
+            groundCreatureMover = creature.GetComponent<GroundCreatureMover>();
         }
 
         private void Update() {
@@ -41,7 +41,7 @@ namespace Creatures {
             {
                 hasToLookAtTheTarget = false; //stop the rotating
                 hasToShoot = true; //allow to shoot
-                StartCoroutine(Shoot()); //start shooting
+                StartCoroutine(Shoot(1,10)); //start shooting
             }
         }
 
@@ -51,18 +51,18 @@ namespace Creatures {
             playerShootAtPoint = target; //give the target
         }
 
-        private IEnumerator Shoot() //to create bullets(stinky balls) and shoot them
+        private IEnumerator Shoot(float secondsBetweenGunShots, float gunBulletSpeed) //to create bullets(stinky balls) and shoot them
         {
             //EndPoint is the point the enemy gets assigned when leaving the normal waypoints and is about to attack the wall
-            while (hasToShoot && creature.CurrentState != Creature.CreatureState.Dead && !NPCSimplePatrol.EndPoint) //while was not orderd to stop shooting
+            while (hasToShoot && creature.CurrentState != Creature.CreatureState.Dead && !groundCreatureMover.EndPoint) //while was not orderd to stop shooting
             {
                 audioSource.PlayOneShot(enemyBulletSound.audioClip, enemyBulletSound.volume);
                 GameObject bullet = Instantiate(bulletPrefab, bulletCreatPoint.position, bulletPrefab.transform.rotation);
                 bullet.transform.LookAt(playerShootAtPoint);
                 var bulletRig = bullet.GetComponent<Rigidbody>();
-                bulletRig.AddForce(bullet.transform.forward * creature.gunBulletSpeed, ForceMode.Impulse);
+                bulletRig.AddForce(bullet.transform.forward * gunBulletSpeed, ForceMode.Impulse);
 
-                yield return new WaitForSeconds(creature.secondsBetweenGunShots);
+                yield return new WaitForSeconds(secondsBetweenGunShots);
             }
         }
 

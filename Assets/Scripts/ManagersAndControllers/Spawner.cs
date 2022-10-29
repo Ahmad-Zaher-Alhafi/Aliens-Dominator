@@ -103,7 +103,7 @@ namespace ManagersAndControllers {
 
         private GameObject CreateEnemy(List<EnemyClass> enemies, int wave, PoolManager poolManager) {
             EnemyClass eClass = enemies[Random.Range(0, enemies.Count)];
-            Creatures.Creature creature = eClass.Enemy;
+            Creature creature = eClass.Enemy;
             List<EnemyProperties> properties = eClass.EnemyProperties;
 
             if (wave % WhenToIncreaseDifficultyOfEnemy != 0) return poolManager.InstantiateCreature(creature.gameObject);
@@ -119,9 +119,7 @@ namespace ManagersAndControllers {
                 if (rest - 1 < 0 || properties.Count <= 0) return poolManager.InstantiateCreature(creature.gameObject);
 
                 rest = properties.Count - 1;
-
-                creature.AttackDamage = properties[rest].Damage;
-                creature.Health = properties[rest].Health;
+                
 
                 creature.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial = properties[rest].Skin;
 
@@ -129,11 +127,6 @@ namespace ManagersAndControllers {
             }
 
             GameObject go = poolManager.InstantiateCreature(creature.gameObject);
-
-            var _creature = go.GetComponent<Creatures.Creature>();
-
-            _creature.AttackDamage = properties[rest].Damage;
-            _creature.Health = properties[rest].Health;
 
             go.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial = properties[rest].Skin;
 
@@ -287,7 +280,7 @@ namespace ManagersAndControllers {
         public void StartCinematicView() {
             if (Spawn) return;
 
-            foreach (NPCSimplePatrol NPC in GameHandler.CinematicEnemies) NPC.StartMovingAnimation();
+            foreach (GroundCreatureMover NPC in GameHandler.CinematicEnemies) NPC.StartMovingAnimation();
 
             OnStartWaves();
         }
@@ -350,7 +343,7 @@ namespace ManagersAndControllers {
             if (creatureTypeOf == Creature.CreatureType.Flying) {
                 Enemy.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
             } else {
-                var patrol = Enemy.GetComponent<NPCSimplePatrol>();
+                var patrol = Enemy.GetComponent<GroundCreatureMover>();
 
                 if (!patrol) return;
 
@@ -369,7 +362,7 @@ namespace ManagersAndControllers {
             GameHandler.AllEnemies.Add(Enemy);
         }
 
-        public GameObject SpawnBug(Transform spawnPoint, GameObject creaturToInstantioate, NPCSimplePatrol BugSpawner) {
+        public GameObject SpawnBug(Transform spawnPoint, GameObject creaturToInstantioate, GroundCreatureMover BugSpawner) {
             GameObject Enemy = null;
             Transform spawnPos = null;
             Creature.CreatureType creatureTypeOf;
@@ -380,8 +373,7 @@ namespace ManagersAndControllers {
 
 
             GameObject enemyInstantiated = Instantiate(Enemy, spawnPos.position, Quaternion.identity);
-            var creature = enemyInstantiated.GetComponent<Creatures.Creature>();
-            creature.IsItBug = true;
+            var creature = enemyInstantiated.GetComponent<Creature>();
             string id = GenerateId();
 
             Ids.Add(id);
@@ -399,7 +391,7 @@ namespace ManagersAndControllers {
             if (creatureTypeOf == Creature.CreatureType.Flying) {
                 enemyInstantiated.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
             } else {
-                var patrol = enemyInstantiated.GetComponent<NPCSimplePatrol>();
+                var patrol = enemyInstantiated.GetComponent<GroundCreatureMover>();
                 if (!patrol) return null;
 
                 patrol.EnemyId = id;

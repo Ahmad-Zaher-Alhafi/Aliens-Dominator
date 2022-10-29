@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Creatures {
-    public interface IBugsSpawningCreature {
-        
-    }
-    
-    public class BugsSpawningCreature : Creature {
+    public interface IBugsSpawningCreature { }
+
+    public class BugsSpawningCreature : Creature, IBugsSpawningCreature {
         [Header("For Bugs Spawner Only")]
         [SerializeField] private float numOfCreaturesToSpawn;
         [SerializeField] private Creatures.Creature bugPrefabToSpawn;
@@ -20,7 +18,7 @@ namespace Creatures {
         [SerializeField] private float secondsBetweenEachSpawnOrder;
         private Animator animator;
         private Creatures.Creature creature;
-        private NPCSimplePatrol nPCSimplePatrol;
+        private GroundCreatureMover nPCSimplePatrol;
 
         private float oldSpeed;
         private Spawner spawner;
@@ -29,7 +27,7 @@ namespace Creatures {
             creature = GetComponent<Creatures.Creature>();
             animator = GetComponent<Animator>();
             spawner = FindObjectOfType<Spawner>();
-            nPCSimplePatrol = GetComponent<NPCSimplePatrol>();
+            nPCSimplePatrol = GetComponent<GroundCreatureMover>();
 
             OrderToSpawnCreatures();
         }

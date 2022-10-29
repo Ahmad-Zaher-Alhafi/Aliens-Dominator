@@ -1,5 +1,4 @@
 ﻿namespace Creatures {
-    public class BugCreature : Creature {
-        
-    }
+    public interface IBugCreature { }
+    public class BugCreature : Creature, IBugCreature { }
 }

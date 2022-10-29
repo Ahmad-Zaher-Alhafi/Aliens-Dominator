@@ -31,7 +31,7 @@ namespace Creatures {
                     break;
             }
 
-            if (creature.PreviousState == Creature.CreatureState.GotHit) {
+            if (creature.PreviousState == Creature.CreatureState.GettingHit) {
                 animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
             } else if (creature.PreviousState == Creature.CreatureState.Dead) {
                 animator.enabled = !enabled;
