@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Arrows;
 using Collectables;
+using Creatures.Animators;
 using Defence_Weapons;
 using ManagersAndControllers;
 using Projectiles;
@@ -13,7 +14,6 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Creatures {
-
     public abstract class Creature : MonoBehaviour {
         public enum CreatureType {
             Grounded,
@@ -47,6 +47,7 @@ namespace Creatures {
         public CreatureState CurrentState;
         public CreatureState PreviousState;
 
+        [SerializeField] private List<Material> colors;
         [SerializeField] private float slowdownTimer = 6f;
         [SerializeField] private float attackDamage = 10f;
 
@@ -61,7 +62,7 @@ namespace Creatures {
 
         [SerializeField] private int waypointMinIndexToActivateSpecialActions = 2; // We dont want the enemies to start shooting from the spawn waypoint
         [SerializeField] private float timeToDestroyDeadBody = 3; //time needed before destroying the dead body of the creature
-        [SerializeField] private Constants.ObjectsColors creatureColor;
+        [SerializeField] protected Constants.ObjectsColors creatureColor;
         public GameObject RigBody; //the RigMain object that is inside the creature object
 
         [SerializeField] private float secondsBetweenRightAndLeftGunsShots; //time between the right bullet from the right gun and the left bullet from the left gun
@@ -86,19 +87,20 @@ namespace Creatures {
         private Rigidbody rig;
         private Coroutine slowdownCoroutine;
         private Spawner Spawner;
-        private CreatureMover creatureMover;
-        private CreatureAnimator animator;
+        public CreatureMover CreatureMover { get; private set; }
+        protected CreatureAnimator animator;
         [SerializeField] private float applyDamageWhenHypnotized = 5f;
         public bool IsSlowedDown { get; set; }
         public Constants.ObjectsColors CreatureColor => creatureColor;
 
         private void Awake() {
-            creatureMover = GetComponent<CreatureMover>();
+            CreatureMover = GetComponent<CreatureMover>();
         }
 
         private void FixedUpdate() {
-            if (creatureMover.IsBusy) return;
+            if (CreatureMover.IsBusy) return;
 
+            PreviousState = CurrentState;
             CurrentState = GetRandomActionToDo() switch {
                 CreatureAction.StayIdle => CreatureState.Idle,
                 CreatureAction.Patrol => CreatureState.Patrolling,

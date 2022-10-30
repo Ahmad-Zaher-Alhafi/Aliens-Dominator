@@ -23,7 +23,7 @@ namespace ManagersAndControllers {
             GameHandler = FindObjectOfType<GameHandler>();
             ArcheryRig = FindObjectOfType<ArcheryRig>();
 
-            HealthbarCanvas.transform.LookAt(ArcheryRig.transform);
+//            HealthbarCanvas.transform.LookAt(ArcheryRig.transform);
         }
 
         public void ReduceHealth(float dmg) {

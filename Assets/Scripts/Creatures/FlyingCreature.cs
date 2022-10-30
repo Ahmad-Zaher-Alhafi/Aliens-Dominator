@@ -34,9 +34,7 @@ namespace Creatures {
         [SerializeField] private Transform BodyRig;
         private int airPointIndex; //index of the next targetWayPoint in the airWayPoints array
         private readonly List<Transform> airWayPoints = new(); //air points which the creature has to follow
-        private Animator animator;
         private Creature creature;
-        private Constants.ObjectsColors creatureColor;
         private List<Paths> creaturePathes = new();
         private GameHandler gameHandler;
         private bool hasFinishedAttacking; //true if he finished attacking
@@ -355,7 +353,7 @@ namespace Creatures {
 
                     if (stinkyBall != null) {
                         stinkyBall.transform.parent = null; //unparent the stinky ball after threwing it
-                        animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.CastSpell));
+                        //animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.CastSpell));
                         yield return new WaitForSeconds(.25f); //wait untill the creature play the cast spell animation
                         if (stinkyBall != null) {
                             if (isNotTargetingPlayer == 1) stinkyBall.GetComponent<StinkyBall>().FollowTarget(target);

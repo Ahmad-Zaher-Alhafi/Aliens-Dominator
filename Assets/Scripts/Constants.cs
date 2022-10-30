@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Creatures;
 
 public static class Constants {
 
@@ -108,7 +106,7 @@ public static class Constants {
 
     /// <summary>
     /// </summary>
-    /// <param name="creatureName">Name of the creature game object that you want to get it's animatoin</param>
+    /// <param name="creatureName">Name of the creature game object that you want to get it's animation</param>
     /// <param name="animationType">Type of the animation that you want</param>
     /// <returns></returns>
     public static string GetAnimationName(string creatureName, AnimationsTypes animationType) {
@@ -150,8 +148,6 @@ public static class Constants {
                 if (creatureName.Contains("Magantis")) return magantisSpawnFromMouthAnimation;
                 return maganteeSpawnFromMouthAnimation;
             }
-
-
         }
 
         Debug.LogError(animationType + " Animation has not been Found For " + creatureName + " Creature, function return null");

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class StartCanves : MonoBehaviour {
 
     public void ExportProject(string exportedPackageName) {
-        ExportPackage.Export(exportedPackageName);
+        //ExportPackage.Export(exportedPackageName);
     }
 
     public void StartGameScene() {

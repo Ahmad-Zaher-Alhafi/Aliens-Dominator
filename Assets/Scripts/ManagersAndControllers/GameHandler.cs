@@ -107,7 +107,7 @@ namespace ManagersAndControllers {
         }
 
         public void UpdateStatus(int wave, int maxWave, int level) {
-            UIManager.UpdateStatus(wave, maxWave, level);
+//            UIManager.UpdateStatus(wave, maxWave, level);
         }
 
         public waypoint GetSpot(Creature.CreatureType creatureType) {
@@ -176,7 +176,7 @@ namespace ManagersAndControllers {
 
         public void UpdateResourcesCount(float resources) {
             NumOfResources += resources;
-            UIManager.UpdateResourcesNumText(NumOfResources);
+//            UIManager.UpdateResourcesNumText(NumOfResources);
         }
     }
 }

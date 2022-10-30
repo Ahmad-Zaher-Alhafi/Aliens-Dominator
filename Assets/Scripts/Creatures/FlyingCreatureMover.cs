@@ -30,6 +30,7 @@ namespace Creatures {
         }
 
         protected override void Patrol() {
+            base.Patrol();
             nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform;
             OrderToMove(nextCinematicPatrolPoint.position);
         }

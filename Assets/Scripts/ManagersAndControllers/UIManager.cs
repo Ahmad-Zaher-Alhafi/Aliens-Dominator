@@ -1,3 +1,4 @@
+using System;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -32,6 +33,11 @@ namespace ManagersAndControllers {
         public void SetupWin(int score) {
             WonText.gameObject.SetActive(true);
             WonText.text = string.Format("You won!\nScore: {0}", score);
+        }
+
+        private void Start() {
+            StartGame();
+            gameObject.SetActive(false);
         }
 
         public void StartGame() {

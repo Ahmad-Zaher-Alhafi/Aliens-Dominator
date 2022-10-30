@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 namespace Creatures {
     public class GroundCreatureMover : CreatureMover {
-        [SerializeField] private float secondsToStayIdle = 5;
         [SerializeField]
         public bool _patrolWaiting;
 
@@ -118,7 +117,7 @@ namespace Creatures {
             NavMeshAgent.enabled = true;
             NavMeshAgent.speed = Speed;
             NavMeshAgent.stoppingDistance = wayPointsRemainedDistance;
-            
+
             animator = GetComponent<Animator>();
 
             Spawner = FindObjectOfType<Spawner>();
@@ -140,11 +139,12 @@ namespace Creatures {
 
         protected override void Update() {
             base.Update();
-
+            NavMeshAgent.speed = CurrentSpeed;
             if (HasMovingOrder) {
                 if (HasReachedDestination) {
                     IsBusy = false;
                     HasMovingOrder = false;
+                    NavMeshAgent.speed = 0;
                 }
             }
 
@@ -212,14 +212,8 @@ namespace Creatures {
             }*/
         }
 
-        protected override void StayIdle() {
-            base.StayIdle();
-            if (stayingIdleRoutine != null) return;
-            stayingIdleRoutine = StartCoroutine(StayIdleForSeconds(secondsToStayIdle));
-        }
-
         protected override void Patrol() {
-            IsBusy = true;
+            base.Patrol();
             HasMovingOrder = true;
             NavMesh.CalculatePath(transform.position, GetRandomWaypointForCinematicEnemy().transform.position, NavMesh.AllAreas, Path);
             NavMeshAgent.SetPath(Path);
@@ -266,13 +260,6 @@ namespace Creatures {
             } else {
                 IsBusy = false;
             }
-        }
-
-        private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
-            IsBusy = true;
-            yield return new WaitForSeconds(secondsToStayIdle);
-            stayingIdleRoutine = null;
-            IsBusy = false;
         }
 
         //After the enemy reached the destination, look at the wall
