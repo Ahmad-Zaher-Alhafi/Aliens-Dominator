@@ -21,12 +21,12 @@ namespace Creatures {
         private GroundCreatureMover nPCSimplePatrol;
 
         private float oldSpeed;
-        private Spawner spawner;
+        private CreatureSpawnController creatureSpawnController;
 
         private void Start() {
             creature = GetComponent<Creatures.Creature>();
             animator = GetComponent<Animator>();
-            spawner = FindObjectOfType<Spawner>();
+            creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
             nPCSimplePatrol = GetComponent<GroundCreatureMover>();
 
             OrderToSpawnCreatures();
@@ -45,7 +45,7 @@ namespace Creatures {
                     animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.SpawnFromMouth));
                     yield return new WaitForSeconds(.3f);
                     if (creature.CurrentState == Creature.CreatureState.Dead) break;
-                    var navMeshAgent = spawner.SpawnBug(creatureSpawningPoint, bugPrefabToSpawn.gameObject, nPCSimplePatrol).GetComponent<NavMeshAgent>();
+                    var navMeshAgent = creatureSpawnController.SpawnBug(creatureSpawningPoint, bugPrefabToSpawn.gameObject, nPCSimplePatrol).GetComponent<NavMeshAgent>();
                     BugSpawnParticles.Play();
                     navMeshAgent.enabled = false;
                     navMeshAgent.GetComponent<Animator>().Play(Constants.GetAnimationName(navMeshAgent.gameObject.name, Constants.AnimationsTypes.SpawnFromMouth));

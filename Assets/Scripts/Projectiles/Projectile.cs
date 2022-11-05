@@ -44,7 +44,7 @@ namespace Projectiles {
 
             if (!WasShoot) return;
 
-            if (!other.CompareTag(Constants.SecuritySensor) && other.gameObject.layer != Constants.ignorRaycastLayerNumber && !other.CompareTag(Constants.Arrow)) //if it hit any object except the the security sensor collider or the creature internal body colliders
+            if (!other.CompareTag(Constants.SecuritySensor) && other.gameObject.layer != Constants.IGNORE_RAYCAST_LAYER_ID && !other.CompareTag(Constants.Arrow)) //if it hit any object except the the security sensor collider or the creature internal body colliders
             {
                 if (isItRocket) {
                     if (rocketSmokeParticle != null) rocketSmokeParticle.transform.parent = null;

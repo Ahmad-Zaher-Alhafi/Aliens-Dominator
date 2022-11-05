@@ -10,14 +10,14 @@ namespace Creatures {
         private Vector3 current;
         private Transform nextCinematicPatrolPoint;
         private List<waypoint> airWayPoints = new(); // Air points which the creature has to follow
-        private Spawner spawner;
+        private CreatureSpawnController creatureSpawnController;
         private Vector3 positionToMoveTo;
 
 
         protected override void Awake() {
             base.Awake();
-            spawner = FindObjectOfType<Spawner>();
-            airWayPoints = spawner.AirCinematicEnemyWaypoints.ToList();
+            creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
+            airWayPoints = creatureSpawnController.AirCinematicEnemyWaypoints.ToList();
             nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform; //get a random patrol air point
         }
 

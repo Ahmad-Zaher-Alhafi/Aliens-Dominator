@@ -18,7 +18,7 @@ namespace ManagersAndControllers {
         [SerializeField] private GameObject pauseBtn;
         [SerializeField] private PanelManager panelManager;
         [SerializeField] private TextMeshProUGUI resourcesNumText;
-        [SerializeField] private Spawner spawner;
+        [SerializeField] private CreatureSpawnController creatureSpawnController;
 
 
         public void SetupGameover(int score) {
@@ -81,7 +81,7 @@ namespace ManagersAndControllers {
 
         public void StartNextLevel() {
             EventsManager.OnLevelStarts();
-            spawner.StartNextLevel();
+            creatureSpawnController.StartNextLevel();
         }
     }
 }

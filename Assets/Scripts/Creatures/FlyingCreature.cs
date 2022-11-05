@@ -55,7 +55,6 @@ namespace Creatures {
         private int randAttackTypeNum; // 0 = threw stinky ball, 1 = Attack player, else = patrol to random point
         private Vector3 randomPatrolPosiotion; //a random position around the pointToPatrolAround object
         private Transform runAwayPoint;
-        private Spawner spawner;
         private Transform targetToFollow;
         private Vector3 wantedAngle, oldAngle; //wanted angle is the angle that the creature has to rotate to it to reach the wanted point, old angle is the current angle
         public List<Paths> CreaturePathes {

@@ -27,7 +27,7 @@ namespace ManagersAndControllers {
 
     [Serializable]
     public class EnemyClass {
-        public Creatures.Creature Enemy;
+        public Creature Enemy;
         public List<EnemyProperties> EnemyProperties = new();
     }
 
@@ -119,7 +119,7 @@ namespace ManagersAndControllers {
                 if (rest - 1 < 0 || properties.Count <= 0) return poolManager.InstantiateCreature(creature.gameObject);
 
                 rest = properties.Count - 1;
-                
+
 
                 creature.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial = properties[rest].Skin;
 
@@ -134,7 +134,12 @@ namespace ManagersAndControllers {
         }
     }
 
-    public class Spawner : MonoBehaviour {
+    public class CreatureSpawnController : MonoBehaviour {
+        [SerializeField] private Transform cinematicCreaturesParent;
+        [SerializeField] private int numOfCinematicCreaturesOnStart = 10;
+        [SerializeField] private Creature groundCinematicCreaturePrefab;
+        [SerializeField] private Creature airCinematicCreaturePrefab;
+
         public enum SpawnTypes {
             TimedWave
         }
@@ -190,7 +195,7 @@ namespace ManagersAndControllers {
 
         public Transform[] RunningAwayPoints => runningAwayPoints;
 
-        private void Awake() {
+        private void Start() {
             wasBossSpawned = false;
             Timer = LevelSettings.TimerForEnemySpawn;
 
@@ -202,7 +207,19 @@ namespace ManagersAndControllers {
 
             EventsManager.onBossDie += FinishLevel;
             //SpawnAirCreaturesGroup(Constants.GroupsTypes.triangle);
+            SpawnCinematicCreatures();
         }
+
+        private void SpawnCinematicCreatures() {
+            for (int i = 0; i < numOfCinematicCreaturesOnStart; i++) {
+                Creature creature = groundCinematicCreaturePrefab.GetObject<Creature>(cinematicCreaturesParent);
+                creature.Init(GroundCinematicEnemyWaypoints[i].transform.position, "");
+                
+                creature = airCinematicCreaturePrefab.GetObject<Creature>(cinematicCreaturesParent);
+                creature.Init(AirCinematicEnemyWaypoints[i].transform.position, "");
+            }
+        }
+
 
         private void Update() {
             if (Spawn)
@@ -349,11 +366,11 @@ namespace ManagersAndControllers {
 
                 patrol.EnemyId = id;
                 patrol.PatrolPoints = waypoints;
-                patrol.Spawner = this;
+                patrol.creatureSpawnController = this;
             }
 
             var creature = Enemy.GetComponent<Creatures.Creature>();
-            creature.Init(id);
+            creature.Init(Vector3.zero, id);
 
             numEnemy++;
             spawnedEnemy++;
@@ -397,10 +414,10 @@ namespace ManagersAndControllers {
                 patrol.EnemyId = id;
                 patrol.PatrolPoints = waypoints;
                 patrol.CurrentPatrolIndex = BugSpawner.CurrentPatrolIndex;
-                patrol.Spawner = this;
+                patrol.creatureSpawnController = this;
             }
 
-            creature.Init(id);
+            creature.Init(Vector3.zero, id);
 
             numEnemy++;
             spawnedEnemy++;
@@ -592,7 +609,7 @@ namespace ManagersAndControllers {
             flyingCreature.CreaturePathes = waypoints;
 
             var creature = enemyInstantiated.GetComponent<Creatures.Creature>();
-            creature.Init(id);
+            creature.Init(Vector3.zero, id);
 
             numEnemy++;
             spawnedEnemy++;

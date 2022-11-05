@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using ManagersAndControllers;
+using Pool;
 using UnityEngine;
 
 namespace Arrows {
     [RequireComponent(typeof(TrailRenderer), typeof(Rigidbody), typeof(AudioSource))]
-    public class ArrowBase : MonoBehaviour {
+    public class ArrowBase : PooledObject, IDamager {
+        public float Damage => damage;
+        public Transform Transform => transform;
+        public GameObject GameObject => gameObject;
+        
         [SerializeField] protected float speed = 5;
         [SerializeField] protected List<AudioClip> hitSounds = new();
         [SerializeField] protected AudioClip releaseSound;
         [SerializeField] protected AudioClip knockingSound;
-        public float damage = 50f;
+        [SerializeField] private float damage = 50f;
 
         public float TimeToDestroyArrow = 5f;
 
@@ -67,8 +72,7 @@ namespace Arrows {
 
             transform.SetParent(null);
             gameObject.SetActive(false);
-
-            GameHandler.PoolManager.AddArrowToPool(gameObject);
+            ReturnToPool();
         }
 
         private void EnableColliders() {

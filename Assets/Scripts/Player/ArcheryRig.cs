@@ -76,9 +76,9 @@ namespace Player {
 
             if (Input.GetButton("Fire1")) {
                 if (arrow == null) {
-                    arrow = GameHandler.PoolManager.GetArrow(arrowBase, arrowSpawnPoint.position, arrowSpawnPoint.rotation).GetComponent<ArrowBase>();
-                    arrow.transform.SetParent(arrowSpawnPoint);
-
+                    arrow = DefaultArrow.GetObject<DefaultArrow>(arrowSpawnPoint);
+                    arrow.transform.localPosition = Vector3.zero;
+                    arrow.transform.rotation = arrowSpawnPoint.transform.rotation;
                     arrow.Knock();
                     audio.PlayOneShot(drawSound);
                 }

@@ -84,9 +84,10 @@ public static class Constants {
 
 
     //Layers number
-    public const int enemyLayerNumber = 6; //number of Enemy layer
-    public const int projectileLayerNumber = 8; //number of projectile layer
-    public const int ignorRaycastLayerNumber = 2; //number of ignorRaycast layer
+    public const int ENEMY_LAYER_ID = 6;
+    public const int PROJECTILE_LAYER_ID = 8;
+    public const int IGNORE_RAYCAST_LAYER_ID = 2;
+    public const int Arrow_LAYER_ID = 7;
 
     private static readonly string[] scorpionAttackAnimations = new string[5] { "Front Legs Attack", "Tail Flick Attack", "Tail Slice Attack", "Tail Stab Attack", "Tail Swing Attack" };
 
@@ -102,7 +103,7 @@ public static class Constants {
 
     private static readonly string[] ulifoAttackAnimations = new string[4] { "Left Slice Attack", "Leg Attack", "Right Slice Attack", "Stomp Attack" };
 
-    
+
 
     /// <summary>
     /// </summary>

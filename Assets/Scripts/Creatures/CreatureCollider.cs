@@ -2,7 +2,7 @@ using Arrows;
 using UnityEngine;
 
 namespace Creatures {
-    public class CreatureCollider : Hitable {
+    public class CreatureCollider : MonoBehaviour {
         [SerializeField] private ParticleSystem bloodEffect; //blood effect of the creature
         private Creature Creature;
 
@@ -25,15 +25,6 @@ namespace Creatures {
                 bloodEffect.gameObject.SetActive(true);
                 bloodEffect.Play();
             }
-        }
-        
-        public override void HandleArrowHit(ArrowBase arrow) {
-            if (!Creature)
-                return;
-
-            //Debug.Log(name);
-
-            Creature.HandleHit(arrow, tag);
         }
     }
 }

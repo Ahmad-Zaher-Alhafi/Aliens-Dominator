@@ -10,6 +10,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
@@ -26,7 +27,8 @@ namespace ManagersAndControllers {
         public List<GameObject> SpecialArrows = new();
         public List<Ballon> Ballons = new();
         public float NumOfResources;
-        public Spawner Spawner;
+        [FormerlySerializedAs("Spawner")]
+        public CreatureSpawnController creatureSpawnController;
         public UIManager UIManager;
         [HideInInspector]
         public List<GameObject> AllEnemies = new();
@@ -93,7 +95,7 @@ namespace ManagersAndControllers {
 
         //Inits starting a new level
         public void InitNewWave() {
-            Spawner.Spawn = false;
+            creatureSpawnController.Spawn = false;
         }
 
         public void GameOver(int score) {

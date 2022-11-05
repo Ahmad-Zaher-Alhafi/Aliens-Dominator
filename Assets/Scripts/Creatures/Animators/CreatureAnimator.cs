@@ -15,36 +15,23 @@ namespace Creatures.Animators {
         protected Animator Animator;
         protected float InitialSpeed;
         
-        private static readonly int currentSpeedParameter = Animator.StringToHash("Current Speed");
         private bool IsBusy;
         protected const float ANIMATION_SWITCH_TIME = 3;
-        
+
         private void Awake() {
             Creature = GetComponent<Creature>();
             Animator = GetComponent<Animator>();
             InitialSpeed = Animator.speed;
         }
 
+        public void Init() {
+            Animator.enabled = true;
+        }
+        
         protected virtual void Update() {
-            InterpolateFloatParameter(currentSpeedParameter, Creature.CreatureMover.CurrentSpeed, ANIMATION_SWITCH_TIME);
-
-            switch (Creature.CurrentState) {
-                case Creature.CreatureState.Idle:
-                    break;
-                case Creature.CreatureState.Patrolling:
-                    break;
-                case Creature.CreatureState.FollowingPath:
-                    break;
-                case Creature.CreatureState.GettingHit:
-                    break;
-                case Creature.CreatureState.Attacking:
-                    break;
-                case Creature.CreatureState.Chasing:
-                    break;
-                case Creature.CreatureState.Dead:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+            if (Creature.CurrentState == Creature.CreatureState.Dead) {
+                Animator.enabled = false;
+                return;
             }
 
             switch (Creature.IsSlowedDown) {
@@ -62,12 +49,6 @@ namespace Creatures.Animators {
                 Animator.enabled = !enabled;
             }*/
 
-        }
-
-        protected void InterpolateFloatParameter(int animationClipID, float newValue, float speed) {
-            float oldValue = Animator.GetFloat(animationClipID);
-            float value = Mathf.Lerp(oldValue, newValue, speed * Time.deltaTime);
-            Animator.SetFloat(animationClipID, value);
         }
     }
 }

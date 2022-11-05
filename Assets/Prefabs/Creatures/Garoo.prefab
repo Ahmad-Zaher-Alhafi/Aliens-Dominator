@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5089750566362441890}
   - component: {fileID: 6187947875671137603}
   - component: {fileID: 3929600665006967555}
+  - component: {fileID: 673684949057605560}
   m_Layer: 2
   m_Name: RigRLeg3
   m_TagString: EnemyLegs
@@ -77,7 +78,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.53958195, y: 0, z: -0.000000014901179}
+  m_ConnectedAnchor: {x: -0.53958195, y: 0.0000004768352, z: 0.00000087171895}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -111,6 +112,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &673684949057605560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032479073972902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1053385916270832
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +171,7 @@ GameObject:
   - component: {fileID: 5677752437843558429}
   - component: {fileID: 9095495834005959593}
   - component: {fileID: 4271231179626713301}
+  - component: {fileID: 5604973610398380191}
   m_Layer: 2
   m_Name: RigLLeg2
   m_TagString: EnemyLegs
@@ -220,7 +237,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.26226422, y: 0.2937236, z: 0.33392084}
+  m_ConnectedAnchor: {x: -0.26226383, y: 0.2937231, z: 0.3339214}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -254,6 +271,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5604973610398380191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123373127780490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1136793242787420
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +298,7 @@ GameObject:
   - component: {fileID: 6858163022689380254}
   - component: {fileID: 5757191834556310645}
   - component: {fileID: 3758044240421435981}
+  - component: {fileID: 4073772209549766926}
   m_Layer: 2
   m_Name: RigRLegFoot1
   m_TagString: EnemyLegs
@@ -331,7 +364,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.61310655, y: -0.0071109477, z: -0.007980062}
+  m_ConnectedAnchor: {x: -0.61310685, y: -0.007111365, z: -0.007980956}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -365,6 +398,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &4073772209549766926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136793242787420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 4
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1190306293535140
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6148b840567c4718b61be9d67dcdfcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolRelatedTo: {fileID: 0}
   ScorePoints: 100
   Type: 0
   CurrentState: 0
@@ -652,16 +701,16 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c127976f5c1498347ac48bb2eeb7d98e, type: 2}
   slowdownTimer: 6
   attackDamage: 10
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
+  CreatureStateCanves: {fileID: 7115475964428677332}
+  CreatureHealthBar: {fileID: 7115475965159596588}
   hitForce: 1000
-  health: 100
+  health: 5
   textsMotionBehavior: []
   chanceOfDroppingArrow: 0
   waypointMinIndexToActivateSpecialActions: 2
   timeToDestroyDeadBody: 3
   creatureColor: 0
-  RigBody: {fileID: 0}
+  RigBody: {fileID: 1317829253858548}
   secondsBetweenRightAndLeftGunsShots: 0
   AttackTimer: 3
   AttackerId: 
@@ -678,9 +727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc3b24582a56254ba3796ffae42a0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rotatingSpeed: 1
   secondsToStayIdle: 5
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
   _patrolWaiting: 0
   _totalWaitTime: 0
   wayPointsRemainedDistance: 0.5
@@ -707,7 +757,7 @@ MonoBehaviour:
   NavMeshAgent: {fileID: 0}
   CurrentPatrolIndex: 0
   EnemyId: d121
-  Spawner: {fileID: 0}
+  creatureSpawnController: {fileID: 0}
   WalkAnimationParameter: Walk Forward
   CinematicEnemiesPath: 9
   TimeToWaitForAnimation: 3
@@ -734,15 +784,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac66d6cd168c49bf91c11a81319f7389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdleAnimationClips: {fileID: 7400000, guid: f6ab7a7ceef0c94478c7c39c4afb6526, type: 3}
   PhysicalAttackAnimationClips:
   - {fileID: 7400000, guid: ce41724fce3f0cc45b09e0c6c0f8fdc6, type: 3}
+  IdleAnimationClip: {fileID: 7400000, guid: f6ab7a7ceef0c94478c7c39c4afb6526, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: cf91052aa11cf3942a83b4c6d5982ce8, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: 266cf37da25ca8040b2987c90b473077, type: 3}
-  lookAroundAnimationClip: {fileID: 7400000, guid: 0e3080dd8b0ccb64880c2e4ed45ca848, type: 3}
-  feedAnimationClip: {fileID: 7400000, guid: 1168f93d32b429a4093b0f1232131c79, type: 3}
   walkAnimationClip: {fileID: 7400000, guid: 4ac3dd09033415c4299263c0fcbe2098, type: 3}
   runAnimationClip: {fileID: 7400000, guid: 11d9a6cff6b2e7547b645e2815aa1dff, type: 3}
+  lookAroundAnimationClip: {fileID: 7400000, guid: 0e3080dd8b0ccb64880c2e4ed45ca848, type: 3}
+  feedAnimationClip: {fileID: 7400000, guid: 1168f93d32b429a4093b0f1232131c79, type: 3}
   roarAnimationClip: {fileID: 7400000, guid: ba2d54a48b5243c4b91a39beda4a4036, type: 3}
 --- !u!54 &7649770187085257748
 Rigidbody:
@@ -780,7 +830,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301338880282656}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -922,6 +972,7 @@ GameObject:
   - component: {fileID: 4440515531213208}
   - component: {fileID: 2951955975663882121}
   - component: {fileID: 8924978187453462297}
+  - component: {fileID: 4432442682077264113}
   - component: {fileID: 2114847926322660344}
   m_Layer: 2
   m_Name: RigPelvis
@@ -980,6 +1031,21 @@ CapsuleCollider:
   m_Height: 0.6875425
   m_Direction: 0
   m_Center: {x: 0.09741039, y: 0.013212801, z: 0.015397609}
+--- !u!114 &4432442682077264113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317829253858548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 1
+  creature: {fileID: 5593732503635476519}
 --- !u!114 &2114847926322660344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,6 +1264,7 @@ GameObject:
   - component: {fileID: 1074917471503276618}
   - component: {fileID: 7523584980359036124}
   - component: {fileID: 2713162566925338082}
+  - component: {fileID: 729811650738545572}
   m_Layer: 2
   m_Name: RigHead
   m_TagString: EnemyHead
@@ -1267,7 +1334,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.46613657, y: 0.051994227, z: 0.00000008940697}
+  m_ConnectedAnchor: {x: -0.46613675, y: 0.0519934, z: 0.000000059604645}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1301,6 +1368,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &729811650738545572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387869386930056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 5
+  type: 0
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1393336571233818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1554,7 @@ GameObject:
   - component: {fileID: 8830509823601288364}
   - component: {fileID: 2038427052783914115}
   - component: {fileID: 2617459571914169087}
+  - component: {fileID: 702842084499324815}
   m_Layer: 2
   m_Name: RigLLeg3
   m_TagString: EnemyLegs
@@ -1537,7 +1620,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.5395821, y: -0.00000005960491, z: 0.00000005960459}
+  m_ConnectedAnchor: {x: -0.5395819, y: -0.00000035762946, z: 0.00000033527581}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1571,6 +1654,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &702842084499324815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599873518210774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1609285737921544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,6 +1841,7 @@ GameObject:
   - component: {fileID: 2602637162578404272}
   - component: {fileID: 8762944844162973794}
   - component: {fileID: 8717236879650725551}
+  - component: {fileID: 6947771712907037205}
   m_Layer: 2
   m_Name: RigLLegFoot1
   m_TagString: EnemyLegs
@@ -1808,7 +1907,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.61311054, y: -0.0070822877, z: 0.007939463}
+  m_ConnectedAnchor: {x: -0.6131107, y: -0.0070823473, z: 0.007939373}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1842,6 +1941,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6947771712907037205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666121187337884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 4
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1686454881415810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,6 +2000,7 @@ GameObject:
   - component: {fileID: 3126568124017006943}
   - component: {fileID: 5996968572451215884}
   - component: {fileID: 6092752069445696662}
+  - component: {fileID: 7954237608648081458}
   m_Layer: 2
   m_Name: RigRLeg2
   m_TagString: EnemyLegs
@@ -1937,7 +2052,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.26178956, y: 0.29382685, z: -0.33802918}
+  m_ConnectedAnchor: {x: -0.26178974, y: 0.29382777, z: -0.33802986}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1985,6 +2100,21 @@ CapsuleCollider:
   m_Height: 0.6217627
   m_Direction: 0
   m_Center: {x: -0.27896926, y: -0.012734093, z: 0.010412817}
+--- !u!114 &7954237608648081458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731491169537444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 5593732503635476519}
 --- !u!1 &1744862166282438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2610,8 +2740,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+--- !u!1 &7115475964428677332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+  m_PrefabInstance: {fileID: 5837289357628944176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7115475964428677352 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
   m_PrefabInstance: {fileID: 5837289357628944176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7115475965159596588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3728144925096594716, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+  m_PrefabInstance: {fileID: 5837289357628944176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

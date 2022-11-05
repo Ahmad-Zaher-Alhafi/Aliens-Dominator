@@ -18,8 +18,8 @@ namespace Defence_Weapons {
         private RaycastHit raycast; //raycast to chick if we can hit that target and it's not hiden behind another object
 
         private void Start() {
-            layersToIgnor[0] = LayerMask.LayerToName(Constants.projectileLayerNumber);
-            layersToIgnor[1] = LayerMask.LayerToName(Constants.ignorRaycastLayerNumber);
+            layersToIgnor[0] = LayerMask.LayerToName(Constants.PROJECTILE_LAYER_ID);
+            layersToIgnor[1] = LayerMask.LayerToName(Constants.IGNORE_RAYCAST_LAYER_ID);
 
             EventsManager.onEnemyDiesInsideSecurityArea += RemoveDeadTarget;
         }
@@ -91,7 +91,7 @@ namespace Defence_Weapons {
 
                 Physics.Raycast(transform.position, transform.forward, out raycast, Vector3.Distance(transform.position, target.RigBody.transform.position), ~LayerMask.GetMask(layersToIgnor)); //the +1 is needed for the animation problem
                 if (raycast.collider != null) {
-                    if (raycast.collider.gameObject.layer == Constants.enemyLayerNumber) //if the ray hit a creature
+                    if (raycast.collider.gameObject.layer == Constants.ENEMY_LAYER_ID) //if the ray hit a creature
                         return true;
                     return false;
                 }

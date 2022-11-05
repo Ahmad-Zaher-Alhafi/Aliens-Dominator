@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ManagersAndControllers {
     public class PoolManager : MonoBehaviour {
-        public Spawner SpawnHandler;
+        public CreatureSpawnController SpawnHandler;
         private readonly List<GameObject> Arrows = new();
         private readonly List<GameObject> Enemies = new();
 

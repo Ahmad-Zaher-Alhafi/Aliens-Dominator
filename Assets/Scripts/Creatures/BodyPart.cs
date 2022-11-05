@@ -1,17 +1,25 @@
+using Arrows;
 using UnityEngine;
 
 namespace Creatures {
     public class BodyPart : MonoBehaviour {
-        public enum CreatureBodyPart { //Stores the body tags in enum, so its easier to setup in inspector
+        public enum CreatureBodyPart {
             Head,
             Body,
             Leg,
             Arm,
-            Tail
+            Foot
         }
 
-        [Range(0f, 5f)]
-        public float Weight = 1f; //1 = full damage of the arrow gets applied
-        public BodyPart Type; //The tag where the weight gets applied
+        [Range(1f, 5f)]
+        [SerializeField] int damageWeight = 1;
+        [SerializeField] CreatureBodyPart type;
+        [SerializeField] private Creature creature;
+
+        private void OnCollisionEnter(Collision collision) {
+            if (collision.gameObject.layer == Constants.Arrow_LAYER_ID) {
+                creature.GetHurt(collision.gameObject.GetComponent<ArrowBase>(), damageWeight);
+            }
+        }
     }
 }

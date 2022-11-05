@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ManagersAndControllers;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Creatures {
@@ -28,8 +29,9 @@ namespace Creatures {
         public int CurrentPatrolIndex;
         [HideInInspector]
         public string EnemyId;
+        [FormerlySerializedAs("Spawner")]
         [HideInInspector]
-        public Spawner Spawner;
+        public CreatureSpawnController creatureSpawnController;
 
         public string WalkAnimationParameter;
 
@@ -113,17 +115,14 @@ namespace Creatures {
             Path = new NavMeshPath();
 
             GameHandler = FindObjectOfType<GameHandler>();
-            NavMeshAgent = GetComponent<NavMeshAgent>();
-            NavMeshAgent.enabled = true;
-            NavMeshAgent.speed = Speed;
-            NavMeshAgent.stoppingDistance = wayPointsRemainedDistance;
+           
 
             animator = GetComponent<Animator>();
 
-            Spawner = FindObjectOfType<Spawner>();
+            creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
 
 
-            FollowRandomPath();
+            //FollowRandomPath();
 
             //You see it right, I'm using events haha
             //This will fire once one enemy got killed/ hit, so enemies stop running in circles
@@ -137,8 +136,24 @@ namespace Creatures {
             }
         }
 
+        public override void Init() {
+            base.Init();
+            if (NavMeshAgent == null) {
+                NavMeshAgent = GetComponent<NavMeshAgent>();
+            }
+            
+            NavMeshAgent.enabled = true;
+            NavMeshAgent.speed = Speed;
+            NavMeshAgent.stoppingDistance = wayPointsRemainedDistance;
+        }
+
         protected override void Update() {
             base.Update();
+            if (Creature.CurrentState == Creature.CreatureState.Dead) {
+                NavMeshAgent.enabled = false;
+                return;
+            }
+
             NavMeshAgent.speed = CurrentSpeed;
             if (HasMovingOrder) {
                 if (HasReachedDestination) {
@@ -236,7 +251,7 @@ namespace Creatures {
             //NavMeshAgent.speed = Mathf.Lerp(NavMeshAgent.speed, NewSpeed, Time.deltaTime * 1f);
 
             NavMeshAgent.speed = Speed;
-            List<waypoint> waypoints = Spawner.GroundCinematicEnemyWaypoints;
+            List<waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
 
             if (NavMeshAgent.remainingDistance <= wayPointsRemainedDistance && waypoints.Count > 0) {
                 GetRandomWaypointForCinematicEnemy();
@@ -293,8 +308,8 @@ namespace Creatures {
         }
 
         private waypoint GetRandomWaypointForCinematicEnemy() {
-            int random = Random.Range(0, Spawner.GroundCinematicEnemyWaypoints.Count);
-            return Spawner.GroundCinematicEnemyWaypoints[random];
+            int random = Random.Range(0, creatureSpawnController.GroundCinematicEnemyWaypoints.Count);
+            return creatureSpawnController.GroundCinematicEnemyWaypoints[random];
         }
 
         private void FollowRandomPath() {
@@ -528,9 +543,9 @@ namespace Creatures {
                 //Update run animation
                 StartMovingAnimation();
 
-                if (NavMesh.CalculatePath(transform.position, Spawner.RunningAwayPoints[Random.Range(0, Spawner.RunningAwayPoints.Length)].position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
+                if (NavMesh.CalculatePath(transform.position, creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Length)].position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
             } else {
-                List<waypoint> waypoints = Spawner.GroundCinematicEnemyWaypoints;
+                List<waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
 
                 NavMeshAgent.speed = Speed;
 

@@ -37,7 +37,7 @@ namespace ManagersAndControllers {
                 ArcheryRig.enabled = false;
                 Time.timeScale = 0;
 
-                GameHandler.GameOver(GameHandler.Spawner.Score);
+                GameHandler.GameOver(GameHandler.creatureSpawnController.Score);
             }
         }
     }

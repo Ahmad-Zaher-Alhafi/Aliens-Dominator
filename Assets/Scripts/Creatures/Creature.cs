@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Arrows;
@@ -7,6 +6,7 @@ using Collectables;
 using Creatures.Animators;
 using Defence_Weapons;
 using ManagersAndControllers;
+using Pool;
 using Projectiles;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Creatures {
-    public abstract class Creature : MonoBehaviour {
+    public abstract class Creature : PooledObject {
         public enum CreatureType {
             Grounded,
             Flying
@@ -81,12 +81,11 @@ namespace Creatures {
         private float initialHealth;
         private bool isInsideSeacurityArea; //true if it entred the security area of the security weapon
 
-        private GroundCreatureMover movement;
         private Transform playerLookAtPoint; //point where the creature canves is gonna look at
         private Transform playerShootAtPoint; //point where the creature is gonna look at to shoot
         private Rigidbody rig;
         private Coroutine slowdownCoroutine;
-        private Spawner Spawner;
+        protected CreatureSpawnController creatureSpawnController;
         public CreatureMover CreatureMover { get; private set; }
         protected CreatureAnimator animator;
         [SerializeField] private float applyDamageWhenHypnotized = 5f;
@@ -98,7 +97,7 @@ namespace Creatures {
         }
 
         private void FixedUpdate() {
-            if (CreatureMover.IsBusy) return;
+            if (CreatureMover.IsBusy || CurrentState == CreatureState.Dead) return;
 
             PreviousState = CurrentState;
             CurrentState = GetRandomActionToDo() switch {
@@ -142,7 +141,7 @@ namespace Creatures {
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (other.gameObject.layer == Constants.projectileLayerNumber) //if a projectile hit it
+            if (other.gameObject.layer == Constants.PROJECTILE_LAYER_ID) //if a projectile hit it
             {
                 var projectile = other.GetComponent<Projectile>();
                 if (projectile.WasShoot) ReceiveDamageFromObject(projectile.DamageCost, hitForce, other.transform.position);
@@ -198,7 +197,9 @@ namespace Creatures {
             }
         }
 
-        public void Init(string enemyID) {
+        public void Init(Vector3 position, string enemyID) {
+            CurrentState = CreatureState.Idle;
+            transform.position = position;
             EnemyId = enemyID;
 
             if (this is IBugCreature) EventsManager.onBossDie += killBugs;
@@ -207,6 +208,9 @@ namespace Creatures {
             gameObject.SetActive(true);
 
             rig = GetComponent<Rigidbody>();
+            rig.isKinematic = false;
+            rig.useGravity = false;
+            
             isInsideSeacurityArea = false;
             playerShootAtPoint = GameObject.FindGameObjectWithTag(Constants.PlayerShootAtPoint).transform;
             playerLookAtPoint = GameObject.FindGameObjectWithTag(Constants.PlayerLookAtPoint).transform;
@@ -220,14 +224,14 @@ namespace Creatures {
             audioSource = GetComponent<AudioSource>();
             body = GetComponent<Rigidbody>();
 
-            movement = GetComponent<GroundCreatureMover>();
             animator = GetComponent<CreatureAnimator>();
-
-            Spawner = FindObjectOfType<Spawner>();
+            animator.Init();
+            CreatureMover.Init();
+            creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
 
             ChildrenRigidbody = GetComponentsInChildren<Rigidbody>();
 
-            EnableRagdoll(false, null);
+            //EnableRagdoll(false, null);
             initialHealth = health;
             CreatureHealthBar.maxValue = initialHealth;
             CreatureHealthBar.minValue = 0;
@@ -253,40 +257,31 @@ namespace Creatures {
             if (agent) agent.enabled = !enabled;
 
             if (Type == CreatureType.Grounded)
-                if (movement)
-                    movement.enabled = !enabled;
 
 
-            if (hit == null) return;
+                if (hit == null)
+                    return;
 
-            for (int j = 0; j < ChildrenRigidbody.Length; j++)
-                if (!ChildrenRigidbody[j].CompareTag("BloodEffect"))
+            for (int j = 0; j < ChildrenRigidbody.Length; j++) {
+                if (!ChildrenRigidbody[j].CompareTag("BloodEffect")) {
                     ChildrenRigidbody[j].AddForce(hit.transform.forward * hitForce + Vector3.up * hitForce / 4);
+                }
+            }
 
             rig.isKinematic = enabled;
             rig.useGravity = !enabled;
         }
 
-        /// <summary>
-        ///     Handle a normal arrow hit, it considers the body part where the arrow hit too
-        /// </summary>
-        /// <param name="arrow"></param>
-        /// <param name="tag">Tag of body part</param>
-        public void HandleHit(ArrowBase arrow, string tag) {
+
+        public void GetHurt(IDamager damager, float damageWeight) {
             if (CurrentState == CreatureState.Dead) return;
 
-            float multiplier = 1f;
-
-            //Debug.Log(tag);
-            float dmg = arrow.damage * multiplier;
-
-            ShowDamageText(dmg);
-
-            health -= dmg;
-
+            float totalDamage = damager.Damage * damageWeight;
+            health -= totalDamage;
             PreviousState = CreatureState.GettingHit;
+            ApplyDamage(damager.GameObject, hitForce);
 
-            ApplyDamage(arrow.gameObject, hitForce, arrow.transform.position);
+            //ShowDamageText(totalDamage);
         }
 
         private void ShowDamageText(float dmg) {
@@ -300,12 +295,12 @@ namespace Creatures {
                     text.ShowDamageTakenText(dmg);
                 }
 
-            if (!hasFoundFreeText) //if it has not found a free text then create new one
+            /*if (!hasFoundFreeText) //if it has not found a free text then create new one
             {
                 TextMotionBehavior newText = Instantiate(textsMotionBehavior[0], textsMotionBehavior[0].transform.parent);
                 textsMotionBehavior.Add(newText);
                 newText.ShowDamageTakenText(dmg);
-            }
+            }*/
         }
 
         public void ReceiveExplosionDamage(ArrowBase arrow, float dmg, float force) {
@@ -314,7 +309,7 @@ namespace Creatures {
             health -= dmg;
 
             PreviousState = CreatureState.GettingHit;
-            ApplyDamage(arrow.gameObject, force, arrow.transform.position);
+            ApplyDamage(arrow.gameObject, force);
         }
 
         public void ReceiveDamageFromObject(float dmg, float force, Vector3 damagedPosition = new()) {
@@ -323,7 +318,7 @@ namespace Creatures {
             health -= dmg;
             PreviousState = CreatureState.GettingHit;
 
-            ApplyDamage(null, force, damagedPosition);
+            ApplyDamage(null, force);
         }
 
         public void ReceiveDamageFromEnemy(GameObject enemy, float dmg, float force) {
@@ -333,14 +328,13 @@ namespace Creatures {
 
             health -= dmg;
 
-            if (AttackerId == null && movement.TrackEnemyID == null) {
+            if (AttackerId == null) {
                 //Debug.Log("Fight back");
 
                 if (!agent) return;
 
                 agent.enabled = true;
                 AttackerId = enemy.GetComponent<Creature>().EnemyId;
-                movement.FocusOnAttacker(AttackerId);
             }
 
             ApplyDamage(enemy, force);
@@ -362,7 +356,6 @@ namespace Creatures {
             if (CurrentState == CreatureState.Dead) return;
 
             health += bonusHealth;
-            movement.GetHypnotized();
         }
 
         /// <summary>
@@ -386,10 +379,9 @@ namespace Creatures {
             //}
 
             CurrentState = CreatureState.Idle;
-            Spawner.Ids.Add(EnemyId);
+            creatureSpawnController.Ids.Add(EnemyId);
             GameHandler.AllEnemies.Add(gameObject);
             health = 100 + bonusHealth;
-            movement.GetHypnotized();
         }
 
         public void Suicide() {
@@ -407,16 +399,21 @@ namespace Creatures {
         ///     it's the position where the arrow hit the creature if it was hit by an arrow otherwise
         ///     it's null and blood will be in the meddle of the creautre
         /// </param>
-        private void ApplyDamage(GameObject hit, float force, Vector3 damagedPosition = new()) {
-            if (!CreatureStateCanves.gameObject.activeInHierarchy) CreatureStateCanves.SetActive(true);
+        private void ApplyDamage(GameObject hit, float force) {
+            if (!CreatureStateCanves.gameObject.activeInHierarchy) {
+                CreatureStateCanves.SetActive(true);
+            }
 
             CreatureHealthBar.normalizedValue = health / initialHealth;
 
-            if (health <= 0f && CurrentState != CreatureState.Dead) {
+            if (health <= 0f) {
                 PlayDeathSound(); //play creature death sound
 
-                if (isInsideSeacurityArea) //if it was inside the security area then call an event to remove it from the targets list of the security sensor
+                // TODO: Take a look at this
+                //if it was inside the security area then call an event to remove it from the targets list of the security sensor
+                if (isInsideSeacurityArea) {
                     EventsManager.OnEnemyDiesInsideSecurityArea(this);
+                }
 
                 if (!GameHandler.WasCinematicCreatuerDied && CompareTag("OnStartWaves")) {
                     GameHandler.WasCinematicCreatuerDied = true;
@@ -427,7 +424,7 @@ namespace Creatures {
                 int rand = Random.Range(1, 101);
                 if (rand <= chanceOfDroppingArrow) SpawnBallon();
 
-                Spawner.Ids.Remove(EnemyId);
+                creatureSpawnController.Ids.Remove(EnemyId);
 
                 EnableRagdoll(true, hit);
 
@@ -449,14 +446,13 @@ namespace Creatures {
                     /*var ragdollRewind = RigBody.GetComponent<RagdollRewind>();
                     ragdollRewind.StartRecording(1, .1f, Animator);*/
 
-                    if (movement)
-                        movement.EndRoutine();
 
-                    --Spawner.spawnedEnemy;
-                    ++Spawner.killedEnemies;
 
-                    GameHandler.Spawner.Score += ScorePoints;
-                    GameHandler.AllEnemies.RemoveAt(GameHandler.AllEnemies.FindIndex(e => e == gameObject));
+                    --creatureSpawnController.spawnedEnemy;
+                    ++creatureSpawnController.killedEnemies;
+
+                    GameHandler.creatureSpawnController.Score += ScorePoints;
+//                    GameHandler.AllEnemies.RemoveAt(GameHandler.AllEnemies.FindIndex(e => e == gameObject));
                 }
 
                 CurrentState = CreatureState.Dead;
@@ -479,11 +475,9 @@ namespace Creatures {
 
                     GameHandler.PoolManager.AddArrowToPool(_arrow.gameObject);
                 }
-
-                GameHandler.PoolManager.AddCreature(gameObject);
-            } else {
-                Destroy(gameObject);
             }
+
+            ReturnToPool();
         }
 
         private void SpawnBallon() {
@@ -508,11 +502,11 @@ namespace Creatures {
         }
 
         /// <summary>
-        ///     function to play creature death sound when it dies
+        /// function to play creature death sound when it dies
         /// </summary>
-        public void PlayDeathSound() {
-            if (CompareTag("OnStartWaves")) //play scream sound if it was the first enemy so after that the army of creatures start attacking you
-                AudioManager.Instance.PlayScreamSound();
+        private void PlayDeathSound() {
+            /*if (CompareTag("OnStartWaves")) //play scream sound if it was the first enemy so after that the army of creatures start attacking you
+                AudioManager.Instance.PlayScreamSound();*/
 
             audioSource.Play();
         }
