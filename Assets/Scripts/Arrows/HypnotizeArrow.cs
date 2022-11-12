@@ -22,8 +22,6 @@ namespace Arrows {
                     target.HandleArrowHit(this);
                     return;
                 }
-
-                creature.Hypnotize(125f);
             } else {
                 audio.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
             }

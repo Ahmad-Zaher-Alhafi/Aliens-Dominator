@@ -145,7 +145,7 @@ namespace ManagersAndControllers {
         }
         public Color gizmoColor = Color.red;
 
-        //This sets the chance of spawning ballons on each creature
+        //This sets the chance of spawning Balloons on each creature
         [Range(1, 100)]
         public int ChanceOfSpawningItem = 100;
 
@@ -213,10 +213,10 @@ namespace ManagersAndControllers {
         private void SpawnCinematicCreatures() {
             for (int i = 0; i < numOfCinematicCreaturesOnStart; i++) {
                 Creature creature = groundCinematicCreaturePrefab.GetObject<Creature>(cinematicCreaturesParent);
-                creature.Init(GroundCinematicEnemyWaypoints[i].transform.position, "");
-                
+                creature.Init(GroundCinematicEnemyWaypoints[i].transform.position);
+
                 creature = airCinematicCreaturePrefab.GetObject<Creature>(cinematicCreaturesParent);
-                creature.Init(AirCinematicEnemyWaypoints[i].transform.position, "");
+                creature.Init(AirCinematicEnemyWaypoints[i].transform.position);
             }
         }
 
@@ -333,9 +333,6 @@ namespace ManagersAndControllers {
             Enemy = LevelSettings.GetEnemy(GameHandler.PoolManager, LevelSettings.CurrentWave, isItBoss);
             Enemy.SetActive(true);
 
-            creatureTypeOf = Enemy.GetComponent<Creatures.Creature>().Type;
-            spawnPos = GetSpawnPos(creatureTypeOf);
-
             var _agent = Enemy.GetComponent<NavMeshAgent>();
             if (_agent) _agent.enabled = false;
 
@@ -350,33 +347,10 @@ namespace ManagersAndControllers {
 
             List<Paths> waypoints = null;
 
-            waypoints = SpawnList.Find(s => s.Spawn == spawnPos).Paths.FindAll(p => p.creatureType == creatureTypeOf);
-
             if (waypoints == null || waypoints.Count <= 0) {
                 Debug.LogError("No waypoints were added");
                 return;
             }
-
-            if (creatureTypeOf == Creature.CreatureType.Flying) {
-                Enemy.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
-            } else {
-                var patrol = Enemy.GetComponent<GroundCreatureMover>();
-
-                if (!patrol) return;
-
-                patrol.EnemyId = id;
-                patrol.PatrolPoints = waypoints;
-                patrol.creatureSpawnController = this;
-            }
-
-            var creature = Enemy.GetComponent<Creatures.Creature>();
-            creature.Init(Vector3.zero, id);
-
-            numEnemy++;
-            spawnedEnemy++;
-            TotalSpawnedThisWave++;
-
-            GameHandler.AllEnemies.Add(Enemy);
         }
 
         public GameObject SpawnBug(Transform spawnPoint, GameObject creaturToInstantioate, GroundCreatureMover BugSpawner) {
@@ -385,7 +359,6 @@ namespace ManagersAndControllers {
             Creature.CreatureType creatureTypeOf;
 
             Enemy = creaturToInstantioate;
-            creatureTypeOf = Enemy.GetComponent<Creatures.Creature>().Type;
             spawnPos = spawnPoint;
 
 
@@ -405,19 +378,17 @@ namespace ManagersAndControllers {
                 return null;
             }
 
-            if (creatureTypeOf == Creature.CreatureType.Flying) {
-                enemyInstantiated.GetComponent<FlyingCreature>().CreaturePathes = waypoints;
-            } else {
-                var patrol = enemyInstantiated.GetComponent<GroundCreatureMover>();
-                if (!patrol) return null;
 
-                patrol.EnemyId = id;
-                patrol.PatrolPoints = waypoints;
-                patrol.CurrentPatrolIndex = BugSpawner.CurrentPatrolIndex;
-                patrol.creatureSpawnController = this;
-            }
+            var patrol = enemyInstantiated.GetComponent<GroundCreatureMover>();
+            if (!patrol) return null;
 
-            creature.Init(Vector3.zero, id);
+            patrol.EnemyId = id;
+            patrol.PatrolPoints = waypoints;
+            patrol.CurrentPatrolIndex = BugSpawner.CurrentPatrolIndex;
+            patrol.creatureSpawnController = this;
+
+
+            creature.Init(Vector3.zero);
 
             numEnemy++;
             spawnedEnemy++;
@@ -609,7 +580,6 @@ namespace ManagersAndControllers {
             flyingCreature.CreaturePathes = waypoints;
 
             var creature = enemyInstantiated.GetComponent<Creatures.Creature>();
-            creature.Init(Vector3.zero, id);
 
             numEnemy++;
             spawnedEnemy++;

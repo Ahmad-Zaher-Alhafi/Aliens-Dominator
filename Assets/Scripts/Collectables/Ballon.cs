@@ -4,7 +4,7 @@ using Player;
 using UnityEngine;
 
 namespace Collectables {
-    public class Ballon : MonoBehaviour {
+    public class Balloon : MonoBehaviour {
         public float HeightLimit;
         public float TimeLimit;
         public float Speed = 10f;

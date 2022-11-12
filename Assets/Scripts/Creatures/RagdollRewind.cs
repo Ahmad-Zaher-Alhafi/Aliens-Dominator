@@ -81,9 +81,6 @@ namespace Creatures {
                     doRewind = false;
                     recordFrameSkipDelta = 0;
                     recordDurationDelta = 0;
-
-                    //print("Finshed Rewinding");
-                    creature.BringBackToLife(150f, creature.RigBody.transform);
                 }
             } else if (interpolating) {
                 float t = (Time.time - interpStartTime) / BodyPartsInterpDuration;

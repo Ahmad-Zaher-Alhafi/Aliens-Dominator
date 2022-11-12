@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.00243, z: 0.013359999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5248556992477843343}
   m_RootOrder: 0
@@ -52,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -126,6 +128,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.0024, z: -0.01511}
   m_LocalScale: {x: 18, y: 18, z: 18}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6670194942636425823}
   m_Father: {fileID: 0}
@@ -159,6 +162,7 @@ TrailRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -362,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1600c152dc15440971046bb28815e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolRelatedTo: {fileID: 0}
   speed: 100
   hitSounds:
   - {fileID: 8300000, guid: 0e52e00aad74d3e49a2d81491e3627f4, type: 3}
@@ -369,7 +374,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2aaffdb8388bcd6459e5aae2dc2c0b74, type: 3}
   releaseSound: {fileID: 8300000, guid: 19c0dd63a5d24c64fb5fed537a327292, type: 3}
   knockingSound: {fileID: 8300000, guid: b2957a002a75e3b4fac15fdf2f630ee4, type: 3}
-  damage: 50
+  damage: 1
+  TimeToDestroyArrow: 5
   ChanceOfReceiving: 50
 --- !u!65 &2493872587203052214
 BoxCollider:

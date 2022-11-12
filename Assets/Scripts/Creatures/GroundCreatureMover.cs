@@ -101,10 +101,9 @@ namespace Creatures {
             get {
                 if (TrackEnemyID == null) return null;
 
-                GameObject go = GameHandler.AllEnemies.FindAll(enemy => enemy.GetComponent<Creature>()).Find(enemy => enemy.GetComponent<Creature>().EnemyId == TrackEnemyID);
-                if (!go) return null;
+               
 
-                return go;
+                return null;
             }
         }
 
@@ -374,8 +373,6 @@ namespace Creatures {
                         StartCoroutine(Teleport());
                     }
                 }
-            } else {
-                LastWaypointReached();
             }
         }
 
@@ -400,7 +397,6 @@ namespace Creatures {
 
             //Stop moving and init shooting
             NavMeshAgent.enabled = false;
-            Creature.AttackUsingGun();
 
             yield return new WaitForSeconds(TotalShootTime);
 
@@ -454,14 +450,6 @@ namespace Creatures {
             NavMeshAgent.speed = Speed;
         }
 
-        private void LastWaypointReached() {
-            waypoint newPos = GameHandler.GetSpot(Creature.Type);
-
-            EndPoint = newPos;
-            SetEndPoint(newPos);
-            isDamaging = true;
-        }
-
         //Goes to the attack spot
         private void SetEndPoint(waypoint newPos) {
             if (NavMesh.CalculatePath(transform.position, newPos.gameObject.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
@@ -506,8 +494,6 @@ namespace Creatures {
 
             if (!enemy) {
                 NavMeshAgent.speed = Speed;
-
-                Creature.AttackerId = null;
                 TrackEnemyID = null;
                 isDefending = false;
 
@@ -618,16 +604,14 @@ namespace Creatures {
                 var creature = e.GetComponent<Creature>();
 
                 if (!creature || !creature.enabled) return false;
+                
 
-                if (creature.EnemyId == Creature.EnemyId) return false;
-
-                if (creature.Type != Creature.CreatureType.Grounded) return false;
+                if (creature is GroundCreature) return false;
 
                 return true;
             });
 
             if (fixedList.Count <= 0) {
-                Creature.Suicide();
                 IsHypnotized = false;
 
                 return;
@@ -639,8 +623,7 @@ namespace Creatures {
 
                 return distance1.CompareTo(distance2);
             });
-
-            TrackEnemyID = fixedList[0].GetComponent<Creature>().EnemyId;
+            
             IsHypnotized = true;
             isDamaging = false;
 
@@ -708,7 +691,7 @@ namespace Creatures {
         }
 
         private IEnumerator UpdateCreatureSpeed() {
-            if (Creature.Type == Creature.CreatureType.Flying) {
+            if (Creature is FlyingCreature) {
                 Speed /= 4;
                 yield return new WaitForSeconds(.5f);
                 Speed *= 4;

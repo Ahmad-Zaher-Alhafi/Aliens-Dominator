@@ -19,8 +19,7 @@ namespace Arrows {
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {
                 var creature = target.GetComponentInParent<Creatures.Creature>();
-
-                creature.RigBody.GetComponent<RagdollRewind>().DoRewind();
+                
             } else {
                 audio.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
             }

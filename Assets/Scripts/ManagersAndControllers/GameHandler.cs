@@ -25,7 +25,7 @@ namespace ManagersAndControllers {
         public List<AttackPoint> AttackPoints = new();
         public SecurityWeapon[] SecurityWeapons;
         public List<GameObject> SpecialArrows = new();
-        public List<Ballon> Ballons = new();
+        public List<Balloon> Balloons = new();
         public float NumOfResources;
         [FormerlySerializedAs("Spawner")]
         public CreatureSpawnController creatureSpawnController;
@@ -151,7 +151,7 @@ namespace ManagersAndControllers {
         }
 
         /// <summary>
-        ///     to call a supplies airplane when you take a supplies caller ballon
+        ///     to call a supplies airplane when you take a supplies caller Balloon
         /// </summary>
         public void CallSuppliesAirplane(Constants.SuppliesTypes suppliesType) {
             foreach (GameObject airplane in airplanes) {

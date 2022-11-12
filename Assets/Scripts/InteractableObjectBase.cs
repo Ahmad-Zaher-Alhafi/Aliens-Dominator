@@ -2,8 +2,8 @@ using ManagersAndControllers;
 using UnityEngine;
 public abstract class InteractableObjectBase : Hitable {
     public float Range = 50f;
-    public float Damage = 250f;
-    public float Force = 1000f;
+    public int Damage = 250;
+    public int Force = 1000;
 
     protected GameHandler GameHandler;
 
@@ -14,7 +14,5 @@ public abstract class InteractableObjectBase : Hitable {
     protected void CalculateDamageByDistance(Creatures.Creature creature) {
         float distance = Vector3.Distance(transform.position, creature.transform.position);
         if (distance > Range) return;
-
-        creature.ReceiveDamageFromObject(Damage, Force);
     }
 }

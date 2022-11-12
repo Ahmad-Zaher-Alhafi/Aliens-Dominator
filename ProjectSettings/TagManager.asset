@@ -12,7 +12,7 @@ TagManager:
   - BloodEffect
   - CinematicCreature
   - SuppliesCaller
-  - ArrowBallon
+  - ArrowBalloon
   - PlayerAttackPoint
   - PlayerLookAtPoint
   - PlayerShootAtPoint
@@ -24,6 +24,11 @@ TagManager:
   - Arm
   - Tail
   - GateDoor
+  - EnemyBody
+  - EnemyArms
+  - EnemyTail
+  - EnemyLegs
+  - EnemyHead
   layers:
   - Default
   - TransparentFX
@@ -36,7 +41,7 @@ TagManager:
   - Projectile
   - Base
   - 
-  - 
+  - BodyPart
   - 
   - 
   - 

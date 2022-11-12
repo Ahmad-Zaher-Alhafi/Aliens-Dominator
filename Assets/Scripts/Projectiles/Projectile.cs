@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Projectiles {
     public class Projectile : MonoBehaviour {
-        public float DamageCost;
+        public int DamageCost;
         [HideInInspector]
         public bool WasShoot;
         [HideInInspector]
@@ -85,7 +85,7 @@ namespace Projectiles {
             //I'm doing that as a trick to get the wanted angle and after that i'm resetting the angle to it's old angle and that because we need to rotates the projectile smoothly and not suddenly which make it cooler
             oldAngle = transform.eulerAngles; //save old angle
 
-            if (objectToLookAt.Type == Creature.CreatureType.Flying) // if it was air creature then we need to douple the offset because of the animation problem
+            if (objectToLookAt is FlyingCreature) // if it was air creature then we need to douple the offset because of the animation problem
                 transform.LookAt(objectToLookAt.transform.position + targetOffset * 2); //look at the target
             else transform.LookAt(objectToLookAt.transform.position + targetOffset); //look at the target
             wantedAngle = transform.eulerAngles; //get the wanted eural angle after he looked

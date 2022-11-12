@@ -7,15 +7,16 @@ using UnityEngine;
 namespace Arrows {
     [RequireComponent(typeof(TrailRenderer), typeof(Rigidbody), typeof(AudioSource))]
     public class ArrowBase : PooledObject, IDamager {
-        public float Damage => damage;
+        public int Damage => damage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
-        
+
         [SerializeField] protected float speed = 5;
         [SerializeField] protected List<AudioClip> hitSounds = new();
         [SerializeField] protected AudioClip releaseSound;
         [SerializeField] protected AudioClip knockingSound;
-        [SerializeField] private float damage = 50f;
+        [Range(1, 5)]
+        [SerializeField] private int damage = 1;
 
         public float TimeToDestroyArrow = 5f;
 

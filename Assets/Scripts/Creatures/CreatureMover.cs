@@ -25,9 +25,9 @@ namespace Creatures {
         public virtual void Init() { }
 
         protected virtual void Update() {
-            if (IsBusy) return;
+            if (IsBusy || Creature.CurrentState == Creature.CreatureState.Dead) return;
 
-            switch (Creature.CurrentState) {
+                switch (Creature.CurrentState) {
                 case Creature.CreatureState.Idle:
                     StayIdle();
                     break;
@@ -43,7 +43,6 @@ namespace Creatures {
                 case Creature.CreatureState.Chasing:
                     break;
                 case Creature.CreatureState.Dead:
-                    IsBusy = false;
                     break;
 
                 default:
@@ -66,6 +65,11 @@ namespace Creatures {
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
+            IsBusy = false;
+        }
+        
+        public void OnDie() {
+            HasMovingOrder = false;
             IsBusy = false;
         }
     }

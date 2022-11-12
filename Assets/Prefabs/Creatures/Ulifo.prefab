@@ -4868,6 +4868,7 @@ GameObject:
   - component: {fileID: 882083032469669455}
   - component: {fileID: 8089569983325691251}
   - component: {fileID: 5633882396039539867}
+  - component: {fileID: 3514239164295463880}
   m_Layer: 2
   m_Name: RigFRLeg3
   m_TagString: EnemyLegs
@@ -4966,6 +4967,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3514239164295463880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112306678771410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1125260667524678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4978,6 +4994,7 @@ GameObject:
   - component: {fileID: 432101969645053890}
   - component: {fileID: 2094432840112748223}
   - component: {fileID: 7045563329512064929}
+  - component: {fileID: 3334479236720593793}
   m_Layer: 2
   m_Name: RigFRLeg2
   m_TagString: EnemyLegs
@@ -5077,6 +5094,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3334479236720593793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125260667524678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1127567166684372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5242,6 +5274,7 @@ GameObject:
   - component: {fileID: 7597384854241341332}
   - component: {fileID: 4786749595230033407}
   - component: {fileID: 732199115833449199}
+  - component: {fileID: 1546413701551269215}
   m_Layer: 2
   m_Name: RigBLArm2
   m_TagString: EnemyArms
@@ -5341,6 +5374,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1546413701551269215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212338287953884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1217263174840020
 GameObject:
   m_ObjectHideFlags: 0
@@ -5353,6 +5401,7 @@ GameObject:
   - component: {fileID: 5414356750760278944}
   - component: {fileID: 7956017621898103395}
   - component: {fileID: 4984509363905836613}
+  - component: {fileID: 9206952070467923831}
   m_Layer: 2
   m_Name: RigFLArm3
   m_TagString: EnemyArms
@@ -5451,6 +5500,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &9206952070467923831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217263174840020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1227176939699800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5463,6 +5527,7 @@ GameObject:
   - component: {fileID: 5116995835271733409}
   - component: {fileID: 471827366821165701}
   - component: {fileID: 8646887102358283727}
+  - component: {fileID: 8570987590065038539}
   m_Layer: 2
   m_Name: RigBRArm3
   m_TagString: EnemyArms
@@ -5561,6 +5626,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8570987590065038539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227176939699800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1279739892080598
 GameObject:
   m_ObjectHideFlags: 0
@@ -5604,6 +5684,7 @@ GameObject:
   - component: {fileID: 54989201387785038}
   - component: {fileID: 2430520397466174925}
   - component: {fileID: 5397544767004360116}
+  - component: {fileID: 8250115899243400806}
   m_Layer: 2
   m_Name: RigBRArm1
   m_TagString: EnemyArms
@@ -5703,6 +5784,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8250115899243400806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288707382398024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1297081921086632
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,6 +5811,7 @@ GameObject:
   - component: {fileID: 8467606471302099355}
   - component: {fileID: 9038083166028975488}
   - component: {fileID: 8827355455512742943}
+  - component: {fileID: 5415564510898467182}
   m_Layer: 2
   m_Name: RigFLArm1
   m_TagString: EnemyArms
@@ -5814,6 +5911,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5415564510898467182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297081921086632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1297439551129026
 GameObject:
   m_ObjectHideFlags: 0
@@ -5826,6 +5938,7 @@ GameObject:
   - component: {fileID: 6154649081691157459}
   - component: {fileID: 8727949699570097132}
   - component: {fileID: 5797205134101728281}
+  - component: {fileID: 4798811671399112478}
   m_Layer: 2
   m_Name: RigBLArm1
   m_TagString: EnemyArms
@@ -5925,6 +6038,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &4798811671399112478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297439551129026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1301425766191048
 GameObject:
   m_ObjectHideFlags: 0
@@ -5937,6 +6065,7 @@ GameObject:
   - component: {fileID: 4186637249134966137}
   - component: {fileID: 7442921421917725885}
   - component: {fileID: 2807455718060128172}
+  - component: {fileID: 7924418564886312520}
   m_Layer: 2
   m_Name: RigFLArm2
   m_TagString: EnemyArms
@@ -6036,6 +6165,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7924418564886312520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301425766191048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1325750699360444
 GameObject:
   m_ObjectHideFlags: 0
@@ -6141,6 +6285,7 @@ GameObject:
   - component: {fileID: 7665678237574816681}
   - component: {fileID: 6118165461703137254}
   - component: {fileID: 4660221287985847130}
+  - component: {fileID: 262926327932155490}
   m_Layer: 2
   m_Name: RigFRArm2
   m_TagString: EnemyArms
@@ -6240,6 +6385,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &262926327932155490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401527733630048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1406964493364060
 GameObject:
   m_ObjectHideFlags: 0
@@ -6283,6 +6443,7 @@ GameObject:
   - component: {fileID: 6257189084020998584}
   - component: {fileID: 4602361369475536156}
   - component: {fileID: 3522722396606172078}
+  - component: {fileID: 8247860404659033925}
   m_Layer: 2
   m_Name: RigBRLeg1
   m_TagString: EnemyLegs
@@ -6382,6 +6543,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8247860404659033925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414060931789774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1448095723855892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6394,6 +6570,7 @@ GameObject:
   - component: {fileID: 7140885984471460257}
   - component: {fileID: 7347833707394899545}
   - component: {fileID: 3450261387987049920}
+  - component: {fileID: 980171390882606616}
   m_Layer: 2
   m_Name: RigFRLeg1
   m_TagString: EnemyLegs
@@ -6493,6 +6670,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &980171390882606616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448095723855892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1452472197254798
 GameObject:
   m_ObjectHideFlags: 0
@@ -6536,6 +6728,7 @@ GameObject:
   - component: {fileID: 6332277022522406029}
   - component: {fileID: 6636250310884382424}
   - component: {fileID: 2159527307877346078}
+  - component: {fileID: 849143202463708997}
   m_Layer: 2
   m_Name: RigBLLeg1
   m_TagString: EnemyLegs
@@ -6635,6 +6828,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &849143202463708997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470796880971152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1485080911121622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6647,6 +6855,7 @@ GameObject:
   - component: {fileID: 5282189904228091964}
   - component: {fileID: 3923818187560150787}
   - component: {fileID: 1848429690080505979}
+  - component: {fileID: 7600630977069511631}
   m_Layer: 2
   m_Name: RigBRLeg3
   m_TagString: EnemyLegs
@@ -6745,6 +6954,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7600630977069511631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485080911121622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1489755213485946
 GameObject:
   m_ObjectHideFlags: 0
@@ -6757,6 +6981,7 @@ GameObject:
   - component: {fileID: 5376274233639718275}
   - component: {fileID: 3707872951833272027}
   - component: {fileID: 1651706942352256540}
+  - component: {fileID: 3177313283074897275}
   m_Layer: 2
   m_Name: RigFLLeg2
   m_TagString: EnemyLegs
@@ -6856,6 +7081,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3177313283074897275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489755213485946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1518329749484712
 GameObject:
   m_ObjectHideFlags: 0
@@ -6868,6 +7108,7 @@ GameObject:
   - component: {fileID: 3851476416117192974}
   - component: {fileID: 3915762622186098737}
   - component: {fileID: 5604461958146029028}
+  - component: {fileID: 6381135853290885751}
   m_Layer: 2
   m_Name: RigBRArm2
   m_TagString: EnemyArms
@@ -6967,6 +7208,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6381135853290885751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518329749484712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1551395089031954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,6 +7266,7 @@ GameObject:
   - component: {fileID: 6183853194666156299}
   - component: {fileID: 4018151166944691185}
   - component: {fileID: 2203382881495414757}
+  - component: {fileID: 2056885942173945588}
   m_Layer: 2
   m_Name: RigBLLeg2
   m_TagString: EnemyLegs
@@ -7109,6 +7366,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2056885942173945588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583492211117328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1586131081757572
 GameObject:
   m_ObjectHideFlags: 0
@@ -7121,6 +7393,7 @@ GameObject:
   - component: {fileID: 4173148216070729296}
   - component: {fileID: 1826435514725808006}
   - component: {fileID: 6852400994810300436}
+  - component: {fileID: 3178069152038387620}
   m_Layer: 2
   m_Name: RigFRArm3
   m_TagString: EnemyArms
@@ -7219,6 +7492,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3178069152038387620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586131081757572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1639834292314974
 GameObject:
   m_ObjectHideFlags: 0
@@ -7231,6 +7519,7 @@ GameObject:
   - component: {fileID: 4249790880352740703}
   - component: {fileID: 251649974017003279}
   - component: {fileID: 1287523648288764955}
+  - component: {fileID: 869597587397555417}
   m_Layer: 2
   m_Name: RigFLLeg1
   m_TagString: EnemyLegs
@@ -7330,6 +7619,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &869597587397555417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639834292314974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1640262395653480
 GameObject:
   m_ObjectHideFlags: 0
@@ -7346,7 +7650,6 @@ GameObject:
   - component: {fileID: 8212013039669215597}
   - component: {fileID: -5899183900900930984}
   - component: {fileID: -3852050712126793319}
-  - component: {fileID: -6265931109500870961}
   m_Layer: 6
   m_Name: Ulifo
   m_TagString: Untagged
@@ -7384,6 +7687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b62be571eb84029880114c059e2607e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolRelatedTo: {fileID: 0}
   ScorePoints: 100
   Type: 0
   CurrentState: 0
@@ -7394,6 +7698,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8921436974756884082453e2a28bfb86, type: 2}
   slowdownTimer: 6
   attackDamage: 10
+  bouncingMaterial: {fileID: 0}
   CreatureStateCanves: {fileID: 0}
   CreatureHealthBar: {fileID: 0}
   hitForce: 1000
@@ -7420,9 +7725,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc3b24582a56254ba3796ffae42a0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rotatingSpeed: 1
   secondsToStayIdle: 5
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
   _patrolWaiting: 0
   _totalWaitTime: 0
   wayPointsRemainedDistance: 0.5
@@ -7432,7 +7738,7 @@ MonoBehaviour:
   NavMeshAgent: {fileID: 0}
   CurrentPatrolIndex: 0
   EnemyId: 
-  Spawner: {fileID: 0}
+  creatureSpawnController: {fileID: 0}
   WalkAnimationParameter: Walk Forward
   CinematicEnemiesPath: 9
   TimeToWaitForAnimation: 3
@@ -7465,7 +7771,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 31fe1ab74e6a15f48bce22a9a14ac651, type: 3}
   - {fileID: 7400000, guid: f190387abab02914a9b83d47acf37b5a, type: 3}
   - {fileID: 7400000, guid: 692d48ddbe7388c429aacca9d98b4d40, type: 3}
-  IdleAnimationClips: {fileID: 7400000, guid: f0b01c4984158094e83c86e08cc5f736, type: 3}
+  IdleAnimationClip: {fileID: 7400000, guid: f0b01c4984158094e83c86e08cc5f736, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 12b2b97e07a584146a2495ee85c2f3dd, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: ba2c365bb967bb14f84773033f436b95, type: 3}
   walkAnimationClip: {fileID: 7400000, guid: 566d9a960fc28a64887c47f5705e3691, type: 3}
@@ -7626,19 +7932,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &-6265931109500870961
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640262395653480}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0879822, y: 3.9415314, z: 1.8198051}
-  m_Center: {x: -0.0702641, y: 2.3556008, z: 0.1533444}
 --- !u!1 &1645786814419820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7651,6 +7944,7 @@ GameObject:
   - component: {fileID: 2535849687633106555}
   - component: {fileID: 4701963426236714664}
   - component: {fileID: 4001258714965961575}
+  - component: {fileID: 8696663705498122103}
   m_Layer: 2
   m_Name: RigBLArm3
   m_TagString: EnemyArms
@@ -7749,6 +8043,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8696663705498122103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645786814419820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1650754422727112
 GameObject:
   m_ObjectHideFlags: 0
@@ -7761,6 +8070,7 @@ GameObject:
   - component: {fileID: 3624851692699260268}
   - component: {fileID: 962126219390246871}
   - component: {fileID: 3713720985376670971}
+  - component: {fileID: 1970665830308088144}
   m_Layer: 2
   m_Name: RigBLLeg3
   m_TagString: EnemyLegs
@@ -7859,6 +8169,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1970665830308088144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650754422727112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1742661776882614
 GameObject:
   m_ObjectHideFlags: 0
@@ -7871,6 +8196,7 @@ GameObject:
   - component: {fileID: 6239681053636090530}
   - component: {fileID: 6121197235064709715}
   - component: {fileID: 4486276117681633485}
+  - component: {fileID: 3244118917350809793}
   m_Layer: 2
   m_Name: RigFRArm1
   m_TagString: EnemyArms
@@ -7970,6 +8296,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3244118917350809793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742661776882614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1747153306707392
 GameObject:
   m_ObjectHideFlags: 0
@@ -7982,6 +8323,7 @@ GameObject:
   - component: {fileID: 7264939060083313889}
   - component: {fileID: 1768779704265775561}
   - component: {fileID: 8097923000327608590}
+  - component: {fileID: 5668352296948143505}
   m_Layer: 2
   m_Name: RigFLLeg3
   m_TagString: EnemyLegs
@@ -8080,6 +8422,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5668352296948143505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747153306707392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1841186745004940
 GameObject:
   m_ObjectHideFlags: 0
@@ -8092,6 +8449,7 @@ GameObject:
   - component: {fileID: 5482125322148617419}
   - component: {fileID: 3043470719763706157}
   - component: {fileID: 340153402938030902}
+  - component: {fileID: 4333035346278870782}
   m_Layer: 2
   m_Name: RigMain
   m_TagString: EnemyHead
@@ -8184,6 +8542,21 @@ MonoBehaviour:
   frames: []
   BodyPartsInterpDuration: 0.5
   RootInterpDuration: 0.5
+--- !u!114 &4333035346278870782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841186745004940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 4
+  type: 1
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1872505279049700
 GameObject:
   m_ObjectHideFlags: 0
@@ -8258,6 +8631,7 @@ GameObject:
   - component: {fileID: 5669518358862112850}
   - component: {fileID: 5614801875756375322}
   - component: {fileID: 1235959595479343173}
+  - component: {fileID: 3188207366147808517}
   m_Layer: 2
   m_Name: RigBRLeg2
   m_TagString: EnemyLegs
@@ -8357,6 +8731,21 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3188207366147808517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902568430101490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 2
+  creature: {fileID: 2821232774589529044}
 --- !u!1 &1948221483140052
 GameObject:
   m_ObjectHideFlags: 0

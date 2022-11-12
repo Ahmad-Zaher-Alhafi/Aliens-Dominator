@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Arrows {
     public class ExplosiveArrow : ArrowBase {
         public float detonationTime = 3f;
-        public float impactDamage = 200f;
+        public int impactDamage = 200;
         public float radius = 5f;
-        public float hitForce = 1000f;
+        public int hitForce = 1000;
 
         protected override void OnCollisionEnter(Collision collision) {
             if (hasCollided) return;
@@ -33,8 +33,6 @@ namespace Arrows {
             foreach (GameObject enemy in GameHandler.AllEnemies.ToArray())
                 if (enemy) {
                     float dist = Vector3.Distance(transform.position, enemy.transform.position);
-
-                    if (dist <= radius) enemy.GetComponent<Creatures.Creature>().ReceiveExplosionDamage(this, impactDamage, hitForce);
                 }
 
             StartCoroutine(DestroyArrow());

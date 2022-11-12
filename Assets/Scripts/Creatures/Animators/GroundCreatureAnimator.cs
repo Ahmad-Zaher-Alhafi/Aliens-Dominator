@@ -9,7 +9,7 @@ namespace Creatures.Animators {
         
         protected override void Update() {
             base.Update();
-            InterpolateFloatParameter(currentSpeedParameter, Creature.CreatureMover.CurrentSpeed, ANIMATION_SWITCH_TIME);
+            InterpolateFloatParameter(currentSpeedParameter, Creature.mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
         
         /// <summary>

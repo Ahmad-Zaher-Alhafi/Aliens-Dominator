@@ -14,7 +14,7 @@ namespace Creatures.Animators {
         protected Creature Creature;
         protected Animator Animator;
         protected float InitialSpeed;
-        
+
         private bool IsBusy;
         protected const float ANIMATION_SWITCH_TIME = 3;
 
@@ -27,13 +27,10 @@ namespace Creatures.Animators {
         public void Init() {
             Animator.enabled = true;
         }
-        
-        protected virtual void Update() {
-            if (Creature.CurrentState == Creature.CreatureState.Dead) {
-                Animator.enabled = false;
-                return;
-            }
 
+        protected virtual void Update() {
+            if (Creature.CurrentState == Creature.CreatureState.Dead) return;
+            
             switch (Creature.IsSlowedDown) {
                 case true when Animator.speed.Equals(InitialSpeed):
                     Animator.speed /= 2;
@@ -49,6 +46,10 @@ namespace Creatures.Animators {
                 Animator.enabled = !enabled;
             }*/
 
+        }
+
+        public void OnDie() {
+            Animator.enabled = false;
         }
     }
 }

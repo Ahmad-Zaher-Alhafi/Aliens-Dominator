@@ -338,7 +338,7 @@ namespace Creatures {
         public IEnumerator ThrewStinkyBall(Transform target) {
             isThrewingStinkyBall = true;
             foreach (StinkyBall sB in stinkyBallPrefabs)
-                if (sB.StinkyBallColor == creatureColor) //find the stinky ball that matchs the creature color
+                if (sB.StinkyBallColor == CreatureColor) //find the stinky ball that matchs the creature color
                 {
                     GameObject stinkyBall = Instantiate(sB.gameObject, stinkyBallSpawnPoint.position, transform.rotation);
 

@@ -8,18 +8,39 @@ namespace Creatures {
             Body,
             Leg,
             Arm,
-            Foot
+            Foot,
+            Tail
         }
 
         [Range(1f, 5f)]
-        [SerializeField] int damageWeight = 1;
-        [SerializeField] CreatureBodyPart type;
+        [SerializeField] private int damageWeight = 1;
+        [SerializeField] private CreatureBodyPart type;
         [SerializeField] private Creature creature;
+
+        private new Collider collider;
+        private Rigidbody rig;
+        
+        private void Awake() {
+            collider = GetComponent<Collider>();
+            rig = GetComponent<Rigidbody>();
+        }
+        
+        public void Init(PhysicMaterial physicMaterial) {
+            rig.useGravity = false;
+            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            collider.material = physicMaterial;
+        }
 
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.layer == Constants.Arrow_LAYER_ID) {
-                creature.GetHurt(collision.gameObject.GetComponent<ArrowBase>(), damageWeight);
+                creature.ApplyDamage(collision.gameObject.GetComponent<ArrowBase>(), damageWeight);
             }
         }
+        
+        public void OnDie() {
+            rig.useGravity = true;
+            rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+        
     }
 }

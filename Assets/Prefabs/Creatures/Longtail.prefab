@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598637391716694}
+  - component: {fileID: 1448630097417174832}
   - component: {fileID: 5911485228431645034}
   - component: {fileID: 6621181684598245819}
   - component: {fileID: 4853657865736716628}
@@ -36,6 +37,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 9.087715, y: -92.90185, z: 49.64387}
+--- !u!114 &1448630097417174832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008935711453260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &5911485228431645034
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -121,6 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4673130654964540}
+  - component: {fileID: 1753385173232379713}
   - component: {fileID: 7279303524775777464}
   - component: {fileID: 6684082842852450756}
   - component: {fileID: 1718642754365981146}
@@ -147,6 +164,21 @@ Transform:
   m_Father: {fileID: 4414852875786680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -5.0785484, y: -19.370039, z: 5.8672748}
+--- !u!114 &1753385173232379713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054037976110936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &7279303524775777464
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -232,6 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4332995545019538}
+  - component: {fileID: 8457879664902962887}
   - component: {fileID: 747695228471627278}
   - component: {fileID: 4758853880841639969}
   - component: {fileID: 623982942685710429}
@@ -258,6 +291,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -17.845922, y: 105.70918, z: 31.754473}
+--- !u!114 &8457879664902962887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056436608522528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &747695228471627278
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -343,6 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4473369600484522}
+  - component: {fileID: 3796357504042230557}
   - component: {fileID: 6861690118499019201}
   - component: {fileID: 873024356070297359}
   - component: {fileID: 3356381887203378671}
@@ -369,6 +418,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 19.146242, y: -104.5356, z: 36.82491}
+--- !u!114 &3796357504042230557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081324126470606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &6861690118499019201
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -454,6 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4414852875786680}
+  - component: {fileID: 8417961076385448080}
   - component: {fileID: 5538091568533443285}
   - component: {fileID: 796224683022527598}
   - component: {fileID: 6735247461770747939}
@@ -480,6 +545,21 @@ Transform:
   m_Father: {fileID: 4344148631007198}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.867173, y: 4.9244123, z: 5.037279}
+--- !u!114 &8417961076385448080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131505434668216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &5538091568533443285
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -565,6 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4596150280983604}
+  - component: {fileID: 6383698870747217864}
   - component: {fileID: 1051639823385574372}
   - component: {fileID: 4749165808021648248}
   - component: {fileID: 3008050086232846677}
@@ -590,6 +671,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -3.5944235, y: 89.347984, z: -63.19447}
+--- !u!114 &6383698870747217864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138536692300840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 4
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1051639823385574372
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -675,6 +771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4384174377750410}
+  - component: {fileID: 4875993924887754704}
   - component: {fileID: 1243969178101765308}
   - component: {fileID: 6213859359236772007}
   - component: {fileID: 2736458223915144694}
@@ -700,6 +797,21 @@ Transform:
   m_Father: {fileID: 4764151041747658}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 8.07512, y: -24.944775, z: -15.036775}
+--- !u!114 &4875993924887754704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203498710136572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1243969178101765308
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -785,6 +897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4936843271858000}
+  - component: {fileID: 7741335898633912358}
   - component: {fileID: 1984208127147424083}
   - component: {fileID: 1534103539008864709}
   - component: {fileID: 4180880877980058931}
@@ -810,6 +923,21 @@ Transform:
   m_Father: {fileID: 4270482086798180}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.11100276, y: -0.7448847, z: -30.047174}
+--- !u!114 &7741335898633912358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213453951832780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1984208127147424083
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -895,6 +1023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4404230933134512}
+  - component: {fileID: 7935845865710429005}
   - component: {fileID: 2516030534761438080}
   - component: {fileID: 7494851355643159975}
   - component: {fileID: 1167391285528014020}
@@ -921,6 +1050,21 @@ Transform:
   m_Father: {fileID: 4790743969015298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -5.0314445, y: -25.274204, z: -18.796782}
+--- !u!114 &7935845865710429005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232751701163902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &2516030534761438080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1006,6 +1150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4790743969015298}
+  - component: {fileID: 2686125402101201620}
   - component: {fileID: 6902889598037751339}
   - component: {fileID: 4807086214134952620}
   - component: {fileID: 240193941962332712}
@@ -1032,6 +1177,21 @@ Transform:
   m_Father: {fileID: 4897995829152936}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -3.404865, y: -19.71974, z: -14.408037}
+--- !u!114 &2686125402101201620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254782657784192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &6902889598037751339
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1121,7 +1281,6 @@ GameObject:
   - component: {fileID: 3169669432306727347}
   - component: {fileID: 9041872463804614534}
   - component: {fileID: -7737086928778009939}
-  - component: {fileID: 2910895798992792406}
   - component: {fileID: 95833913277526074}
   - component: {fileID: 3222532486827905122}
   m_Layer: 6
@@ -1161,6 +1320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e451cd55904718aa715d3f78276f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolRelatedTo: {fileID: 0}
   ScorePoints: 100
   Type: 1
   CurrentState: 0
@@ -1171,14 +1331,15 @@ MonoBehaviour:
   - {fileID: 2100000, guid: bf571311aac8f7e4bb92ae046ba8b58e, type: 2}
   slowdownTimer: 6
   attackDamage: 10
+  bouncingMaterial: {fileID: 0}
   CreatureStateCanves: {fileID: 1295021684374082244}
   CreatureHealthBar: {fileID: 1295021684033093692}
   hitForce: 1000
-  health: 100
+  health: 5
   textsMotionBehavior: []
   chanceOfDroppingArrow: 0
   waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
+  timeToDestroyDeadBody: 10
   creatureColor: 0
   RigBody: {fileID: 1482316826004934}
   secondsBetweenRightAndLeftGunsShots: 0
@@ -1254,19 +1415,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &2910895798992792406
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276567175080652}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.3212738, y: 0.6443639, z: 1.4822891}
-  m_Center: {x: -0.003231287, y: 1.1937265, z: -0.24114457}
 --- !u!95 &95833913277526074
 Animator:
   serializedVersion: 4
@@ -1392,6 +1540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4558916473801384}
+  - component: {fileID: 3604359082285086339}
   - component: {fileID: 6246650285284078451}
   - component: {fileID: 5005029606718909886}
   - component: {fileID: 6507601369478053164}
@@ -1417,6 +1566,21 @@ Transform:
   m_Father: {fileID: 4473369600484522}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -9.054571, y: 2.8725812, z: -34.01426}
+--- !u!114 &3604359082285086339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334597528902154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &6246650285284078451
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1502,6 +1666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4976242670159162}
+  - component: {fileID: 5052059063539814036}
   - component: {fileID: 4250854941594313304}
   - component: {fileID: 8241950215899888149}
   - component: {fileID: 7859529920557282273}
@@ -1527,6 +1692,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 3.5944185, y: -89.34796, z: -63.19447}
+--- !u!114 &5052059063539814036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400070909020884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 4
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &4250854941594313304
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1612,6 +1792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4981547033364784}
+  - component: {fileID: 8337363454559524502}
   - component: {fileID: 817260913408051976}
   - component: {fileID: 3356280527359841988}
   - component: {fileID: 560464027631484925}
@@ -1648,6 +1829,21 @@ Transform:
   m_Father: {fileID: 4728787122000488}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.0000027747642, y: -79.99999, z: 175}
+--- !u!114 &8337363454559524502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482316826004934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 4
+  type: 1
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &817260913408051976
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1736,6 +1932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4039373996179300}
+  - component: {fileID: 4428274897510467823}
   - component: {fileID: 1094958970622999669}
   - component: {fileID: 1816847899086236341}
   - component: {fileID: 6648861926207926424}
@@ -1761,6 +1958,21 @@ Transform:
   m_Father: {fileID: 4787900288285494}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -8.1910515, y: 11.322981, z: 87.7992}
+--- !u!114 &4428274897510467823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507966118117596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 5
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1094958970622999669
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1846,6 +2058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4115041905916482}
+  - component: {fileID: 6729582018937836518}
   - component: {fileID: 3956500285137815483}
   - component: {fileID: 2295240162223122506}
   - component: {fileID: 4294386233129501585}
@@ -1871,6 +2084,21 @@ Transform:
   m_Father: {fileID: 4598637391716694}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.0764029, y: 0.66272724, z: -30.060846}
+--- !u!114 &6729582018937836518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509100166742952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &3956500285137815483
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1956,6 +2184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4897995829152936}
+  - component: {fileID: 1447500744760761808}
   - component: {fileID: 4222432400215200561}
   - component: {fileID: 8956686988103965648}
   - component: {fileID: 3102918484073927937}
@@ -1982,6 +2211,21 @@ Transform:
   m_Father: {fileID: 4673130654964540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -6.717696, y: -18.881704, z: -8.881716}
+--- !u!114 &1447500744760761808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558271377155252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &4222432400215200561
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2173,6 +2417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4764151041747658}
+  - component: {fileID: 4931618863048851706}
   - component: {fileID: 3783274679846486127}
   - component: {fileID: 1677336200095812913}
   - component: {fileID: 2082023236444943566}
@@ -2199,6 +2444,21 @@ Transform:
   m_Father: {fileID: 4404230933134512}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.81103134, y: -26.127748, z: -16.940378}
+--- !u!114 &4931618863048851706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738569269176126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &3783274679846486127
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2284,6 +2544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4191609741921048}
+  - component: {fileID: 211814381411688032}
   - component: {fileID: 6814283462930494874}
   - component: {fileID: 4067450115456771179}
   - component: {fileID: 2820253705177711828}
@@ -2309,6 +2570,21 @@ Transform:
   m_Father: {fileID: 4332995545019538}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 7.9541645, y: -2.4870908, z: -29.071507}
+--- !u!114 &211814381411688032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776184075353888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 2
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &6814283462930494874
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2394,6 +2670,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4964445337073812}
+  - component: {fileID: 6216804926495642729}
   - component: {fileID: 1975352126584378243}
   - component: {fileID: 1958255249116212720}
   - component: {fileID: 1340734022766118930}
@@ -2420,6 +2697,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0.8671511, y: -9.962713, z: -170.07558}
+--- !u!114 &6216804926495642729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810141763451054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1975352126584378243
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2505,6 +2797,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4344148631007198}
+  - component: {fileID: 2298384773117067429}
   - component: {fileID: 1383127090059672934}
   - component: {fileID: 1074586055461694546}
   - component: {fileID: 4558289841606132311}
@@ -2531,6 +2824,21 @@ Transform:
   m_Father: {fileID: 4964445337073812}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.43523535, y: 4.9810762, z: 5.018932}
+--- !u!114 &2298384773117067429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888938574481648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 1
+  type: 0
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &1383127090059672934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2616,6 +2924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4270482086798180}
+  - component: {fileID: 8062999015391268787}
   - component: {fileID: 5664009127888858147}
   - component: {fileID: 3645871268163381740}
   - component: {fileID: 1296168189830520753}
@@ -2643,6 +2952,21 @@ Transform:
   m_Father: {fileID: 4981547033364784}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -9.0877, y: 92.90186, z: 49.643883}
+--- !u!114 &8062999015391268787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944545762035322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e27d46b9e15949a0094ff01068a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageWeight: 3
+  type: 3
+  creature: {fileID: -7780425046225090788}
 --- !u!136 &5664009127888858147
 CapsuleCollider:
   m_ObjectHideFlags: 0

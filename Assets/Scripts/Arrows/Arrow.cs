@@ -36,7 +36,7 @@ namespace Arrows {
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {
-                target.HandleArrowHit(this);
+                //target.HandleArrowHit(this);
                 Debug.Log("Hit");
             } else {
                 audio.PlayOneShot(hitSound);

@@ -68,37 +68,7 @@ namespace Defence_Weapons {
         private void OnDestroy() {
             EventsManager.onEnemyDiesInsideSecurityArea -= RemoveDeadTarget;
         }
-
-        private void OnDrawGizmos() //drow a ray which the sensor use it(helps to visualies things)
-        {
-            if (!IsItAirPlaneSensor) {
-                if (SecurityWeapon.HasToDefend && Target != null && Target.CurrentState != Creature.CreatureState.Dead) {
-                    Gizmos.color = new Color(1, 0, 0, 1);
-                    Gizmos.DrawRay(transform.position, transform.forward * Vector3.Distance(transform.position, Target.RigBody.transform.position));
-                }
-            } else {
-                if (FighterAirPlane.HasToDefend && Target != null && Target.CurrentState != Creature.CreatureState.Dead) {
-                    Gizmos.color = new Color(1, 0, 0, 1);
-                    Gizmos.DrawRay(transform.position, transform.forward * Vector3.Distance(transform.position, Target.RigBody.transform.position));
-                }
-            }
-        }
-
-        private bool CheckIfClearToShootAt(Creatures.Creature target) //shoot a ray towards the target to know if we can shoot him and not hiden behind another object(a rock or something)
-        {
-            if (target != null) {
-                transform.LookAt(target.RigBody.transform.position);
-
-                Physics.Raycast(transform.position, transform.forward, out raycast, Vector3.Distance(transform.position, target.RigBody.transform.position), ~LayerMask.GetMask(layersToIgnor)); //the +1 is needed for the animation problem
-                if (raycast.collider != null) {
-                    if (raycast.collider.gameObject.layer == Constants.ENEMY_LAYER_ID) //if the ray hit a creature
-                        return true;
-                    return false;
-                }
-                return false;
-            }
-            return false;
-        }
+        
 
         public void RemoveDeadTarget(Creatures.Creature creature) //remove the dead creature from Targets list after it dies
         {

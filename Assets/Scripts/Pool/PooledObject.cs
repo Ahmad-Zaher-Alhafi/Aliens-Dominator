@@ -12,7 +12,7 @@ namespace Pool {
             return (T) poolRelatedTo.GetPooledObject(parent);
         }
 
-        public void ReturnToPool() {
+        protected void ReturnToPool() {
             poolRelatedTo.AddToPool(this);
         }
     }
