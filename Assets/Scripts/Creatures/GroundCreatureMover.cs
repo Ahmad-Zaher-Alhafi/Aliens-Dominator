@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Context;
 using ManagersAndControllers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -125,7 +126,7 @@ namespace Creatures {
 
             //You see it right, I'm using events haha
             //This will fire once one enemy got killed/ hit, so enemies stop running in circles
-            EventsManager.onStartEnemyDeath += CinematicEnemyHitEvent;
+            Ctx.Deps.EventsManager.onFirstCreatureDied += CinematicEnemyHitEvent;
 
             if (NavMeshAgent) {
                 if (PatrolPoints.Count <= 0) return;
@@ -303,7 +304,7 @@ namespace Creatures {
         }
 
         public void OnDestroy() {
-            EventsManager.onStartEnemyDeath -= CinematicEnemyHitEvent;
+            Ctx.Deps.EventsManager.onFirstCreatureDied -= CinematicEnemyHitEvent;
         }
 
         private waypoint GetRandomWaypointForCinematicEnemy() {

@@ -1,4 +1,4 @@
-using ManagersAndControllers;
+using Context;
 using UnityEngine;
 
 namespace Collectables {
@@ -11,8 +11,11 @@ namespace Collectables {
 
             if (other.gameObject.tag != "Arrow") return;
 
-            if (suppliesType == Constants.SuppliesTypes.ArrowUpgrade) EventsManager.OnGatheringSupplies();
-            else EventsManager.OnTakingAmmo(suppliesType, numOfAmmoInThePack);
+            if (suppliesType == Constants.SuppliesTypes.ArrowUpgrade) {
+                Ctx.Deps.EventsManager.OnGatheringSupplies();
+            } else {
+                Ctx.Deps.EventsManager.OnTakingAmmo(suppliesType, numOfAmmoInThePack);
+            }
 
             Destroy(gameObject);
         }

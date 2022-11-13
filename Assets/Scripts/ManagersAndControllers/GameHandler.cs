@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Collectables;
+using Context;
 using Creatures;
 using Defence_Weapons;
 using Particles;
@@ -64,9 +65,9 @@ namespace ManagersAndControllers {
         private void Start() {
             UpdateResourcesCount(0);
             WasCinematicCreatuerDied = false;
-            EventsManager.onCallingSupplies += CallSuppliesAirplane;
-            EventsManager.onGatheringSupplies += IncreaseSupplieseCount;
-            EventsManager.onStinkyBallHit += BlockPlayerVision;
+            Ctx.Deps.EventsManager.onCallingSupplies += CallSuppliesAirplane;
+            Ctx.Deps.EventsManager.onGatheringSupplies += IncreaseSupplieseCount;
+            Ctx.Deps.EventsManager.onStinkyBallHit += BlockPlayerVision;
             NavMesh.pathfindingIterationsPerFrame = 500;
 
             InitNewWave();
@@ -80,9 +81,9 @@ namespace ManagersAndControllers {
         }
 
         private void OnDestroy() {
-            EventsManager.onGatheringSupplies -= IncreaseSupplieseCount;
-            EventsManager.onCallingSupplies -= CallSuppliesAirplane;
-            EventsManager.onStinkyBallHit -= BlockPlayerVision;
+            Ctx.Deps.EventsManager.onGatheringSupplies -= IncreaseSupplieseCount;
+            Ctx.Deps.EventsManager.onCallingSupplies -= CallSuppliesAirplane;
+            Ctx.Deps.EventsManager.onStinkyBallHit -= BlockPlayerVision;
         }
 
         public void ClearScene() {

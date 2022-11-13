@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Context;
 using Creatures;
 using ManagersAndControllers;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Defence_Weapons {
             layersToIgnor[0] = LayerMask.LayerToName(Constants.PROJECTILE_LAYER_ID);
             layersToIgnor[1] = LayerMask.LayerToName(Constants.IGNORE_RAYCAST_LAYER_ID);
 
-            EventsManager.onEnemyDiesInsideSecurityArea += RemoveDeadTarget;
+            Ctx.Deps.EventsManager.onEnemyDiesInsideSecurityArea += RemoveDeadTarget;
         }
 
         /*private void FixedUpdate() {
@@ -66,7 +67,7 @@ namespace Defence_Weapons {
         }*/
 
         private void OnDestroy() {
-            EventsManager.onEnemyDiesInsideSecurityArea -= RemoveDeadTarget;
+            Ctx.Deps.EventsManager.onEnemyDiesInsideSecurityArea -= RemoveDeadTarget;
         }
         
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Context;
 using Creatures;
 using UnityEngine;
 using UnityEngine.AI;
@@ -192,6 +193,7 @@ namespace ManagersAndControllers {
         //[SerializeField] private Creature bossPrefab;
         //[SerializeField] private Transform bossSpwanPoint;
         private bool wasBossSpawned;
+        private bool wasFirstCreatureDied;
 
         public Transform[] RunningAwayPoints => runningAwayPoints;
 
@@ -199,13 +201,13 @@ namespace ManagersAndControllers {
             wasBossSpawned = false;
             Timer = LevelSettings.TimerForEnemySpawn;
 
-            EventsManager.onStartEnemyDeath += StartCinematicView;
+            Ctx.Deps.EventsManager.onFirstCreatureDied += StartCinematicView;
             GameHandler = FindObjectOfType<GameHandler>();
 
             LevelSettings.Reset();
             GameHandler.UpdateStatus(LevelSettings.CurrentWave, LevelSettings.MaxWaves, LevelSettings.CurrentLevel);
 
-            EventsManager.onBossDie += FinishLevel;
+            Ctx.Deps.EventsManager.onBossDie += FinishLevel;
             //SpawnAirCreaturesGroup(Constants.GroupsTypes.triangle);
             SpawnCinematicCreatures();
         }
@@ -252,8 +254,8 @@ namespace ManagersAndControllers {
         }
 
         private void OnDestroy() {
-            EventsManager.onStartEnemyDeath -= StartCinematicView;
-            EventsManager.onBossDie -= FinishLevel;
+            Ctx.Deps.EventsManager.onFirstCreatureDied -= StartCinematicView;
+            Ctx.Deps.EventsManager.onBossDie -= FinishLevel;
         }
 
         private void OnDrawGizmos() {
@@ -270,7 +272,7 @@ namespace ManagersAndControllers {
             Debug.Log("Level has finished");
             Spawn = false;
 
-            EventsManager.OnLevelFinishs();
+            Ctx.Deps.EventsManager.OnLevelFinishs();
             LevelSettings.IncreaseLevel();
             GameHandler.UpdateStatus(LevelSettings.CurrentWave, LevelSettings.MaxWaves, LevelSettings.CurrentLevel);
 
@@ -590,6 +592,12 @@ namespace ManagersAndControllers {
 
         public void StartNextLevel() {
             Spawn = true;
+        }
+
+        public void OnCreatureDied() {
+            if (!wasFirstCreatureDied) {
+                wasFirstCreatureDied = true;
+            }
         }
     }
 }

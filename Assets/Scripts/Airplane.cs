@@ -1,4 +1,5 @@
 using System.Collections;
+using Context;
 using ManagersAndControllers;
 using UnityEngine;
 public class Airplane : MonoBehaviour {
@@ -30,7 +31,7 @@ public class Airplane : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        EventsManager.onCallingSupplies -= MoveToDropArea;
+        Ctx.Deps.EventsManager.onCallingSupplies -= MoveToDropArea;
     }
 
     /// <summary>

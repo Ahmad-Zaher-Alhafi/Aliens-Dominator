@@ -1,4 +1,5 @@
 using Arrows;
+using Context;
 using ManagersAndControllers;
 using Player;
 using Pool;
@@ -19,7 +20,7 @@ namespace Collectables {
         public void Init(Vector3 position) {
             transform.position = position;
         }
-        
+
         // Update is called once per frame
         private void Update() {
             if (transform.position.y >= HeightLimit) Destroy(gameObject);
@@ -33,7 +34,7 @@ namespace Collectables {
                 var rig = FindObjectOfType<ArcheryRig>();
                 rig.AddArrow(Arrow);
             } else {
-                EventsManager.OnCallingSupplies(suppliesType); //call the airplane to get a supplies drop
+                Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType); //call the airplane to get a supplies drop
             }
 
             Destroy(gameObject);

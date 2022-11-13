@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Context;
 using ManagersAndControllers;
 using Projectiles;
 using TMPro;
@@ -89,10 +90,10 @@ namespace Defence_Weapons {
 
             for (int i = 0; i < airRockets.Count; i++) airRocketsReloadPoints.Add(new AirRocketsReloadPoint(airRockets[i].transform.parent.transform, airRockets[i].transform.localPosition));
 
-            EventsManager.onTakingAmmo += ReloadWeapon;
-            EventsManager.onLevelFinishs += GoBackToBase;
-            EventsManager.onLevelFinishs += ShowUpdateImages;
-            EventsManager.onLevelStarts += HideUpdateImages;
+            Ctx.Deps.EventsManager.onTakingAmmo += ReloadWeapon;
+            Ctx.Deps.EventsManager.onLevelFinishs += GoBackToBase;
+            Ctx.Deps.EventsManager.onLevelFinishs += ShowUpdateImages;
+            Ctx.Deps.EventsManager.onLevelStarts += HideUpdateImages;
 
             IsShooting = false;
             HasToUseRockets = false;
@@ -130,10 +131,10 @@ namespace Defence_Weapons {
         }
 
         private void OnDestroy() {
-            EventsManager.onTakingAmmo -= ReloadWeapon;
-            EventsManager.onLevelFinishs -= GoBackToBase;
-            EventsManager.onLevelFinishs -= ShowUpdateImages;
-            EventsManager.onLevelStarts -= HideUpdateImages;
+            Ctx.Deps.EventsManager.onTakingAmmo -= ReloadWeapon;
+            Ctx.Deps.EventsManager.onLevelFinishs -= GoBackToBase;
+            Ctx.Deps.EventsManager.onLevelFinishs -= ShowUpdateImages;
+            Ctx.Deps.EventsManager.onLevelStarts -= HideUpdateImages;
         }
 
         private void ShowUpdateImages() {

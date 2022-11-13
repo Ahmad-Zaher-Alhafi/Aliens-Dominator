@@ -1,4 +1,5 @@
 using System;
+using Context;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -80,7 +81,7 @@ namespace ManagersAndControllers {
         }
 
         public void StartNextLevel() {
-            EventsManager.OnLevelStarts();
+            Ctx.Deps.EventsManager.OnLevelStarts();
             creatureSpawnController.StartNextLevel();
         }
     }

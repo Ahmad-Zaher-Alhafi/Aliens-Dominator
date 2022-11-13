@@ -2,67 +2,102 @@ using System;
 using UnityEngine;
 
 namespace ManagersAndControllers {
-    public static class EventsManager {
-        public static event Action onStartEnemyDeath; //event that beaing shot when one of the start enemies being died
-        public static event Action<Constants.SuppliesTypes> onCallingSupplies; //event that beaing shot when you takes the object that brought you supplies bu the aireplane
-        public static event Action onGatheringSupplies; //event that beaing shot when you gather a supplies object
-        public static event Action<Constants.ObjectsColors> onStinkyBallHit; //event that beaing shot when the player get hit by a stinky ball
-        public static event Action<Transform> onAirLeaderPatrolling; //event that beaing shot when the leader of the air creatures group reachs the last point and start to patrol around
-        public static event Action onAirLeaderDeath; //event that beaing shot when the leader of the air group dies
-        public static event Action<Creatures.Creature> onEnemyDiesInsideSecurityArea; //event that beaing shot when a creature dies inside the seacurity area of the seacurity weapon
-        public static event Action<Constants.SuppliesTypes, int> onTakingAmmo; //event that beaing shot when the player takes a rocket ammo
-        public static event Action onLevelFinishs; //event that beaing shot when the a level finishs
-        public static event Action onLevelStarts; //event that beaing shot when the a level starts
-        public static event Action onSecurityWeaponDestroy; //event that beaing shot when one of the security weapons get destroied
-        public static event Action onBossDie; //event that beaing shot when the boss of the levle get died
+    public interface IEventManager {
+        public event Action onFirstCreatureDied;
+        public void OnFirstCreatureDied();
 
+        public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
+        public void OnCallingSupplies(Constants.SuppliesTypes suppliesType);
 
+        public event Action onGatheringSupplies; //event that being shot when you gather a supplies object
+        public void OnGatheringSupplies();
 
-        public static void OnStartEnemyDeath() {
-            onStartEnemyDeath?.Invoke();
+        public event Action<Constants.ObjectsColors> onStinkyBallHit; //event that being shot when the player get hit by a stinky ball
+        public void OnStinkyBallHit(Constants.ObjectsColors stinkyBallColor);
+
+        public event Action<Transform> onAirLeaderPatrolling; //event that being shot when the leader of the air creatures group reachs the last point and start to patrol around
+        public void OnAirLeaderPatrolling(Transform leader);
+
+        public event Action onAirLeaderDeath; //event that being shot when the leader of the air group dies
+        public void OnAirLeaderDeath();
+
+        public event Action<Creatures.Creature> onEnemyDiesInsideSecurityArea; //event that being shot when a creature dies inside the seacurity area of the seacurity weapon
+        public void OnEnemyDiesInsideSecurityArea(Creatures.Creature creature);
+
+        public event Action<Constants.SuppliesTypes, int> onTakingAmmo; //event that being shot when the player takes a rocket ammo
+        public void OnTakingAmmo(Constants.SuppliesTypes ammoType, int ammoNumber);
+
+        public event Action onLevelFinishs; //event that being shot when the a level finishs
+        public void OnLevelFinishs();
+
+        public event Action onLevelStarts; //event that being shot when the a level starts
+        public void OnLevelStarts();
+
+        public event Action onSecurityWeaponDestroy; //event that being shot when one of the security weapons get destroied
+        public void OnSecurityWeaponDestroy();
+
+        public event Action onBossDie; //event that being shot when the boss of the levle get died
+        public void OnBossDie();
+    }
+
+    public class EventsManager : MonoBehaviour, IEventManager {
+        public event Action onFirstCreatureDied; //event that being shot when one of the start enemies being died
+        public void OnFirstCreatureDied() {
+            onFirstCreatureDied?.Invoke();
         }
 
-        public static void OnCallingSupplies(Constants.SuppliesTypes suppliesType) {
+        public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
+        public void OnCallingSupplies(Constants.SuppliesTypes suppliesType) {
             onCallingSupplies?.Invoke(suppliesType);
         }
 
-        public static void OnGatheringSupplies() {
+        public event Action onGatheringSupplies; //event that being shot when you gather a supplies object
+        public void OnGatheringSupplies() {
             onGatheringSupplies?.Invoke();
         }
 
-        public static void OnStinkyBallHit(Constants.ObjectsColors stinkyBallColor) {
+        public event Action<Constants.ObjectsColors> onStinkyBallHit; //event that being shot when the player get hit by a stinky ball
+        public void OnStinkyBallHit(Constants.ObjectsColors stinkyBallColor) {
             onStinkyBallHit?.Invoke(stinkyBallColor);
         }
 
-        public static void OnAirLeaderPatrolling(Transform leader) {
+        public event Action<Transform> onAirLeaderPatrolling; //event that being shot when the leader of the air creatures group reachs the last point and start to patrol around
+        public void OnAirLeaderPatrolling(Transform leader) {
             onAirLeaderPatrolling?.Invoke(leader);
         }
 
-        public static void OnAirLeaderDeath() {
+        public event Action onAirLeaderDeath; //event that being shot when the leader of the air group dies
+        public void OnAirLeaderDeath() {
             onAirLeaderDeath?.Invoke();
         }
 
-        public static void OnEnemyDiesInsideSecurityArea(Creatures.Creature creature) {
+        public event Action<Creatures.Creature> onEnemyDiesInsideSecurityArea; //event that being shot when a creature dies inside the seacurity area of the seacurity weapon
+        public void OnEnemyDiesInsideSecurityArea(Creatures.Creature creature) {
             onEnemyDiesInsideSecurityArea?.Invoke(creature);
         }
 
-        public static void OnTakingAmmo(Constants.SuppliesTypes ammoType, int ammoNumber) {
+        public event Action<Constants.SuppliesTypes, int> onTakingAmmo; //event that being shot when the player takes a rocket ammo
+        public void OnTakingAmmo(Constants.SuppliesTypes ammoType, int ammoNumber) {
             onTakingAmmo?.Invoke(ammoType, ammoNumber);
         }
 
-        public static void OnLevelFinishs() {
+        public event Action onLevelFinishs; //event that being shot when the a level finishs
+        public void OnLevelFinishs() {
             onLevelFinishs?.Invoke();
         }
 
-        public static void OnLevelStarts() {
+        public event Action onLevelStarts; //event that being shot when the a level starts
+        public void OnLevelStarts() {
             onLevelStarts?.Invoke();
         }
 
-        public static void OnSecurityWeaponDestroy() {
+        public event Action onSecurityWeaponDestroy; //event that being shot when one of the security weapons get destroied
+        public void OnSecurityWeaponDestroy() {
             onSecurityWeaponDestroy?.Invoke();
         }
 
-        public static void OnBossDie() {
+        public event Action onBossDie; //event that being shot when the boss of the levle get died
+        public void OnBossDie() {
             onBossDie?.Invoke();
         }
     }

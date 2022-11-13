@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Context;
 using ManagersAndControllers;
 using Player;
 using Projectiles;
@@ -144,13 +145,15 @@ namespace Creatures {
         }*/
 
         private void OnDestroy() {
-            if (CompareTag(Constants.OnStartWaves)) EventsManager.onStartEnemyDeath -= OrderToRunAway;
+            if (CompareTag(Constants.OnStartWaves)) {
+                Ctx.Deps.EventsManager.onFirstCreatureDied -= OrderToRunAway;
+            }
 
             if (IsItGroupMember && !IsItTheLeader) //if it was an air group member and not the leader
             {
-                EventsManager.onAirLeaderPatrolling -= OrderToPatrol;
-                EventsManager.onAirLeaderDeath -= BreakAirGroup;
-                EventsManager.onSecurityWeaponDestroy -= FindTarget;
+                Ctx.Deps.EventsManager.onAirLeaderPatrolling -= OrderToPatrol;
+                Ctx.Deps.EventsManager.onAirLeaderDeath -= BreakAirGroup;
+                Ctx.Deps.EventsManager.onSecurityWeaponDestroy -= FindTarget;
             }
         }
 

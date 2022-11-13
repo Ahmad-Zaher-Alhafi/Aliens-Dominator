@@ -1,4 +1,5 @@
 using System.Collections;
+using Context;
 using Defence_Weapons;
 using ManagersAndControllers;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Projectiles {
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag(Constants.PlayerLookAtPoint)) //if it hit the player
             {
-                EventsManager.OnStinkyBallHit(stinkyBallColor); //call the event to play the block vision particles
+                Ctx.Deps.EventsManager.OnStinkyBallHit(stinkyBallColor); //call the event to play the block vision particles
                 DestroyParticles();
                 Destroy(gameObject);
             } else if (other.CompareTag(Constants.SecurityWeapon)) {

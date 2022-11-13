@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Context;
 using ManagersAndControllers;
 using Projectiles;
 using TMPro;
@@ -70,8 +71,8 @@ namespace Defence_Weapons {
             weaponHealthBar.maxValue = initialHealth;
             weaponHealthBar.minValue = 0;
             weaponHealthBar.normalizedValue = weaponHealth / initialHealth;
-            EventsManager.onLevelFinishs += ShowUpdateImages;
-            EventsManager.onLevelStarts += HideUpdateImages;
+            Ctx.Deps.EventsManager.onLevelFinishs += ShowUpdateImages;
+            Ctx.Deps.EventsManager.onLevelStarts += HideUpdateImages;
 
             WasDestroyed = false;
             hasToPlayStartShootingSound = true;
@@ -84,7 +85,7 @@ namespace Defence_Weapons {
                 for (int i = 0; i < airRockets.Count; i++)
                     airRocketsReloadPoints.Add(new AirRocketsReloadPoint(airRockets[i].transform.parent.transform, airRockets[i].transform.localPosition));
 
-            EventsManager.onTakingAmmo += ReloadWeapon;
+            Ctx.Deps.EventsManager.onTakingAmmo += ReloadWeapon;
 
             hasToResetRotation = false;
             originalEuralAngles = transform.rotation;
@@ -114,9 +115,11 @@ namespace Defence_Weapons {
         }
 
         private void OnDestroy() {
-            if (weaponType == Constants.SecurityWeaponsTypes.air) EventsManager.onTakingAmmo -= ReloadWeapon;
+            if (weaponType == Constants.SecurityWeaponsTypes.air) {
+                Ctx.Deps.EventsManager.onTakingAmmo -= ReloadWeapon;
+            }
 
-            EventsManager.onLevelFinishs -= ShowUpdateImages;
+            Ctx.Deps.EventsManager.onLevelFinishs -= ShowUpdateImages;
         }
 
         private void ShowUpdateImages() {
@@ -374,7 +377,7 @@ namespace Defence_Weapons {
                 weaponHealth = 0;
                 WasDestroyed = true;
                 gameObject.SetActive(false);
-                EventsManager.OnSecurityWeaponDestroy();
+                Ctx.Deps.EventsManager.OnSecurityWeaponDestroy();
             }
         }
 

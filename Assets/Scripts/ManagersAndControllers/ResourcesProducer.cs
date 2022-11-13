@@ -1,3 +1,4 @@
+using Context;
 using UnityEngine;
 
 namespace ManagersAndControllers {
@@ -9,11 +10,11 @@ namespace ManagersAndControllers {
         // Start is called before the first frame update
         private void Start() {
             gameHandler = FindObjectOfType<GameHandler>();
-            EventsManager.onLevelFinishs += ProduceResources;
+            Ctx.Deps.EventsManager.onLevelFinishs += ProduceResources;
         }
 
         private void OnDestroy() {
-            EventsManager.onLevelFinishs -= ProduceResources;
+            Ctx.Deps.EventsManager.onLevelFinishs -= ProduceResources;
         }
 
 
