@@ -25,7 +25,7 @@ namespace ManagersAndControllers {
         public List<AttackPoint> AttackPoints = new();
         public SecurityWeapon[] SecurityWeapons;
         public List<GameObject> SpecialArrows = new();
-        public List<Balloon> Balloons = new();
+        public List<SupplyBalloon> Balloons = new();
         public float NumOfResources;
         [FormerlySerializedAs("Spawner")]
         public CreatureSpawnController creatureSpawnController;

@@ -1321,31 +1321,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 1
-  CurrentState: 0
-  PreviousState: 0
+  pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: 3b9d5f7e834637b4c8d28d3983b4fd2e, type: 2}
   - {fileID: 2100000, guid: 5a21b98a96e784a4aa575368b83b3ca2, type: 2}
   - {fileID: 2100000, guid: bf571311aac8f7e4bb92ae046ba8b58e, type: 2}
+  bouncingMaterial: {fileID: 0}
   slowdownTimer: 6
   attackDamage: 10
-  bouncingMaterial: {fileID: 0}
+  creatureColor: 0
   CreatureStateCanves: {fileID: 1295021684374082244}
   CreatureHealthBar: {fileID: 1295021684033093692}
-  hitForce: 1000
   health: 5
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
+  chanceOfDroppingBalloon: 60
   waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 10
-  creatureColor: 0
-  RigBody: {fileID: 1482316826004934}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
+  secondsToDestroyDeadBody: 10
+  mover: {fileID: 0}
   IsItTheLeader: 0
   IsItGroupMember: 0
   CreaturePointInGroup: {fileID: 0}

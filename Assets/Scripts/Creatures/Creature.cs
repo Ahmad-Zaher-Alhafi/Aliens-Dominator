@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Context;
 using Creatures.Animators;
 using Pool;
 using UnityEngine;
@@ -72,7 +73,7 @@ namespace Creatures {
             bodyParts = GetComponentsInChildren<BodyPart>();
             audioSource = GetComponent<AudioSource>();
         }
-        
+
         public void Init(Vector3 position) {
             CurrentState = CreatureState.Idle;
             initialHealth = health;
@@ -105,44 +106,39 @@ namespace Creatures {
                 _ => CurrentState
             };
         }
-        
+
         private CreatureAction GetRandomActionToDo() {
             int randomNumber = Random.Range(0, 2);
             return randomNumber == 0 ? CreatureAction.StayIdle : CreatureAction.Patrol;
         }
-        
+
         public void ApplyDamage(IDamager damager, int damageWeight) {
             if (CurrentState == CreatureState.Dead) return;
 
             if (!CreatureStateCanves.activeInHierarchy) {
                 CreatureStateCanves.SetActive(true);
             }
-            
+
             int totalDamage = damager.Damage * damageWeight;
             health -= totalDamage;
-            
+
             PreviousState = CreatureState.GettingHit;
             CreatureHealthBar.normalizedValue = health / initialHealth;
 
             if (health > 0f) return;
-
-            int rand = Random.Range(1, 101);
-            if (rand <= chanceOfDroppingBalloon) {
-                SpawnBalloon();
-            }
+            
+            Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, chanceOfDroppingBalloon);
 
             // Force to push the creature away once get killed (More realistic)
             rig.AddForce(damager.Transform.forward * pushForceWhenDead);
 
             OnDie();
         }
-
-        private void SpawnBalloon() { }
-
+        
         private void PlayDeathSound() {
             audioSource.Play();
         }
-        
+
         private void OnDie() {
             CurrentState = CreatureState.Dead;
             PlayDeathSound();

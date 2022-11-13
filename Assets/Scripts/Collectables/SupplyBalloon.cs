@@ -1,10 +1,11 @@
 using Arrows;
 using ManagersAndControllers;
 using Player;
+using Pool;
 using UnityEngine;
 
 namespace Collectables {
-    public class Balloon : MonoBehaviour {
+    public class SupplyBalloon : PooledObject {
         public float HeightLimit;
         public float TimeLimit;
         public float Speed = 10f;
@@ -14,15 +15,11 @@ namespace Collectables {
 
         public ArrowBase Arrow;
         [SerializeField] private Constants.SuppliesTypes suppliesType;
-        private GameHandler GameHandler;
 
-        // Start is called before the first frame update
-        private void Start() {
-            GameHandler = FindObjectOfType<GameHandler>();
-
-            Destroy(gameObject, TimeLimit);
+        public void Init(Vector3 position) {
+            transform.position = position;
         }
-
+        
         // Update is called once per frame
         private void Update() {
             if (transform.position.y >= HeightLimit) Destroy(gameObject);
