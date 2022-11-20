@@ -17,8 +17,8 @@ using Random = UnityEngine.Random;
 namespace ManagersAndControllers {
     [Serializable]
     public class AttackPoint {
-        public waypoint Waypoint;
-        public Creature.CreatureType creatureType = Creature.CreatureType.Grounded;
+        public Waypoint Waypoint;
+        public Creature.CreatureType creatureType;
     }
 
     public class GameHandler : MonoBehaviour {
@@ -96,7 +96,6 @@ namespace ManagersAndControllers {
 
         //Inits starting a new level
         public void InitNewWave() {
-            creatureSpawnController.Spawn = false;
         }
 
         public void GameOver(int score) {
@@ -113,7 +112,7 @@ namespace ManagersAndControllers {
 //            UIManager.UpdateStatus(wave, maxWave, level);
         }
 
-        public waypoint GetSpot(Creature.CreatureType creatureType) {
+        public Waypoint GetSpot(Creature.CreatureType creatureType) {
             List<AttackPoint> points = AttackPoints.FindAll(a => a.creatureType == creatureType);
 
             return points[Random.Range(0, points.Count)].Waypoint;

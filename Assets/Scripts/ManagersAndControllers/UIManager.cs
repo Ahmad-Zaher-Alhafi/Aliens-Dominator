@@ -82,7 +82,6 @@ namespace ManagersAndControllers {
 
         public void StartNextLevel() {
             Ctx.Deps.EventsManager.OnLevelStarts();
-            creatureSpawnController.StartNextLevel();
         }
     }
 }

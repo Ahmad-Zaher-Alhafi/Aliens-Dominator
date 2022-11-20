@@ -36,7 +36,6 @@ namespace Creatures {
         private int airPointIndex; //index of the next targetWayPoint in the airWayPoints array
         private readonly List<Transform> airWayPoints = new(); //air points which the creature has to follow
         private Creature creature;
-        private List<Paths> creaturePathes = new();
         private GameHandler gameHandler;
         private bool hasFinishedAttacking; //true if he finished attacking
         //private Transform pointToPatrolAround;//a point which takes the position of the enemy in the last way point he reach so after that he gonna patrol around this point using the randomPatrolPosiotion
@@ -58,9 +57,6 @@ namespace Creatures {
         private Transform runAwayPoint;
         private Transform targetToFollow;
         private Vector3 wantedAngle, oldAngle; //wanted angle is the angle that the creature has to rotate to it to reach the wanted point, old angle is the current angle
-        public List<Paths> CreaturePathes {
-            set => creaturePathes = value;
-        }
 
         /*private void Start() {
             animator = GetComponent<Animator>();
@@ -146,7 +142,7 @@ namespace Creatures {
 
         private void OnDestroy() {
             if (CompareTag(Constants.OnStartWaves)) {
-                Ctx.Deps.EventsManager.onFirstCreatureDied -= OrderToRunAway;
+                Ctx.Deps.EventsManager.WaveStarted -= OrderToRunAway;
             }
 
             if (IsItGroupMember && !IsItTheLeader) //if it was an air group member and not the leader

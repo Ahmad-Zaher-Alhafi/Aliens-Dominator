@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
@@ -10,17 +11,26 @@ using Random = UnityEngine.Random;
 namespace Creatures {
     public abstract class Creature : PooledObject {
         public enum CreatureType {
-            Grounded,
-            Flying
+            Garoo,
+            Longtail,
+            Magantee,
+            Magantis,
+            Scorpion,
+            Serpent,
+            Sicklus,
+            Telekinis,
+            Ulifo
         }
 
         public enum CreatureState {
+            None,
             Idle,
             Patrolling,
             FollowingPath,
             GettingHit,
             Attacking,
             Chasing,
+            RunningAway,
             Dead
         }
 
@@ -65,6 +75,7 @@ namespace Creatures {
         public CreatureMover mover;
         private CreatureAnimator animator;
         private BodyPart[] bodyParts;
+        private CreatureState externalState = CreatureState.None;
 
         private void Awake() {
             rig = GetComponent<Rigidbody>();
@@ -72,14 +83,16 @@ namespace Creatures {
             animator = GetComponent<CreatureAnimator>();
             bodyParts = GetComponentsInChildren<BodyPart>();
             audioSource = GetComponent<AudioSource>();
+
+            Ctx.Deps.EventsManager.WaveStarted += RunAway;
         }
 
         public void Init(Vector3 position) {
             CurrentState = CreatureState.Idle;
+            externalState = CreatureState.None;
             initialHealth = health;
             transform.position = position;
             IsSlowedDown = false;
-
 
             rig.useGravity = false;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
@@ -97,7 +110,20 @@ namespace Creatures {
         }
 
         private void Update() {
-            if (mover.IsBusy || CurrentState == CreatureState.Dead) return;
+            if (CurrentState == CreatureState.Dead) return;
+
+            if (externalState != CreatureState.None && CurrentState != externalState) {
+                PreviousState = CurrentState;
+                CurrentState = externalState;
+                return;
+            }
+
+            if (mover.IsBusy) return;
+
+            if (CurrentState == CreatureState.RunningAway) {
+                Disappear();
+                return;
+            }
 
             PreviousState = CurrentState;
             CurrentState = GetRandomActionToDo() switch {
@@ -126,38 +152,52 @@ namespace Creatures {
             CreatureHealthBar.normalizedValue = health / initialHealth;
 
             if (health > 0f) return;
-            
+
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, chanceOfDroppingBalloon);
 
             // Force to push the creature away once get killed (More realistic)
             rig.AddForce(damager.Transform.forward * pushForceWhenDead);
 
-            OnDie();
+            Die();
         }
-        
+
+        private void RunAway() {
+            mover.CancelCurrentOrder();
+            externalState = CreatureState.RunningAway;
+        }
+
         private void PlayDeathSound() {
             audioSource.Play();
         }
 
-        private void OnDie() {
+        private void Die() {
             CurrentState = CreatureState.Dead;
             PlayDeathSound();
 
             rig.useGravity = true;
             rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
-            mover.OnDie();
-            animator.OnDie();
+            mover.OnDeath();
+            animator.OnDeath();
             foreach (BodyPart bodyPart in bodyParts) {
-                bodyPart.OnDie();
+                bodyPart.OnDeath();
             }
 
-            StartCoroutine(DestroyObjectDelayed());
+            StartCoroutine(DestroyObjectDelayed(secondsToDestroyDeadBody));
         }
 
-        private IEnumerator DestroyObjectDelayed() {
+        private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
+            Ctx.Deps.CreatureSpawnController.OnCreatureDeath(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
             ReturnToPool();
+        }
+
+        private void Disappear() {
+            StartCoroutine(DestroyObjectDelayed());
+        }
+        
+        private void OnDestroy() {
+            Ctx.Deps.EventsManager.WaveStarted -= RunAway;
         }
     }
 }

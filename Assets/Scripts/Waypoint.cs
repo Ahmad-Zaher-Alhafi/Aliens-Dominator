@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class waypoint : MonoBehaviour {
+public class Waypoint : MonoBehaviour {
     [SerializeField]
     protected float debugDrawRadius = 1.0F;
     public Color Color;

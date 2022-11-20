@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace ManagersAndControllers {
     public interface IEventManager {
-        public event Action onFirstCreatureDied;
-        public void OnFirstCreatureDied();
+        public event Action WaveStarted;
+        public void TriggerWaveStarted();
 
         public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
         public void OnCallingSupplies(Constants.SuppliesTypes suppliesType);
@@ -41,9 +41,9 @@ namespace ManagersAndControllers {
     }
 
     public class EventsManager : MonoBehaviour, IEventManager {
-        public event Action onFirstCreatureDied; //event that being shot when one of the start enemies being died
-        public void OnFirstCreatureDied() {
-            onFirstCreatureDied?.Invoke();
+        public event Action WaveStarted; 
+        public void TriggerWaveStarted() {
+            WaveStarted?.Invoke();
         }
 
         public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane

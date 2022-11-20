@@ -37,7 +37,7 @@ namespace Creatures {
             }
         }
         
-        public void OnDie() {
+        public void OnDeath() {
             rig.useGravity = true;
             rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Context;
 using ManagersAndControllers;
 using UnityEngine;
@@ -19,9 +20,6 @@ namespace Creatures {
         private float wayPointsRemainedDistance = 1; //the distance between the creature and the waypoint that he is going to which allow him to go to the next point
         [SerializeField]
         private float _switchProbability;
-
-        [HideInInspector]
-        public List<Paths> PatrolPoints = new();
 
         [HideInInspector]
         public bool isDamaging;
@@ -46,7 +44,7 @@ namespace Creatures {
         [Header("Rotating towards wall")]
         public float SmoothRotating = 8f;
 
-        public waypoint EndPoint;
+        public Waypoint EndPoint;
 
         [HideInInspector]
         public string TrackEnemyID;
@@ -102,7 +100,7 @@ namespace Creatures {
             get {
                 if (TrackEnemyID == null) return null;
 
-               
+
 
                 return null;
             }
@@ -115,7 +113,7 @@ namespace Creatures {
             Path = new NavMeshPath();
 
             GameHandler = FindObjectOfType<GameHandler>();
-           
+
 
             animator = GetComponent<Animator>();
 
@@ -126,14 +124,7 @@ namespace Creatures {
 
             //You see it right, I'm using events haha
             //This will fire once one enemy got killed/ hit, so enemies stop running in circles
-            Ctx.Deps.EventsManager.onFirstCreatureDied += CinematicEnemyHitEvent;
-
-            if (NavMeshAgent) {
-                if (PatrolPoints.Count <= 0) return;
-
-                if (PatrolPoints[currentPath].Waypoints.Count > 0 && PatrolPoints[currentPath].Waypoints.Count >= 2) CurrentPatrolIndex = 0;
-                else Debug.LogError("Insufficient patrol points for basic patrolling behaviour");
-            }
+            Ctx.Deps.EventsManager.WaveStarted += CinematicEnemyHitEvent;
         }
 
         public override void Init() {
@@ -141,9 +132,9 @@ namespace Creatures {
             if (NavMeshAgent == null) {
                 NavMeshAgent = GetComponent<NavMeshAgent>();
             }
-            
+
             NavMeshAgent.enabled = true;
-            NavMeshAgent.speed = Speed;
+            NavMeshAgent.speed = CurrentSpeed;
             NavMeshAgent.stoppingDistance = wayPointsRemainedDistance;
         }
 
@@ -157,133 +148,50 @@ namespace Creatures {
             NavMeshAgent.speed = CurrentSpeed;
             if (HasMovingOrder) {
                 if (HasReachedDestination) {
-                    IsBusy = false;
-                    HasMovingOrder = false;
-                    NavMeshAgent.speed = 0;
+                    OnDestinationReached();
                 }
             }
-
-            /*if (!CompareTag("OnStartWaves")) {
-                StartMovingAnimation();
-
-                //Dont move anymore when attacking wall
-                if (Stop || Creature.CurrentState == Creature.CreatureState.Dead) return;
-
-                if (!NavMeshAgent.enabled) return;
-
-                if (Timer <= TimeUntilNextHit) Timer += Time.deltaTime;
-
-                DistanceFromWaypoint = NavMeshAgent.remainingDistance;
-
-                if (IsHypnotized && DistanceFromWaypoint <= 0.3f) {
-                    FollowEnemyWhileHypnotized();
-                    return;
-                }
-                if (IsHypnotized && DistanceFromWaypoint > 0.3f) {
-                    NavMeshAgent.speed = Speed + HypnotizedSpeedBonus;
-
-                    GameObject go = EnemyToFollow;
-
-                    if (!go) {
-                        GetHypnotized();
-                        return;
-                    }
-
-                    if (UpdatePathTimer >= 0.5f) {
-                        if (NavMesh.CalculatePath(transform.position, go.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
-
-                        UpdatePathTimer = 0f;
-                    }
-
-                    if (UpdatePathTimer <= 0.5f) UpdatePathTimer += Time.deltaTime;
-
-                    return;
-                }
-
-                //Reached waypoint
-                if (DistanceFromWaypoint <= 0.5f && !isDamaging && !isDefending) {
-                    WaypointReached();
-                    return;
-                }
-
-                //Reached attack point
-                if (DistanceFromWaypoint <= 0.2f && isDamaging && !isDefending) {
-                    NavMeshAgent.speed = 0f;
-                    NavMeshAgent.enabled = false;
-
-                    //Coroutine = StartCoroutine(AttackWall());
-
-                    //Stop movement
-                    Stop = true;
-
-                    return;
-                }
-
-                if (isDefending) Defense();
-            } else if (CompareTag("OnStartWaves") && !CinematicEnemyHit) {
-                UpdateCinematicEnemyPosition();
-            } else if (CompareTag("OnStartWaves") && CinematicEnemyHit) {
-                if (NavMeshAgent.remainingDistance <= 0.5f) Destroy(gameObject);
-            }*/
         }
 
         protected override void Patrol() {
             base.Patrol();
             HasMovingOrder = true;
-            NavMesh.CalculatePath(transform.position, GetRandomWaypointForCinematicEnemy().transform.position, NavMesh.AllAreas, Path);
+            NavMesh.CalculatePath(transform.position,
+                GetRandomObjectFromList(creatureSpawnController.GroundCinematicEnemyWaypoints).transform.position, NavMesh.AllAreas, Path);
             NavMeshAgent.SetPath(Path);
         }
 
-        //Plays walk animation and lets the enemy circle around using waypoints, once hit they will run away
+        private void OnDestinationReached() {
+            IsBusy = false;
+            HasMovingOrder = false;
+            NavMeshAgent.speed = 0;
+        }
+
+        protected override void RunAway() {
+            base.RunAway();
+            HasMovingOrder = true;
+            Transform closestRunAwayPoint = FindClosestPoint(creatureSpawnController.RunningAwayPoints);
+            NavMesh.CalculatePath(transform.position, closestRunAwayPoint.position, NavMesh.AllAreas, Path);
+            NavMeshAgent.SetPath(Path);
+        }
+
         protected override void FollowPath() {
-            //if (CinematicEnemyHit || IsExecutingAnimation) return;
-
-            IsBusy = true;
-            //Change speed randomly
-            /*ChangeSpeedTimer += Time.deltaTime;
-            if (ChangeSpeedTimer >= ChangeTimeMax) {
-                NewSpeed = MaxSpeed * Random.Range(0f, 2f);
-                ChangeTimeMax = Random.Range(3f, 11f);
-                ChangeSpeedTimer = 0f;
-            }*/
-
-            //Make the transitions smoothly
-            //NavMeshAgent.speed = Mathf.Lerp(NavMeshAgent.speed, NewSpeed, Time.deltaTime * 1f);
-
-            NavMeshAgent.speed = Speed;
-            List<waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
+            NavMeshAgent.speed = CurrentSpeed;
+            List<Waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
 
             if (NavMeshAgent.remainingDistance <= wayPointsRemainedDistance && waypoints.Count > 0) {
-                GetRandomWaypointForCinematicEnemy();
-                NavMesh.CalculatePath(transform.position, GetRandomWaypointForCinematicEnemy().transform.position, NavMesh.AllAreas, Path);
+                GetRandomObjectFromList(creatureSpawnController.GroundCinematicEnemyWaypoints);
+                NavMesh.CalculatePath(transform.position,
+                    GetRandomObjectFromList(creatureSpawnController.GroundCinematicEnemyWaypoints).transform.position, NavMesh.AllAreas, Path);
                 NavMeshAgent.SetPath(Path);
-
-                /*int rand = Random.Range(0, Enum.GetValues(typeof(Constants.AnimationsTypes)).Length);
-
-                switch (rand) {
-                    case (int) Constants.AnimationsTypes.Feed:
-                        StartCoroutine(WaitForStartCreatureToFinishAnimation(TimeToWaitForAnimation, Constants.AnimationsTypes.Feed));
-                        return;
-                    case (int) Constants.AnimationsTypes.LookAround:
-                        StartCoroutine(WaitForStartCreatureToFinishAnimation(TimeToWaitForAnimation, Constants.AnimationsTypes.LookAround));
-                        return;
-                }*/
-
-
-                //StartMovingAnimation();
-
             } else {
                 IsBusy = false;
             }
         }
 
-        //After the enemy reached the destination, look at the wall
-        /*private void LateUpdate() {
-            if (Stop) {
-                Vector3 lookAt = new Vector3(EndPoint.LookAtGO.transform.position.x, transform.position.y, EndPoint.LookAtGO.transform.position.z) - transform.position;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookAt), 360f), SmoothRotating * Time.deltaTime);
-            }
-        }*/
+        private Transform FindClosestPoint(List<Transform> points) {
+            return points.OrderBy(point => Vector3.Distance(transform.position, point.position)).First();
+        }
 
         private void OnEnable() {
             EnemyId = null;
@@ -304,77 +212,14 @@ namespace Creatures {
         }
 
         public void OnDestroy() {
-            Ctx.Deps.EventsManager.onFirstCreatureDied -= CinematicEnemyHitEvent;
+            Ctx.Deps.EventsManager.WaveStarted -= CinematicEnemyHitEvent;
         }
 
-        private waypoint GetRandomWaypointForCinematicEnemy() {
-            int random = Random.Range(0, creatureSpawnController.GroundCinematicEnemyWaypoints.Count);
-            return creatureSpawnController.GroundCinematicEnemyWaypoints[random];
-        }
-
-        private void FollowRandomPath() {
-            currentPath = Random.Range(0, PatrolPoints.Count);
-        }
-
-        private void WaypointReached() {
-            if (wasSpinning) {
-                NavMeshAgent.speed /= 2;
-                animator.SetBool("Rolled Up Spin Fast", false);
-                wasSpinning = false;
-            }
-            if (wasSpawnningBugs) wasSpawnningBugs = false;
-
-            if (CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count) {
-                ++CurrentPatrolIndex;
-
-                ChangePath();
-                SetGroundedEnemyWaypoint();
-
-                int actionType = Random.Range(0, 2); //0 = (shoot or dig), 1 = (spawn bugs or spin)
-
-                if (MakeSpecialAction()) {
-                    //Attack using guns if creature is fighter and only shoot by 50% chance and first start shooting when offset was reached
-                    if (actionType == 0) {
-                        if (Creature is BossCreature) {
-                            NavMeshAgent.speed = 0f;
-                            StartMovingAnimation();
-
-                            FighterRoutine = EnableShootingForEnemy();
-                            StartCoroutine(FighterRoutine);
-                        } else if (Creature is IFightingCreature) {
-                            //if (CurrentPatrolIndex > Creature.WaypointMinIndexToActivateSpecialActions) {
-                            NavMeshAgent.speed = 0f;
-                            StartMovingAnimation();
-
-                            FighterRoutine = EnableShootingForEnemy();
-                            StartCoroutine(FighterRoutine);
-                            //}
-                        }
-                    } else if (Creature is BugsSpawningCreature && actionType == 1 && !wasSpawnningBugs) {
-                        //if (CurrentPatrolIndex > Creature.WaypointMinIndexToActivateSpecialActions) {
-                        wasSpawnningBugs = true;
-                        GetComponent<BugsSpawningCreature>().OrderToSpawnCreatures();
-                        //}
-                    } else if (Creature is DiggingCreature) {
-                        if (CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count) {
-                            if (!wasDigging && actionType == 0) {
-                                NavMeshAgent.speed = 0f;
-                                StartMovingAnimation();
-                                StartCoroutine(EnableDigging());
-                            } else if (!wasSpinning && actionType == 1) {
-                                NavMeshAgent.speed *= 2;
-                                animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.Spin));
-                                animator.SetBool("Rolled Up Spin Fast", true);
-                                wasSpinning = true;
-                            }
-                        }
-                    } else if (Creature is TransportingCreature && CurrentPatrolIndex + 1 < PatrolPoints[currentPath].Waypoints.Count && !wasTeleporting) {
-                        NavMeshAgent.speed = 0f;
-
-                        StartCoroutine(Teleport());
-                    }
-                }
-            }
+        public T GetRandomObjectFromList<T>(IReadOnlyList<T> waypointsList) {
+            int randomNumber = Random.Range(0, waypointsList.Count + 1);
+            randomNumber = Mathf.Clamp(randomNumber, 0, waypointsList.Count - 1);
+            T randomPoint = waypointsList[randomNumber];
+            return randomPoint;
         }
 
         public void SetCreatureSpeed(float speed) {
@@ -408,7 +253,7 @@ namespace Creatures {
                 NavMeshAgent.enabled = true;
 
                 SetGroundedEnemyWaypoint();
-                NavMeshAgent.speed = Speed;
+                NavMeshAgent.speed = CurrentSpeed;
 
                 StopCoroutine(FighterRoutine);
             } else {
@@ -419,10 +264,7 @@ namespace Creatures {
 
         private IEnumerator EnableDigging() {
             wasDigging = true;
-            Transform toGo = PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex + 1].transform;
             var digger = GetComponent<DiggingCreature>();
-
-            digger.DigDown(toGo);
 
             yield return new WaitForSeconds(TotalDiggingTime);
 
@@ -432,13 +274,12 @@ namespace Creatures {
             NavMeshAgent.enabled = true;
 
             SetGroundedEnemyWaypoint();
-            NavMeshAgent.speed = Speed;
+            NavMeshAgent.speed = CurrentSpeed;
         }
 
         private IEnumerator Teleport() {
             wasTeleporting = true;
             NavMeshAgent.enabled = false;
-            GetComponent<TransportingCreature>().OrderToTransport(PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex + 1].transform);
 
             yield return new WaitForSeconds(TotalTeleportTime);
 
@@ -448,19 +289,17 @@ namespace Creatures {
             NavMeshAgent.enabled = true;
 
             SetGroundedEnemyWaypoint();
-            NavMeshAgent.speed = Speed;
+            NavMeshAgent.speed = CurrentSpeed;
         }
 
         //Goes to the attack spot
-        private void SetEndPoint(waypoint newPos) {
+        private void SetEndPoint(Waypoint newPos) {
             if (NavMesh.CalculatePath(transform.position, newPos.gameObject.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
         }
 
         //Sets path of ground enemies
         public void SetGroundedEnemyWaypoint() {
             if (!NavMeshAgent || !NavMeshAgent.enabled || Creature.CurrentState == Creature.CreatureState.Dead) return;
-
-            NavMesh.CalculatePath(transform.position, PatrolPoints[currentPath].Waypoints[CurrentPatrolIndex >= PatrolPoints[currentPath].Waypoints.Count ? CurrentPatrolIndex - 1 : CurrentPatrolIndex].transform.position, NavMesh.AllAreas, Path);
             NavMeshAgent.SetPath(Path);
         }
 
@@ -494,7 +333,7 @@ namespace Creatures {
             GameObject enemy = EnemyToFollow;
 
             if (!enemy) {
-                NavMeshAgent.speed = Speed;
+                NavMeshAgent.speed = CurrentSpeed;
                 TrackEnemyID = null;
                 isDefending = false;
 
@@ -530,13 +369,13 @@ namespace Creatures {
                 //Update run animation
                 StartMovingAnimation();
 
-                if (NavMesh.CalculatePath(transform.position, creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Length)].position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
+                if (NavMesh.CalculatePath(transform.position, creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Count)].position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
             } else {
-                List<waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
+                List<Waypoint> waypoints = creatureSpawnController.GroundCinematicEnemyWaypoints;
 
-                NavMeshAgent.speed = Speed;
+                NavMeshAgent.speed = CurrentSpeed;
 
-                if (NavMesh.CalculatePath(transform.position, GetRandomWaypointForCinematicEnemy().transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
+                if (NavMesh.CalculatePath(transform.position, GetRandomObjectFromList(creatureSpawnController.GroundCinematicEnemyWaypoints).transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
 
                 StartMovingAnimation();
 
@@ -567,7 +406,7 @@ namespace Creatures {
 
                 //StartCoroutine(DecreaseHealth());
 
-                NavMeshAgent.speed = Speed + HypnotizedSpeedBonus;
+                NavMeshAgent.speed = CurrentSpeed + HypnotizedSpeedBonus;
 
                 if (NavMesh.CalculatePath(transform.position, enemyToTrack.transform.position, NavMesh.AllAreas, Path)) NavMeshAgent.SetPath(Path);
             } else if (!creature) {
@@ -581,20 +420,6 @@ namespace Creatures {
             StopCoroutine(Coroutine);
         }
 
-        //Change path with a certain chance
-        private void ChangePath() {
-            int rand = Random.Range(5, 10);
-            if (rand == 0) {
-                int rand2 = Random.Range(0, PatrolPoints.Count);
-
-                if (CurrentPatrolIndex + 1 >= PatrolPoints[rand2].Waypoints.Count)
-                    return;
-
-                ++CurrentPatrolIndex;
-                currentPath = rand2;
-            }
-        }
-
         /// <summary>
         ///     Gets hit by hypnotized arrow and find closest enemy
         /// </summary>
@@ -605,7 +430,7 @@ namespace Creatures {
                 var creature = e.GetComponent<Creature>();
 
                 if (!creature || !creature.enabled) return false;
-                
+
 
                 if (creature is GroundCreature) return false;
 
@@ -624,7 +449,7 @@ namespace Creatures {
 
                 return distance1.CompareTo(distance2);
             });
-            
+
             IsHypnotized = true;
             isDamaging = false;
 
@@ -661,7 +486,6 @@ namespace Creatures {
                             agent.speed /= speedDivider;
                         } else { //if it was air creature
 
-                            Speed /= speedDivider;
                             creature.GetComponent<FlyingCreature>().SetPatrollingSpeed(speedDivider, true);
                         }
 
@@ -683,7 +507,6 @@ namespace Creatures {
                             agent.speed *= speedDivider;
                         } else { //if it was air creature
 
-                            Speed *= speedDivider;
                             creature.GetComponent<FlyingCreature>().SetPatrollingSpeed(speedDivider, false);
                         }
                     }
@@ -692,15 +515,7 @@ namespace Creatures {
         }
 
         private IEnumerator UpdateCreatureSpeed() {
-            if (Creature is FlyingCreature) {
-                Speed /= 4;
-                yield return new WaitForSeconds(.5f);
-                Speed *= 4;
-            } else {
-                Speed /= 4;
-                yield return new WaitForSeconds(.5f);
-                Speed *= 4;
-            }
+            yield return new WaitForSeconds(.5f);
         }
     }
 }

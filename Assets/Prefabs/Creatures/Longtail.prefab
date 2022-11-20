@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
   patrolSpeed: 3
-  runSpeed: 6
+  runSpeed: 10
   rotatingSpeed: 5
 --- !u!114 &9041872463804614534
 MonoBehaviour:

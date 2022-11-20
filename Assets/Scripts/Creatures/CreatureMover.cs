@@ -10,10 +10,10 @@ namespace Creatures {
 
         [SerializeField] private float secondsToStayIdle = 5;
         [SerializeField] private float patrolSpeed = 3;
+        public float PatrolSpeed => patrolSpeed;
         [SerializeField] private float runSpeed = 6;
         [SerializeField] private float rotatingSpeed = 1;
-
-        protected float Speed { get => patrolSpeed; set => patrolSpeed = value; }
+        
         protected float RotatingSpeed { get => rotatingSpeed; set => rotatingSpeed = value; }
         protected Creature Creature;
         protected bool HasMovingOrder;
@@ -27,7 +27,7 @@ namespace Creatures {
         protected virtual void Update() {
             if (IsBusy || Creature.CurrentState == Creature.CreatureState.Dead) return;
 
-                switch (Creature.CurrentState) {
+            switch (Creature.CurrentState) {
                 case Creature.CreatureState.Idle:
                     StayIdle();
                     break;
@@ -44,7 +44,11 @@ namespace Creatures {
                     break;
                 case Creature.CreatureState.Dead:
                     break;
-
+                case Creature.CreatureState.RunningAway:
+                    RunAway();
+                    break;
+                case Creature.CreatureState.None:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -63,12 +67,22 @@ namespace Creatures {
             CurrentSpeed = patrolSpeed;
         }
 
+        protected virtual void RunAway() {
+            IsBusy = true;
+            CurrentSpeed = runSpeed;
+        }
+
+        public void CancelCurrentOrder() {
+            IsBusy = false;
+            HasMovingOrder = false;
+        }
+
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
             IsBusy = false;
         }
-        
-        public void OnDie() {
+
+        public void OnDeath() {
             HasMovingOrder = false;
             IsBusy = false;
         }

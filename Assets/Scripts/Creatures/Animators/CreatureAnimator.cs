@@ -29,26 +29,22 @@ namespace Creatures.Animators {
         }
 
         protected virtual void Update() {
-            if (Creature.CurrentState == Creature.CreatureState.Dead) return;
-            
-            switch (Creature.IsSlowedDown) {
-                case true when Animator.speed.Equals(InitialSpeed):
-                    Animator.speed /= 2;
-                    break;
-                case false when !Animator.speed.Equals(InitialSpeed):
-                    Animator.speed = InitialSpeed;
-                    break;
-            }
-
-            /*if (Creature.PreviousState == Creature.CreatureState.GettingHit) {
-                Animator.Play(Constants.GetAnimationName(gameObject.name, Constants.AnimationsTypes.TakeDamage));
-            } else if (Creature.PreviousState == Creature.CreatureState.Dead) {
-                Animator.enabled = !enabled;
-            }*/
-
+            Animator.speed = Mathf.Clamp(Creature.mover.CurrentSpeed / Creature.mover.PatrolSpeed, 1, 1.5f);
         }
 
-        public void OnDie() {
+        /// <summary>
+        /// To set a float parameter in a smooth way, useful in switching between idle, walking and walking
+        /// </summary>
+        /// <param name="animationClipID"></param>
+        /// <param name="newValue"></param>
+        /// <param name="speed"></param>
+        protected void InterpolateFloatParameter(int animationClipID, float newValue, float speed) {
+            float oldValue = Animator.GetFloat(animationClipID);
+            float value = Mathf.Lerp(oldValue, newValue, speed * Time.deltaTime);
+            Animator.SetFloat(animationClipID, value);
+        }
+
+        public void OnDeath() {
             Animator.enabled = false;
         }
     }

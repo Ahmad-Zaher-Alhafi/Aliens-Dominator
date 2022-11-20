@@ -9,7 +9,7 @@ namespace Creatures {
         private Vector3 wantedAngle; // Wanted angle is the angle that the creature has to rotate to for reaching the wanted point
         private Vector3 current;
         private Transform nextCinematicPatrolPoint;
-        private List<waypoint> airWayPoints = new(); // Air points which the creature has to follow
+        private List<Waypoint> airWayPoints = new(); // Air points which the creature has to follow
         private CreatureSpawnController creatureSpawnController;
         private Vector3 positionToMoveTo;
 
@@ -33,6 +33,12 @@ namespace Creatures {
             base.Patrol();
             nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform;
             OrderToMove(nextCinematicPatrolPoint.position);
+        }
+
+        protected override void RunAway() {
+            base.RunAway();
+            Transform randomRunAwayPoint = creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Count)].transform;
+            OrderToMove(randomRunAwayPoint.position);
         }
 
         protected override void FollowPath() {
@@ -61,7 +67,7 @@ namespace Creatures {
         private void MoveTo(Vector3 position) {
             // If the creature has not reached the position
             if (Vector3.Distance(transform.position, position) >= 1) {
-                transform.position = Vector3.MoveTowards(transform.position, position, Speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, position, CurrentSpeed * Time.deltaTime);
             } else {
                 HasMovingOrder = false;
                 IsBusy = false;

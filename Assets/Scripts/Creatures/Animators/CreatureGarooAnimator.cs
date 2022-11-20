@@ -40,8 +40,6 @@ namespace Creatures.Animators {
                 }
                     break;
             }
-
-
         }
 
         private IEnumerator WaitForAnimationLength(float length) {

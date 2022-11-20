@@ -36,8 +36,6 @@ namespace ManagersAndControllers {
             if (Health <= 0f) {
                 ArcheryRig.enabled = false;
                 Time.timeScale = 0;
-
-                GameHandler.GameOver(GameHandler.creatureSpawnController.Score);
             }
         }
     }

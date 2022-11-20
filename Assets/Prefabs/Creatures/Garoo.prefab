@@ -720,30 +720,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
   patrolSpeed: 3
-  runSpeed: 6
+  runSpeed: 10
   rotatingSpeed: 1
   _patrolWaiting: 0
   _totalWaitTime: 0
   wayPointsRemainedDistance: 0.5
   _switchProbability: 0
-  PatrolPoints:
-  - Waypoints:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    creatureType: 0
-  - Waypoints:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    creatureType: 0
   isDamaging: 0
   NavMeshAgent: {fileID: 0}
   CurrentPatrolIndex: 0

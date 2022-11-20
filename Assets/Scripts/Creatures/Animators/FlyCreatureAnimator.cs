@@ -25,6 +25,10 @@ namespace Creatures.Animators {
                     break;
                 case Creature.CreatureState.Dead:
                     break;
+                case Creature.CreatureState.None:
+                    break;
+                case Creature.CreatureState.RunningAway:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
