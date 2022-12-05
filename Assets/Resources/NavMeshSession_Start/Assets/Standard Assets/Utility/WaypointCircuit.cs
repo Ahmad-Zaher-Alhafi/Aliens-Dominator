@@ -8,9 +8,9 @@ using UnityEditor;
 
 namespace UnityStandardAssets.Utility
 {
-    public class WaypointCircuit : MonoBehaviour
+    public class PathPointCircuit : MonoBehaviour
     {
-        public WaypointList waypointList = new WaypointList();
+        public PathPointList pathPointList = new PathPointList();
         [SerializeField] private bool smoothRoute = true;
         private int numPoints;
         private Vector3[] points;
@@ -19,9 +19,9 @@ namespace UnityStandardAssets.Utility
         public float editorVisualisationSubsteps = 100;
         public float Length { get; private set; }
 
-        public Transform[] Waypoints
+        public Transform[] PathPoints
         {
-            get { return waypointList.items; }
+            get { return pathPointList.items; }
         }
 
         //this being here will save GC allocs
@@ -39,11 +39,11 @@ namespace UnityStandardAssets.Utility
         // Use this for initialization
         private void Awake()
         {
-            if (Waypoints.Length > 1)
+            if (PathPoints.Length > 1)
             {
                 CachePositionsAndDistances();
             }
-            numPoints = Waypoints.Length;
+            numPoints = PathPoints.Length;
         }
 
 
@@ -130,19 +130,19 @@ namespace UnityStandardAssets.Utility
         {
             // transfer the position of each point and distances between points to arrays for
             // speed of lookup at runtime
-            points = new Vector3[Waypoints.Length + 1];
-            distances = new float[Waypoints.Length + 1];
+            points = new Vector3[PathPoints.Length + 1];
+            distances = new float[PathPoints.Length + 1];
 
             float accumulateDistance = 0;
             for (int i = 0; i < points.Length; ++i)
             {
-                var t1 = Waypoints[(i)%Waypoints.Length];
-                var t2 = Waypoints[(i + 1)%Waypoints.Length];
+                var t1 = PathPoints[(i)%PathPoints.Length];
+                var t2 = PathPoints[(i + 1)%PathPoints.Length];
                 if (t1 != null && t2 != null)
                 {
                     Vector3 p1 = t1.position;
                     Vector3 p2 = t2.position;
-                    points[i] = Waypoints[i%Waypoints.Length].position;
+                    points[i] = PathPoints[i%PathPoints.Length].position;
                     distances[i] = accumulateDistance;
                     accumulateDistance += (p1 - p2).magnitude;
                 }
@@ -164,16 +164,16 @@ namespace UnityStandardAssets.Utility
 
         private void DrawGizmos(bool selected)
         {
-            waypointList.circuit = this;
-            if (Waypoints.Length > 1)
+            pathPointList.circuit = this;
+            if (PathPoints.Length > 1)
             {
-                numPoints = Waypoints.Length;
+                numPoints = PathPoints.Length;
 
                 CachePositionsAndDistances();
                 Length = distances[distances.Length - 1];
 
                 Gizmos.color = selected ? Color.yellow : new Color(1, 1, 0, 0.5f);
-                Vector3 prev = Waypoints[0].position;
+                Vector3 prev = PathPoints[0].position;
                 if (smoothRoute)
                 {
                     for (float dist = 0; dist < Length; dist += Length/editorVisualisationSubsteps)
@@ -182,13 +182,13 @@ namespace UnityStandardAssets.Utility
                         Gizmos.DrawLine(prev, next);
                         prev = next;
                     }
-                    Gizmos.DrawLine(prev, Waypoints[0].position);
+                    Gizmos.DrawLine(prev, PathPoints[0].position);
                 }
                 else
                 {
-                    for (int n = 0; n < Waypoints.Length; ++n)
+                    for (int n = 0; n < PathPoints.Length; ++n)
                     {
-                        Vector3 next = Waypoints[(n + 1)%Waypoints.Length].position;
+                        Vector3 next = PathPoints[(n + 1)%PathPoints.Length].position;
                         Gizmos.DrawLine(prev, next);
                         prev = next;
                     }
@@ -198,9 +198,9 @@ namespace UnityStandardAssets.Utility
 
 
         [Serializable]
-        public class WaypointList
+        public class PathPointList
         {
-            public WaypointCircuit circuit;
+            public PathPointCircuit circuit;
             public Transform[] items = new Transform[0];
         }
 
@@ -222,8 +222,8 @@ namespace UnityStandardAssets.Utility
 namespace UnityStandardAssets.Utility.Inspector
 {
 #if UNITY_EDITOR
-    [CustomPropertyDrawer(typeof (WaypointCircuit.WaypointList))]
-    public class WaypointListDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof (PathPointCircuit.PathPointList))]
+    public class PathPointListDrawer : PropertyDrawer
     {
         private float lineHeight = 18;
         private float spacing = 4;
@@ -328,7 +328,7 @@ namespace UnityStandardAssets.Utility.Inspector
             var addAllButtonRect = new Rect(x, y, inspectorWidth, lineHeight);
             if (GUI.Button(addAllButtonRect, "Assign using all child objects"))
             {
-                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
+                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as PathPointCircuit;
                 var children = new Transform[circuit.transform.childCount];
                 int n = 0;
                 foreach (Transform child in circuit.transform)
@@ -336,10 +336,10 @@ namespace UnityStandardAssets.Utility.Inspector
                     children[n++] = child;
                 }
                 Array.Sort(children, new TransformNameComparer());
-                circuit.waypointList.items = new Transform[children.Length];
+                circuit.pathPointList.items = new Transform[children.Length];
                 for (n = 0; n < children.Length; ++n)
                 {
-                    circuit.waypointList.items[n] = children[n];
+                    circuit.pathPointList.items[n] = children[n];
                 }
             }
             y += lineHeight + spacing;
@@ -348,11 +348,11 @@ namespace UnityStandardAssets.Utility.Inspector
             var renameButtonRect = new Rect(x, y, inspectorWidth, lineHeight);
             if (GUI.Button(renameButtonRect, "Auto Rename numerically from this order"))
             {
-                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
+                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as PathPointCircuit;
                 int n = 0;
-                foreach (Transform child in circuit.waypointList.items)
+                foreach (Transform child in circuit.pathPointList.items)
                 {
-                    child.name = "Waypoint " + (n++).ToString("000");
+                    child.name = "PathPoint " + (n++).ToString("000");
                 }
             }
             y += lineHeight + spacing;

@@ -13,13 +13,13 @@ namespace Defence_Weapons {
         [HideInInspector] public bool IsShooting;
         [HideInInspector] public bool HasToUseRockets; //true then use rockets, false then use bullets
 
-        [SerializeField] private List<Transform> airWayPoints = new(); //air points which the creature has to follow
+        [SerializeField] private List<Transform> airPathPoint = new(); //air points which the creature has to follow
         [SerializeField] private float patrolSpeed; //speed of moveming between the airplane wayoints
         [SerializeField] private float animatingSpeed; //speed of going up and down in animating phase
         [SerializeField] private float takeOffSpeed; //speed of taking off
         [SerializeField] private float smoothRotatingSpeed; //speed of rotating towards a point
         [SerializeField] private Transform pointToLookAt; //point to look at if there was no target to look at
-        [SerializeField] private float secondsBetwennPatrols; //secnods to wait before going to next waypoint
+        [SerializeField] private float secondsBetwennPatrols; //secnods to wait before going to next pathPoint
         [SerializeField] private float heightOnAnimation; //how much hight should the airplane should move aup and down on the y axis
         [SerializeField] private Transform landingPoint; //the point where the airplane should back to it before it lands(this point is above the airplane base)
         [SerializeField] private GameObject airplaneRocketPrefab;
@@ -43,7 +43,7 @@ namespace Defence_Weapons {
         [SerializeField] private GameObject weaponFixImg;
         [SerializeField] private GameObject updateWeaponFireRateImg;
         [SerializeField] private GameObject updateWeaponStrengthImg;
-        private int airPointIndex; //index of the next targetWayPoint in the airWayPoints array
+        private int airPointIndex; //index of the next targetWayPoint in the airPathPoint array
         private readonly List<AirRocketsReloadPoint> airRocketsReloadPoints = new();
         private int currentBulletsNumber;
         private int currentRocketsNumber;
@@ -66,7 +66,7 @@ namespace Defence_Weapons {
         private Transform target;
         private Vector3 upAnimatingPoint; //up animating point where the airplane is gonna use it to animate up
 
-        private void Start() {
+        /*private void Start() {
             isItTimeToShootAgain = true;
             hasToPlayTakeOffSound = true;
             hasToPlayLandSound = true;
@@ -79,7 +79,7 @@ namespace Defence_Weapons {
             HasToDefend = false;
             hadTakenOff = false;
             airPointIndex = 0;
-            nextTargetPoint = airWayPoints[0];
+            nextTargetPoint = airPathPoint[0];
 
             playerPointToLookAt = GameObject.FindGameObjectWithTag(Constants.PlayerAttackPoint).transform;
             currentBulletsNumber = maxBulletsNumber;
@@ -97,10 +97,10 @@ namespace Defence_Weapons {
 
             IsShooting = false;
             HasToUseRockets = false;
-        }
+        }*/
 
 
-        private void Update() {
+        /*private void Update() {
             ammoStateCanves.LookAt(playerPointToLookAt);
 
             if (HasToDefend) {
@@ -128,7 +128,7 @@ namespace Defence_Weapons {
                 hasToPlayTakeOffSound = true;
                 PlayTakeOffSound();
             }
-        }
+        }*/
 
         private void OnDestroy() {
             Ctx.Deps.EventsManager.onTakingAmmo -= ReloadWeapon;
@@ -162,7 +162,7 @@ namespace Defence_Weapons {
             isGoingBackToBase = false;
 
             airPointIndex = 0;
-            nextTargetPoint = airWayPoints[0];
+            nextTargetPoint = airPathPoint[0];
             for (int i = 0; i < smokeParticles.Length; i++) smokeParticles[i].Play();
         }
 
@@ -175,11 +175,11 @@ namespace Defence_Weapons {
                         hasToLand = true;
                         break;
                     }
-                    if (airPointIndex + 1 < airWayPoints.Count) //if the next index is not out of range of the array
+                    if (airPointIndex + 1 < airPathPoint.Count) //if the next index is not out of range of the array
                         airPointIndex++; //get the next point index
                     else airPointIndex = 0;
 
-                    nextTargetPoint = airWayPoints[airPointIndex];
+                    nextTargetPoint = airPathPoint[airPointIndex];
 
                     upAnimatingPoint = transform.position + Vector3.up * heightOnAnimation; //set the upAnimatingPoint
                     downAnimatingPoint = transform.position + Vector3.down * heightOnAnimation; //set the downAnimatingPoint
@@ -187,7 +187,7 @@ namespace Defence_Weapons {
 
                     hasToAnimate = true; //order to animate untill the patroll seconds wait finish
                     yield return new WaitForSeconds(secondsBetwennPatrols);
-                    hasToAnimate = false; //to stop animating and keep moving to next waypoint
+                    hasToAnimate = false; //to stop animating and keep moving to next pathPoint
                 } else {
                     transform.position = Vector3.Lerp(transform.position, nextTargetPoint.position, patrolSpeed * Time.deltaTime / Vector3.Distance(transform.position, nextTargetPoint.position)); //move the airplane to the nextTargetPoint
                     yield return new WaitForSeconds(.001f);

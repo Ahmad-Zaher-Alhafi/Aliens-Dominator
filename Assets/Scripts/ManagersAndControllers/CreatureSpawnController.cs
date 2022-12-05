@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Context;
 using Creatures;
+using Pool;
 using UnityEngine;
+using Utils;
+using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
     public class CreatureSpawnController : MonoBehaviour {
@@ -16,22 +19,24 @@ namespace ManagersAndControllers {
         [SerializeField] private Transform creaturesHolder;
 
         [Header("Spawn points")]
-        [SerializeField] private List<Transform> spawningPoints;
+        [SerializeField] private List<SpawnPoint> spawningPoints;
 
-        [Header("Waypoints")]
-        [SerializeField] private List<Waypoint> groundCinematicEnemyWaypoints;
-        public List<Waypoint> GroundCinematicEnemyWaypoints => groundCinematicEnemyWaypoints;
-        [SerializeField] private List<Waypoint> airCinematicEnemyWaypoints;
-        public List<Waypoint> AirCinematicEnemyWaypoints => airCinematicEnemyWaypoints;
+        [Header("PathPoints")]
+        [SerializeField] private List<PathPoint> groundCinematicEnemyPathPoints;
+        public List<PathPoint> GroundCinematicEnemyPathPoints => groundCinematicEnemyPathPoints;
+        [SerializeField] private List<PathPoint> airCinematicEnemyPathPoints;
+        public List<PathPoint> AirCinematicEnemyPathPoints => airCinematicEnemyPathPoints;
         // Points where cinematic creatures are gonna run away to on the start of the game
         [SerializeField] private List<Transform> runningAwayPoints;
         public List<Transform> RunningAwayPoints => runningAwayPoints;
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
+        
+        public bool HasWaveStarted { get; private set; }
+        
 
         private readonly List<Creature> creatures = new();
-        private bool hasWaveStarted;
 
         private void Start() {
             SpawnCinematicCreatures();
@@ -42,46 +47,45 @@ namespace ManagersAndControllers {
             List<Creature> waveCreaturesPrefabs = creaturesData.Keys.ToList();
 
             while (waveCreaturesPrefabs.Count > 0) {
-                Transform randomPointToSpawnAt = GetRandomObjectFromList(spawningPoints);
+                SpawnPoint randomPointToSpawnAt = MathUtils.GetRandomObjectFromList(spawningPoints);
                 int randomCreaturePrefabIndex = Random.Range(0, waveCreaturesPrefabs.Count);
                 Creature randomCreaturePrefab = waveCreaturesPrefabs[randomCreaturePrefabIndex];
 
-                SpawnCreature(randomCreaturePrefab, randomPointToSpawnAt.transform.position);
+                SpawnCreature(randomCreaturePrefab, randomPointToSpawnAt);
                 creaturesData[randomCreaturePrefab]--;
 
                 if (creaturesData[randomCreaturePrefab] == 0) {
                     waveCreaturesPrefabs.Remove(randomCreaturePrefab);
                 }
-                
+
                 yield return new WaitForSeconds(timeBetweenEachCreatureSpawn);
             }
         }
 
-        private void SpawnCreature(Creature creatureToSpawn, Vector3 spawnPosition) {
-            Creature creature = creatureToSpawn.GetObject<Creature>(creaturesHolder);
-            creature.Init(spawnPosition);
+        private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint) {
+            SpawnPointPath pathToFollow = creatureToSpawnPool is FlyingCreature ? spawnPoint.AirPath : MathUtils.GetRandomObjectFromList(spawnPoint.GroundPaths);
+            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, pathToFollow);
+        }
+
+        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null) {
+            Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
+            Creature.CreatureState initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Idle;
+            creature.Init(spawnPosition, pathToFollow, initialState);
             creatures.Add(creature);
         }
 
         private void SpawnCinematicCreatures() {
             foreach (Wave.WaveCreature waveCreature in cinematicWave.WaveCreatures) {
                 for (int i = 0; i < waveCreature.NumberToSpawn; i++) {
-                    Waypoint randomPoint = GetRandomObjectFromList(waveCreature.CreaturePrefab is FlyingCreature ? airCinematicEnemyWaypoints : groundCinematicEnemyWaypoints);
+                    PathPoint randomPoint = MathUtils.GetRandomObjectFromList(waveCreature.CreaturePrefab is FlyingCreature ? airCinematicEnemyPathPoints : groundCinematicEnemyPathPoints);
                     SpawnCreature(waveCreature.CreaturePrefab, randomPoint.transform.position);
                 }
             }
         }
 
-        private T GetRandomObjectFromList<T>(IReadOnlyList<T> waypointsList) {
-            int randomNumber = Random.Range(0, waypointsList.Count + 1);
-            randomNumber = Mathf.Clamp(randomNumber, 0, waypointsList.Count - 1);
-            T randomPoint = waypointsList[randomNumber];
-            return randomPoint;
-        }
-
         public void OnCreatureDeath(Creature creature) {
-            if (!hasWaveStarted) {
-                hasWaveStarted = true;
+            if (!HasWaveStarted) {
+                HasWaveStarted = true;
                 Ctx.Deps.EventsManager.TriggerWaveStarted();
                 StartCoroutine(SpawnWaveCreatures(waves[0]));
             }

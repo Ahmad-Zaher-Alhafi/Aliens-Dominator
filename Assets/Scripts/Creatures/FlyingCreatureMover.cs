@@ -1,24 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ManagersAndControllers;
+﻿using ManagersAndControllers;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace Creatures {
     public class FlyingCreatureMover : CreatureMover {
         private Vector3 wantedAngle; // Wanted angle is the angle that the creature has to rotate to for reaching the wanted point
         private Vector3 current;
-        private Transform nextCinematicPatrolPoint;
-        private List<Waypoint> airWayPoints = new(); // Air points which the creature has to follow
         private CreatureSpawnController creatureSpawnController;
         private Vector3 positionToMoveTo;
-
 
         protected override void Awake() {
             base.Awake();
             creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
-            airWayPoints = creatureSpawnController.AirCinematicEnemyWaypoints.ToList();
-            nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform; //get a random patrol air point
         }
 
         protected override void Update() {
@@ -31,7 +25,7 @@ namespace Creatures {
 
         protected override void Patrol() {
             base.Patrol();
-            nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform;
+            Transform nextCinematicPatrolPoint = MathUtils.GetRandomObjectFromList(creatureSpawnController.AirCinematicEnemyPathPoints).transform;
             OrderToMove(nextCinematicPatrolPoint.position);
         }
 
@@ -41,14 +35,17 @@ namespace Creatures {
             OrderToMove(randomRunAwayPoint.position);
         }
 
-        protected override void FollowPath() {
-            nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)].transform;
-            OrderToMove(nextCinematicPatrolPoint.position);
-            //RotateToTheWantedAngle(nextCinematicPatrolPoint.transform.position);
+        protected override PathPoint FollowPath() {
+            Transform nextPathPoint = base.FollowPath()?.transform;
+            if (nextPathPoint == null) return null;
+            
+            OrderToMove(nextPathPoint.position);
+            RotateToTheWantedAngle(nextPathPoint.transform.position);
+            return null;
         }
 
         /// <summary>
-        /// To put the creature in the right rotation
+        /// To rotate the creature to the right direction
         /// </summary>
         /// <param name="targetPosition">Position where the creature look towards</param>
         private void RotateToTheWantedAngle(Vector3 targetPosition) {
@@ -59,7 +56,6 @@ namespace Creatures {
         }
 
         private void OrderToMove(Vector3 position) {
-            IsBusy = true;
             HasMovingOrder = true;
             positionToMoveTo = position;
         }
@@ -69,8 +65,7 @@ namespace Creatures {
             if (Vector3.Distance(transform.position, position) >= 1) {
                 transform.position = Vector3.MoveTowards(transform.position, position, CurrentSpeed * Time.deltaTime);
             } else {
-                HasMovingOrder = false;
-                IsBusy = false;
+                OnDestinationReached();
             }
         }
     }

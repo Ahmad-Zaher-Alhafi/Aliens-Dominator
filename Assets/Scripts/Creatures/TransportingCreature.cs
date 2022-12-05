@@ -12,9 +12,9 @@ namespace Creatures {
         [SerializeField] private float speedOfAdjestingHeight;
         [SerializeField] private Vector3 transportPositionOffset;
         private float correctCreatureHeight;
-        private bool hasToSetHeightPosition; //to make sure that the creature has set up on the ground correctly(because not all the waypoints have the same height)
+        private bool hasToSetHeightPosition; //to make sure that the creature has set up on the ground correctly(because not all the pathPoints have the same height)
         private NavMeshAgent navMeshAgent; //the nav nesh agent changes the creature height to be on the ground so we need it to get the correct height
-        private Transform waypointToTransfareTo;
+        private Transform pathPointToTransfareTo;
 
 
         private void Start() {
@@ -25,20 +25,20 @@ namespace Creatures {
         private void Update() {
             if (hasToSetHeightPosition) SetHeightPosition();
 
-            if (Input.GetKeyDown(KeyCode.D)) OrderToTransport(waypointToTransfareTo);
+            if (Input.GetKeyDown(KeyCode.D)) OrderToTransport(pathPointToTransfareTo);
         }
 
-        public void OrderToTransport(Transform waypointToTransfareTo) {
-            StartCoroutine(Transport(waypointToTransfareTo));
+        public void OrderToTransport(Transform pathPointToTransfareTo) {
+            StartCoroutine(Transport(pathPointToTransfareTo));
         }
 
-        private IEnumerator Transport(Transform waypointToTransfareTo) {
-            this.waypointToTransfareTo = waypointToTransfareTo;
+        private IEnumerator Transport(Transform pathPointToTransfareTo) {
+            this.pathPointToTransfareTo = pathPointToTransfareTo;
             portalPaticles.Play();
             yield return new WaitForSeconds(secondsForParticlesCreating);
             if (gameObject != null) {
                 creatureMesh.SetActive(false);
-                transform.position = waypointToTransfareTo.position + transportPositionOffset;
+                transform.position = pathPointToTransfareTo.position + transportPositionOffset;
                 portalPaticles.Play();
             }
             yield return new WaitForSeconds(secondsForParticlesCreating);

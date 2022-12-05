@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace UnityStandardAssets.Utility
 {
-    public class WaypointProgressTracker : MonoBehaviour
+    public class PathPointProgressTracker : MonoBehaviour
     {
         // This script can be used with any object that is supposed to follow a
-        // route marked out by waypoints.
+        // route marked out by pathPoints.
 
         // This script manages the amount to look ahead along the route,
         // and keeps track of progress and laps.
 
-        [SerializeField] private WaypointCircuit circuit; // A reference to the waypoint-based route we should follow
+        [SerializeField] private PathPointCircuit circuit; // A reference to the pathPoint-based route we should follow
 
         [SerializeField] private float lookAheadForTargetOffset = 5;
         // The offset ahead along the route that the we will aim for
@@ -20,16 +20,16 @@ namespace UnityStandardAssets.Utility
         // A multiplier adding distance ahead along the route to aim for, based on current speed
 
         [SerializeField] private float lookAheadForSpeedOffset = 10;
-        // The offset ahead only the route for speed adjustments (applied as the rotation of the waypoint target transform)
+        // The offset ahead only the route for speed adjustments (applied as the rotation of the pathPoint target transform)
 
         [SerializeField] private float lookAheadForSpeedFactor = .2f;
         // A multiplier adding distance ahead along the route for speed adjustments
 
         [SerializeField] private ProgressStyle progressStyle = ProgressStyle.SmoothAlongRoute;
-        // whether to update the position smoothly along the route (good for curved paths) or just when we reach each waypoint.
+        // whether to update the position smoothly along the route (good for curved paths) or just when we reach each pathPoint.
 
         [SerializeField] private float pointToPointThreshold = 4;
-        // proximity to waypoint which must be reached to switch target to next waypoint : only used in PointToPoint mode.
+        // proximity to pathPoint which must be reached to switch target to next pathPoint : only used in PointToPoint mode.
 
         public enum ProgressStyle
         {
@@ -38,14 +38,14 @@ namespace UnityStandardAssets.Utility
         }
 
         // these are public, readable by other objects - i.e. for an AI to know where to head!
-        public WaypointCircuit.RoutePoint targetPoint { get; private set; }
-        public WaypointCircuit.RoutePoint speedPoint { get; private set; }
-        public WaypointCircuit.RoutePoint progressPoint { get; private set; }
+        public PathPointCircuit.RoutePoint targetPoint { get; private set; }
+        public PathPointCircuit.RoutePoint speedPoint { get; private set; }
+        public PathPointCircuit.RoutePoint progressPoint { get; private set; }
 
         public Transform target;
 
         private float progressDistance; // The progress round the route, used in smooth mode.
-        private int progressNum; // the current waypoint number, used in point-to-point mode.
+        private int progressNum; // the current pathPoint number, used in point-to-point mode.
         private Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
         private float speed; // current speed of this object (calculated from delta since last frame)
 
@@ -60,7 +60,7 @@ namespace UnityStandardAssets.Utility
             // then this component will update it, and the AI can read it.
             if (target == null)
             {
-                target = new GameObject(name + " Waypoint Target").transform;
+                target = new GameObject(name + " PathPoint Target").transform;
             }
 
             Reset();
@@ -74,8 +74,8 @@ namespace UnityStandardAssets.Utility
             progressNum = 0;
             if (progressStyle == ProgressStyle.PointToPoint)
             {
-                target.position = circuit.Waypoints[progressNum].position;
-                target.rotation = circuit.Waypoints[progressNum].rotation;
+                target.position = circuit.PathPoints[progressNum].position;
+                target.rotation = circuit.PathPoints[progressNum].rotation;
             }
         }
 
@@ -113,17 +113,17 @@ namespace UnityStandardAssets.Utility
             }
             else
             {
-                // point to point mode. Just increase the waypoint if we're close enough:
+                // point to point mode. Just increase the pathPoint if we're close enough:
 
                 Vector3 targetDelta = target.position - transform.position;
                 if (targetDelta.magnitude < pointToPointThreshold)
                 {
-                    progressNum = (progressNum + 1)%circuit.Waypoints.Length;
+                    progressNum = (progressNum + 1)%circuit.PathPoints.Length;
                 }
 
 
-                target.position = circuit.Waypoints[progressNum].position;
-                target.rotation = circuit.Waypoints[progressNum].rotation;
+                target.position = circuit.PathPoints[progressNum].position;
+                target.rotation = circuit.PathPoints[progressNum].rotation;
 
                 // get our current progress along the route
                 progressPoint = circuit.GetRoutePoint(progressDistance);

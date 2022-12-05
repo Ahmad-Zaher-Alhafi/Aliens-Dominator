@@ -33,8 +33,8 @@ namespace Creatures {
         [SerializeField] private float stinkyBallGrowingTime; //how many seconds does the stinky ball takes to complete it's growing 
         [SerializeField] private AnimationClip stinkyBallGrowingAnimationClip;
         [SerializeField] private Transform BodyRig;
-        private int airPointIndex; //index of the next targetWayPoint in the airWayPoints array
-        private readonly List<Transform> airWayPoints = new(); //air points which the creature has to follow
+        private int airPointIndex; //index of the next targetWayPoint in the airPathPoint array
+        private readonly List<Transform> airPathPoint = new(); //air points which the creature has to follow
         private Creature creature;
         private GameHandler gameHandler;
         private bool hasFinishedAttacking; //true if he finished attacking
@@ -89,27 +89,27 @@ namespace Creatures {
             isAttacking = false;
             runAwayPoint = spawner.RunningAwayPoints[Random.Range(0, spawner.RunningAwayPoints.Length)]; //get a random run away point to go to
 
-            waypoint[] pathWaypoints;
+            pathPoint[] pathPathPoints;
 
             if (CompareTag(Constants.OnStartWaves)) //if it was a cinematic creature
             {
-                pathWaypoints = spawner.AirCinematicEnemyWaypoints.ToArray(); //get the air cinematic waypoints
-                airPointIndex = Random.Range(0, pathWaypoints.Length); //ge random point index to go to
+                pathPathPoints = spawner.AirCinematicEnemyPathPoints.ToArray(); //get the air cinematic pathPoints
+                airPointIndex = Random.Range(0, pathPathPoints.Length); //ge random point index to go to
             } else //if it was not a cinematic enemy
             {
-                pathWaypoints = creaturePathes[Random.Range(0, creaturePathes.Count)].Waypoints.ToArray(); //get a random path from the available pathes in that spawn point
+                pathPathPoints = creaturePathes[Random.Range(0, creaturePathes.Count)].PathPoints.ToArray(); //get a random path from the available pathes in that spawn point
                 pointToAttackThePlayer = GameObject.FindWithTag(Constants.PlayerAttackPoint).transform;
                 pointToLookAtThePlayer = GameObject.FindWithTag(Constants.PlayerLookAtPoint).transform;
                 pointToShootAtThePlayer = GameObject.FindWithTag(Constants.PlayerShootAtPoint).transform;
                 airPointIndex = 0;
             }
 
-            for (int i = 0; i < pathWaypoints.Length; i++) airWayPoints.Add(pathWaypoints[i].transform); //get the transorms of these way points
+            for (int i = 0; i < pathPathPoints.Length; i++) airPathPoint.Add(pathPathPoints[i].transform); //get the transorms of these way points
 
             hasToPatrol = false;
 
-            nextTargetPoint = airWayPoints[airPointIndex]; //creature takes the first point in the array 
-            nextCinematicPatrolPoint = airWayPoints[Random.Range(0, airWayPoints.Count)]; //get a random patrol air point
+            nextTargetPoint = airPathPoint[airPointIndex]; //creature takes the first point in the array 
+            nextCinematicPatrolPoint = airPathPoint[Random.Range(0, airPathPoint.Count)]; //get a random patrol air point
         }*/
 
         /*private void Update() {
@@ -181,7 +181,7 @@ namespace Creatures {
                 } else if (CompareTag(Constants.OnStartWaves)) //if it was a cinematic enemy
                 {
                     if (!hasToRunAway) //if he reached it's target point and was not runnig away
-                        nextTargetPoint = airWayPoints[Random.Range(0, airWayPoints.Count)]; //get a random patrol air point
+                        nextTargetPoint = airPathPoint[Random.Range(0, airPathPoint.Count)]; //get a random patrol air point
                 }
             }
 
@@ -195,16 +195,16 @@ namespace Creatures {
         }*/
 
 
-        //public void FollowAirWayPoints()
+        //public void FollowAirPathPoint()
         //{
         //    if (Mathf.Abs(Vector3.Distance(transform.position, nextTargetPoint.position)) <= .5f && !hasToPatrol)//if the creature has reached the nextTargetPoint point && not patrolling
         //    {
         //        if (!CompareTag(Constants.OnStartWaves))//if it was not a cinematic enemy
         //        {
-        //            if (airPointIndex + 1 < airWayPoints.Count)//if the next index is not out of range of the array
+        //            if (airPointIndex + 1 < airPathPoint.Count)//if the next index is not out of range of the array
         //            {
         //                airPointIndex++;//get the next point index
-        //                nextTargetPoint = airWayPoints[airPointIndex];
+        //                nextTargetPoint = airPathPoint[airPointIndex];
         //            }
         //            else
         //            {
@@ -220,7 +220,7 @@ namespace Creatures {
         //        {
         //            if (!hasToRunAway)//if he reached it's target point and was not runnig away
         //            {
-        //                nextTargetPoint = airWayPoints[Random.Range(0, airWayPoints.Count)];//get a random patrol air point
+        //                nextTargetPoint = airPathPoint[Random.Range(0, airPathPoint.Count)];//get a random patrol air point
         //            }
         //            else//if cinematic creature was running away and reached it's run away point then it has to die
         //            {

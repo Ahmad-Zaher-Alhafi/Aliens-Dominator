@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Creatures {
     public abstract class CreatureMover : MonoBehaviour {
-        public bool IsBusy { get; protected set; }
+        public bool IsBusy { get; private set; }
         public float CurrentSpeed { get; private set; }
 
         [SerializeField] private float secondsToStayIdle = 5;
@@ -13,16 +13,23 @@ namespace Creatures {
         public float PatrolSpeed => patrolSpeed;
         [SerializeField] private float runSpeed = 6;
         [SerializeField] private float rotatingSpeed = 1;
-        
-        protected float RotatingSpeed { get => rotatingSpeed; set => rotatingSpeed = value; }
+
+        protected float RotatingSpeed => rotatingSpeed;
         protected Creature Creature;
         protected bool HasMovingOrder;
+        private SpawnPointPath pathToFollow;
+        private int lastFollowedPathPointIndex = -1;
+        private bool pathWasFinished;
+
+        private bool HasToKeepFollowingPath => Creature.CurrentState == Creature.CreatureState.FollowingPath && !pathWasFinished;
 
         protected virtual void Awake() {
             Creature = GetComponent<Creature>();
         }
 
-        public virtual void Init() { }
+        public virtual void Init(SpawnPointPath pathToFollow) {
+            this.pathToFollow = pathToFollow;
+        }
 
         protected virtual void Update() {
             if (IsBusy || Creature.CurrentState == Creature.CreatureState.Dead) return;
@@ -35,6 +42,7 @@ namespace Creatures {
                     Patrol();
                     break;
                 case Creature.CreatureState.FollowingPath:
+                    FollowPath();
                     break;
                 case Creature.CreatureState.GettingHit:
                     break;
@@ -54,7 +62,18 @@ namespace Creatures {
             }
         }
 
-        protected abstract void FollowPath();
+        protected virtual PathPoint FollowPath() {
+            IsBusy = true;
+            PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, lastFollowedPathPointIndex);
+            lastFollowedPathPointIndex = pathToFollow.PathPoints.IndexOf(nextPathPoint);
+            CurrentSpeed = runSpeed;
+            if (nextPathPoint != null) return nextPathPoint;
+
+            // Has Reached the end of the path
+            pathWasFinished = true;
+            FulfillCurrentOrder();
+            return nextPathPoint;
+        }
 
         private void StayIdle() {
             IsBusy = true;
@@ -72,19 +91,29 @@ namespace Creatures {
             CurrentSpeed = runSpeed;
         }
 
-        public void CancelCurrentOrder() {
-            IsBusy = false;
+        public void FulfillCurrentOrder() {
+            Creature.OnOrderFulfilled();
             HasMovingOrder = false;
+            IsBusy = false;
+        }
+
+        protected void OnDestinationReached() {
+            if (HasToKeepFollowingPath) {
+                FollowPath();
+            } else {
+                FulfillCurrentOrder();
+            }
         }
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
-            IsBusy = false;
+            FulfillCurrentOrder();
         }
 
         public void OnDeath() {
-            HasMovingOrder = false;
-            IsBusy = false;
+            FulfillCurrentOrder();
+            lastFollowedPathPointIndex = -1;
+            pathWasFinished = false;
         }
     }
 }

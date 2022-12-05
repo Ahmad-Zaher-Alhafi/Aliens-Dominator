@@ -17,9 +17,9 @@ namespace Creatures {
 
         private bool hasToDigDown;
         private bool hasToDigUp;
-        private bool hasToSetHeightPosition; //to make sure that the creature has set up on the ground correctly(because not all the waypoints have the same height)
+        private bool hasToSetHeightPosition; //to make sure that the creature has set up on the ground correctly(because not all the pathPoints have the same height)
         private NavMeshAgent navMeshAgent; //the nav nesh agent changes the creature height to be on the ground so we need it to get the correct height
-        private Transform waypointToGoTo; //the waypoint where the creature is gonna transport to
+        private Transform pathPointToGoTo; //the pathPoint where the creature is gonna transport to
 
         private void Start() {
             hasToSetHeightPosition = false;
@@ -43,9 +43,9 @@ namespace Creatures {
             }
         }
 
-        public void DigDown(Transform waypointToGoTo) {
-            if (waypointToGoTo != null) {
-                this.waypointToGoTo = waypointToGoTo;
+        public void DigDown(Transform pathPointToGoTo) {
+            if (pathPointToGoTo != null) {
+                this.pathPointToGoTo = pathPointToGoTo;
                 soilParticles.Play();
                 hasToDigUp = false;
                 hasToDigDown = true;
@@ -53,7 +53,7 @@ namespace Creatures {
         }
 
         private void DigUp() {
-            transform.position = waypointToGoTo.position + digUpPositionOffset;
+            transform.position = pathPointToGoTo.position + digUpPositionOffset;
             soilParticles.Play();
             hasToDigDown = false;
             hasToDigUp = true;

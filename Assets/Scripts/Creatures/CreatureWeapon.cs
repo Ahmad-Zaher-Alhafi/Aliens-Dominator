@@ -41,7 +41,6 @@ namespace Creatures {
             {
                 hasToLookAtTheTarget = false; //stop the rotating
                 hasToShoot = true; //allow to shoot
-                StartCoroutine(Shoot(1,10)); //start shooting
             }
         }
 
@@ -49,21 +48,6 @@ namespace Creatures {
         {
             hasToLookAtTheTarget = true; //the the creature rotating
             playerShootAtPoint = target; //give the target
-        }
-
-        private IEnumerator Shoot(float secondsBetweenGunShots, float gunBulletSpeed) //to create bullets(stinky balls) and shoot them
-        {
-            //EndPoint is the point the enemy gets assigned when leaving the normal waypoints and is about to attack the wall
-            while (hasToShoot && creature.CurrentState != Creature.CreatureState.Dead && !groundCreatureMover.EndPoint) //while was not orderd to stop shooting
-            {
-                audioSource.PlayOneShot(enemyBulletSound.audioClip, enemyBulletSound.volume);
-                GameObject bullet = Instantiate(bulletPrefab, bulletCreatPoint.position, bulletPrefab.transform.rotation);
-                bullet.transform.LookAt(playerShootAtPoint);
-                var bulletRig = bullet.GetComponent<Rigidbody>();
-                bulletRig.AddForce(bullet.transform.forward * gunBulletSpeed, ForceMode.Impulse);
-
-                yield return new WaitForSeconds(secondsBetweenGunShots);
-            }
         }
 
         public void StopShooting() //to stop the shooting

@@ -17,7 +17,7 @@ using Random = UnityEngine.Random;
 namespace ManagersAndControllers {
     [Serializable]
     public class AttackPoint {
-        public Waypoint Waypoint;
+        public PathPoint pathPoint;
         public Creature.CreatureType creatureType;
     }
 
@@ -34,7 +34,7 @@ namespace ManagersAndControllers {
         [HideInInspector]
         public List<GameObject> AllEnemies = new();
         public List<GroundCreatureMover> CinematicEnemies = new();
-        
+
         [HideInInspector]
         public bool WasCinematicCreatuerDied; //true when one of the cinematics creature dies
         [SerializeField] private ParticleSystem arrowUpdateParticlesPhase1; //phase one is particles without noise
@@ -56,8 +56,7 @@ namespace ManagersAndControllers {
 
         private void Awake() {
             navMeshSurfaces = FindObjectsOfType<NavMeshSurface>().ToList();
-            foreach (NavMeshSurface navMeshSurface in navMeshSurfaces)
-            {
+            foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
                 navMeshSurface.BuildNavMesh();
             }
         }
@@ -95,8 +94,7 @@ namespace ManagersAndControllers {
         }
 
         //Inits starting a new level
-        public void InitNewWave() {
-        }
+        public void InitNewWave() { }
 
         public void GameOver(int score) {
             UIManager.SetupGameover(score);
@@ -112,10 +110,10 @@ namespace ManagersAndControllers {
 //            UIManager.UpdateStatus(wave, maxWave, level);
         }
 
-        public Waypoint GetSpot(Creature.CreatureType creatureType) {
+        public PathPoint GetSpot(Creature.CreatureType creatureType) {
             List<AttackPoint> points = AttackPoints.FindAll(a => a.creatureType == creatureType);
 
-            return points[Random.Range(0, points.Count)].Waypoint;
+            return points[Random.Range(0, points.Count)].pathPoint;
         }
 
         /// <summary>

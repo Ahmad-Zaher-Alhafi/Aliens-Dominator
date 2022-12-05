@@ -34,7 +34,8 @@ namespace Creatures {
             Dead
         }
 
-        public enum CreatureAction {
+        private enum CreatureAction {
+            None,
             StayIdle,
             Patrol,
             FollowPath,
@@ -65,9 +66,9 @@ namespace Creatures {
         [SerializeField] private int health = 5;
         [Range(1, 100)]
         [SerializeField] private int chanceOfDroppingBalloon;
-
-        [SerializeField] private int waypointMinIndexToActivateSpecialActions = 2; // We dont want the enemies to start shooting from the spawn waypoint
-        [SerializeField] private float secondsToDestroyDeadBody = 10; //time needed before destroying the dead body of the creature
+        
+        [SerializeField] private int specialActionPathPointIndex = 2;
+        [SerializeField] private float secondsToDestroyDeadBody = 10; 
 
         private int initialHealth;
         private AudioSource audioSource;
@@ -75,7 +76,10 @@ namespace Creatures {
         public CreatureMover mover;
         private CreatureAnimator animator;
         private BodyPart[] bodyParts;
-        private CreatureState externalState = CreatureState.None;
+        /// <summary>
+        /// A state that is being set by external event which overrides the current state
+        /// </summary>
+        private CreatureState highPriorityState = CreatureState.None;
 
         private void Awake() {
             rig = GetComponent<Rigidbody>();
@@ -87,11 +91,11 @@ namespace Creatures {
             Ctx.Deps.EventsManager.WaveStarted += RunAway;
         }
 
-        public void Init(Vector3 position) {
-            CurrentState = CreatureState.Idle;
-            externalState = CreatureState.None;
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, CreatureState initialState) {
+            CurrentState = CreatureState.None;
+            highPriorityState = initialState;
             initialHealth = health;
-            transform.position = position;
+            transform.position = spawnPosition;
             IsSlowedDown = false;
 
             rig.useGravity = false;
@@ -101,7 +105,7 @@ namespace Creatures {
             CreatureStateCanves.SetActive(false);
 
             animator.Init();
-            mover.Init();
+            mover.Init(pathToFollow);
             foreach (BodyPart bodyPart in bodyParts) {
                 bodyPart.Init(bouncingMaterial);
             }
@@ -112,30 +116,40 @@ namespace Creatures {
         private void Update() {
             if (CurrentState == CreatureState.Dead) return;
 
-            if (externalState != CreatureState.None && CurrentState != externalState) {
-                PreviousState = CurrentState;
-                CurrentState = externalState;
+            if (highPriorityState != CreatureState.None) {
+                if (CurrentState != highPriorityState) {
+                    PreviousState = CurrentState;
+                    CurrentState = highPriorityState;
+                }
                 return;
             }
 
             if (mover.IsBusy) return;
 
-            if (CurrentState == CreatureState.RunningAway) {
-                Disappear();
-                return;
-            }
-
             PreviousState = CurrentState;
             CurrentState = GetRandomActionToDo() switch {
                 CreatureAction.StayIdle => CreatureState.Idle,
                 CreatureAction.Patrol => CreatureState.Patrolling,
+                CreatureAction.FollowPath => CreatureState.FollowingPath,
                 _ => CurrentState
             };
         }
 
         private CreatureAction GetRandomActionToDo() {
-            int randomNumber = Random.Range(0, 2);
-            return randomNumber == 0 ? CreatureAction.StayIdle : CreatureAction.Patrol;
+            int randomNumber = Random.Range(0, Ctx.Deps.CreatureSpawnController.HasWaveStarted ? 3 : 2);
+            return randomNumber switch {
+                0 => CreatureAction.StayIdle,
+                1 => CreatureAction.Patrol,
+                2 => CreatureAction.FollowPath,
+                _ => CreatureAction.None
+            };
+        }
+
+        public void OnOrderFulfilled() {
+            if (CurrentState == CreatureState.RunningAway) {
+                Disappear();
+            }
+            highPriorityState = CreatureState.None;
         }
 
         public void ApplyDamage(IDamager damager, int damageWeight) {
@@ -162,8 +176,8 @@ namespace Creatures {
         }
 
         private void RunAway() {
-            mover.CancelCurrentOrder();
-            externalState = CreatureState.RunningAway;
+            mover.FulfillCurrentOrder();
+            highPriorityState = CreatureState.RunningAway;
         }
 
         private void PlayDeathSound() {
@@ -193,9 +207,10 @@ namespace Creatures {
         }
 
         private void Disappear() {
+            CurrentState = CreatureState.Dead;
             StartCoroutine(DestroyObjectDelayed());
         }
-        
+
         private void OnDestroy() {
             Ctx.Deps.EventsManager.WaveStarted -= RunAway;
         }
