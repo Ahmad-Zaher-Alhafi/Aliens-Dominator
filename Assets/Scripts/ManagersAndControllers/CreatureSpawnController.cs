@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
     public class CreatureSpawnController : MonoBehaviour {
+        [SerializeField] private PathPoint pathPointPrefab;
+        [SerializeField] private Transform holder;
         [Header("Cinematic wave Setup")]
         [SerializeField] private Wave cinematicWave;
 
@@ -32,15 +34,24 @@ namespace ManagersAndControllers {
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
-        
+
         public bool HasWaveStarted { get; private set; }
-        
+
 
         private readonly List<Creature> creatures = new();
+        
 
         private void Start() {
             SpawnCinematicCreatures();
         }
+
+#if UNITY_EDITOR
+        private void Update() {
+            if (Input.GetMouseButtonDown(2)) {
+                SpawnTestGroundCreature();
+            }
+        }
+#endif
 
         private IEnumerator SpawnWaveCreatures(Wave wave) {
             Dictionary<Creature, int> creaturesData = wave.WaveCreatures.ToDictionary(prefab => prefab.CreaturePrefab, num => num.NumberToSpawn);
@@ -62,14 +73,17 @@ namespace ManagersAndControllers {
             }
         }
 
-        private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint) {
+        private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, Creature.CreatureState initialState = Creature.CreatureState.None) {
             SpawnPointPath pathToFollow = creatureToSpawnPool is FlyingCreature ? spawnPoint.AirPath : MathUtils.GetRandomObjectFromList(spawnPoint.GroundPaths);
-            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, pathToFollow);
+            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, pathToFollow, initialState);
         }
 
-        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null) {
+        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null, Creature.CreatureState initialState = Creature.CreatureState.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
-            Creature.CreatureState initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Idle;
+            if (initialState == Creature.CreatureState.None) {
+                initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Idle;
+            }
+
             creature.Init(spawnPosition, pathToFollow, initialState);
             creatures.Add(creature);
         }
@@ -92,5 +106,12 @@ namespace ManagersAndControllers {
 
             creatures.Remove(creature);
         }
+
+#if UNITY_EDITOR
+        private void SpawnTestGroundCreature() {
+            Creature groundCreature = waves[0].WaveCreatures[0].CreaturePrefab;
+            SpawnCreature(groundCreature, spawningPoints[0], Creature.CreatureState.FollowingPath);
+        }
+#endif
     }
 }
