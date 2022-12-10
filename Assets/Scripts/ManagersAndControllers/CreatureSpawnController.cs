@@ -81,7 +81,7 @@ namespace ManagersAndControllers {
         private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null, Creature.CreatureState initialState = Creature.CreatureState.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialState == Creature.CreatureState.None) {
-                initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Idle;
+                initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Patrolling;
             }
 
             creature.Init(spawnPosition, pathToFollow, initialState);
