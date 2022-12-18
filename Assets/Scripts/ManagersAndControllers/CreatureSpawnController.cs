@@ -10,8 +10,6 @@ using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
     public class CreatureSpawnController : MonoBehaviour {
-        [SerializeField] private PathPoint pathPointPrefab;
-        [SerializeField] private Transform holder;
         [Header("Cinematic wave Setup")]
         [SerializeField] private Wave cinematicWave;
 
