@@ -36,7 +36,7 @@ namespace Creatures {
         private int airPointIndex; //index of the next targetWayPoint in the airPathPoint array
         private readonly List<Transform> airPathPoint = new(); //air points which the creature has to follow
         private Creature creature;
-        private GameHandler gameHandler;
+        private GameController gameController;
         private bool hasFinishedAttacking; //true if he finished attacking
         //private Transform pointToPatrolAround;//a point which takes the position of the enemy in the last way point he reach so after that he gonna patrol around this point using the randomPatrolPosiotion
         private bool hasToPatrol; //true if the creature reached the last way point and he has to patrol now
@@ -156,10 +156,10 @@ namespace Creatures {
         public void FindTarget() {
             bool isThereTarget = false;
 
-            for (int i = 0; i < gameHandler.SecurityWeapons.Length; i++) //find not destroied security weapon
-                if (gameHandler.SecurityWeapons[i] != null && !gameHandler.SecurityWeapons[i].WasDestroyed) {
+            for (int i = 0; i < gameController.SecurityWeapons.Length; i++) //find not destroied security weapon
+                if (gameController.SecurityWeapons[i] != null && !gameController.SecurityWeapons[i].WasDestroyed) {
                     isThereTarget = true;
-                    targetToFollow = gameHandler.SecurityWeapons[i].transform;
+                    targetToFollow = gameController.SecurityWeapons[i].transform;
                 }
 
             if (!isThereTarget) //if all the security weapons were destroied

@@ -26,43 +26,31 @@ namespace Creatures {
         protected override void Patrol() {
             base.Patrol();
             Transform nextCinematicPatrolPoint = MathUtils.GetRandomObjectFromList(creatureSpawnController.AirCinematicEnemyPathPoints).transform;
-            OrderToMove(nextCinematicPatrolPoint.position);
+            OrderToMoveTo(nextCinematicPatrolPoint.position);
         }
 
         protected override void RunAway() {
             base.RunAway();
             Transform randomRunAwayPoint = creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Count)].transform;
-            OrderToMove(randomRunAwayPoint.position);
+            OrderToMoveTo(randomRunAwayPoint.position);
         }
 
         protected override PathPoint FollowPath() {
             Transform nextPathPoint = base.FollowPath()?.transform;
             if (nextPathPoint == null) return null;
             
-            OrderToMove(nextPathPoint.position);
-            RotateToTheWantedAngle(nextPathPoint.transform.position);
+            OrderToMoveTo(nextPathPoint.position);
             return null;
         }
 
-        /// <summary>
-        /// To rotate the creature to the right direction
-        /// </summary>
-        /// <param name="targetPosition">Position where the creature look towards</param>
-        private void RotateToTheWantedAngle(Vector3 targetPosition) {
-            var creatureTransform = transform;
-            Vector3 direction = targetPosition - creatureTransform.position;
-            Vector3 newDirection = Vector3.RotateTowards(creatureTransform.forward, direction, RotatingSpeed * Time.deltaTime, 0);
-            transform.rotation = Quaternion.LookRotation(newDirection);
-        }
-
-        private void OrderToMove(Vector3 position) {
-            HasMovingOrder = true;
+        protected override void OrderToMoveTo(Vector3 position) {
+            base.OrderToMoveTo(position);
             positionToMoveTo = position;
         }
 
         private void MoveTo(Vector3 position) {
             // If the creature has not reached the position
-            if (Vector3.Distance(transform.position, position) >= 1) {
+            if (Vector3.Distance(transform.position, position) >= stoppingDistance) {
                 transform.position = Vector3.MoveTowards(transform.position, position, CurrentSpeed * Time.deltaTime);
             } else {
                 OnDestinationReached();

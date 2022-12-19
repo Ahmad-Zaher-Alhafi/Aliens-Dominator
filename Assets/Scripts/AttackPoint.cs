@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PathPoint : MonoBehaviour {
-    [FormerlySerializedAs("Color")]
+public class AttackPoint : MonoBehaviour {
+    [SerializeField] private GameObject targetObject;
+    public GameObject TargetObject => targetObject;
+    
     [SerializeField] private Color color;
     [SerializeField] private float debugDrawRadius = 1.0F;
 

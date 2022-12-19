@@ -10,7 +10,7 @@ namespace Utils {
             return randomPoint;
         }
         
-        public static T? GetNextObjectInList<T>(IReadOnlyList<T> pathPointsList, int lastObjectIndex) where T : Object {
+        public static T GetNextObjectInList<T>(IReadOnlyList<T> pathPointsList, int lastObjectIndex) where T : Object {
             return lastObjectIndex + 1 >= pathPointsList.Count ? null : pathPointsList[lastObjectIndex + 1];
         }
     }

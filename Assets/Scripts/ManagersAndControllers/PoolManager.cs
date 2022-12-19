@@ -8,10 +8,10 @@ namespace ManagersAndControllers {
         private readonly List<GameObject> Arrows = new();
         private readonly List<GameObject> Enemies = new();
 
-        private GameHandler GameHandler;
+        private GameController gameController;
 
         private void Start() {
-            GameHandler = GetComponent<GameHandler>();
+            gameController = GetComponent<GameController>();
         }
 
         #region Creatures
@@ -56,7 +56,7 @@ namespace ManagersAndControllers {
             });
 
             if (!arrow) {
-                arrow = Instantiate(GameHandler.SpecialArrows.Find(go => go.GetComponent<T>() != null), pos, rot);
+                arrow = Instantiate(gameController.SpecialArrows.Find(go => go.GetComponent<T>() != null), pos, rot);
             } else {
                 arrow.transform.rotation = rot;
                 arrow.transform.position = pos;

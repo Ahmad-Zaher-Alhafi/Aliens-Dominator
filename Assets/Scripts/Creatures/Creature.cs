@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
@@ -27,6 +26,7 @@ namespace Creatures {
             Idle,
             Patrolling,
             FollowingPath,
+            ChasingTarget,
             GettingHit,
             Attacking,
             Chasing,
@@ -66,9 +66,9 @@ namespace Creatures {
         [SerializeField] private int health = 5;
         [Range(1, 100)]
         [SerializeField] private int chanceOfDroppingBalloon;
-        
+
         [SerializeField] private int specialActionPathPointIndex = 2;
-        [SerializeField] private float secondsToDestroyDeadBody = 10; 
+        [SerializeField] private float secondsToDestroyDeadBody = 10;
 
         private int initialHealth;
         private AudioSource audioSource;
@@ -80,6 +80,15 @@ namespace Creatures {
         /// A state that is being set by external event which overrides the current state
         /// </summary>
         private CreatureState highPriorityState = CreatureState.None;
+        public GameObject ObjectToAttack {
+            get;
+            private set;
+        }
+
+        public AttackPoint AttackPoint {
+            get;
+            private set;
+        }
 
         private void Awake() {
             rig = GetComponent<Rigidbody>();
@@ -91,12 +100,17 @@ namespace Creatures {
             Ctx.Deps.EventsManager.WaveStarted += RunAway;
         }
 
-        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, CreatureState initialState) {
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, AttackPoint attackPoint, CreatureState initialState) {
             CurrentState = CreatureState.None;
             highPriorityState = initialState;
             initialHealth = health;
             transform.position = spawnPosition;
             IsSlowedDown = false;
+            
+            if (attackPoint is not null) {
+                AttackPoint = attackPoint;
+                ObjectToAttack = AttackPoint.TargetObject;
+            }
 
             rig.useGravity = false;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
@@ -114,9 +128,9 @@ namespace Creatures {
         }
 
         private void Update() {
-            if (CurrentState == CreatureState.Dead) return;
+            if (CurrentState is CreatureState.Dead) return;
 
-            if (highPriorityState != CreatureState.None) {
+            if (highPriorityState is not CreatureState.None) {
                 if (CurrentState != highPriorityState) {
                     PreviousState = CurrentState;
                     CurrentState = highPriorityState;
@@ -126,11 +140,20 @@ namespace Creatures {
 
             if (mover.IsBusy) return;
 
+            if (mover.HasReachedAttackPoint) {
+                if (CurrentState is CreatureState.ChasingTarget) {
+                    Attack(ObjectToAttack);
+                    return;
+                }
+
+                CurrentState = CreatureState.ChasingTarget;
+                return;
+            }
+
             PreviousState = CurrentState;
             CurrentState = GetRandomActionToDo() switch {
                 CreatureAction.StayIdle => CreatureState.Idle,
                 CreatureAction.Patrol => CreatureState.Patrolling,
-                CreatureAction.FollowPath => CreatureState.FollowingPath,
                 _ => CurrentState
             };
         }
@@ -140,7 +163,6 @@ namespace Creatures {
             return randomNumber switch {
                 0 => CreatureAction.StayIdle,
                 1 => CreatureAction.Patrol,
-                2 => CreatureAction.FollowPath,
                 _ => CreatureAction.None
             };
         }
@@ -152,7 +174,11 @@ namespace Creatures {
             highPriorityState = CreatureState.None;
         }
 
-        public void ApplyDamage(IDamager damager, int damageWeight) {
+        public void Attack(GameObject objectToAttack) {
+            CurrentState = CreatureState.Attacking;
+        }
+
+        public void TakeDamage(IDamager damager, int damageWeight) {
             if (CurrentState == CreatureState.Dead) return;
 
             if (!CreatureStateCanves.activeInHierarchy) {

@@ -51,7 +51,7 @@ namespace Defence_Weapons {
         private readonly List<AirRocketsReloadPoint> airRocketsReloadPoints = new();
         private int currentBulletsNumber;
         private Vector3 escortPoint; //point where the weapon is gonna look towards
-        private GameHandler gameHandler;
+        private GameController gameController;
         private bool hasToLookAtTheTarget; //if there is a target to shoot at
         private bool hasToPlayStartShootingSound;
         private bool hasToPlayStopShootingSound;
@@ -65,7 +65,7 @@ namespace Defence_Weapons {
         private Transform target;
 
         private void Start() {
-            gameHandler = FindObjectOfType<GameHandler>();
+            gameController = FindObjectOfType<GameController>();
             isCoolingDown = false;
             initialHealth = weaponHealth;
             weaponHealthBar.maxValue = initialHealth;
@@ -349,7 +349,7 @@ namespace Defence_Weapons {
         }
 
         public void FixWeapon() {
-            if (gameHandler.NumOfResources >= repairCost) {
+            if (gameController.NumOfResources >= repairCost) {
                 if (weaponHealth <= 0) {
                     weaponHealth = initialHealth;
                     gameObject.SetActive(true);
@@ -360,7 +360,7 @@ namespace Defence_Weapons {
                     weaponHealth += 25;
                 }
 
-                gameHandler.UpdateResourcesCount(repairCost);
+                gameController.UpdateResourcesCount(repairCost);
                 weaponHealthBar.normalizedValue = weaponHealth / initialHealth;
                 print("WeaponFixed " + weaponHealth);
             } else {

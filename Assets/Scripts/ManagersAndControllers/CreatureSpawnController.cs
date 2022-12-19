@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
     public class CreatureSpawnController : MonoBehaviour {
+        [SerializeField] private bool spawnCinematicCreatures;
+
         [Header("Cinematic wave Setup")]
         [SerializeField] private Wave cinematicWave;
 
@@ -20,15 +22,22 @@ namespace ManagersAndControllers {
 
         [Header("Spawn points")]
         [SerializeField] private List<SpawnPoint> spawningPoints;
+        [SerializeField] private SpawnPoint testSpawnPoint;
 
         [Header("PathPoints")]
         [SerializeField] private List<PathPoint> groundCinematicEnemyPathPoints;
         public List<PathPoint> GroundCinematicEnemyPathPoints => groundCinematicEnemyPathPoints;
         [SerializeField] private List<PathPoint> airCinematicEnemyPathPoints;
         public List<PathPoint> AirCinematicEnemyPathPoints => airCinematicEnemyPathPoints;
+
+        [Header("Running Away Points")]
         // Points where cinematic creatures are gonna run away to on the start of the game
         [SerializeField] private List<Transform> runningAwayPoints;
         public List<Transform> RunningAwayPoints => runningAwayPoints;
+
+        [Header("Attack points")]
+        [SerializeField] private List<AttackPoint> attackPoints;
+        public List<AttackPoint> AttackPoints => attackPoints;
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
@@ -37,10 +46,12 @@ namespace ManagersAndControllers {
 
 
         private readonly List<Creature> creatures = new();
-        
+
 
         private void Start() {
-            SpawnCinematicCreatures();
+            if (spawnCinematicCreatures) {
+                SpawnCinematicCreatures();
+            }
         }
 
 #if UNITY_EDITOR
@@ -72,17 +83,26 @@ namespace ManagersAndControllers {
         }
 
         private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, Creature.CreatureState initialState = Creature.CreatureState.None) {
-            SpawnPointPath pathToFollow = creatureToSpawnPool is FlyingCreature ? spawnPoint.AirPath : MathUtils.GetRandomObjectFromList(spawnPoint.GroundPaths);
-            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, pathToFollow, initialState);
+            SpawnPointPath pathToFollow;
+            AttackPoint randomAttackPoint = null;
+
+            if (creatureToSpawnPool is FlyingCreature) {
+                pathToFollow = spawnPoint.AirPath;
+            } else {
+                pathToFollow = MathUtils.GetRandomObjectFromList(spawnPoint.GroundPaths);
+                randomAttackPoint = MathUtils.GetRandomObjectFromList(AttackPoints);
+            }
+
+            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, pathToFollow, randomAttackPoint, initialState: initialState);
         }
 
-        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null, Creature.CreatureState initialState = Creature.CreatureState.None) {
+        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, SpawnPointPath pathToFollow = null, AttackPoint attackPoint = null, Creature.CreatureState initialState = Creature.CreatureState.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialState == Creature.CreatureState.None) {
                 initialState = HasWaveStarted ? Creature.CreatureState.FollowingPath : Creature.CreatureState.Patrolling;
             }
 
-            creature.Init(spawnPosition, pathToFollow, initialState);
+            creature.Init(spawnPosition, pathToFollow, attackPoint, initialState);
             creatures.Add(creature);
         }
 
@@ -108,7 +128,7 @@ namespace ManagersAndControllers {
 #if UNITY_EDITOR
         private void SpawnTestGroundCreature() {
             Creature groundCreature = waves[0].WaveCreatures[0].CreaturePrefab;
-            SpawnCreature(groundCreature, spawningPoints[0], Creature.CreatureState.FollowingPath);
+            SpawnCreature(groundCreature, testSpawnPoint, Creature.CreatureState.FollowingPath);
         }
 #endif
     }

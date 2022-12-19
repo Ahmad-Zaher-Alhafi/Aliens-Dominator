@@ -703,7 +703,7 @@ MonoBehaviour:
   CreatureHealthBar: {fileID: 7115475965159596588}
   health: 5
   chanceOfDroppingBalloon: 80
-  waypointMinIndexToActivateSpecialActions: 2
+  specialActionPathPointIndex: 2
   secondsToDestroyDeadBody: 10
   mover: {fileID: 0}
 --- !u!114 &4952086325027129125
@@ -722,29 +722,7 @@ MonoBehaviour:
   patrolSpeed: 3
   runSpeed: 10
   rotatingSpeed: 1
-  _patrolWaiting: 0
-  _totalWaitTime: 0
-  wayPointsRemainedDistance: 0.5
-  _switchProbability: 0
-  isDamaging: 0
-  NavMeshAgent: {fileID: 0}
-  CurrentPatrolIndex: 0
-  EnemyId: d121
-  creatureSpawnController: {fileID: 0}
-  WalkAnimationParameter: Walk Forward
-  CinematicEnemiesPath: 9
-  TimeToWaitForAnimation: 3
-  TimeToRoar: 1
-  MaxSpeed: 10
-  HypnotizedSpeedBonus: 1
-  SmoothRotating: 8
-  EndPoint: {fileID: 0}
-  TrackEnemyID: 
-  speedDivider: 2
-  TotalShootTime: 10
-  TotalDiggingTime: 5
-  TotalTeleportTime: 5
-  ChanceToMakeSpecialAction: 0
+  stoppingDistance: 1
 --- !u!114 &-3910005451574638326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +740,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: f6ab7a7ceef0c94478c7c39c4afb6526, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: cf91052aa11cf3942a83b4c6d5982ce8, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: 266cf37da25ca8040b2987c90b473077, type: 3}
+  timeBetweenAttacks: 2
   walkAnimationClip: {fileID: 7400000, guid: 4ac3dd09033415c4299263c0fcbe2098, type: 3}
   runAnimationClip: {fileID: 7400000, guid: 11d9a6cff6b2e7547b645e2815aa1dff, type: 3}
   lookAroundAnimationClip: {fileID: 7400000, guid: 0e3080dd8b0ccb64880c2e4ed45ca848, type: 3}

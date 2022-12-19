@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utils;
 
 namespace Creatures.Animators {
     public abstract class CreatureAnimator : MonoBehaviour {
@@ -10,10 +11,11 @@ namespace Creatures.Animators {
         [SerializeField] protected AnimationClip IdleAnimationClip;
         [SerializeField] protected AnimationClip takeDamageAnimationClip;
         [SerializeField] protected AnimationClip dieAnimationClip;
+        [SerializeField] private float timeBetweenAttacks = 2;
 
         protected Creature Creature;
         protected Animator Animator;
-        protected float InitialSpeed;
+        protected bool AnimationFinished = true;
 
         private bool IsBusy;
         protected const float ANIMATION_SWITCH_TIME = 3;
@@ -21,7 +23,6 @@ namespace Creatures.Animators {
         private void Awake() {
             Creature = GetComponent<Creature>();
             Animator = GetComponent<Animator>();
-            InitialSpeed = Animator.speed;
         }
 
         public void Init() {
@@ -30,6 +31,19 @@ namespace Creatures.Animators {
 
         protected virtual void Update() {
             Animator.speed = Mathf.Clamp(Creature.mover.CurrentSpeed / Creature.mover.PatrolSpeed, 1, 1.5f);
+
+            if (Creature.CurrentState == Creature.CreatureState.Attacking) {
+                if (AnimationFinished) {
+                    SetRandomAttackAnimationParameter();
+                }
+            }
+        }
+
+        private void SetRandomAttackAnimationParameter() {
+            AnimationClip randomAttackClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
+            Animator.SetTrigger(randomAttackClip.name);
+            StartCoroutine(StopTheAnimationAfter(randomAttackClip.length + timeBetweenAttacks));
+            StartCoroutine(InformToAttackAfter(randomAttackClip.length));
         }
 
         /// <summary>
@@ -42,6 +56,18 @@ namespace Creatures.Animators {
             float oldValue = Animator.GetFloat(animationClipID);
             float value = Mathf.Lerp(oldValue, newValue, speed * Time.deltaTime);
             Animator.SetFloat(animationClipID, value);
+        }
+
+        private IEnumerator InformToAttackAfter(float length) {
+            yield return new WaitForSeconds(length / 2);
+            Creature.Attack(null);
+            yield return new WaitForSeconds(length / 2);
+        }
+
+        protected IEnumerator StopTheAnimationAfter(float length) {
+            AnimationFinished = false;
+            yield return new WaitForSeconds(length);
+            AnimationFinished = true;
         }
 
         public void OnDeath() {

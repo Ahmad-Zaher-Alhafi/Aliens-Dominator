@@ -12,16 +12,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
-    [Serializable]
-    public class AttackPoint {
-        public PathPoint pathPoint;
-        public Creature.CreatureType creatureType;
-    }
-
-    public class GameHandler : MonoBehaviour {
+    public class GameController : MonoBehaviour {
         public Transform SpawnPos;
         public List<AttackPoint> AttackPoints = new();
         public SecurityWeapon[] SecurityWeapons;
@@ -108,12 +101,6 @@ namespace ManagersAndControllers {
 
         public void UpdateStatus(int wave, int maxWave, int level) {
 //            UIManager.UpdateStatus(wave, maxWave, level);
-        }
-
-        public PathPoint GetSpot(Creature.CreatureType creatureType) {
-            List<AttackPoint> points = AttackPoints.FindAll(a => a.creatureType == creatureType);
-
-            return points[Random.Range(0, points.Count)].pathPoint;
         }
 
         /// <summary>

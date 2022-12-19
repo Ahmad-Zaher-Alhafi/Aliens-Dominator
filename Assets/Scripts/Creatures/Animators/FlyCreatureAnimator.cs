@@ -29,6 +29,8 @@ namespace Creatures.Animators {
                     break;
                 case Creature.CreatureState.RunningAway:
                     break;
+                case Creature.CreatureState.ChasingTarget:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

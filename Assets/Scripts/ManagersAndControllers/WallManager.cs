@@ -12,7 +12,7 @@ namespace ManagersAndControllers {
         public List<AudioClip> WallHitSounds = new();
         private ArcheryRig ArcheryRig;
         private AudioSource AudioSource;
-        private GameHandler GameHandler;
+        private GameController gameController;
         private float HealthFromBeginning;
 
         private void Awake() {
@@ -20,7 +20,7 @@ namespace ManagersAndControllers {
 
             HealthFromBeginning = Health;
 
-            GameHandler = FindObjectOfType<GameHandler>();
+            gameController = FindObjectOfType<GameController>();
             ArcheryRig = FindObjectOfType<ArcheryRig>();
 
 //            HealthbarCanvas.transform.LookAt(ArcheryRig.transform);

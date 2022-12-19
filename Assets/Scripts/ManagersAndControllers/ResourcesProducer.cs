@@ -5,11 +5,11 @@ namespace ManagersAndControllers {
     public class ResourcesProducer : MonoBehaviour {
         [SerializeField] private float numOfResourcesToProduceEachLevel;
 
-        private GameHandler gameHandler;
+        private GameController gameController;
 
         // Start is called before the first frame update
         private void Start() {
-            gameHandler = FindObjectOfType<GameHandler>();
+            gameController = FindObjectOfType<GameController>();
             Ctx.Deps.EventsManager.onLevelFinishs += ProduceResources;
         }
 
@@ -19,7 +19,7 @@ namespace ManagersAndControllers {
 
 
         private void ProduceResources() {
-            gameHandler.UpdateResourcesCount(numOfResourcesToProduceEachLevel);
+            gameController.UpdateResourcesCount(numOfResourcesToProduceEachLevel);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EditorUtils {
             prefab = (GameObject) EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), false);
 
             if (GUILayout.Button("Replace")) {
-                var selection = FindObjectsOfType<SpawnPoint>();
+                var selection = Selection.gameObjects;
 
                 for (var i = selection.Length - 1; i >= 0; --i) {
                     var selected = selection[i];

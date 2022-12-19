@@ -5,10 +5,10 @@ public abstract class InteractableObjectBase : Hitable {
     public int Damage = 250;
     public int Force = 1000;
 
-    protected GameHandler GameHandler;
+    protected GameController GameController;
 
     private void Start() {
-        GameHandler = FindObjectOfType<GameHandler>();
+        GameController = FindObjectOfType<GameController>();
     }
 
     protected void CalculateDamageByDistance(Creatures.Creature creature) {

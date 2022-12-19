@@ -30,7 +30,7 @@ namespace Arrows {
         private IEnumerator StartTimer() {
             yield return new WaitForSeconds(detonationTime);
 
-            foreach (GameObject enemy in GameHandler.AllEnemies.ToArray())
+            foreach (GameObject enemy in GameController.AllEnemies.ToArray())
                 if (enemy) {
                     float dist = Vector3.Distance(transform.position, enemy.transform.position);
                 }

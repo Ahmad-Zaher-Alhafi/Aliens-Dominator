@@ -25,7 +25,7 @@ namespace Arrows {
         public int ChanceOfReceiving = 50;
         protected new AudioSource audio;
         protected Rigidbody body;
-        protected GameHandler GameHandler;
+        protected GameController GameController;
         protected bool hasCollided;
         protected TrailRenderer trail;
 
@@ -34,7 +34,7 @@ namespace Arrows {
             body = GetComponent<Rigidbody>();
             audio = GetComponent<AudioSource>();
 
-            GameHandler = FindObjectOfType<GameHandler>();
+            GameController = FindObjectOfType<GameController>();
         }
 
         private void Update() {

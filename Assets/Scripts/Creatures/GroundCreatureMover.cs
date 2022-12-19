@@ -7,9 +7,6 @@ using Utils;
 
 namespace Creatures {
     public class GroundCreatureMover : CreatureMover {
-        // Distance between creature and destination point to stop
-        [SerializeField] private float stoppingDistance = 1;
-
         private NavMeshAgent navMeshAgent;
         private NavMeshPath navMeshPath;
         private bool HasReachedDestination => navMeshAgent.remainingDistance <= stoppingDistance;
@@ -48,26 +45,26 @@ namespace Creatures {
         protected override void Patrol() {
             base.Patrol();
             Transform patrolPoint = MathUtils.GetRandomObjectFromList(Ctx.Deps.CreatureSpawnController.GroundCinematicEnemyPathPoints).transform;
-            OrderToMove(patrolPoint);
+            OrderToMoveTo(patrolPoint.position);
         }
 
         protected override void RunAway() {
             base.RunAway();
             Transform closestRunAwayPoint = FindClosestPoint(Ctx.Deps.CreatureSpawnController.RunningAwayPoints);
-            OrderToMove(closestRunAwayPoint);
+            OrderToMoveTo(closestRunAwayPoint.position);
         }
 
         protected override PathPoint FollowPath() {
             Transform nextPathPoint = base.FollowPath()?.transform;
             if (nextPathPoint == null) return null;
-            
-            OrderToMove(nextPathPoint);
+
+            OrderToMoveTo(nextPathPoint.position);
             return null;
         }
-        
-        private void OrderToMove(Transform nextPathPoint) {
-            HasMovingOrder = true;
-            NavMesh.CalculatePath(transform.position, nextPathPoint.position, NavMesh.AllAreas, navMeshPath);
+
+        protected override void OrderToMoveTo(Vector3 position) {
+            base.OrderToMoveTo(position);
+            NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, navMeshPath);
             navMeshAgent.SetPath(navMeshPath);
         }
 

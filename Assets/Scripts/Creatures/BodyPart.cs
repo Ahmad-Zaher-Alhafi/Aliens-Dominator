@@ -33,7 +33,7 @@ namespace Creatures {
 
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.layer == Constants.Arrow_LAYER_ID) {
-                creature.ApplyDamage(collision.gameObject.GetComponent<ArrowBase>(), damageWeight);
+                creature.TakeDamage(collision.gameObject.GetComponent<ArrowBase>(), damageWeight);
             }
         }
         

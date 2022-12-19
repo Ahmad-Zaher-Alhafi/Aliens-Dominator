@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using Arrows;
 using ManagersAndControllers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player {
     public class ArcheryRig : MonoBehaviour {
         public bool WasGameStarted;
-        public GameHandler GameHandler;
+        [FormerlySerializedAs("GameHandler")]
+        public GameController gameController;
 
         [SerializeField] private float shotForce = 50;
         [SerializeField] private float moveForce = 1;
@@ -121,7 +123,7 @@ namespace Player {
 
             _arrow.ArrowSettings.ForEach(setting => {
                 if (setting.Arrow) {
-                    var mArrow = GameHandler.PoolManager.GetArrow(setting.Arrow, arrowSpawnPoint.position, Quaternion.Euler(arrowSpawnPoint.transform.rotation.eulerAngles + setting.RotationOffset)).GetComponent<ArrowBase>();
+                    var mArrow = gameController.PoolManager.GetArrow(setting.Arrow, arrowSpawnPoint.position, Quaternion.Euler(arrowSpawnPoint.transform.rotation.eulerAngles + setting.RotationOffset)).GetComponent<ArrowBase>();
                     mArrow.transform.SetParent(arrowSpawnPoint);
                     mArrow.Knock();
 

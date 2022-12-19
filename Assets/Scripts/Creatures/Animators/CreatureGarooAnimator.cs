@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Creatures.Animators {
     public class CreatureGarooAnimator : GroundCreatureAnimator {
@@ -9,12 +8,11 @@ namespace Creatures.Animators {
 
         private static readonly int idleIndexParameter = Animator.StringToHash("Idle Index");
         private int idleAnimationIndex;
-        private bool idleAnimationFinished = true;
 
         protected override void Update() {
             base.Update();
             if (Creature.CurrentState == Creature.CreatureState.Idle) {
-                if (idleAnimationFinished) {
+                if (AnimationFinished) {
                     SetRandomIdleAnimation();
                 }
 
@@ -26,26 +24,20 @@ namespace Creatures.Animators {
             switch (Random.Range(1, 4)) {
                 case 1: {
                     idleAnimationIndex = 1;
-                    StartCoroutine(WaitForAnimationLength(IdleAnimationClip.length));
+                    StartCoroutine(StopTheAnimationAfter(IdleAnimationClip.length));
                 }
                     break;
                 case 2: {
                     idleAnimationIndex = 2;
-                    StartCoroutine(WaitForAnimationLength(lookAroundAnimationClip.length));
+                    StartCoroutine(StopTheAnimationAfter(lookAroundAnimationClip.length));
                 }
                     break;
                 case 3: {
                     idleAnimationIndex = 3;
-                    StartCoroutine(WaitForAnimationLength(feedAnimationClip.length));
+                    StartCoroutine(StopTheAnimationAfter(feedAnimationClip.length));
                 }
                     break;
             }
-        }
-
-        private IEnumerator WaitForAnimationLength(float length) {
-            idleAnimationFinished = false;
-            yield return new WaitForSeconds(length);
-            idleAnimationFinished = true;
         }
     }
 }
