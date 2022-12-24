@@ -30,7 +30,7 @@ namespace Creatures.Animators {
         }
 
         protected virtual void Update() {
-            Animator.speed = Mathf.Clamp(Creature.mover.CurrentSpeed / Creature.mover.PatrolSpeed, 1, 1.5f);
+            Animator.speed = Mathf.Clamp(Creature.Mover.CurrentSpeed / Creature.Mover.PatrolSpeed, 1, 1.5f);
 
             if (Creature.CurrentState == Creature.CreatureState.Attacking) {
                 if (AnimationFinished) {

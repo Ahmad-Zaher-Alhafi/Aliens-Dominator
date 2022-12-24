@@ -19,7 +19,6 @@ namespace ManagersAndControllers {
 
 
         private void ProduceResources() {
-            gameController.UpdateResourcesCount(numOfResourcesToProduceEachLevel);
         }
     }
 }

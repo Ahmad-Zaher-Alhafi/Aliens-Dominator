@@ -349,23 +349,7 @@ namespace Defence_Weapons {
         }
 
         public void FixWeapon() {
-            if (gameController.NumOfResources >= repairCost) {
-                if (weaponHealth <= 0) {
-                    weaponHealth = initialHealth;
-                    gameObject.SetActive(true);
-                    ResetRotation();
-                    UpdateDefendingState(false);
-                    WasDestroyed = false;
-                } else {
-                    weaponHealth += 25;
-                }
-
-                gameController.UpdateResourcesCount(repairCost);
-                weaponHealthBar.normalizedValue = weaponHealth / initialHealth;
-                print("WeaponFixed " + weaponHealth);
-            } else {
-                print("Not Enough Resources To Repair");
-            }
+           
         }
 
         public void TakeDamage(float damageCost) {

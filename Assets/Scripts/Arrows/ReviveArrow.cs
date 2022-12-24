@@ -2,8 +2,9 @@ using Creatures;
 using UnityEngine;
 
 namespace Arrows {
-    public class ReviveArrow : ArrowBase {
+    public class ReviveArrow : Arrow {
         protected override void OnCollisionEnter(Collision collision) {
+            base.OnCollisionEnter(collision);
             if (hasCollided) return;
 
             hasCollided = true;
@@ -14,7 +15,6 @@ namespace Arrows {
                 GetComponent<Rigidbody>().useGravity = false;
             }
             trail.enabled = false;
-            DisableColliders();
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {

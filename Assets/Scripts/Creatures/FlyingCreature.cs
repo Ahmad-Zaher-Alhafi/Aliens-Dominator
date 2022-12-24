@@ -48,7 +48,7 @@ namespace Creatures {
         private Transform leader; //the leader of the air creatures group
         private Transform nextCinematicPatrolPoint;
         private Transform nextTargetPoint; //nextTargetPoint is the next point that the creature is going to
-        private ArcheryRig player;
+        private PlayerController player;
         private Transform pointToAttackThePlayer; //the air creatures are gonna attack this point when they got an order to attack
         private Transform pointToLookAtThePlayer; //the air creatures are gonna look at this point when they are patrolling around
         private Transform pointToShootAtThePlayer; //the air creatures are gonna shoot at this point when they are patrolling around
@@ -155,16 +155,11 @@ namespace Creatures {
 
         public void FindTarget() {
             bool isThereTarget = false;
-
-            for (int i = 0; i < gameController.SecurityWeapons.Length; i++) //find not destroied security weapon
-                if (gameController.SecurityWeapons[i] != null && !gameController.SecurityWeapons[i].WasDestroyed) {
-                    isThereTarget = true;
-                    targetToFollow = gameController.SecurityWeapons[i].transform;
-                }
+            
 
             if (!isThereTarget) //if all the security weapons were destroied
             {
-                if (player == null) player = FindObjectOfType<ArcheryRig>();
+                if (player == null) player = FindObjectOfType<PlayerController>();
 
                 targetToFollow = player.transform;
             }

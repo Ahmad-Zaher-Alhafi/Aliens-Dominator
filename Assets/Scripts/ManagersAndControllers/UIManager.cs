@@ -4,6 +4,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ManagersAndControllers {
@@ -13,7 +14,8 @@ namespace ManagersAndControllers {
         public Text CurrentStatus;
         public GameObject CurrentStatusParent;
 
-        [SerializeField] private ArcheryRig archeryRig;
+        [FormerlySerializedAs("archeryRig")]
+        [SerializeField] private PlayerController playerController;
         [SerializeField] private GameObject UIMenue;
         [SerializeField] private GameObject playerBow;
         [SerializeField] private GameObject pauseBtn;
@@ -45,7 +47,6 @@ namespace ManagersAndControllers {
             //UIMenue.SetActive(false);
             panelManager.CloseCurrent();
             playerBow.SetActive(true);
-            archeryRig.WasGameStarted = true;
 
             CurrentStatusParent.SetActive(true);
         }
@@ -61,7 +62,6 @@ namespace ManagersAndControllers {
 
                 //UIMenue.SetActive(true);
                 panelManager.OpenPanel(panelManager.initiallyOpen);
-                archeryRig.WasGameStarted = false;
 
                 pauseBtn.SetActive(false);
                 playerBow.SetActive(false);
@@ -70,10 +70,7 @@ namespace ManagersAndControllers {
                 //UIMenue.SetActive(false);
                 panelManager.CloseCurrent();
                 playerBow.SetActive(true);
-                archeryRig.WasGameStarted = true;
-            } else { }
-
-            //Time.timeScale = timeScale;
+            }
         }
 
         public void UpdateResourcesNumText(float resources) {

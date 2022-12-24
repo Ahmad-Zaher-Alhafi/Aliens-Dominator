@@ -5177,6 +5177,10 @@ PrefabInstance:
       propertyPath: archeryRig
       value: 
       objectReference: {fileID: 5156337647343923179}
+    - target: {fileID: 8470318960162423347, guid: 4e1f923ed9bc92d409e303dd7a53d9bf, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 5156337647343923179}
     - target: {fileID: 8470318960162423348, guid: 4e1f923ed9bc92d409e303dd7a53d9bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -71201,6 +71205,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3488090291348387587, guid: 50fdde8294cfef74c83593cddc6c382a, type: 3}
+      propertyPath: abstractArrow
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488090291348387587, guid: 50fdde8294cfef74c83593cddc6c382a, type: 3}
       propertyPath: ChanceOfSpawning
       value: 15
       objectReference: {fileID: 0}
@@ -82193,6 +82201,10 @@ PrefabInstance:
       propertyPath: Speed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3488090291348387587, guid: b81843ec0fca5114a99ce768a67343f7, type: 3}
+      propertyPath: abstractArrow
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4306732846594279632, guid: b81843ec0fca5114a99ce768a67343f7, type: 3}
       propertyPath: m_Name
       value: Purple Ballon
@@ -87476,6 +87488,10 @@ PrefabInstance:
       propertyPath: Speed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3488090291348387587, guid: a97e62f5ed992c4439890624972f77fb, type: 3}
+      propertyPath: abstractArrow
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4306732846594279632, guid: a97e62f5ed992c4439890624972f77fb, type: 3}
       propertyPath: m_Name
       value: Orange Ballon
@@ -87887,6 +87903,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: bow
+      value: 
+      objectReference: {fileID: 1041108415}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 9176926500301972965}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
       propertyPath: GameHandler
       value: 
       objectReference: {fileID: 1949321461}
@@ -87898,6 +87922,10 @@ PrefabInstance:
       propertyPath: bowTransform
       value: 
       objectReference: {fileID: 1041108415}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: defaultArrow
+      value: 
+      objectReference: {fileID: 7658154178271482251, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
     - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
       propertyPath: MaxBowMovement
       value: 0.25
@@ -87911,6 +87939,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1949321461}
     - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: maxBowMovement
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: wasGameStarted
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: currentPlayerTeleportObject
+      value: 
+      objectReference: {fileID: 761469286}
+    - target: {fileID: 4094902095222032911, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
       propertyPath: currentPlayerTeleportObjectt
       value: 
       objectReference: {fileID: 761469286}
@@ -87918,5 +87958,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 61261b79c549ddb4a9d657704395572b, type: 2}
+    - target: {fileID: 8296447903864587628, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+      propertyPath: m_Name
+      value: Arrow Spawn Point
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+--- !u!4 &9176926500301972965 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4094902096832300619, guid: 20a19edaaad8a6c4db223753f55e2d5a, type: 3}
+  m_PrefabInstance: {fileID: 9176926500301972964}
+  m_PrefabAsset: {fileID: 0}

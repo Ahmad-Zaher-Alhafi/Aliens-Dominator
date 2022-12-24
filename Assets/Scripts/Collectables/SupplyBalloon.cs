@@ -14,7 +14,7 @@ namespace Collectables {
         [Range(1, 100)]
         public int ChanceOfSpawning = 50;
 
-        public ArrowBase Arrow;
+        public Arrow Arrow;
         [SerializeField] private Constants.SuppliesTypes suppliesType;
 
         public void Init(Vector3 position) {
@@ -31,8 +31,7 @@ namespace Collectables {
             if (collision.collider.tag != "Arrow") return;
 
             if (!CompareTag(Constants.SuppliesCallerTag)) {
-                var rig = FindObjectOfType<ArcheryRig>();
-                rig.AddArrow(Arrow);
+                var rig = FindObjectOfType<PlayerController>();
             } else {
                 Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType); //call the airplane to get a supplies drop
             }

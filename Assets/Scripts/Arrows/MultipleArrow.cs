@@ -10,13 +10,14 @@ namespace Arrows {
     [Serializable]
     public class ArrowSetting {
         public Vector3 RotationOffset;
-        public ArrowBase Arrow;
+        public Arrow Arrow;
     }
 
-    public class MultipleArrow : ArrowBase {
+    public class MultipleArrow : Arrow {
         public List<ArrowSetting> ArrowSettings = new();
 
         protected override void OnCollisionEnter(Collision collision) {
+            base.OnCollisionEnter(collision);
             if (hasCollided) return;
 
             hasCollided = true;
@@ -26,7 +27,6 @@ namespace Arrows {
                 GetComponent<Rigidbody>().isKinematic = true;
 
             trail.enabled = false;
-            DisableColliders();
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) target.HandleArrowHit(this);

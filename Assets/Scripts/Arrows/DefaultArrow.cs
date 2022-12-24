@@ -1,8 +1,9 @@
 using UnityEngine;
 
 namespace Arrows {
-    public class DefaultArrow : ArrowBase {
+    public class DefaultArrow : Arrow {
         protected override void OnCollisionEnter(Collision collision) {
+            base.OnCollisionEnter(collision);
             if (hasCollided) return;
 
             hasCollided = true;
@@ -12,7 +13,6 @@ namespace Arrows {
                 GetComponent<Rigidbody>().isKinematic = true;
 
             trail.enabled = false;
-            DisableColliders();
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {

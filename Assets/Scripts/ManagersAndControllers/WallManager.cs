@@ -10,7 +10,7 @@ namespace ManagersAndControllers {
         public GameObject HealthbarCanvas;
 
         public List<AudioClip> WallHitSounds = new();
-        private ArcheryRig ArcheryRig;
+        private PlayerController playerController;
         private AudioSource AudioSource;
         private GameController gameController;
         private float HealthFromBeginning;
@@ -21,7 +21,7 @@ namespace ManagersAndControllers {
             HealthFromBeginning = Health;
 
             gameController = FindObjectOfType<GameController>();
-            ArcheryRig = FindObjectOfType<ArcheryRig>();
+            playerController = FindObjectOfType<PlayerController>();
 
 //            HealthbarCanvas.transform.LookAt(ArcheryRig.transform);
         }
@@ -34,7 +34,7 @@ namespace ManagersAndControllers {
             HealthImage.fillAmount = Health / HealthFromBeginning;
 
             if (Health <= 0f) {
-                ArcheryRig.enabled = false;
+                playerController.enabled = false;
                 Time.timeScale = 0;
             }
         }

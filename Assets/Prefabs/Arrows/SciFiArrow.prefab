@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6670194942636425823}
   - component: {fileID: 6201376130894173465}
   - component: {fileID: 5663472380193779945}
-  - component: {fileID: 147088371031865165}
   m_Layer: 7
   m_Name: Arrow
   m_TagString: Arrow
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &147088371031865165
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4795152041016934532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.0048835636, y: 0.0049204356, z: 0.09676885}
-  m_Center: {x: -0.00036891171, y: 0.0025767281, z: 0.030870529}
 --- !u!1 &5123602584278176004
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +96,7 @@ GameObject:
   - component: {fileID: 4661949902064241916}
   - component: {fileID: 8865632143552520356}
   - component: {fileID: 7658154178271482251}
-  - component: {fileID: 2493872587203052214}
+  - component: {fileID: 8059447444177858186}
   m_Layer: 7
   m_Name: SciFiArrow
   m_TagString: Arrow
@@ -126,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5123602584278176004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.0024, z: -0.01511}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -370,14 +356,12 @@ MonoBehaviour:
   speed: 100
   hitSounds:
   - {fileID: 8300000, guid: 0e52e00aad74d3e49a2d81491e3627f4, type: 3}
-  - {fileID: 8300000, guid: e33d116c1c7d85546849def42063395b, type: 3}
-  - {fileID: 8300000, guid: 2aaffdb8388bcd6459e5aae2dc2c0b74, type: 3}
   releaseSound: {fileID: 8300000, guid: 19c0dd63a5d24c64fb5fed537a327292, type: 3}
   knockingSound: {fileID: 8300000, guid: b2957a002a75e3b4fac15fdf2f630ee4, type: 3}
   damage: 1
   TimeToDestroyArrow: 5
   ChanceOfReceiving: 50
---- !u!65 &2493872587203052214
+--- !u!65 &8059447444177858186
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,4 +373,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0048835636, y: 0.0049204356, z: 0.09676885}
-  m_Center: {x: -0.00036891171, y: 0.0025767281, z: 0.030870529}
+  m_Center: {x: 0, y: 0, z: 0.044}

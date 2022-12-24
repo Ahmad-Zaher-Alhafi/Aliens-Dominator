@@ -4,6 +4,7 @@ using Context;
 using Creatures.Animators;
 using Pool;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -48,6 +49,7 @@ namespace Creatures {
         public CreatureState CurrentState { get; private set; }
         public CreatureState PreviousState { get; private set; }
         public bool IsSlowedDown { get; private set; }
+        public CreatureMover Mover { get; private set; }
 
         [SerializeField] private float pushForceWhenDead = 1000;
         [SerializeField] private List<Material> colors;
@@ -73,7 +75,6 @@ namespace Creatures {
         private int initialHealth;
         private AudioSource audioSource;
         private Rigidbody rig;
-        public CreatureMover mover;
         private CreatureAnimator animator;
         private BodyPart[] bodyParts;
         /// <summary>
@@ -92,7 +93,7 @@ namespace Creatures {
 
         private void Awake() {
             rig = GetComponent<Rigidbody>();
-            mover = GetComponent<CreatureMover>();
+            Mover = GetComponent<CreatureMover>();
             animator = GetComponent<CreatureAnimator>();
             bodyParts = GetComponentsInChildren<BodyPart>();
             audioSource = GetComponent<AudioSource>();
@@ -106,12 +107,12 @@ namespace Creatures {
             initialHealth = health;
             transform.position = spawnPosition;
             IsSlowedDown = false;
-            
+
             if (attackPoint is not null) {
                 AttackPoint = attackPoint;
                 ObjectToAttack = AttackPoint.TargetObject;
             }
-
+            
             rig.useGravity = false;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
@@ -119,7 +120,7 @@ namespace Creatures {
             CreatureStateCanves.SetActive(false);
 
             animator.Init();
-            mover.Init(pathToFollow);
+            Mover.Init(pathToFollow);
             foreach (BodyPart bodyPart in bodyParts) {
                 bodyPart.Init(bouncingMaterial);
             }
@@ -138,9 +139,9 @@ namespace Creatures {
                 return;
             }
 
-            if (mover.IsBusy) return;
+            if (Mover.IsBusy) return;
 
-            if (mover.HasReachedAttackPoint) {
+            if (Mover.HasReachedAttackPoint) {
                 if (CurrentState is CreatureState.ChasingTarget) {
                     Attack(ObjectToAttack);
                     return;
@@ -202,7 +203,7 @@ namespace Creatures {
         }
 
         private void RunAway() {
-            mover.FulfillCurrentOrder();
+            Mover.FulfillCurrentOrder();
             highPriorityState = CreatureState.RunningAway;
         }
 
@@ -216,8 +217,9 @@ namespace Creatures {
 
             rig.useGravity = true;
             rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            health = initialHealth;
 
-            mover.OnDeath();
+            Mover.OnDeath();
             animator.OnDeath();
             foreach (BodyPart bodyPart in bodyParts) {
                 bodyPart.OnDeath();
