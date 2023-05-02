@@ -62,8 +62,6 @@ namespace Creatures {
                 case Creature.CreatureState.Attacking:
                     RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
                     break;
-                case Creature.CreatureState.Chasing:
-                    break;
                 case Creature.CreatureState.Dead:
                     break;
                 case Creature.CreatureState.RunningAway:

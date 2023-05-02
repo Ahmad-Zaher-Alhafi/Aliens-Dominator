@@ -60,7 +60,7 @@ namespace Creatures.Animators {
 
         private IEnumerator InformToAttackAfter(float length) {
             yield return new WaitForSeconds(length / 2);
-            Creature.Attack(null);
+            Creature.ApplyDamage();
             yield return new WaitForSeconds(length / 2);
         }
 

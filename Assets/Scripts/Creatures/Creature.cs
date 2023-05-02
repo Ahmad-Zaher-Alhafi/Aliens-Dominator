@@ -4,12 +4,11 @@ using Context;
 using Creatures.Animators;
 using Pool;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Creatures {
-    public abstract class Creature : PooledObject {
+    public abstract class Creature : PooledObject, IDamager, IDamageable {
         public enum CreatureType {
             Garoo,
             Longtail,
@@ -30,7 +29,6 @@ namespace Creatures {
             ChasingTarget,
             GettingHit,
             Attacking,
-            Chasing,
             RunningAway,
             Dead
         }
@@ -46,17 +44,23 @@ namespace Creatures {
             Die
         }
 
+        public int Damage => attackDamage;
+        public Transform Transform => transform;
+        public GameObject GameObject => gameObject;
+
         public CreatureState CurrentState { get; private set; }
         public CreatureState PreviousState { get; private set; }
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
+        public GameObject ObjectToAttack { get; private set; }
+        public AttackPoint AttackPoint { get; private set; }
 
-        [SerializeField] private float pushForceWhenDead = 1000;
+        [SerializeField] private int pushForceWhenDead = 1000;
         [SerializeField] private List<Material> colors;
         [SerializeField] private PhysicMaterial bouncingMaterial;
 
-        [SerializeField] private float slowdownTimer = 6f;
-        [SerializeField] private float attackDamage = 10f;
+        [SerializeField] private int slowdownTimer = 6;
+        [SerializeField] private int attackDamage = 10;
         protected Constants.ObjectsColors CreatureColor => creatureColor;
         [SerializeField]
         private Constants.ObjectsColors creatureColor;
@@ -70,7 +74,7 @@ namespace Creatures {
         [SerializeField] private int chanceOfDroppingBalloon;
 
         [SerializeField] private int specialActionPathPointIndex = 2;
-        [SerializeField] private float secondsToDestroyDeadBody = 10;
+        [SerializeField] private int secondsToDestroyDeadBody = 10;
 
         private int initialHealth;
         private AudioSource audioSource;
@@ -81,15 +85,6 @@ namespace Creatures {
         /// A state that is being set by external event which overrides the current state
         /// </summary>
         private CreatureState highPriorityState = CreatureState.None;
-        public GameObject ObjectToAttack {
-            get;
-            private set;
-        }
-
-        public AttackPoint AttackPoint {
-            get;
-            private set;
-        }
 
         private void Awake() {
             rig = GetComponent<Rigidbody>();
@@ -112,7 +107,7 @@ namespace Creatures {
                 AttackPoint = attackPoint;
                 ObjectToAttack = AttackPoint.TargetObject;
             }
-            
+
             rig.useGravity = false;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
@@ -143,7 +138,7 @@ namespace Creatures {
 
             if (Mover.HasReachedAttackPoint) {
                 if (CurrentState is CreatureState.ChasingTarget) {
-                    Attack(ObjectToAttack);
+                    CurrentState = CreatureState.Attacking;
                     return;
                 }
 
@@ -175,22 +170,23 @@ namespace Creatures {
             highPriorityState = CreatureState.None;
         }
 
-        public void Attack(GameObject objectToAttack) {
-            CurrentState = CreatureState.Attacking;
+        public void ApplyDamage() {
+            Debug.Log($"Creature {name} applies damage!");
         }
 
         public void TakeDamage(IDamager damager, int damageWeight) {
             if (CurrentState == CreatureState.Dead) return;
-
+            
             if (!CreatureStateCanves.activeInHierarchy) {
                 CreatureStateCanves.SetActive(true);
             }
 
             int totalDamage = damager.Damage * damageWeight;
             health -= totalDamage;
-
-            PreviousState = CreatureState.GettingHit;
+            
+            CurrentState = CreatureState.GettingHit;
             CreatureHealthBar.normalizedValue = health / initialHealth;
+            Debug.Log($"Creature {name} is {CurrentState}");
 
             if (health > 0f) return;
 
@@ -205,6 +201,7 @@ namespace Creatures {
         private void RunAway() {
             Mover.FulfillCurrentOrder();
             highPriorityState = CreatureState.RunningAway;
+            Debug.Log($"Creature {name} is {CurrentState}");
         }
 
         private void PlayDeathSound() {
@@ -213,6 +210,7 @@ namespace Creatures {
 
         private void Die() {
             CurrentState = CreatureState.Dead;
+            Debug.Log($"Creature {name} is {CurrentState}");
             PlayDeathSound();
 
             rig.useGravity = true;
@@ -232,6 +230,7 @@ namespace Creatures {
             Ctx.Deps.CreatureSpawnController.OnCreatureDeath(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
             ReturnToPool();
+            Debug.Log($"Creature {name} disappeared");
         }
 
         private void Disappear() {

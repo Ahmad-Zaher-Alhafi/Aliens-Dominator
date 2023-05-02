@@ -21,8 +21,6 @@ namespace Creatures.Animators {
                     break;
                 case Creature.CreatureState.Attacking:
                     break;
-                case Creature.CreatureState.Chasing:
-                    break;
                 case Creature.CreatureState.Dead:
                     break;
                 case Creature.CreatureState.None:
