@@ -3,59 +3,26 @@ using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
 using Pool;
+using FiniteStateMachine;
+using FiniteStateMachine.States;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Creatures {
     public abstract class Creature : PooledObject, IDamager, IDamageable {
-        public enum CreatureType {
-            Garoo,
-            Longtail,
-            Magantee,
-            Magantis,
-            Scorpion,
-            Serpent,
-            Sicklus,
-            Telekinis,
-            Ulifo
-        }
-
-        public enum CreatureState {
-            None,
-            Idle,
-            Patrolling,
-            FollowingPath,
-            ChasingTarget,
-            GettingHit,
-            Attacking,
-            RunningAway,
-            Dead
-        }
-
-        private enum CreatureAction {
-            None,
-            StayIdle,
-            Patrol,
-            FollowPath,
-            GetHit,
-            Attack,
-            Chase,
-            Die
-        }
-
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
 
-        public CreatureState CurrentState { get; private set; }
-        public CreatureState PreviousState { get; private set; }
+        public StateType CurrentState => stateMachine.CurrentState.Type;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
-        public AttackPoint AttackPoint { get; private set; }
+        public TargetPoint TargetPoint { get; private set; }
+        public bool HasToDisappear { get; set; }
 
         [SerializeField] private int pushForceWhenDead = 1000;
+        public int PushForceWhenDead => pushForceWhenDead;
+
         [SerializeField] private List<Material> colors;
         [SerializeField] private PhysicMaterial bouncingMaterial;
 
@@ -65,177 +32,126 @@ namespace Creatures {
         [SerializeField]
         private Constants.ObjectsColors creatureColor;
 
-        [SerializeField] private GameObject CreatureStateCanves;
-        [SerializeField] private Slider CreatureHealthBar;
+        //[SerializeField] private GameObject CreatureStateCanves;
+        //[SerializeField] private Slider CreatureHealthBar;
 
         [Range(1, 5)]
         [SerializeField] private int health = 5;
+        public int Health {
+            get => health;
+            set => health = value;
+        }
+
+        public IDamager ObjectDamagedWith { get; private set; }
+
         [Range(1, 100)]
         [SerializeField] private int chanceOfDroppingBalloon;
+        public int ChanceOfDroppingBalloon => chanceOfDroppingBalloon;
 
         [SerializeField] private int specialActionPathPointIndex = 2;
         [SerializeField] private int secondsToDestroyDeadBody = 10;
+        public int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
 
-        private int initialHealth;
+        public int InitialHealth { get; set; }
         private AudioSource audioSource;
-        private Rigidbody rig;
-        private CreatureAnimator animator;
-        private BodyPart[] bodyParts;
-        /// <summary>
-        /// A state that is being set by external event which overrides the current state
-        /// </summary>
-        private CreatureState highPriorityState = CreatureState.None;
+        public Rigidbody Rig { get; private set; }
+        public CreatureAnimator Animator { get; private set; }
+        public IReadOnlyList<BodyPart> BodyParts { get; private set; }
+        public bool HasToFollowPath { get; set; }
+
+        public bool IsCinematic { get; private set; }
+        public bool IsPoisoned { get; private set; }
+        public bool TargetReached { get; set; }
+        public bool IsDead { get; set; }
+        public bool PathFinished { get; private set; }
+        private StateMachine stateMachine;
 
         private void Awake() {
-            rig = GetComponent<Rigidbody>();
+            stateMachine = GetComponent<StateMachine>();
+            Rig = GetComponent<Rigidbody>();
             Mover = GetComponent<CreatureMover>();
-            animator = GetComponent<CreatureAnimator>();
-            bodyParts = GetComponentsInChildren<BodyPart>();
+            Animator = GetComponent<CreatureAnimator>();
+            BodyParts = GetComponentsInChildren<BodyPart>();
             audioSource = GetComponent<AudioSource>();
 
-            Ctx.Deps.EventsManager.WaveStarted += RunAway;
+            InitialHealth = health;
         }
 
-        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, AttackPoint attackPoint, CreatureState initialState) {
-            CurrentState = CreatureState.None;
-            highPriorityState = initialState;
-            initialHealth = health;
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, StateType initialState) {
             transform.position = spawnPosition;
             IsSlowedDown = false;
+            IsDead = false;
+            IsCinematic = isCinematic;
+            HasToFollowPath = pathToFollow != null;
+            HasToDisappear = false;
 
-            if (attackPoint is not null) {
-                AttackPoint = attackPoint;
-                ObjectToAttack = AttackPoint.TargetObject;
+            if (targetPoint is not null) {
+                TargetPoint = targetPoint;
+                ObjectToAttack = TargetPoint.TargetObject;
             }
 
-            rig.useGravity = false;
-            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            Rig.useGravity = false;
+            Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
-            CreatureHealthBar.minValue = 0;
-            CreatureStateCanves.SetActive(false);
+            //CreatureHealthBar.minValue = 0;
+            //CreatureStateCanves.SetActive(false);
 
-            animator.Init();
+            Animator.Init();
             Mover.Init(pathToFollow);
-            foreach (BodyPart bodyPart in bodyParts) {
+            foreach (BodyPart bodyPart in BodyParts) {
                 bodyPart.Init(bouncingMaterial);
             }
 
             gameObject.SetActive(true);
+
+            stateMachine.Init(this, initialState);
         }
 
-        private void Update() {
-            if (CurrentState is CreatureState.Dead) return;
-
-            if (highPriorityState is not CreatureState.None) {
-                if (CurrentState != highPriorityState) {
-                    PreviousState = CurrentState;
-                    CurrentState = highPriorityState;
-                }
-                return;
+        public void OnMoverOrderFulfilled() {
+            if (IsCinematic) {
+                stateMachine.SetNextCinematicState();
             }
-
-            if (Mover.IsBusy) return;
-
-            if (Mover.HasReachedAttackPoint) {
-                if (CurrentState is CreatureState.ChasingTarget) {
-                    CurrentState = CreatureState.Attacking;
-                    return;
-                }
-
-                CurrentState = CreatureState.ChasingTarget;
-                return;
-            }
-
-            PreviousState = CurrentState;
-            CurrentState = GetRandomActionToDo() switch {
-                CreatureAction.StayIdle => CreatureState.Idle,
-                CreatureAction.Patrol => CreatureState.Patrolling,
-                _ => CurrentState
-            };
-        }
-
-        private CreatureAction GetRandomActionToDo() {
-            int randomNumber = Random.Range(0, Ctx.Deps.CreatureSpawnController.HasWaveStarted ? 3 : 2);
-            return randomNumber switch {
-                0 => CreatureAction.StayIdle,
-                1 => CreatureAction.Patrol,
-                _ => CreatureAction.None
-            };
-        }
-
-        public void OnOrderFulfilled() {
-            if (CurrentState == CreatureState.RunningAway) {
-                Disappear();
-            }
-            highPriorityState = CreatureState.None;
-        }
-
-        public void ApplyDamage() {
-            Debug.Log($"Creature {name} applies damage!");
         }
 
         public void TakeDamage(IDamager damager, int damageWeight) {
-            if (CurrentState == CreatureState.Dead) return;
-            
-            if (!CreatureStateCanves.activeInHierarchy) {
+            ObjectDamagedWith = damager;
+            stateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
+
+            /*if (!CreatureStateCanves.activeInHierarchy) {
                 CreatureStateCanves.SetActive(true);
-            }
+            }*/
 
-            int totalDamage = damager.Damage * damageWeight;
-            health -= totalDamage;
-            
-            CurrentState = CreatureState.GettingHit;
-            CreatureHealthBar.normalizedValue = health / initialHealth;
-            Debug.Log($"Creature {name} is {CurrentState}");
-
-            if (health > 0f) return;
-
-            Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, chanceOfDroppingBalloon);
-
-            // Force to push the creature away once get killed (More realistic)
-            rig.AddForce(damager.Transform.forward * pushForceWhenDead);
-
-            Die();
+            //CreatureHealthBar.normalizedValue = health / InitialHealth;
         }
 
         private void RunAway() {
-            Mover.FulfillCurrentOrder();
-            highPriorityState = CreatureState.RunningAway;
+            //Mover.FulfillCurrentOrder();
             Debug.Log($"Creature {name} is {CurrentState}");
         }
 
-        private void PlayDeathSound() {
+        public void PlayDeathSound() {
             audioSource.Play();
         }
 
-        private void Die() {
-            CurrentState = CreatureState.Dead;
-            Debug.Log($"Creature {name} is {CurrentState}");
-            PlayDeathSound();
-
-            rig.useGravity = true;
-            rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            health = initialHealth;
-
+        public void OnDeath() {
             Mover.OnDeath();
-            animator.OnDeath();
-            foreach (BodyPart bodyPart in bodyParts) {
+            Animator.OnDeath();
+            foreach (BodyPart bodyPart in BodyParts) {
                 bodyPart.OnDeath();
             }
 
-            StartCoroutine(DestroyObjectDelayed(secondsToDestroyDeadBody));
+            Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed(SecondsToDestroyDeadBody));
         }
 
         private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
             Ctx.Deps.CreatureSpawnController.OnCreatureDeath(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
             ReturnToPool();
-            Debug.Log($"Creature {name} disappeared");
+            Debug.Log($"Creature {this} disappeared");
         }
 
-        private void Disappear() {
-            CurrentState = CreatureState.Dead;
-            StartCoroutine(DestroyObjectDelayed());
+        public void Disappear() {
+            Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed());
         }
 
         private void OnDestroy() {

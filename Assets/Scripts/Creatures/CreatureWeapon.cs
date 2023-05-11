@@ -20,7 +20,7 @@ namespace Creatures {
             hasToLookAtTheTarget = false;
 
             //Had to implement the NPCSimplePatrol script, otherwise it wouldnt stop shooting. Don't haunt me down, I just felt desperate and exhausted about this bug.
-            groundCreatureMover = creature.GetComponent<GroundCreatureMover>();
+            //groundCreatureMover = creature.GetComponent<GroundCreatureMover>();
         }
 
         private void Update() {

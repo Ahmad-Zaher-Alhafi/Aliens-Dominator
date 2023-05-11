@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 07c8b68d86d5fe14e8b2c7c3864e31e6
+  m_SerializeEntries:
+  - m_GUID: 2544641d52e7d8a439cf09e77231e5bf
+    m_Address: Assets/Prefabs/UI/State Machine/State Visualiser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3e3cbbdaf4895c94394e8a8a38b4129b
+    m_Address: Assets/Prefabs/UI/State Machine/Transition Visualiser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6eaa895a54c5b3c4dbda18f892847802, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ebae394a73b290f40a6f962652b4f403, type: 2}
+    - {fileID: 11400000, guid: 7810cf59810365d438816b12a3941d98, type: 2}

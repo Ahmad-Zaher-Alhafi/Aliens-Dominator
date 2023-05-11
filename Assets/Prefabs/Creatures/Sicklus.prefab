@@ -2640,11 +2640,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4897413720355004}
   - component: {fileID: 2549999206570881742}
-  - component: {fileID: 5240831088496435718}
+  - component: {fileID: 6908029350979284551}
   - component: {fileID: 920661457554914563}
   - component: {fileID: 95318265752211090}
   - component: {fileID: -6915842593531461593}
   - component: {fileID: -3028694727275127502}
+  - component: {fileID: 8939760162478907344}
   m_Layer: 6
   m_Name: Sicklus
   m_TagString: Untagged
@@ -2682,31 +2683,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 0
-  CurrentState: 0
-  PreviousState: 0
+  pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: 1befd5ffa2d4afa46a46a3472957c4ae, type: 2}
   - {fileID: 2100000, guid: 818161e05bb0a7e4f875a1c644cf0018, type: 2}
   - {fileID: 2100000, guid: 59c803dca3ffb584da54aa4aad2b47ee, type: 2}
+  bouncingMaterial: {fileID: 0}
   slowdownTimer: 6
   attackDamage: 10
-  bouncingMaterial: {fileID: 0}
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
-  hitForce: 1000
-  health: 100
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
-  waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
   creatureColor: 0
-  RigBody: {fileID: 0}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
+  health: 5
+  chanceOfDroppingBalloon: 0
+  specialActionPathPointIndex: 2
+  secondsToDestroyDeadBody: 10
   IsItTheLeader: 0
   IsItGroupMember: 0
   CreaturePointInGroup: {fileID: 0}
@@ -2723,7 +2712,7 @@ MonoBehaviour:
   stinkyBallGrowingTime: 0
   stinkyBallGrowingAnimationClip: {fileID: 0}
   BodyRig: {fileID: 0}
---- !u!114 &5240831088496435718
+--- !u!114 &6908029350979284551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2732,53 +2721,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1997315638701822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 137786f9eceec414dbeff280d362238f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dfb2de269384b449fa653a4cb290c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 0
-  CurrentState: 0
-  PreviousState: 0
-  colors: []
-  slowdownTimer: 6
-  attackDamage: 10
-  bouncingMaterial: {fileID: 0}
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
-  hitForce: 1000
-  health: 100
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
-  waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
-  creatureColor: 0
-  RigBody: {fileID: 0}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
-  IsItTheLeader: 0
-  IsItGroupMember: 0
-  CreaturePointInGroup: {fileID: 0}
-  mingroupMemberSecondsToPatrolAgain: 0
-  maxgroupMemberSecondsToPatrolAgain: 0
-  smoothRotatingSpeed: 6
-  patrollingSpeed: 5
-  patrolRange: {x: 6, y: 2, z: 6}
-  patrolUnWantedPositions: {x: 3, y: 1, z: 3}
-  patrolOffset: {x: 4, y: 0, z: 4}
-  stinkyBallPrefabs:
-  - {fileID: 5900201397850361187, guid: e635221042c3572498d214fe0cd09d14, type: 3}
-  - {fileID: 5900201397850361187, guid: 72d8117e21e4708429dbf19ae9b7d22c, type: 3}
-  - {fileID: 5900201397850361187, guid: 530b67aa16bddd146a4acffe8c269a98, type: 3}
-  - {fileID: 5900201397850361187, guid: da903bb8f9bb5af47a9ba8e6f9417a91, type: 3}
-  - {fileID: 5900201397850361187, guid: a1fcf019f889e3c4595ba494eaf11c5a, type: 3}
-  stinkyBallSpawnPoint: {fileID: 6906085146594222068}
-  stinkyBallSpeed: 35
-  stinkyBallGrowingTime: 3
-  stinkyBallGrowingAnimationClip: {fileID: 7400000, guid: fc38b124c9dfe0d4395b5498a7fa6742, type: 2}
-  BodyRig: {fileID: 4919023890601730}
+  secondsToStayIdle: 5
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
+  stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &920661457554914563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,6 +2749,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: fd6bfa8254296384180da22290563d4d, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: bb5bd60e7d018be428a10d3581f96d8b, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: 56109f0e91d29644a95fd235caccc2cb, type: 3}
+  timeBetweenAttacks: 2
   flyAnimationClip: {fileID: 7400000, guid: 3a7b13d5fe243e147b139c5b2f9dd31c, type: 3}
   dodgeAnimationClip: {fileID: 7400000, guid: 5c1cbedbb3c35784187a347d492eb453, type: 3}
   castSpellAnimationClip: {fileID: 7400000, guid: 3cabfdf42200bbf4c981ada9dca25b66, type: 3}
@@ -2933,6 +2885,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8939760162478907344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997315638701822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9136750086314276167
 GameObject:
   m_ObjectHideFlags: 0

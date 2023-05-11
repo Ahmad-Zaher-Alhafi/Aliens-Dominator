@@ -1,4 +1,5 @@
-﻿using ManagersAndControllers;
+﻿using System;
+using ManagersAndControllers;
 using UnityEngine;
 using Utils;
 using Random = UnityEngine.Random;
@@ -23,20 +24,20 @@ namespace Creatures {
             }
         }
 
-        protected override void Patrol() {
-            base.Patrol();
+        public override void Patrol(Action informOrderFulfilled) {
+            base.Patrol(informOrderFulfilled);
             Transform nextCinematicPatrolPoint = MathUtils.GetRandomObjectFromList(creatureSpawnController.AirCinematicEnemyPathPoints).transform;
             OrderToMoveTo(nextCinematicPatrolPoint.position);
         }
 
-        protected override void RunAway() {
-            base.RunAway();
+        public override void RunAway(Action informOrderFulfilled) {
+            base.RunAway(informOrderFulfilled);
             Transform randomRunAwayPoint = creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Count)].transform;
             OrderToMoveTo(randomRunAwayPoint.position);
         }
 
-        protected override PathPoint FollowPath() {
-            Transform nextPathPoint = base.FollowPath()?.transform;
+        public override PathPoint FollowPath(Action informOrderFulfilled) {
+            Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
             if (nextPathPoint == null) return null;
             
             OrderToMoveTo(nextPathPoint.position);

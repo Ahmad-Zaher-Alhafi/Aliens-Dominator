@@ -1283,6 +1283,7 @@ GameObject:
   - component: {fileID: -7737086928778009939}
   - component: {fileID: 95833913277526074}
   - component: {fileID: 3222532486827905122}
+  - component: {fileID: 6663385752513772544}
   m_Layer: 6
   m_Name: Longtail
   m_TagString: Untagged
@@ -1330,13 +1331,10 @@ MonoBehaviour:
   slowdownTimer: 6
   attackDamage: 10
   creatureColor: 0
-  CreatureStateCanves: {fileID: 1295021684374082244}
-  CreatureHealthBar: {fileID: 1295021684033093692}
-  health: 5
+  health: 1
   chanceOfDroppingBalloon: 60
-  waypointMinIndexToActivateSpecialActions: 2
+  specialActionPathPointIndex: 2
   secondsToDestroyDeadBody: 10
-  mover: {fileID: 0}
   IsItTheLeader: 0
   IsItGroupMember: 0
   CreaturePointInGroup: {fileID: 0}
@@ -1369,6 +1367,8 @@ MonoBehaviour:
   patrolSpeed: 3
   runSpeed: 10
   rotatingSpeed: 5
+  stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &9041872463804614534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1387,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: af8148be9256ca84b8127dc18e822888, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 51190117297ee6343b4ecd4eb0983ef5, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: aa0bc9eb0ac286646afe74cead6fe91a, type: 3}
+  timeBetweenAttacks: 2
   flyAnimationClip: {fileID: 7400000, guid: a8107572ca0baf2469f6874b717807cc, type: 3}
   dodgeAnimationClip: {fileID: 7400000, guid: d1f3b1e16b3271e459380b18dc338bb1, type: 3}
   castSpellAnimationClip: {fileID: 7400000, guid: da54c8a8c54cd8e479368ae5cf0dfbc0, type: 3}
@@ -1522,6 +1523,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6663385752513772544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276567175080652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1334597528902154
 GameObject:
   m_ObjectHideFlags: 0
@@ -3252,22 +3265,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
---- !u!114 &1295021684033093692 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3728144925096594716, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
-  m_PrefabInstance: {fileID: 2469625517028298016}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1295021684374082244 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
-  m_PrefabInstance: {fileID: 2469625517028298016}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1295021684374082296 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}

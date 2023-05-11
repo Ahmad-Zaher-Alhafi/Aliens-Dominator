@@ -3065,6 +3065,7 @@ GameObject:
   - component: {fileID: -5602404687905189144}
   - component: {fileID: 6964763951412283373}
   - component: {fileID: 8170143088033479415}
+  - component: {fileID: 3420834539698882429}
   m_Layer: 6
   m_Name: Serpent
   m_TagString: Untagged
@@ -3103,31 +3104,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 0
-  CurrentState: 0
-  PreviousState: 0
+  pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: ccb232b342f060a4b8d30204cf6736e8, type: 2}
   - {fileID: 2100000, guid: 8ed6c9c684935fc448cc43fcdb25859f, type: 2}
   - {fileID: 2100000, guid: 0c4cadf0449344d40828dd12ed49fd5a, type: 2}
+  bouncingMaterial: {fileID: 0}
   slowdownTimer: 6
   attackDamage: 10
-  bouncingMaterial: {fileID: 0}
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
-  hitForce: 1000
-  health: 100
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
-  waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
   creatureColor: 0
-  RigBody: {fileID: 0}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
+  health: 5
+  chanceOfDroppingBalloon: 0
+  specialActionPathPointIndex: 2
+  secondsToDestroyDeadBody: 10
 --- !u!114 &-4983734145092856337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3144,30 +3133,8 @@ MonoBehaviour:
   patrolSpeed: 3
   runSpeed: 6
   rotatingSpeed: 1
-  _patrolWaiting: 0
-  _totalWaitTime: 0
-  wayPointsRemainedDistance: 0.5
-  _switchProbability: 0
-  PatrolPoints: []
-  isDamaging: 0
-  NavMeshAgent: {fileID: 0}
-  CurrentPatrolIndex: 0
-  EnemyId: 
-  creatureSpawnController: {fileID: 0}
-  WalkAnimationParameter: Slither Forward
-  CinematicEnemiesPath: 9
-  TimeToWaitForAnimation: 3
-  TimeToRoar: 1
-  MaxSpeed: 10
-  HypnotizedSpeedBonus: 1
-  SmoothRotating: 8
-  EndPoint: {fileID: 0}
-  TrackEnemyID: 
-  speedDivider: 2
-  TotalShootTime: 10
-  TotalDiggingTime: 5
-  TotalTeleportTime: 5
-  ChanceToMakeSpecialAction: 0
+  stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &2436722827175234457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3188,6 +3155,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: e4f8d602e13acc04cb506b3b15872968, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 93b40a4c9735cd9458948d81d7da7fc4, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: 79e9da434a300364a8cea248e7acc819, type: 3}
+  timeBetweenAttacks: 2
   walkAnimationClip: {fileID: 7400000, guid: 4e21fc05c07558145880c62ab7bf071c, type: 3}
   runAnimationClip: {fileID: 7400000, guid: e0c70f906d237a14d9c4ef0b363d79fe, type: 3}
   roarAnimationClip: {fileID: 7400000, guid: 071086719b5df9d4db7e5312eb519f3c, type: 3}
@@ -3347,6 +3315,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3420834539698882429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937973867405028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1947601193595750
 GameObject:
   m_ObjectHideFlags: 0

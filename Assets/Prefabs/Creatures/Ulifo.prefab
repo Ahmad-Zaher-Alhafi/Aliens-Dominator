@@ -7650,6 +7650,7 @@ GameObject:
   - component: {fileID: 8212013039669215597}
   - component: {fileID: -5899183900900930984}
   - component: {fileID: -3852050712126793319}
+  - component: {fileID: 8860751682477523512}
   m_Layer: 6
   m_Name: Ulifo
   m_TagString: Untagged
@@ -7688,31 +7689,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 0
-  CurrentState: 0
-  PreviousState: 0
+  pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: 1a0e33f65d0044846a37d001c0300619, type: 2}
   - {fileID: 2100000, guid: 47ed8cad58b80fc4eb003b369e328e37, type: 2}
   - {fileID: 2100000, guid: 8921436974756884082453e2a28bfb86, type: 2}
+  bouncingMaterial: {fileID: 0}
   slowdownTimer: 6
   attackDamage: 10
-  bouncingMaterial: {fileID: 0}
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
-  hitForce: 1000
-  health: 100
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
-  waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
   creatureColor: 0
-  RigBody: {fileID: 0}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
+  health: 5
+  chanceOfDroppingBalloon: 0
+  specialActionPathPointIndex: 2
+  secondsToDestroyDeadBody: 10
 --- !u!114 &8080302933576608505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7729,30 +7718,8 @@ MonoBehaviour:
   patrolSpeed: 3
   runSpeed: 6
   rotatingSpeed: 1
-  _patrolWaiting: 0
-  _totalWaitTime: 0
-  wayPointsRemainedDistance: 0.5
-  _switchProbability: 0
-  PatrolPoints: []
-  isDamaging: 0
-  NavMeshAgent: {fileID: 0}
-  CurrentPatrolIndex: 0
-  EnemyId: 
-  creatureSpawnController: {fileID: 0}
-  WalkAnimationParameter: Walk Forward
-  CinematicEnemiesPath: 9
-  TimeToWaitForAnimation: 3
-  TimeToRoar: 1
-  MaxSpeed: 10
-  HypnotizedSpeedBonus: 1
-  SmoothRotating: 8
-  EndPoint: {fileID: 0}
-  TrackEnemyID: 
-  speedDivider: 2
-  TotalShootTime: 10
-  TotalDiggingTime: 5
-  TotalTeleportTime: 5
-  ChanceToMakeSpecialAction: 0
+  stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &1734882187976258085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7774,6 +7741,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: f0b01c4984158094e83c86e08cc5f736, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 12b2b97e07a584146a2495ee85c2f3dd, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: ba2c365bb967bb14f84773033f436b95, type: 3}
+  timeBetweenAttacks: 2
   walkAnimationClip: {fileID: 7400000, guid: 566d9a960fc28a64887c47f5705e3691, type: 3}
   runAnimationClip: {fileID: 7400000, guid: 2b00ec39298d7124693802cdb5937b71, type: 3}
   roarAnimationClip: {fileID: 7400000, guid: 058535757ccb7e3449b433e8caa9714a, type: 3}
@@ -7932,6 +7900,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8860751682477523512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640262395653480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1645786814419820
 GameObject:
   m_ObjectHideFlags: 0

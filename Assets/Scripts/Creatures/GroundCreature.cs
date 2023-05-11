@@ -1,5 +1,5 @@
 ﻿namespace Creatures {
-    public class GroundCreature : Creature {
+    public abstract class GroundCreature : Creature {
         
     }
 }

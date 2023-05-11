@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,64 +15,96 @@ namespace Creatures.Animators {
         [SerializeField] private float timeBetweenAttacks = 2;
 
         protected Creature Creature;
-        protected Animator Animator;
-        protected bool AnimationFinished = true;
+        private Animator animator;
+        private Action informAnimationFinishedCallback;
+        private AnimationClip currentActiveAnimationClip;
 
-        private bool IsBusy;
-        protected const float ANIMATION_SWITCH_TIME = 3;
-
-        private void Awake() {
-            Creature = GetComponent<Creature>();
-            Animator = GetComponent<Animator>();
-        }
-
-        public void Init() {
-            Animator.enabled = true;
-        }
-
-        protected virtual void Update() {
-            Animator.speed = Mathf.Clamp(Creature.Mover.CurrentSpeed / Creature.Mover.PatrolSpeed, 1, 1.5f);
-
-            if (Creature.CurrentState == Creature.CreatureState.Attacking) {
-                if (AnimationFinished) {
-                    SetRandomAttackAnimationParameter();
+        public bool IsBusy {
+            get => isBusy;
+            private set {
+                isBusy = value;
+                if (!isBusy) {
+                    informAnimationFinishedCallback?.Invoke();
                 }
             }
         }
+        private bool isBusy;
 
-        private void SetRandomAttackAnimationParameter() {
-            AnimationClip randomAttackClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
-            Animator.SetTrigger(randomAttackClip.name);
-            StartCoroutine(StopTheAnimationAfter(randomAttackClip.length + timeBetweenAttacks));
-            StartCoroutine(InformToAttackAfter(randomAttackClip.length));
+        protected const float ANIMATION_SWITCH_TIME = 3;
+        private static readonly int currentSpeedParameter = Animator.StringToHash("Current Speed");
+
+        private void Awake() {
+            Creature = GetComponent<Creature>();
+            animator = GetComponent<Animator>();
+        }
+
+        public void Init() {
+            animator.enabled = true;
+        }
+
+        protected virtual void Update() {
+            animator.speed = Mathf.Clamp(Creature.Mover.CurrentSpeed / Creature.Mover.PatrolSpeed, 1, 1.5f);
+            InterpolateFloatParameter(currentSpeedParameter, Creature.Mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
+        }
+
+        public virtual void PlayIdleAnimation(Action informAnimationFinished) {
+            informAnimationFinishedCallback = informAnimationFinished;
+        }
+
+        public void PlayAttackAnimation(Action informAnimationFinished, Action informToAttack) {
+            IsBusy = true;
+            informAnimationFinishedCallback = informAnimationFinished;
+            AnimationClip randomAttackAnimationClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
+            PlayAnimationClip(randomAttackAnimationClip);
+            StartCoroutine(InformToApplyDamageAfter(currentActiveAnimationClip.length, informToAttack));
+        }
+
+        public void PlayGettingHitAnimation(Action informAnimationFinished) {
+            IsBusy = true;
+            informAnimationFinishedCallback = informAnimationFinished;
+            ResetCurrentAnimationTrigger();
+            PlayAnimationClip(takeDamageAnimationClip);
         }
 
         /// <summary>
-        /// To set a float parameter in a smooth way, useful in switching between idle, walking and walking
+        /// To set a float parameter in a smooth way, useful in switching between idle, walking and running
         /// </summary>
         /// <param name="animationClipID"></param>
         /// <param name="newValue"></param>
         /// <param name="speed"></param>
         protected void InterpolateFloatParameter(int animationClipID, float newValue, float speed) {
-            float oldValue = Animator.GetFloat(animationClipID);
+            float oldValue = animator.GetFloat(animationClipID);
             float value = Mathf.Lerp(oldValue, newValue, speed * Time.deltaTime);
-            Animator.SetFloat(animationClipID, value);
+            animator.SetFloat(animationClipID, value);
         }
 
-        private IEnumerator InformToAttackAfter(float length) {
+        private void PlayAnimationClip(AnimationClip animationClip) {
+            currentActiveAnimationClip = animationClip;
+            animator.SetTrigger(currentActiveAnimationClip.name);
+            currentActiveAnimationClip = takeDamageAnimationClip;
+            StartCoroutine(InformAnimationFinishedAfter(currentActiveAnimationClip.length));
+        }
+
+        private IEnumerator InformToApplyDamageAfter(float length, Action informToApplyDamage) {
             yield return new WaitForSeconds(length / 2);
-            Creature.ApplyDamage();
+            // Inform to attack only if the attack animation still playing as it could get interrupted by another animation during the wait time
+            if (animator.GetCurrentAnimatorClipInfo(0).GetHashCode() != currentActiveAnimationClip.GetHashCode()) yield break;
+            informToApplyDamage.Invoke();
             yield return new WaitForSeconds(length / 2);
         }
 
-        protected IEnumerator StopTheAnimationAfter(float length) {
-            AnimationFinished = false;
+        protected IEnumerator InformAnimationFinishedAfter(float length) {
             yield return new WaitForSeconds(length);
-            AnimationFinished = true;
+            IsBusy = false;
+        }
+
+        private void ResetCurrentAnimationTrigger() {
+            if (currentActiveAnimationClip == null) return;
+            animator.ResetTrigger(currentActiveAnimationClip.name);
         }
 
         public void OnDeath() {
-            Animator.enabled = false;
+            animator.enabled = false;
         }
     }
 }

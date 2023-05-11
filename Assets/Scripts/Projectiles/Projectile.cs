@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Creatures;
+using FiniteStateMachine.States;
 using UnityEngine;
 
 namespace Projectiles {
@@ -80,7 +81,7 @@ namespace Projectiles {
         /// </summary>
         /// <param name="objectToLookAt">the object that you want the projectile to look at while he is moving</param>
         private void RotateToTheWantedAngle(Creatures.Creature objectToLookAt) {
-            if (objectToLookAt == null || objectToLookAt.CurrentState == Creature.CreatureState.Dead) return;
+            if (objectToLookAt == null || objectToLookAt.CurrentState == StateType.Dead) return;
 
             //I'm doing that as a trick to get the wanted angle and after that i'm resetting the angle to it's old angle and that because we need to rotates the projectile smoothly and not suddenly which make it cooler
             oldAngle = transform.eulerAngles; //save old angle

@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using FiniteStateMachine.States;
 using UnityEngine;
 using Utils;
 
 namespace Creatures {
     public abstract class CreatureMover : MonoBehaviour {
-        public bool IsBusy { get; private set; }
+        public bool IsBusy {
+            get => isBusy;
+            private set {
+                isBusy = value;
+                if (!isBusy) {
+                    informOrderFulfilled?.Invoke();
+                }
+            }
+        }
+        private bool isBusy;
+
         public float CurrentSpeed { get; private set; }
 
         [SerializeField] private float secondsToStayIdle = 5;
@@ -26,12 +37,11 @@ namespace Creatures {
         private SpawnPointPath pathToFollow;
         private int lastFollowedPathPointIndex = -1;
         private PathPoint lastFollowedPathPoint;
+        private Action informOrderFulfilled;
+
         private bool HasReachedPathEnd => pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == lastFollowedPathPoint;
 
-        public bool HasReachedAttackPoint {
-            get;
-            private set;
-        }
+        public bool HasReachedBaseAttackPoint { get; private set; }
 
         protected virtual void Awake() {
             Creature = GetComponent<Creature>();
@@ -42,40 +52,46 @@ namespace Creatures {
         }
 
         protected virtual void Update() {
-            if (IsBusy || Creature.CurrentState == Creature.CreatureState.Dead) return;
+            if (IsBusy || Creature.CurrentState == StateType.Dead) return;
 
-            switch (Creature.CurrentState) {
-                case Creature.CreatureState.Idle:
-                    StayIdle();
-                    break;
-                case Creature.CreatureState.Patrolling:
-                    Patrol();
-                    break;
-                case Creature.CreatureState.FollowingPath:
-                    FollowPath();
-                    break;
-                case Creature.CreatureState.GettingHit:
-                    break;
-                case Creature.CreatureState.ChasingTarget:
-                    ChaseTarget(Creature.AttackPoint.transform.position);
-                    break;
-                case Creature.CreatureState.Attacking:
-                    RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
-                    break;
-                case Creature.CreatureState.Dead:
-                    break;
-                case Creature.CreatureState.RunningAway:
-                    RunAway();
-                    break;
-                case Creature.CreatureState.None:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+            if (Creature.CurrentState == StateType.Attacking) {
+                RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
             }
         }
 
-        protected virtual PathPoint FollowPath() {
+        public void StayIdle(Action informOrderFulfilled) {
             IsBusy = true;
+            this.informOrderFulfilled = informOrderFulfilled;
+            CurrentSpeed = 0;
+            StartCoroutine(StayIdleForSeconds(secondsToStayIdle));
+        }
+
+        public virtual void Patrol(Action informOrderFulfilled) {
+            IsBusy = true;
+            this.informOrderFulfilled = informOrderFulfilled;
+            CurrentSpeed = patrolSpeed;
+        }
+
+        public virtual void RunAway(Action informOrderFulfilled) {
+            IsBusy = true;
+            this.informOrderFulfilled = informOrderFulfilled;
+            CurrentSpeed = runSpeed;
+        }
+
+        public virtual PathPoint FollowPath(Action informOrderFulfilled) {
+            IsBusy = true;
+            this.informOrderFulfilled = informOrderFulfilled;
+            return ContinueToNextPathPoint();
+        }
+
+        public void ChaseTarget(Action informOrderFulfilled, Vector3 targetPosition) {
+            IsBusy = true;
+            this.informOrderFulfilled = informOrderFulfilled;
+            CurrentSpeed = runSpeed;
+            OrderToMoveTo(targetPosition);
+        }
+
+        private PathPoint ContinueToNextPathPoint() {
             PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, lastFollowedPathPointIndex);
             lastFollowedPathPointIndex = pathToFollow.PathPoints.IndexOf(nextPathPoint);
             lastFollowedPathPoint = nextPathPoint;
@@ -84,33 +100,11 @@ namespace Creatures {
 
             // Has Reached the end of the path
             OnDestinationReached();
-            return nextPathPoint;
-        }
-
-        private void ChaseTarget(Vector3 targetPosition) {
-            IsBusy = true;
-            CurrentSpeed = runSpeed;
-            OrderToMoveTo(targetPosition);
-        }
-
-        private void StayIdle() {
-            IsBusy = true;
-            CurrentSpeed = 0;
-            StartCoroutine(StayIdleForSeconds(secondsToStayIdle));
+            return null;
         }
 
         protected virtual void OrderToMoveTo(Vector3 position) {
             HasMovingOrder = true;
-        }
-
-        protected virtual void Patrol() {
-            IsBusy = true;
-            CurrentSpeed = patrolSpeed;
-        }
-
-        protected virtual void RunAway() {
-            IsBusy = true;
-            CurrentSpeed = runSpeed;
         }
 
         /// <summary>
@@ -119,7 +113,7 @@ namespace Creatures {
         /// <param name="targetPosition">Position where the creature look towards</param>
         protected void RotateToTheWantedAngle(Vector3 targetPosition) {
             float dot = Vector3.Dot(transform.forward, (targetPosition - transform.position).normalized);
-            if(dot >= .9f) return;
+            if (dot >= .9f) return;
 
             var creatureTransform = transform;
             Vector3 direction = targetPosition - creatureTransform.position;
@@ -127,19 +121,23 @@ namespace Creatures {
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
 
-        public void FulfillCurrentOrder() {
-            Creature.OnOrderFulfilled();
+        private void FulfillCurrentOrder() {
+            TerminateCurrentOrder();
+            Creature.OnMoverOrderFulfilled();
+        }
+
+        public void TerminateCurrentOrder() {
             HasMovingOrder = false;
             IsBusy = false;
             CurrentSpeed = 0;
         }
 
         protected void OnDestinationReached() {
-            if (Creature.CurrentState == Creature.CreatureState.FollowingPath && !HasReachedPathEnd) {
-                FollowPath();
+            if (Creature.CurrentState == StateType.FollowingPath && !HasReachedPathEnd) {
+                ContinueToNextPathPoint();
             } else {
-                if (Creature.CurrentState == Creature.CreatureState.FollowingPath && Creature.AttackPoint != null) {
-                    HasReachedAttackPoint = true;
+                if (Creature.CurrentState == StateType.FollowingPath && Creature.TargetPoint != null) {
+                    HasReachedBaseAttackPoint = true;
                 }
 
                 FulfillCurrentOrder();
@@ -152,10 +150,9 @@ namespace Creatures {
         }
 
         public void OnDeath() {
-            FulfillCurrentOrder();
             lastFollowedPathPointIndex = -1;
             lastFollowedPathPoint = null;
-            HasReachedAttackPoint = false;
+            HasReachedBaseAttackPoint = false;
         }
     }
 }
