@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -14,7 +13,7 @@ namespace FiniteStateMachine.Editor {
 
         private AsyncOperationHandle<GameObject> assetLoader;
 
-        [MenuItem("Window/State Machine")]
+        [MenuItem("Tools/State Machine")]
         private static void ShowWindow() {
             EditorWindow window = GetWindow(typeof(StateMachineWindow));
             window.minSize = new Vector2(300, 400);
