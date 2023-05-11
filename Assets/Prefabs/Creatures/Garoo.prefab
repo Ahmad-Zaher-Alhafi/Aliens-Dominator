@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: -3322797520896863481}
   - component: {fileID: 95759793940849604}
   - component: {fileID: -3632676121870073605}
+  - component: {fileID: -3704383810303926010}
   m_Layer: 6
   m_Name: Garoo
   m_TagString: Untagged
@@ -699,13 +700,10 @@ MonoBehaviour:
   slowdownTimer: 6
   attackDamage: 10
   creatureColor: 0
-  CreatureStateCanves: {fileID: 7115475964428677332}
-  CreatureHealthBar: {fileID: 7115475965159596588}
-  health: 5
+  health: 1
   chanceOfDroppingBalloon: 80
   specialActionPathPointIndex: 2
   secondsToDestroyDeadBody: 10
-  mover: {fileID: 0}
 --- !u!114 &4952086325027129125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +721,7 @@ MonoBehaviour:
   runSpeed: 10
   rotatingSpeed: 1
   stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &-3910005451574638326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +899,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3704383810303926010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301338880282656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1317829253858548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2679,24 +2690,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
---- !u!1 &7115475964428677332 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
-  m_PrefabInstance: {fileID: 5837289357628944176}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7115475964428677352 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
   m_PrefabInstance: {fileID: 5837289357628944176}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7115475965159596588 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3728144925096594716, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
-  m_PrefabInstance: {fileID: 5837289357628944176}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -274,7 +274,7 @@ Animator:
   m_GameObject: {fileID: 904037687439682967}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d9a4c80399b9fe4f93d3dbf88c90227, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -329,8 +329,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.08814582, y: 0.5567169, z: 0.5577877}
-  m_Center: {x: -0.3461445, y: -0.00031089783, z: -0.0035864273}
+  m_Size: {x: 0.06343637, y: 0.5567169, z: 0.5577877}
+  m_Center: {x: -0.3584996, y: -0.00031089783, z: -0.0035865547}
 --- !u!65 &1215913099002680027
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -342,8 +342,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07650748, y: 0.5512943, z: 0.5229071}
-  m_Center: {x: 0.33171856, y: -0.00035953522, z: 0.011455829}
+  m_Size: {x: 0.060272522, y: 0.5512943, z: 0.5229071}
+  m_Center: {x: 0.33983636, y: -0.00035953522, z: 0.011455851}
 --- !u!65 &1215913099002680026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -716,24 +716,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a9b1567c08c444b1ab1ac085a42b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WasGameStarted: 0
-  GameHandler: {fileID: 0}
-  shotForce: 1
-  moveForce: 1
   lookSpeed: 3
-  rotation: {x: 0, y: 0}
   verticalClamp: 90
-  horizontalClamp: 360
-  verticalPivot: {fileID: 4094902096832300619}
-  DefaultArrow: {fileID: 3461792378685058250, guid: 3d37236c77a84f148bfa1cafee25b06b, type: 3}
-  NewArrow: {fileID: 3653926609319706280, guid: 46904ef6a7e024248b48a2b9af616dd3, type: 3}
-  localFullDrawOffset: {x: 0, y: 0, z: 1}
+  mainCamera: {fileID: 4094902096832300619}
+  defaultArrow: {fileID: 7658154178271482251, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
   arrowSpawnPoint: {fileID: 8296447903864587603}
-  bowTransform: {fileID: 0}
-  MaxBowMovement: 0.4
+  bow: {fileID: 6836515080466163195}
+  maxBowMovement: 0.25
   releaseSound: {fileID: 8300000, guid: 19c0dd63a5d24c64fb5fed537a327292, type: 3}
   drawSound: {fileID: 8300000, guid: 563a6459215905448a73ecb3935ab9d8, type: 3}
-  currentPlayerTeleportObjectt: {fileID: 0}
+  currentPlayerTeleportObject: {fileID: 0}
 --- !u!82 &4094902095998955231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -878,6 +870,7 @@ Transform:
   - {fileID: 6393963902403484901}
   - {fileID: 1215913099002680024}
   - {fileID: 4238046284629319556}
+  - {fileID: 8398110243452901287}
   m_Father: {fileID: 4094902095222032910}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1019,7 +1012,7 @@ Animator:
   m_GameObject: {fileID: 4094902096832300622}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61261b79c549ddb4a9d657704395572b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1209,6 +1202,53 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7245519488657537821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8398110243452901287}
+  - component: {fileID: 9176926500301972966}
+  m_Layer: 0
+  m_Name: Player Target Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8398110243452901287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245519488657537821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.091, y: 0.543, z: 2.818}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4094902096832300619}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9176926500301972966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245519488657537821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c20d44fc3340c3936efc1f69ef317f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 7245519488657537821}
+  color: {r: 0, g: 0.12058091, b: 1, a: 1}
+  size: {x: 1, y: 1, z: 1}
 --- !u!1 &7257160257820669557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8296447903864587603}
   m_Layer: 9
-  m_Name: ArrowPoint
+  m_Name: Arrow Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

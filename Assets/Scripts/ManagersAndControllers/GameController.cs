@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +15,10 @@ namespace ManagersAndControllers {
             foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
                 navMeshSurface.BuildNavMesh();
             }
+        }
+        
+        public new Coroutine StartCoroutine(IEnumerator routine) {
+            return base.StartCoroutine(routine);
         }
     }
 }

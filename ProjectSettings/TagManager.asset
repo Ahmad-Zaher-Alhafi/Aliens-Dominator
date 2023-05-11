@@ -29,6 +29,8 @@ TagManager:
   - EnemyTail
   - EnemyLegs
   - EnemyHead
+  - ArrowBallon
+  - StatesHolder
   layers:
   - Default
   - TransparentFX
@@ -42,7 +44,7 @@ TagManager:
   - Base
   - 
   - BodyPart
-  - 
+  - Transition
   - 
   - 
   - 

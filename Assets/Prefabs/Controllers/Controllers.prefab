@@ -142,6 +142,7 @@ MonoBehaviour:
   supplyBalloonController: {fileID: 3044567554523871304}
   creatureSpawnController: {fileID: 8373024146854449137}
   eventsManager: {fileID: 515246896}
+  gameController: {fileID: 3044567554920042975}
 --- !u!1 &3044567554523871306
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +901,7 @@ PrefabInstance:
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: PoolManager
       value: 
-      objectReference: {fileID: 5996011780786614829}
+      objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: airplanes.Array.data[0]
       value: 
@@ -1107,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104927, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: m_Name
-      value: Gamehandler
+      value: Game Controller
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
@@ -1116,21 +1117,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5996011780452104925, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
   m_PrefabInstance: {fileID: 8752296163850840833}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3044567554920042974 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5996011780452104927, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+--- !u!114 &3044567554920042975 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
   m_PrefabInstance: {fileID: 8752296163850840833}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5996011780786614829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044567554920042974}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac2574dd307f24468c85bde8061432d, type: 3}
+  m_Script: {fileID: 11500000, guid: 48fe3ba38eeffc94f9d29ab9827fef59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnHandler: {fileID: 8373024146854449137}

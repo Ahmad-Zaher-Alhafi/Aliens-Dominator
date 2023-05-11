@@ -2335,6 +2335,7 @@ GameObject:
   - component: {fileID: -7500695655927024378}
   - component: {fileID: 95529033363818966}
   - component: {fileID: -8792200980189431700}
+  - component: {fileID: -7105633285917707079}
   m_Layer: 6
   m_Name: Magantis Boss
   m_TagString: Untagged
@@ -2373,31 +2374,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolRelatedTo: {fileID: 0}
-  ScorePoints: 100
-  Type: 0
-  CurrentState: 0
-  PreviousState: 0
+  pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: 2f9eb4a3e06bf424a87b9a7d3a285907, type: 2}
   - {fileID: 2100000, guid: fc1a8fd7ad4a3e14ca2e1b757197f5f4, type: 2}
   - {fileID: 2100000, guid: d199490d51b11d34f97cf95e100c5a8f, type: 2}
+  bouncingMaterial: {fileID: 0}
   slowdownTimer: 6
   attackDamage: 10
-  bouncingMaterial: {fileID: 0}
-  CreatureStateCanves: {fileID: 0}
-  CreatureHealthBar: {fileID: 0}
-  hitForce: 1000
-  health: 100
-  textsMotionBehavior: []
-  chanceOfDroppingArrow: 0
-  waypointMinIndexToActivateSpecialActions: 2
-  timeToDestroyDeadBody: 3
   creatureColor: 0
-  RigBody: {fileID: 0}
-  secondsBetweenRightAndLeftGunsShots: 0
-  AttackTimer: 3
-  AttackerId: 
-  applyDamageWhenHypnotized: 5
+  health: 5
+  chanceOfDroppingBalloon: 0
+  specialActionPathPointIndex: 2
+  secondsToDestroyDeadBody: 10
 --- !u!114 &4306525941300499825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,30 +2403,8 @@ MonoBehaviour:
   patrolSpeed: 3
   runSpeed: 6
   rotatingSpeed: 1
-  _patrolWaiting: 0
-  _totalWaitTime: 0
-  wayPointsRemainedDistance: 0.5
-  _switchProbability: 0
-  PatrolPoints: []
-  isDamaging: 0
-  NavMeshAgent: {fileID: 0}
-  CurrentPatrolIndex: 0
-  EnemyId: 
-  creatureSpawnController: {fileID: 0}
-  WalkAnimationParameter: Walk Forward Slow
-  CinematicEnemiesPath: 9
-  TimeToWaitForAnimation: 3
-  TimeToRoar: 1
-  MaxSpeed: 10
-  HypnotizedSpeedBonus: 1
-  SmoothRotating: 8
-  EndPoint: {fileID: 0}
-  TrackEnemyID: 
-  speedDivider: 2
-  TotalShootTime: 10
-  TotalDiggingTime: 5
-  TotalTeleportTime: 5
-  ChanceToMakeSpecialAction: 0
+  stoppingDistance: 1
+  stoppingAngel: 1
 --- !u!114 &8500977470719864059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2457,6 +2424,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: 9e984b77daa6d9a46bc4e6c6f13ca6d7, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 4c5c2ef45eb7241429b209e28f32342b, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: a775a1df16be25040a685e60533c6e77, type: 3}
+  timeBetweenAttacks: 2
   walkAnimationClip: {fileID: 7400000, guid: f33450586184ef54bb4b5756264d639b, type: 3}
   runAnimationClip: {fileID: 7400000, guid: 4b3162cc8ac7d194e9b31c601974a513, type: 3}
   roarAnimationClip: {fileID: 7400000, guid: 45506abc24445cc499dbaa15d2c9b433, type: 3}
@@ -2615,6 +2583,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7105633285917707079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360792595289854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1381241010094120
 GameObject:
   m_ObjectHideFlags: 0

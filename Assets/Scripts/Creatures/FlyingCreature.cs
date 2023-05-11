@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Creatures {
     public interface IFlyingCreature { }
 
-    public class FlyingCreature : Creature, IFlyingCreature {
+    public abstract class FlyingCreature : Creature, IFlyingCreature {
         [HideInInspector]
         public bool IsItTheLeader;
         [HideInInspector]

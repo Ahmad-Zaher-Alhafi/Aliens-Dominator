@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Context;
+using FiniteStateMachine.States;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
@@ -29,7 +31,7 @@ namespace Creatures {
 
         protected override void Update() {
             base.Update();
-            if (Creature.CurrentState == Creature.CreatureState.Dead) {
+            if (Creature.CurrentState == StateType.Dead) {
                 navMeshAgent.enabled = false;
                 return;
             }
@@ -42,20 +44,20 @@ namespace Creatures {
             }
         }
 
-        protected override void Patrol() {
-            base.Patrol();
+        public override void Patrol(Action informOrderFulfilled) {
+            base.Patrol(informOrderFulfilled);
             Transform patrolPoint = MathUtils.GetRandomObjectFromList(Ctx.Deps.CreatureSpawnController.GroundCinematicEnemyPathPoints).transform;
             OrderToMoveTo(patrolPoint.position);
         }
 
-        protected override void RunAway() {
-            base.RunAway();
+        public override void RunAway(Action informOrderFulfilled) {
+            base.RunAway(informOrderFulfilled);
             Transform closestRunAwayPoint = FindClosestPoint(Ctx.Deps.CreatureSpawnController.RunningAwayPoints);
             OrderToMoveTo(closestRunAwayPoint.position);
         }
 
-        protected override PathPoint FollowPath() {
-            Transform nextPathPoint = base.FollowPath()?.transform;
+        public override PathPoint FollowPath(Action informOrderFulfilled) {
+            Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
             if (nextPathPoint == null) return null;
 
             OrderToMoveTo(nextPathPoint.position);

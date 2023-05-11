@@ -23,7 +23,7 @@ namespace Pool {
                 pooledObject.gameObject.SetActive(true);
             } else {
                 pooledObject = Instantiate(objectPrefab, parent);
-                pooledObject.poolRelatedTo = this;
+                pooledObject.PoolRelatedTo = this;
             }
 
             return pooledObject;
