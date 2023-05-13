@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Creatures;
 using FiniteStateMachine.States;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.CreatureMachine {
     [ExecuteInEditMode]
     public class TransitionVisualiser : MonoBehaviour {
         public Vector3 Offset { get; set; }
+        [SerializeField] private Type type;
 
         [Header("States")]
         [SerializeField] private StateType originStateType;

@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using FiniteStateMachine.CreatureMachine;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

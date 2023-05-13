@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
 using Pool;
-using FiniteStateMachine;
+using FiniteStateMachine.CreatureMachine;
 using FiniteStateMachine.States;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace Creatures {
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
 
-        public StateType CurrentState => stateMachine.CurrentState.Type;
+        public StateType CurrentState => creatureStateMachine.CurrentState.Type;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
@@ -64,10 +64,10 @@ namespace Creatures {
         public bool TargetReached { get; set; }
         public bool IsDead { get; set; }
         public bool PathFinished { get; private set; }
-        private StateMachine stateMachine;
+        private CreatureStateMachine creatureStateMachine;
 
         private void Awake() {
-            stateMachine = GetComponent<StateMachine>();
+            creatureStateMachine = GetComponent<CreatureStateMachine>();
             Rig = GetComponent<Rigidbody>();
             Mover = GetComponent<CreatureMover>();
             Animator = GetComponent<CreatureAnimator>();
@@ -104,18 +104,18 @@ namespace Creatures {
 
             gameObject.SetActive(true);
 
-            stateMachine.Init(this, initialState);
+            creatureStateMachine.Init(this, initialState);
         }
 
         public void OnMoverOrderFulfilled() {
             if (IsCinematic) {
-                stateMachine.SetNextCinematicState();
+                creatureStateMachine.SetNextCinematicState();
             }
         }
 
         public void TakeDamage(IDamager damager, int damageWeight) {
             ObjectDamagedWith = damager;
-            stateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
+            creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
 
             /*if (!CreatureStateCanves.activeInHierarchy) {
                 CreatureStateCanves.SetActive(true);

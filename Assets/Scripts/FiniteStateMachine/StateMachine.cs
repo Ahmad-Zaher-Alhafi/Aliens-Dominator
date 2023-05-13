@@ -1,101 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Creatures;
+using FiniteStateMachine.CreatureMachine;
 using FiniteStateMachine.States;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Object = UnityEngine.Object;
 
 namespace FiniteStateMachine {
-    public class StateMachine : MonoBehaviour {
+    public abstract class StateMachine<T> : MonoBehaviour where T : Object {
+        protected Transform StatesHolder;
+
         public State CurrentState { get; private set; }
 
-        private Transform statesHolder;
+        protected readonly Dictionary<State, List<Transition>> StatesTransitions = new();
 
-        private readonly Dictionary<State, List<Transition>> statesTransitions = new();
+        protected readonly Dictionary<StateType, State> States = new();
+        protected T ObjectToAutomate;
+        protected List<StateVisualiser> StateVisualisers = new();
 
-        private List<TransitionVisualiser> transitionVisualisers;
-        private List<Transition> currentStatePossibleTransitions;
-        private readonly Dictionary<StateType, State> states = new();
-        private Creature creature;
         private bool isInitialized;
+        private List<TransitionVisualiser> transitionVisualisers;
 
-        public void Init(Creature creature, StateType initialState) {
+        protected virtual void Awake() {
+            transitionVisualisers = StatesHolder.GetComponentsInChildren<TransitionVisualiser>().ToList();
+            StateVisualisers = StatesHolder.GetComponentsInChildren<StateVisualiser>().ToList();
+        }
+
+        private List<Transition> currentStatePossibleTransitions;
+
+        public virtual void Init(T objectToAutomate, StateType initialState) {
             if (!isInitialized) {
                 isInitialized = true;
-
-                this.creature = creature;
-                transitionVisualisers ??= FindObjectsOfType<TransitionVisualiser>().ToList();
-                statesHolder ??= GameObject.FindWithTag("StatesHolder").transform;
+                ObjectToAutomate = objectToAutomate;
 
                 if (transitionVisualisers.Count == 0) return;
 
-                // Get all states
-                foreach (Transform stateVisualizerObject in statesHolder) {
-                    StateVisualiser stateVisualiser = stateVisualizerObject.GetComponent<StateVisualiser>();
-                    switch (stateVisualiser.StateType) {
-                        case StateType.None:
-                            statesTransitions.Add(new NoneState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.Idle:
-                            statesTransitions.Add(new IdleState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.Patrolling:
-                            statesTransitions.Add(new PatrollingState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.FollowingPath:
-                            statesTransitions.Add(new FollowingPathState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.ChasingTarget:
-                            statesTransitions.Add(new ChasingTargetState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.GettingHit:
-                            statesTransitions.Add(new GettingHitState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.Attacking:
-                            statesTransitions.Add(new AttackingState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.RunningAway:
-                            statesTransitions.Add(new RunningAwayState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        case StateType.Dead:
-                            statesTransitions.Add(new DeadState(stateVisualiser.IsFinal, creature), new List<Transition>());
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+                CreateStates();
 
-                foreach (State state in statesTransitions.Keys) {
-                    states.Add(state.Type, state);
-                }
-
-                // Get all transitions
-                foreach (TransitionVisualiser transitionVisualiser in transitionVisualisers) {
-                    State originState = statesTransitions.Keys.Single(stat => stat.Type == transitionVisualiser.OriginStateType);
-                    State destinationState = statesTransitions.Keys.Single(stat => stat.Type == transitionVisualiser.DestinationStateType);
-                    statesTransitions[originState].Add(new Transition(transitionVisualiser, originState, destinationState));
-                }
+                LinkStatesWithTransitions();
             }
 
-
-            CurrentState = states[initialState];
+            CurrentState = States[initialState];
             CurrentState.Activate();
-            if (CurrentState.Type is StateType.None or StateType.Dead) {
-                FulfillCurrentState();
+        }
+
+        protected abstract void CreateStates();
+
+        private void LinkStatesWithTransitions() {
+            foreach (TransitionVisualiser transitionVisualiser in transitionVisualisers) {
+                State originState = States[transitionVisualiser.OriginStateType];
+                State destinationState = States[transitionVisualiser.DestinationStateType];;
+                StatesTransitions[originState].Add(new Transition(transitionVisualiser, originState, destinationState));
             }
         }
 
         private void Update() => Tick();
 
-        private void Tick() {
-            if (creature.IsDead) return;
-
+        protected virtual void Tick() {
             if (CurrentState.IsActive) {
                 CurrentState.Tick();
             }
 
-            currentStatePossibleTransitions = statesTransitions[CurrentState].FindAll(transition => transition.IsTransitionPossible());
+            currentStatePossibleTransitions = StatesTransitions[CurrentState].FindAll(transition => transition.IsTransitionPossible());
 
             // Find any transitions that can interrupt the current state
             foreach (var transition in currentStatePossibleTransitions.Where(transition => transition.CanInterrupts)) {
@@ -120,28 +86,8 @@ namespace FiniteStateMachine {
             CurrentState.Activate();
         }
 
-        /// <summary>
-        /// Some states have a random chance activation, this function will decide randomly the next state that could be activated
-        /// </summary>
-        public void SetNextCinematicState() {
-            int randomNumber = Random.Range(0, 2);
-            StateType randomState = randomNumber switch {
-                0 => StateType.Idle,
-                1 => StateType.Patrolling,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            statesTransitions.Keys.Single(pair => pair.Type == randomState).IsNextCinematicState = true;
-        }
-
-        public void FulfillCurrentState() {
-            if (CurrentState.IsActive) {
-                CurrentState.Fulfil();
-            }
-        }
-
         public T GetState<T>() where T : State {
-            return states.Values.OfType<T>().Single();
+            return States.Values.OfType<T>().Single();
         }
     }
 }

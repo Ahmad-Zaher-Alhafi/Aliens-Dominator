@@ -1,6 +1,6 @@
 ﻿using FiniteStateMachine.States;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.CreatureMachine {
     public class Transition {
         public State OriginState { get; private set; }
         public State DestinationState { get; private set; }

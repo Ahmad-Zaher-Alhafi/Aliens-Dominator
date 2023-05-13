@@ -11386,8 +11386,8 @@ GameObject:
   - component: {fileID: 5342106914497645322}
   - component: {fileID: 1167894741989074856}
   m_Layer: 0
-  m_Name: State Machine Visualizer
-  m_TagString: Untagged
+  m_Name: Creature State Machine Visualizer
+  m_TagString: CreatureStateMachine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11461,7 +11461,7 @@ GameObject:
   - component: {fileID: 8718242203945469475}
   m_Layer: 0
   m_Name: States Holder
-  m_TagString: StatesHolder
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12490,7 +12490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State GettingHit
+      value: GettingHit
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -12753,7 +12753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State RunningAway
+      value: RunningAway
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -12871,7 +12871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State Patrolling
+      value: Patrolling
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -13134,7 +13134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State Idle
+      value: Idle
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -13538,7 +13538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State None
+      value: None
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -13656,7 +13656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State ChasingTarget
+      value: ChasingTarget
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -14656,7 +14656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State FollowingPath
+      value: FollowingPath
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -15731,7 +15731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State Dead
+      value: Dead
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive
@@ -16300,7 +16300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_Name
-      value: State Attacking
+      value: Attacking
       objectReference: {fileID: 0}
     - target: {fileID: 125179207278984151, guid: 2544641d52e7d8a439cf09e77231e5bf, type: 3}
       propertyPath: m_IsActive

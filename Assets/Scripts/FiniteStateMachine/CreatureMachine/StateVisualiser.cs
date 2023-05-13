@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.CreatureMachine {
     [ExecuteInEditMode]
     public class StateVisualiser : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI displayNameText;
@@ -33,7 +33,7 @@ namespace FiniteStateMachine {
         }
 
         private void Refresh() {
-            name = $"State {stateType}";
+            name = stateType.ToString();
             displayNameText.text = stateType.ToString();
 
             if (Selection.activeObject == null) {

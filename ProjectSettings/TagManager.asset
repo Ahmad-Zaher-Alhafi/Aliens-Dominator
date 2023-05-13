@@ -30,7 +30,7 @@ TagManager:
   - EnemyLegs
   - EnemyHead
   - ArrowBallon
-  - StatesHolder
+  - CreatureStateMachine
   layers:
   - Default
   - TransparentFX

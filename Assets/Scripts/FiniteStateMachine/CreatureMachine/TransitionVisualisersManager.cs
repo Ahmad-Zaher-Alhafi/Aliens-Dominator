@@ -6,7 +6,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.CreatureMachine {
     [ExecuteInEditMode]
     public class TransitionVisualisersManager : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI creatureNameText;

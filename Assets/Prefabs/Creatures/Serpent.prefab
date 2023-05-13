@@ -3103,7 +3103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bfec5bfed44f66ba50066c59f6f6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolRelatedTo: {fileID: 0}
   pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: ccb232b342f060a4b8d30204cf6736e8, type: 2}
@@ -3188,7 +3187,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937973867405028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.6
   m_Speed: 3.5
