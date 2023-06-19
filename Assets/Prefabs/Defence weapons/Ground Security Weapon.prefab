@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1029521935}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Projectile Create Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7224136700886216961}
   - component: {fileID: 306833770083661878}
   - component: {fileID: 4652516128560830638}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3015028626172716040}
   - component: {fileID: 6533019667867085724}
   - component: {fileID: 7668053161640110362}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Background (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 3586796585918662692}
   - component: {fileID: 8723221851854324281}
   - component: {fileID: 4442350816398012733}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Rockets Ammo State Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,9 +329,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2149274130378010878}
   - component: {fileID: 2149274130378010879}
-  - component: {fileID: 2149274130378010864}
+  - component: {fileID: 3010871445501105339}
   m_Layer: 2
-  m_Name: Security Sensor
+  m_Name: Weapon Sensor
   m_TagString: SecuritySensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,7 +345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149274130378010877}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.002, y: 0.181, z: 0.057}
+  m_LocalPosition: {x: -0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -365,7 +365,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 6.7179446
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2149274130378010864
+--- !u!114 &3010871445501105339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,15 +374,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2149274130378010877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96602e7a1b3d4b04b8df4bd24ff24785, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ea3407d07142ab974a3f0228993ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsItAirPlaneSensor: 0
-  Targets: []
-  SecurityWeapon: {fileID: 477977049}
-  FighterAirPlane: {fileID: 0}
-  rayOffset: 0.5
-  Target: {fileID: 0}
+  sensorRange: 100
 --- !u!1 &2847269026860701782
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +389,7 @@ GameObject:
   - component: {fileID: 6794290414854704423}
   - component: {fileID: 3707852320781683995}
   - component: {fileID: 1881678696764595870}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +466,7 @@ GameObject:
   - component: {fileID: 6986697854581771868}
   - component: {fileID: 1335867867108474817}
   - component: {fileID: 1527082965354531173}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Rotating Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +552,7 @@ GameObject:
   - component: {fileID: 3334741624848246651}
   - component: {fileID: 2672582210121237432}
   - component: {fileID: 2743428667739821136}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,10 +627,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8273696075488936520}
+  - component: {fileID: 7702305597586085937}
   - component: {fileID: 477977049}
   - component: {fileID: 1842344235}
   - component: {fileID: 5768297785568713822}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Waepon Parent
   m_TagString: SecurityWeapon
   m_Icon: {fileID: 0}
@@ -660,6 +656,19 @@ Transform:
   m_Father: {fileID: 7144631825962316977}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7702305597586085937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978288515570775906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98515578e544dddbe497563158c5a6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  securityWeaponStateMachineData: {fileID: 11400000, guid: 518f9bee88ec7094e8a3dad5101a9bdd, type: 2}
 --- !u!114 &477977049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,19 +683,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsShooting: 0
   HasToDefend: 0
-  weaponType: 0
-  WasDestroyed: 0
-  smoothWeaponRotatingSpeed: 10
-  smoothWeaponEscortingSpeed: 1
+  IsDestroyed: 0
+  guardingSpeed: 0.8
+  aimingSpeed: 15
+  bulletsPerSecond: 5
   projectilePrefab: {fileID: 5943349952556042467, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
-  projectileCreatPoint: {fileID: 1029521935}
-  secondsBetweenEachProjectile: 0.3
-  maxEscortingAngleOnXAxis: 180
-  secondsBetweenEachEscort: 5
+  projectileCreatePoint: {fileID: 1029521935}
+  guardingXRange: {x: 100, y: 300}
+  guardingYRange: {x: 0, y: 175}
   ammoStateText: {fileID: 2318433737040672894}
   maxBulletsNumber: 200
   ammoStateCanves: {fileID: 2664595134012710247}
-  securitySensor: {fileID: 2149274130378010864}
+  weaponSensor: {fileID: 3010871445501105339}
   weaponFixImg: {fileID: 5521477000346423419}
   updateWeaponFireRateImg: {fileID: 8014793666474883518}
   updateWeaponStrengthImg: {fileID: 6850786225112184708}
@@ -825,7 +833,7 @@ GameObject:
   - component: {fileID: 6014796920987207242}
   - component: {fileID: 3855592294532245493}
   - component: {fileID: 9045875606427600532}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Weapon Fix Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +966,7 @@ GameObject:
   - component: {fileID: 5438387817819550917}
   - component: {fileID: 138667576649249875}
   - component: {fileID: 6735835037132750256}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Weapon State Canves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1072,7 @@ GameObject:
   - component: {fileID: 5019190683888561970}
   - component: {fileID: 3413991505803220396}
   - component: {fileID: 4737585448273983207}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Update Weapon Strength Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1194,7 +1202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7144631825962316977}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Ground Security Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1219,36 +1227,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 226, z: 0}
---- !u!65 &100666108
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7792330407610162256}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6485989, y: 1.2688698, z: 0.7222562}
-  m_Center: {x: 0, y: 0.62812775, z: 0.02879457}
---- !u!114 &100666107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7792330407610162256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975d5bc08d15a344abe896701045612c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponToComand: {fileID: 477977049}
-  airplaneToComand: {fileID: 0}
-  isItWeaponChanger: 0
-  weaponStateText: {fileID: 0}
-  hasToDefend: 0
 --- !u!1 &7984239014812917849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1238,7 @@ GameObject:
   - component: {fileID: 6383552081922085450}
   - component: {fileID: 2724088930766219388}
   - component: {fileID: 8570738322948691077}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1351,7 +1329,7 @@ GameObject:
   - component: {fileID: 7460310485192057954}
   - component: {fileID: 2732431251501588584}
   - component: {fileID: 6318008864666865037}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Update Weapon Fir Rate Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1483,7 +1461,7 @@ GameObject:
   - component: {fileID: 4552684748719519808}
   - component: {fileID: 2240289428683778208}
   - component: {fileID: 1176584744392725881}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: SM_GAT01_Battery1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1569,7 +1547,7 @@ GameObject:
   - component: {fileID: 860079407285142757}
   - component: {fileID: 877005388800889288}
   - component: {fileID: 2318433737040672894}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Bullets Ammo State Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1704,7 +1682,7 @@ GameObject:
   - component: {fileID: 1672187898154782133}
   - component: {fileID: 5306527534931357712}
   - component: {fileID: 3971165914201820584}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: WeaponHealthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1802,7 +1780,7 @@ GameObject:
   - component: {fileID: 7862071198924770669}
   - component: {fileID: 2365285489281237746}
   - component: {fileID: 2023772315156090742}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: SM_GAT01_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1952,13 +1930,43 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4596823366739905178, guid: da6d50b3f7ec79b46a17f1a8b7989040, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da6d50b3f7ec79b46a17f1a8b7989040, type: 3}
---- !u!1 &7792330407610162256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7792330406457885837, guid: da6d50b3f7ec79b46a17f1a8b7989040, type: 3}
-  m_PrefabInstance: {fileID: 1198643421}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6519157138739359299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6519157139904345758, guid: da6d50b3f7ec79b46a17f1a8b7989040, type: 3}
   m_PrefabInstance: {fileID: 1198643421}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7792330407610162256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7792330406457885837, guid: da6d50b3f7ec79b46a17f1a8b7989040, type: 3}
+  m_PrefabInstance: {fileID: 1198643421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &100666108
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792330407610162256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6485989, y: 1.2688698, z: 0.7222562}
+  m_Center: {x: 0, y: 0.62812775, z: 0.02879457}
+--- !u!114 &100666107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792330407610162256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975d5bc08d15a344abe896701045612c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponToComand: {fileID: 477977049}
+  airplaneToComand: {fileID: 0}
+  isItWeaponChanger: 0
+  weaponStateText: {fileID: 0}
+  hasToDefend: 0

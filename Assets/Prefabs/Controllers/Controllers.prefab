@@ -143,6 +143,7 @@ MonoBehaviour:
   creatureSpawnController: {fileID: 8373024146854449137}
   eventsManager: {fileID: 515246896}
   gameController: {fileID: 3044567554920042975}
+  audioController: {fileID: 2360920366251837563}
 --- !u!1 &3044567554523871306
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7123931469750590340, guid: 924487621673f264bad704c42296a5d2, type: 3}
       propertyPath: m_Name
-      value: Audio Manager
+      value: Audio Controller
       objectReference: {fileID: 0}
     - target: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
       propertyPath: bgMusic.volume
@@ -740,6 +741,17 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: b65e60dd136500045909557108e1ed42, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924487621673f264bad704c42296a5d2, type: 3}
+--- !u!114 &2360920366251837563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
+  m_PrefabInstance: {fileID: 5232395388620711260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4166587b01693494d8c3503daf6d1a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3044567554515599070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7123931469750590338, guid: 924487621673f264bad704c42296a5d2, type: 3}

@@ -16,8 +16,8 @@ namespace Creatures {
             creatureSpawnController = FindObjectOfType<CreatureSpawnController>();
         }
 
-        protected override void Update() {
-            base.Update();
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
             if (HasMovingOrder) {
                 MoveTo(positionToMoveTo);
                 RotateToTheWantedAngle(positionToMoveTo);

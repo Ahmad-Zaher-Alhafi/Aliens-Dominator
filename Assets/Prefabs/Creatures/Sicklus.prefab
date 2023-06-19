@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1927064908090919135}
   - component: {fileID: 8004745880163799967}
   - component: {fileID: 3345114975759682009}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLArmPalm
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 513500027088010410}
   - component: {fileID: 6546870208773426555}
   - component: {fileID: 8539961227729831922}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw R02
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4601660902198286}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 6040806275023142889}
   - component: {fileID: 6652499483609184621}
   - component: {fileID: 865932023035797827}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 8881225657391474961}
   - component: {fileID: 8476336930425552688}
   - component: {fileID: 4786936298010322786}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigHead
   m_TagString: EnemyHead
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 8716077892402260486}
   - component: {fileID: 2485785705793945160}
   - component: {fileID: 3000685792556117360}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw L02
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4773376248520116}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4887238154772968}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigMouth TR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 6149764892632235235}
   - component: {fileID: 789857775765866132}
   - component: {fileID: 5220040318975398198}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRArmPalm
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 7085854908194956712}
   - component: {fileID: 4940981372233046239}
   - component: {fileID: 8337602636525525971}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRibcage
   m_TagString: EnemyBody
   m_Icon: {fileID: 0}
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1982979995482094971}
   - component: {fileID: 5000488218232353788}
   - component: {fileID: 3068457042490813926}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 2679233720564411004}
   - component: {fileID: 3106249750252331389}
   - component: {fileID: 4866913513901614284}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw R03
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1228,7 +1228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588571456650700}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigMouth TL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 2724774705703630962}
   - component: {fileID: 7177820408480551363}
   - component: {fileID: 3536087435079591715}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -1386,7 +1386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4985199434157502}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 2582704472399204807}
   - component: {fileID: 9109315587621630799}
   - component: {fileID: 8237438653547528447}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail1
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -1549,7 +1549,7 @@ GameObject:
   - component: {fileID: 6136304598888473376}
   - component: {fileID: 981970605326573411}
   - component: {fileID: 5651022670927570557}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw R01
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1672,7 +1672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4214921132429708}
   - component: {fileID: 137612963242828148}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Alien Sicklus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1785,7 +1785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4837765487177228}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1821,7 @@ GameObject:
   - component: {fileID: 4271498259122672788}
   - component: {fileID: 4137134670210888379}
   - component: {fileID: 6502718219915991782}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -1948,7 +1948,7 @@ GameObject:
   - component: {fileID: 8829000279920393253}
   - component: {fileID: 4924320811977366991}
   - component: {fileID: 101542149163691665}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw L01
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -2070,7 +2070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4237111328718288}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigMouth BL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2101,7 +2101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4146942438417790}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigMouth BR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2132,7 +2132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4796244736579276}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2168,7 +2168,7 @@ GameObject:
   - component: {fileID: 640276001137961249}
   - component: {fileID: 3380302461195153798}
   - component: {fileID: 4391452296481564337}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigClaw L03
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -2294,7 +2294,7 @@ GameObject:
   - component: {fileID: 1681895473389508393}
   - component: {fileID: 4097123933296188371}
   - component: {fileID: 5921591406996113536}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail10
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -2416,7 +2416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4349855194096694}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2452,7 +2452,7 @@ GameObject:
   - component: {fileID: 2032611038551742032}
   - component: {fileID: 5763182747645617495}
   - component: {fileID: 112175282232934581}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail4
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -2575,7 +2575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4629530763965958}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2607,7 +2607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4910149497717562}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigNeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2639,13 +2639,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4897413720355004}
+  - component: {fileID: 8939760162478907344}
   - component: {fileID: 2549999206570881742}
   - component: {fileID: 6908029350979284551}
   - component: {fileID: 920661457554914563}
   - component: {fileID: 95318265752211090}
   - component: {fileID: -6915842593531461593}
   - component: {fileID: -3028694727275127502}
-  - component: {fileID: 8939760162478907344}
   m_Layer: 6
   m_Name: Sicklus
   m_TagString: Untagged
@@ -2670,6 +2670,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8939760162478907344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997315638701822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creatureStateMachineData: {fileID: 11400000, guid: 32f32716a21bf084b9531d8120dcec0a, type: 2}
 --- !u!114 &2549999206570881742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2682,7 +2695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dfd8cc74ed451eb317ddaf05c4b5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolRelatedTo: {fileID: 0}
   pushForceWhenDead: 1000
   colors:
   - {fileID: 2100000, guid: 1befd5ffa2d4afa46a46a3472957c4ae, type: 2}
@@ -2766,7 +2778,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 69847f322471b4649bd5cff7c6bb80df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2885,18 +2897,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8939760162478907344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997315638701822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9136750086314276167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,7 +2906,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6906085146594222068}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: StinkyBallSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2985,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379995299221349485, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
       propertyPath: m_Name
@@ -2993,7 +2993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
       propertyPath: m_IsActive
@@ -3015,15 +3015,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3548000043634503297, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144925096594714, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144925587578943, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548692, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3035,7 +3035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548693, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Pivot.x
@@ -3139,7 +3139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}

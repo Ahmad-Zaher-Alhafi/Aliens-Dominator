@@ -1,19 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
+using FiniteStateMachine;
 using Pool;
-using FiniteStateMachine.CreatureMachine;
-using FiniteStateMachine.States;
+using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 
 namespace Creatures {
-    public abstract class Creature : PooledObject, IDamager, IDamageable {
+    public abstract class Creature : PooledObject, IDamager, IDamageable, IAutomatable {
+        public bool HasPushingForce => false;
+        public bool IsDestroyed => IsDead;
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
-
-        public StateType CurrentState => creatureStateMachine.CurrentState.Type;
+        public Enum CurrentStateType => creatureStateMachine.CurrentState.Type;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
@@ -77,7 +79,8 @@ namespace Creatures {
             InitialHealth = health;
         }
 
-        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, StateType initialState) {
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
+            Rig.isKinematic = false;
             transform.position = spawnPosition;
             IsSlowedDown = false;
             IsDead = false;
@@ -90,7 +93,6 @@ namespace Creatures {
                 ObjectToAttack = TargetPoint.TargetObject;
             }
 
-            Rig.useGravity = false;
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             //CreatureHealthBar.minValue = 0;
@@ -98,13 +100,14 @@ namespace Creatures {
 
             Animator.Init();
             Mover.Init(pathToFollow);
+
+            gameObject.SetActive(true);
+
             foreach (BodyPart bodyPart in BodyParts) {
                 bodyPart.Init(bouncingMaterial);
             }
 
-            gameObject.SetActive(true);
-
-            creatureStateMachine.Init(this, initialState);
+            creatureStateMachine.Init(this, initialCreatureState);
         }
 
         public void OnMoverOrderFulfilled() {
@@ -124,11 +127,6 @@ namespace Creatures {
             //CreatureHealthBar.normalizedValue = health / InitialHealth;
         }
 
-        private void RunAway() {
-            //Mover.FulfillCurrentOrder();
-            Debug.Log($"Creature {name} is {CurrentState}");
-        }
-
         public void PlayDeathSound() {
             audioSource.Play();
         }
@@ -136,6 +134,7 @@ namespace Creatures {
         public void OnDeath() {
             Mover.OnDeath();
             Animator.OnDeath();
+            Rig.isKinematic = true;
             foreach (BodyPart bodyPart in BodyParts) {
                 bodyPart.OnDeath();
             }
@@ -152,10 +151,6 @@ namespace Creatures {
 
         public void Disappear() {
             Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed());
-        }
-
-        private void OnDestroy() {
-            Ctx.Deps.EventsManager.WaveStarted -= RunAway;
         }
     }
 }

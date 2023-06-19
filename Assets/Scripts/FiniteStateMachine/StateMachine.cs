@@ -1,42 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FiniteStateMachine.CreatureMachine;
-using FiniteStateMachine.States;
+using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace FiniteStateMachine {
-    public abstract class StateMachine<T> : MonoBehaviour where T : Object {
-        protected Transform StatesHolder;
+    public abstract class StateMachine<TState, TStateObject> : MonoBehaviour where TState : State<TStateObject> where TStateObject : IAutomatable {
+        public abstract TState CurrentState { get; protected set; }
 
-        public State CurrentState { get; private set; }
+        protected readonly Dictionary<TState, List<Transition<TState, TStateObject>>> StatesTransitions = new();
 
-        protected readonly Dictionary<State, List<Transition>> StatesTransitions = new();
-
-        protected readonly Dictionary<StateType, State> States = new();
-        protected T ObjectToAutomate;
-        protected List<StateVisualiser> StateVisualisers = new();
+        protected readonly Dictionary<Enum, TState> States = new();
+        protected TStateObject ObjectToAutomate;
 
         private bool isInitialized;
-        private List<TransitionVisualiser> transitionVisualisers;
 
-        protected virtual void Awake() {
-            transitionVisualisers = StatesHolder.GetComponentsInChildren<TransitionVisualiser>().ToList();
-            StateVisualisers = StatesHolder.GetComponentsInChildren<StateVisualiser>().ToList();
-        }
+        private List<Transition<TState, TStateObject>> currentStatePossibleTransitions;
 
-        private List<Transition> currentStatePossibleTransitions;
-
-        public virtual void Init(T objectToAutomate, StateType initialState) {
+        public virtual void Init(TStateObject objectToAutomate, Enum initialState) {
             if (!isInitialized) {
                 isInitialized = true;
                 ObjectToAutomate = objectToAutomate;
 
-                if (transitionVisualisers.Count == 0) return;
-
                 CreateStates();
-
                 LinkStatesWithTransitions();
             }
 
@@ -46,13 +32,7 @@ namespace FiniteStateMachine {
 
         protected abstract void CreateStates();
 
-        private void LinkStatesWithTransitions() {
-            foreach (TransitionVisualiser transitionVisualiser in transitionVisualisers) {
-                State originState = States[transitionVisualiser.OriginStateType];
-                State destinationState = States[transitionVisualiser.DestinationStateType];;
-                StatesTransitions[originState].Add(new Transition(transitionVisualiser, originState, destinationState));
-            }
-        }
+        protected abstract void LinkStatesWithTransitions();
 
         private void Update() => Tick();
 
@@ -77,7 +57,7 @@ namespace FiniteStateMachine {
             }
         }
 
-        private void ActivateDestinationState(Transition transition) {
+        private void ActivateDestinationState(Transition<TState, TStateObject> transition) {
             if (transition.CanInterrupts) {
                 CurrentState.Interrupt();
             }
@@ -86,7 +66,7 @@ namespace FiniteStateMachine {
             CurrentState.Activate();
         }
 
-        public T GetState<T>() where T : State {
+        public T GetState<T>() where T : TState {
             return States.Values.OfType<T>().Single();
         }
     }

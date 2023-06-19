@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bcb2242ef047568709ee23cebde535, type: 3}
+  m_Name: Creature State Machine Data
+  m_EditorClassIdentifier: 
+  statesData:
+  - originStateType: 0
+    transitionsData:
+    - destinationStateType: 1
+      canInterrupts: 0
+    - destinationStateType: 2
+      canInterrupts: 0
+    - destinationStateType: 4
+      canInterrupts: 0
+    - destinationStateType: 3
+      canInterrupts: 0
+  - originStateType: 1
+    transitionsData:
+    - destinationStateType: 1
+      canInterrupts: 0
+    - destinationStateType: 2
+      canInterrupts: 0
+    - destinationStateType: 7
+      canInterrupts: 1
+    - destinationStateType: 5
+      canInterrupts: 1
+  - originStateType: 2
+    transitionsData:
+    - destinationStateType: 1
+      canInterrupts: 0
+    - destinationStateType: 2
+      canInterrupts: 0
+    - destinationStateType: 7
+      canInterrupts: 1
+    - destinationStateType: 5
+      canInterrupts: 1
+  - originStateType: 3
+    transitionsData:
+    - destinationStateType: 5
+      canInterrupts: 1
+    - destinationStateType: 4
+      canInterrupts: 1
+  - originStateType: 4
+    transitionsData:
+    - destinationStateType: 6
+      canInterrupts: 0
+    - destinationStateType: 5
+      canInterrupts: 1
+  - originStateType: 5
+    transitionsData:
+    - destinationStateType: 5
+      canInterrupts: 1
+    - destinationStateType: 7
+      canInterrupts: 0
+    - destinationStateType: 4
+      canInterrupts: 0
+    - destinationStateType: 3
+      canInterrupts: 0
+    - destinationStateType: 8
+      canInterrupts: 1
+  - originStateType: 6
+    transitionsData:
+    - destinationStateType: 4
+      canInterrupts: 0
+    - destinationStateType: 5
+      canInterrupts: 1
+  - originStateType: 7
+    transitionsData:
+    - destinationStateType: 5
+      canInterrupts: 1
+    - destinationStateType: 8
+      canInterrupts: 0
+  - originStateType: 8
+    transitionsData: []

@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Arrows {
     [RequireComponent(typeof(TrailRenderer), typeof(Rigidbody), typeof(AudioSource))]
     public abstract class Arrow : PooledObject, IDamager {
+        public bool HasPushingForce => true;
         public int Damage => damage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
@@ -29,7 +30,7 @@ namespace Arrows {
         protected bool hasCollided;
         protected TrailRenderer trail;
         private new Collider collider;
-        
+
         private void Awake() {
             trail = GetComponent<TrailRenderer>();
             body = GetComponent<Rigidbody>();

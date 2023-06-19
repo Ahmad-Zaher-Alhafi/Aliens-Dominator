@@ -4,7 +4,7 @@ using Creatures;
 using UnityEngine;
 
 namespace ScriptableObjects {
-    [CreateAssetMenu(menuName = "Wave", fileName = "Wave")]
+    [CreateAssetMenu(menuName = "ScriptableObjects/Wave", fileName = "Wave")]
     public class Wave : ScriptableObject {
         [Serializable]
         public class WaveCreature {

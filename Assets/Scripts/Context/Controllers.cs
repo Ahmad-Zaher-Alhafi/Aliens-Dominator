@@ -8,6 +8,7 @@ namespace Context {
         public CreatureSpawnController CreatureSpawnController { get; }
         public EventsManager EventsManager { get; }
         public GameController GameController { get; }
+        public AudioController AudioController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -19,10 +20,13 @@ namespace Context {
 
         [SerializeField] private EventsManager eventsManager;
         public EventsManager EventsManager => eventsManager;
-        
+
         [SerializeField] private GameController gameController;
         public GameController GameController => gameController;
 
+        [SerializeField]
+        public AudioController audioController;
+        public AudioController AudioController => audioController;
 
         private void Awake() {
             Ctx.ContextChanged(this);

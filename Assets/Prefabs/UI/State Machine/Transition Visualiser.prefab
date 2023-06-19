@@ -158,8 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a77e3530684c36964b2e6f85062223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originStateType: 0
-  destinationStateType: 0
   canInterrupts: 0
   transitionVisualiserMaterial: {fileID: 2100000, guid: b0c86a133a9af6943a1dc5a8e94b3868, type: 2}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}

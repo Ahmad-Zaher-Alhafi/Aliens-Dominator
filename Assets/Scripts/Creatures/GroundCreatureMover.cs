@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Context;
-using FiniteStateMachine.States;
+using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
@@ -29,9 +29,9 @@ namespace Creatures {
             navMeshAgent.stoppingDistance = stoppingDistance;
         }
 
-        protected override void Update() {
-            base.Update();
-            if (Creature.CurrentState == StateType.Dead) {
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Dead) {
                 navMeshAgent.enabled = false;
                 return;
             }

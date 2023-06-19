@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4181829220131136}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 6475370769788303148}
   - component: {fileID: 4235071292179666991}
   - component: {fileID: 6493184742025095091}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4391503237727637579}
   - component: {fileID: 5149257843802452446}
   - component: {fileID: 7814346101588044517}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLMLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 5248624732711161079}
   - component: {fileID: 7891473026724350125}
   - component: {fileID: 7336551053655365021}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRMLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 2353256028835261001}
   - component: {fileID: 372830476255096308}
   - component: {fileID: 9060330262496159445}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLMLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4422533877722564}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4521153515405680}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 5426470735202798103}
   - component: {fileID: 528436656288349860}
   - component: {fileID: 1792344996990953239}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRFLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4131498780762104}
   - component: {fileID: 137379628539877894}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Polygonal Alien Magantis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4677151509121326}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 5786659721527393879}
   - component: {fileID: 7915123292580492298}
   - component: {fileID: 6018127282326317398}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRFLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1049,7 +1049,7 @@ GameObject:
   - component: {fileID: 1778695084080114584}
   - component: {fileID: 893778617680095019}
   - component: {fileID: 2975565721243441139}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLBLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1172,7 +1172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4257643265299792}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1208,7 +1208,7 @@ GameObject:
   - component: {fileID: 2910555544230501670}
   - component: {fileID: 6262750352108614017}
   - component: {fileID: 5277727549670125201}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRMLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1335,7 +1335,7 @@ GameObject:
   - component: {fileID: 1662131367372995939}
   - component: {fileID: 4704140747041363735}
   - component: {fileID: 8173091187250890380}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail4
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -1461,7 +1461,7 @@ GameObject:
   - component: {fileID: 7787463423356625001}
   - component: {fileID: 874575966718921262}
   - component: {fileID: 4397352675330807730}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRBLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -1584,7 +1584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492805187317436}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1616,7 +1616,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4674164166253682}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1651,7 +1651,7 @@ GameObject:
   - component: {fileID: 6615910288480533840}
   - component: {fileID: 8257441850560292389}
   - component: {fileID: 1343423650004638097}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail2
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -1778,7 +1778,7 @@ GameObject:
   - component: {fileID: 7378180758518056860}
   - component: {fileID: 987001529051457598}
   - component: {fileID: 1111103690706471556}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigNeck
   m_TagString: EnemyHead
   m_Icon: {fileID: 0}
@@ -1901,7 +1901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4883607397910988}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1933,7 +1933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4139461437237630}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigJawR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1964,7 +1964,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4117452428693026}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1996,7 +1996,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4661794624646104}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2028,7 +2028,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4018315709814582}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2064,7 +2064,7 @@ GameObject:
   - component: {fileID: 9030450004767739382}
   - component: {fileID: 7946823939767200823}
   - component: {fileID: 6477499633792098922}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigPelvis
   m_TagString: EnemyBody
   m_Icon: {fileID: 0}
@@ -2173,7 +2173,7 @@ GameObject:
   - component: {fileID: 57891867359109505}
   - component: {fileID: 7442665369804581135}
   - component: {fileID: 1797817701256943113}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2296,7 +2296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4610533673489882}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2328,6 +2328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4351617968082698}
+  - component: {fileID: -7105633285917707079}
   - component: {fileID: 39428396123731887}
   - component: {fileID: 4306525941300499825}
   - component: {fileID: 8500977470719864059}
@@ -2335,7 +2336,6 @@ GameObject:
   - component: {fileID: -7500695655927024378}
   - component: {fileID: 95529033363818966}
   - component: {fileID: -8792200980189431700}
-  - component: {fileID: -7105633285917707079}
   m_Layer: 6
   m_Name: Magantis Boss
   m_TagString: Untagged
@@ -2361,6 +2361,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7105633285917707079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360792595289854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creatureStateMachineData: {fileID: 11400000, guid: 32f32716a21bf084b9531d8120dcec0a, type: 2}
 --- !u!114 &39428396123731887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2479,7 +2492,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2b973b053fbebf843af68dfacb7b98e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2582,18 +2595,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-7105633285917707079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360792595289854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1381241010094120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,7 +2604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4357392979083828}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRibcage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2637,7 +2638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4098011815919388}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigJawL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2672,7 +2673,7 @@ GameObject:
   - component: {fileID: 3510974700477175093}
   - component: {fileID: 5916077845077717091}
   - component: {fileID: 1562644730746334554}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRBLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -2798,7 +2799,7 @@ GameObject:
   - component: {fileID: 7522392683866766516}
   - component: {fileID: 147632190349972880}
   - component: {fileID: 6348882996062532198}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2925,7 +2926,7 @@ GameObject:
   - component: {fileID: 616328285106089691}
   - component: {fileID: 7297321500034535859}
   - component: {fileID: 8345542546743279555}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLFLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3052,7 +3053,7 @@ GameObject:
   - component: {fileID: 1260885396160870162}
   - component: {fileID: 9046134238164279585}
   - component: {fileID: 768044787601949604}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLMLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3174,7 +3175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4479902867906376}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3206,7 +3207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4367744387611614}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3238,7 +3239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4053022309696120}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3274,7 +3275,7 @@ GameObject:
   - component: {fileID: 1760463822696147856}
   - component: {fileID: 370155419823396996}
   - component: {fileID: 265349085502646020}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRMLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3397,7 +3398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4839308125080120}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3429,7 +3430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771578826209918}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3465,7 +3466,7 @@ GameObject:
   - component: {fileID: 7241608660570080791}
   - component: {fileID: 5002977719001499693}
   - component: {fileID: 8823530048060306942}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLFLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3591,7 +3592,7 @@ GameObject:
   - component: {fileID: 3026075586884097304}
   - component: {fileID: 8970488381528995398}
   - component: {fileID: 4223659337691894486}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRFLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3713,7 +3714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4605948462419518}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigSpine1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -3745,7 +3746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4461538236732578}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3781,7 +3782,7 @@ GameObject:
   - component: {fileID: 796859821650953190}
   - component: {fileID: 8691252718356187981}
   - component: {fileID: 5593142531752557184}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3904,7 +3905,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4803818004981514}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3936,7 +3937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4745129929146872}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3967,7 +3968,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4658404583627612}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4003,7 +4004,7 @@ GameObject:
   - component: {fileID: 1621784881424179109}
   - component: {fileID: 723638958339966492}
   - component: {fileID: 3583246421859056231}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail3
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -4130,7 +4131,7 @@ GameObject:
   - component: {fileID: 514294649225303109}
   - component: {fileID: 6287251411963012723}
   - component: {fileID: 5601920219196906505}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLBLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -4257,7 +4258,7 @@ GameObject:
   - component: {fileID: 3589941718840205422}
   - component: {fileID: 8283879350654510737}
   - component: {fileID: 7464849170863351756}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4380,7 +4381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4513281697854698}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4412,7 +4413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4839824994547136}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4448,7 +4449,7 @@ GameObject:
   - component: {fileID: 7572166583782140462}
   - component: {fileID: 4203556355934583738}
   - component: {fileID: 5682349163765228582}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTail1
   m_TagString: EnemyTail
   m_Icon: {fileID: 0}
@@ -4575,7 +4576,7 @@ GameObject:
   - component: {fileID: 1827865771125837824}
   - component: {fileID: 1210095982729857907}
   - component: {fileID: 3235851897291063189}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLFLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -4698,7 +4699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780188402276036}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigSpine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4734,7 +4735,7 @@ GameObject:
   - component: {fileID: 4154215723529869848}
   - component: {fileID: 9174139742749216060}
   - component: {fileID: 753990419199021891}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigRBLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -4857,7 +4858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4296907676875768}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLB5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4889,7 +4890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4938115149665000}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4930,7 +4931,7 @@ GameObject:
   - component: {fileID: 6073974518978852372}
   - component: {fileID: 528704710556629957}
   - component: {fileID: 2427115519190398876}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigLBLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -5052,7 +5053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4668060256484780}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5084,7 +5085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853537422207414}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5116,7 +5117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4320435335345980}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5148,7 +5149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567851448382078}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesLT1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5184,7 +5185,7 @@ GameObject:
   - component: {fileID: 7743696614103107690}
   - component: {fileID: 1912831247531456186}
   - component: {fileID: 3583527502076082965}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: RigTentaclesRT3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5307,7 +5308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 183013069172925427}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: CreatureSpawnningPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5338,7 +5339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8539111505339077043}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: BulletCreatePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5369,7 +5370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3366154234912359339}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: BulletCreatePoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5402,7 +5403,7 @@ GameObject:
   - component: {fileID: 6343556010043841119}
   - component: {fileID: 3207972068934523520}
   - component: {fileID: 4329441539467314715}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Slime Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10214,7 +10215,7 @@ GameObject:
   - component: {fileID: 5122674936275621521}
   - component: {fileID: 3007741430967747885}
   - component: {fileID: 3262893593355079305}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Bug Spawn Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15130,7 +15131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379995299221349485, guid: 8965c49dac8c374419502af19104515f, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6288507178687217382, guid: 8965c49dac8c374419502af19104515f, type: 3}
       propertyPath: m_Name
@@ -15138,7 +15139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288507178687217382, guid: 8965c49dac8c374419502af19104515f, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8965c49dac8c374419502af19104515f, type: 3}
@@ -15162,13 +15163,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 706024010159207449, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6238665957208917480, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: m_Name
       value: Creature Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 6238665957208917480, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6335983828353980852, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: creature
@@ -15250,15 +15255,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3548000043634503297, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144925096594714, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144925587578943, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548692, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_AnchorMax.x
@@ -15270,7 +15275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548693, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Pivot.x
@@ -15362,7 +15367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
@@ -15386,13 +15391,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 706024010159207449, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6238665957208917480, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: m_Name
       value: Creature Weapon (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6238665957208917480, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6335983828353980852, guid: 90e2ebfd094850a4db5d80c0649e6088, type: 3}
       propertyPath: creature

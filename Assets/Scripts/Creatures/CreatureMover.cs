@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using FiniteStateMachine.States;
+using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using Utils;
 
@@ -51,10 +51,10 @@ namespace Creatures {
             this.pathToFollow = pathToFollow;
         }
 
-        protected virtual void Update() {
-            if (IsBusy || Creature.CurrentState == StateType.Dead) return;
+        protected virtual void FixedUpdate() {
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Dead) return;
 
-            if (Creature.CurrentState == StateType.Attacking) {
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Attacking) {
                 RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
             }
         }
@@ -133,10 +133,10 @@ namespace Creatures {
         }
 
         protected void OnDestinationReached() {
-            if (Creature.CurrentState == StateType.FollowingPath && !HasReachedPathEnd) {
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.FollowingPath && !HasReachedPathEnd) {
                 ContinueToNextPathPoint();
             } else {
-                if (Creature.CurrentState == StateType.FollowingPath && Creature.TargetPoint != null) {
+                if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.FollowingPath && Creature.TargetPoint != null) {
                     HasReachedBaseAttackPoint = true;
                 }
 
@@ -146,7 +146,9 @@ namespace Creatures {
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
-            FulfillCurrentOrder();
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Idle) {
+                FulfillCurrentOrder();
+            }
         }
 
         public void OnDeath() {

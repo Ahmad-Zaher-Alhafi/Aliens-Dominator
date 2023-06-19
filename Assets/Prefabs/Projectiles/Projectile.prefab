@@ -4915,7 +4915,7 @@ SphereCollider:
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &4196853162387957425
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4928,6 +4928,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -4944,7 +4945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8204567e6fff55a4d83349a1c671ffdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageCost: 15
+  DamageCost: 1
   WasShoot: 0
   IsUsed: 0
   audioSource: {fileID: 0}

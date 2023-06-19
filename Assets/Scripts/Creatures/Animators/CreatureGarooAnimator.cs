@@ -1,5 +1,5 @@
 ﻿using System;
-using FiniteStateMachine.States;
+using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +14,7 @@ namespace Creatures.Animators {
 
         protected override void Update() {
             base.Update();
-            if (Creature.CurrentState == StateType.Idle) {
+            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Idle) {
                 InterpolateFloatParameter(idleIndexParameter, idleAnimationIndex, ANIMATION_SWITCH_TIME);
             }
         }
