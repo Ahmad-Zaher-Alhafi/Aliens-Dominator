@@ -8,20 +8,19 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace FiniteStateMachine.CreatureStateMachine {
-    public class CreatureStateMachine : StateMachine<CreatureState, Creature> {
-        [SerializeField] private CreatureStateMachineData creatureStateMachineData;
-        public override CreatureState CurrentState { get; protected set; }
+    public class CreatureStateMachine : StateMachine<CreatureState, Creature, CreatureStateType> {
+        public override CreatureState PrimaryState { get; protected set; }
 
         public override void Init(Creature objectToAutomate, Enum initialState) {
             base.Init(objectToAutomate, initialState);
 
-            if (CurrentState.Type is CreatureStateType.None or CreatureStateType.Dead) {
-                CurrentState.Fulfil();
+            if (PrimaryState.Type is CreatureStateType.None or CreatureStateType.Dead) {
+                PrimaryState.Fulfil();
             }
         }
 
         protected override void CreateStates() {
-            foreach (CreatureStateMachineData.StateData stateData in creatureStateMachineData.statesData) {
+            foreach (CreatureStateMachineData.StateData stateData in StateMachineData.statesData) {
                 CreatureState state = stateData.originStateType switch {
                     CreatureStateType.None => new NoneState(ObjectToAutomate),
                     CreatureStateType.Idle => new IdleState(ObjectToAutomate),
@@ -37,16 +36,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
                 StatesTransitions.Add(state, new List<Transition<CreatureState, Creature>>());
                 States.Add(state.Type, state);
-            }
-        }
-
-        protected override void LinkStatesWithTransitions() {
-            foreach (CreatureStateMachineData.StateData stateData in creatureStateMachineData.statesData) {
-                foreach (CreatureStateMachineData.StateData.TransitionData transitionData in stateData.transitionsData) {
-                    CreatureState originState = States[stateData.originStateType];
-                    CreatureState destinationState = States[transitionData.destinationStateType];
-                    StatesTransitions[originState].Add(new Transition<CreatureState, Creature>(originState, destinationState, transitionData.canInterrupts));
-                }
             }
         }
 
@@ -70,11 +59,11 @@ namespace FiniteStateMachine.CreatureStateMachine {
         }
 
         private void ForceState(CreatureStateType creatureStateType) {
-            CurrentState.Interrupt();
-            CurrentState = States[creatureStateType];
-            CurrentState.Activate();
+            PrimaryState.Interrupt();
+            PrimaryState = States[creatureStateType];
+            PrimaryState.Activate();
         }
-        
+
 #if UNITY_EDITOR
         [CustomEditor(typeof(CreatureStateMachine))]
         public class CreatureStateEditor : Editor {
@@ -90,7 +79,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Current State");
                 GUI.enabled = false;
-                EditorGUILayout.TextField(creatureStateMachine.CurrentState?.Type.ToString() ?? CreatureStateType.None.ToString());
+                EditorGUILayout.TextField(creatureStateMachine.PrimaryState?.Type.ToString() ?? CreatureStateType.None.ToString());
                 GUI.enabled = true;
                 EditorGUILayout.EndHorizontal();
 

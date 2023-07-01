@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d522de0b544c5faac74bab8b5c4c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creatureStateMachineData: {fileID: 11400000, guid: 32f32716a21bf084b9531d8120dcec0a, type: 2}
+  stateMachineData: {fileID: 11400000, guid: 32f32716a21bf084b9531d8120dcec0a, type: 2}
 --- !u!114 &-4609342481440302439
 MonoBehaviour:
   m_ObjectHideFlags: 0

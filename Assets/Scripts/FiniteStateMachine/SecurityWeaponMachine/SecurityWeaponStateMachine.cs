@@ -6,20 +6,19 @@ using UnityEditor;
 using UnityEngine;
 
 namespace FiniteStateMachine.SecurityWeaponMachine {
-    public class SecurityWeaponStateMachine : StateMachine<SecurityWeaponState, SecurityWeapon> {
-        [SerializeField] private SecurityWeaponStateMachineData securityWeaponStateMachineData;
-        public override SecurityWeaponState CurrentState { get; protected set; }
+    public class SecurityWeaponStateMachine : StateMachine<SecurityWeaponState, SecurityWeapon, SecurityWeaponStateType> {
+        public override SecurityWeaponState PrimaryState { get; protected set; }
 
         public override void Init(SecurityWeapon objectToAutomate, Enum initialState) {
             base.Init(objectToAutomate, initialState);
 
-            if (CurrentState.Type is SecurityWeaponStateType.Shutdown) {
-                CurrentState.Fulfil();
+            if (PrimaryState.Type is SecurityWeaponStateType.Shutdown) {
+                PrimaryState.Fulfil();
             }
         }
 
         protected override void CreateStates() {
-            foreach (SecurityWeaponStateMachineData.StateData stateData in securityWeaponStateMachineData.statesData) {
+            foreach (SecurityWeaponStateMachineData.StateData stateData in StateMachineData.statesData) {
                 SecurityWeaponState state = stateData.originStateType switch {
                     SecurityWeaponStateType.Shutdown => new ShutdownState(ObjectToAutomate),
                     SecurityWeaponStateType.Guarding => new GuardingState(ObjectToAutomate),
@@ -34,16 +33,6 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
             }
         }
 
-        protected override void LinkStatesWithTransitions() {
-            foreach (SecurityWeaponStateMachineData.StateData stateData in securityWeaponStateMachineData.statesData) {
-                foreach (SecurityWeaponStateMachineData.StateData.TransitionData transitionData in stateData.transitionsData) {
-                    SecurityWeaponState originState = States[stateData.originStateType];
-                    SecurityWeaponState destinationState = States[transitionData.destinationStateType];
-                    StatesTransitions[originState].Add(new Transition<SecurityWeaponState, SecurityWeapon>(originState, destinationState, transitionData.canInterrupts));
-                }
-            }
-        }
-
         protected override void Tick() {
             if (ObjectToAutomate.IsDestroyed) return;
             base.Tick();
@@ -51,12 +40,12 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
 
 
         private void ForceState(SecurityWeaponStateType creatureStateType) {
-            CurrentState.Interrupt();
-            CurrentState = States[creatureStateType];
-            CurrentState.Activate();
+            PrimaryState.Interrupt();
+            PrimaryState = States[creatureStateType];
+            PrimaryState.Activate();
         }
 
-        
+
 #if UNITY_EDITOR
         [CustomEditor(typeof(SecurityWeaponStateMachine))]
         public class SecurityWeaponStateEditor : Editor {
@@ -72,7 +61,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Current State");
                 GUI.enabled = false;
-                EditorGUILayout.TextField(securityWeaponStateMachine.CurrentState?.Type.ToString() ?? SecurityWeaponStateType.Shutdown.ToString());
+                EditorGUILayout.TextField(securityWeaponStateMachine.PrimaryState?.Type.ToString() ?? SecurityWeaponStateType.Shutdown.ToString());
                 GUI.enabled = true;
                 EditorGUILayout.EndHorizontal();
 

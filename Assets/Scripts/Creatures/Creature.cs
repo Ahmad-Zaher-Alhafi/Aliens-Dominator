@@ -15,7 +15,7 @@ namespace Creatures {
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
-        public Enum CurrentStateType => creatureStateMachine.CurrentState.Type;
+        public Enum CurrentStateType => creatureStateMachine.PrimaryState.Type;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }

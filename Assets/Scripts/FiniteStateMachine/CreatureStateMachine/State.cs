@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace FiniteStateMachine.CreatureStateMachine {
     public abstract class State<T> where T : IAutomatable {
@@ -6,6 +7,8 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         protected readonly T StateObject;
 
+        private List<State<T>> statesSyncedWith = new();
+        
         protected State(T stateObject) {
             StateObject = stateObject;
         }
@@ -32,6 +35,14 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public virtual void Tick() { }
 
         public abstract bool CanBeActivated();
+
+        public void SetStatesSyncedWith(List<State<T>> statesSyncedWith) {
+            this.statesSyncedWith = statesSyncedWith;
+        }
+        
+        public bool IsSyncedWith(State<T> state) {
+            return statesSyncedWith.Contains(state);
+        }
 
         protected virtual void Clear() {
             IsActive = false;

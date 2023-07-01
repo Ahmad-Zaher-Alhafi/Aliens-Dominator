@@ -16,7 +16,7 @@ namespace SecurityWeapons {
         public bool IsShooting;
         [HideInInspector]
         public bool HasToDefend;
-        public Enum CurrentStateType => securityWeaponStateMachine.CurrentState.Type;
+        public Enum CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
         [HideInInspector]
         public bool IsDestroyed;
 
