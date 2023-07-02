@@ -4,20 +4,21 @@ using UnityEditor;
 using UnityEngine;
 
 namespace ScriptableObjects {
-    public abstract class StateMachineData<T> : ScriptableObject where T : Enum {
+    public abstract class StateMachineData<TType> : ScriptableObject where TType : Enum {
         public List<StateData> statesData;
 
         [Serializable]
         public class StateData {
-            public T originStateType;
+            public TType originStateType;
             public List<TransitionData> transitionsData;
             [EnumFlags]
-            public T statesSyncedWith;
+            public TType statesSyncedWithMask;
+            [EnumFlags]
+            public TType interruptStatesMask;
 
             [Serializable]
             public class TransitionData {
-                public T destinationStateType;
-                public bool canInterrupts;
+                public TType destinationStateType;
             }
         }
     }

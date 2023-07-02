@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FiniteStateMachine.SecurityWeaponMachine {
     public class AimingState : SecurityWeaponState {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Aiming;
-        public override bool CanBeActivated() => StateObject.WeaponSensor.TargetToAimAt != null;
+        public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null;
 
         public AimingState(SecurityWeapon securityWeapon) : base(securityWeapon) { }
 
@@ -14,22 +14,22 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         }
 
         private void LookTowardsTarget() {
-            if (StateObject.WeaponSensor.TargetToAimAt == null) {
+            if (AutomatedObject.WeaponSensor.TargetToAimAt == null) {
                 Fulfil();
                 return;
             }
 
             // Get the current rotation of the object
-            Quaternion currentRotation = StateObject.transform.rotation;
+            Quaternion currentRotation = AutomatedObject.transform.rotation;
 
             // Get the target rotation
-            Vector3 targetDirection = StateObject.WeaponSensor.TargetToAimAt.GameObject.transform.position - StateObject.transform.position;
+            Vector3 targetDirection = AutomatedObject.WeaponSensor.TargetToAimAt.GameObject.transform.position - AutomatedObject.transform.position;
 
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
             if (Quaternion.Angle(currentRotation, targetRotation) > 1) {
                 // Smoothly rotate towards the target point
-                StateObject.transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, StateObject.AimingSpeed * Time.deltaTime);
+                AutomatedObject.transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, AutomatedObject.AimingSpeed * Time.deltaTime);
             } else {
                 Fulfil();
             }

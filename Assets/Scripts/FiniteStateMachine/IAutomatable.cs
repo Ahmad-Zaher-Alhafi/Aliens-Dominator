@@ -1,7 +1,7 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace FiniteStateMachine {
     public interface IAutomatable {
-        public Enum CurrentStateType { get; }
+        public GameObject GameObject { get; }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FiniteStateMachine.CreatureStateMachine {
     public class GettingHitState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.GettingHit;
-        public override bool CanBeActivated() => StateObject.Health > 0 && gotHit;
+        public override bool CanBeActivated() => AutomatedObject.Health > 0 && gotHit;
         protected override bool WaitForMoverToFulfill => false;
         protected override bool WaitForAnimatorToFulfill => true;
         
@@ -16,14 +16,14 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         public GettingHitState(Creature objectToState) : base(objectToState) { }
 
-        public override void Activate() {
-            base.Activate();
+        public override void Activate(bool isSecondaryState = false) {
+            base.Activate(isSecondaryState);
 
             int totalDamage = damager.Damage * damageWeight;
-            StateObject.Health -= totalDamage;
-            Debug.Log($"Creature {StateObject} took damage = {totalDamage} and current health = {StateObject.Health}");
+            AutomatedObject.Health -= totalDamage;
+            Debug.Log($"Creature {AutomatedObject} took damage = {totalDamage} and current health = {AutomatedObject.Health}");
 
-            StateObject.Animator.PlayGettingHitAnimation(OnAnimationFinished);
+            AutomatedObject.Animator.PlayGettingHitAnimation(OnAnimationFinished);
 
             Ctx.Deps.CreatureSpawnController.OnCreatureHit();
             

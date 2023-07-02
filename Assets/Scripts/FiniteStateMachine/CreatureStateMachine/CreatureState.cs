@@ -13,9 +13,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         Dead,
     }
 
-    public abstract class CreatureState : State<Creature> {
-        public abstract CreatureStateType Type { get; }
-
+    public abstract class CreatureState : State<Creature, CreatureStateType> {
         public virtual bool IsCinematic => false;
 
         public bool IsNextCinematicState;
@@ -28,8 +26,8 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         protected CreatureState(Creature creature) : base(creature) { }
 
-        public override void Activate() {
-            base.Activate();
+        public override void Activate(bool isSecondaryState = false) {
+            base.Activate(isSecondaryState);
             hasMoverOrderFinished = !WaitForMoverToFulfill;
             hasAnimationFinished = !WaitForAnimatorToFulfill;
         }
@@ -41,7 +39,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         public override void Interrupt() {
             base.Interrupt();
-            StateObject.Mover.TerminateCurrentOrder();
+            AutomatedObject.Mover.TerminateCurrentOrder();
         }
 
         protected void OnMoverOrderFulfilled() {

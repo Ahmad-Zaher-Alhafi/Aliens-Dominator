@@ -16,68 +16,61 @@ MonoBehaviour:
   - originStateType: 0
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 2
-      canInterrupts: 0
     - destinationStateType: 4
-      canInterrupts: 0
     - destinationStateType: 3
-      canInterrupts: 0
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
   - originStateType: 1
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 2
-      canInterrupts: 0
     - destinationStateType: 7
-      canInterrupts: 1
     - destinationStateType: 5
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
   - originStateType: 2
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 2
-      canInterrupts: 0
     - destinationStateType: 7
-      canInterrupts: 1
     - destinationStateType: 5
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
   - originStateType: 3
     transitionsData:
     - destinationStateType: 5
-      canInterrupts: 1
     - destinationStateType: 4
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
   - originStateType: 4
     transitionsData:
     - destinationStateType: 6
-      canInterrupts: 0
     - destinationStateType: 5
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 143
   - originStateType: 5
     transitionsData:
     - destinationStateType: 5
-      canInterrupts: 1
     - destinationStateType: 7
-      canInterrupts: 0
     - destinationStateType: 4
-      canInterrupts: 0
     - destinationStateType: 3
-      canInterrupts: 0
     - destinationStateType: 8
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 255
   - originStateType: 6
     transitionsData:
     - destinationStateType: 4
-      canInterrupts: 0
     - destinationStateType: 5
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 143
   - originStateType: 7
     transitionsData:
     - destinationStateType: 5
-      canInterrupts: 1
     - destinationStateType: 8
-      canInterrupts: 0
+    statesSyncedWithMask: 0
+    interruptStatesMask: 95
   - originStateType: 8
     transitionsData: []
+    statesSyncedWithMask: 0
+    interruptStatesMask: 255

@@ -84,11 +84,11 @@ namespace Creatures {
             return ContinueToNextPathPoint();
         }
 
-        public void ChaseTarget(Action informOrderFulfilled, Vector3 targetPosition) {
+        public void ChaseTarget(Action informOrderFulfilled, Transform target) {
             IsBusy = true;
             this.informOrderFulfilled = informOrderFulfilled;
             CurrentSpeed = runSpeed;
-            OrderToMoveTo(targetPosition);
+            OrderToMoveTo(target);
         }
 
         private PathPoint ContinueToNextPathPoint() {
@@ -103,7 +103,7 @@ namespace Creatures {
             return null;
         }
 
-        protected virtual void OrderToMoveTo(Vector3 position) {
+        protected virtual void OrderToMoveTo(Transform point) {
             HasMovingOrder = true;
         }
 

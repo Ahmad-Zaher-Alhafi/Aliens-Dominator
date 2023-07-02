@@ -47,26 +47,26 @@ namespace Creatures {
         public override void Patrol(Action informOrderFulfilled) {
             base.Patrol(informOrderFulfilled);
             Transform patrolPoint = MathUtils.GetRandomObjectFromList(Ctx.Deps.CreatureSpawnController.GroundCinematicEnemyPathPoints).transform;
-            OrderToMoveTo(patrolPoint.position);
+            OrderToMoveTo(patrolPoint);
         }
 
         public override void RunAway(Action informOrderFulfilled) {
             base.RunAway(informOrderFulfilled);
             Transform closestRunAwayPoint = FindClosestPoint(Ctx.Deps.CreatureSpawnController.RunningAwayPoints);
-            OrderToMoveTo(closestRunAwayPoint.position);
+            OrderToMoveTo(closestRunAwayPoint);
         }
 
         public override PathPoint FollowPath(Action informOrderFulfilled) {
             Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
             if (nextPathPoint == null) return null;
 
-            OrderToMoveTo(nextPathPoint.position);
+            OrderToMoveTo(nextPathPoint);
             return null;
         }
 
-        protected override void OrderToMoveTo(Vector3 position) {
-            base.OrderToMoveTo(position);
-            NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, navMeshPath);
+        protected override void OrderToMoveTo(Transform point) {
+            base.OrderToMoveTo(point);
+            NavMesh.CalculatePath(transform.position, point.position, NavMesh.AllAreas, navMeshPath);
             navMeshAgent.SetPath(navMeshPath);
         }
 

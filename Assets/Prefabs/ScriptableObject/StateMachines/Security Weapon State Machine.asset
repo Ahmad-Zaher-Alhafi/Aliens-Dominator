@@ -16,34 +16,32 @@ MonoBehaviour:
   - originStateType: 0
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 2
-      canInterrupts: 0
     - destinationStateType: 4
-      canInterrupts: 0
+    statesSyncedWithMask: 0
+    interruptStatesMask: 14
   - originStateType: 1
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 2
-      canInterrupts: 1
     - destinationStateType: 4
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
   - originStateType: 2
     transitionsData:
     - destinationStateType: 1
-      canInterrupts: 0
     - destinationStateType: 3
-      canInterrupts: 0
     - destinationStateType: 4
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 2
   - originStateType: 3
     transitionsData:
     - destinationStateType: 2
-      canInterrupts: 0
     - destinationStateType: 3
-      canInterrupts: 0
     - destinationStateType: 4
-      canInterrupts: 1
+    statesSyncedWithMask: 0
+    interruptStatesMask: 2
   - originStateType: 4
     transitionsData: []
+    statesSyncedWithMask: 0
+    interruptStatesMask: 15

@@ -10,8 +10,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         Destroyed,
     }
 
-    public abstract class SecurityWeaponState : State<SecurityWeapon> {
-        public abstract SecurityWeaponStateType Type { get; }
-        protected SecurityWeaponState(SecurityWeapon stateObject) : base(stateObject) { }
+    public abstract class SecurityWeaponState : State<SecurityWeapon, SecurityWeaponStateType> {
+        protected SecurityWeaponState(SecurityWeapon automatedObject) : base(automatedObject) { }
     }
 }

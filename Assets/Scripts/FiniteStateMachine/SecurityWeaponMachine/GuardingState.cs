@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace FiniteStateMachine.SecurityWeaponMachine {
     public class GuardingState : SecurityWeaponState {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Guarding;
-        public override bool CanBeActivated() => !isBusy && StateObject.WeaponSensor.TargetToAimAt == null;
+        public override bool CanBeActivated() => !isBusy && AutomatedObject.WeaponSensor.TargetToAimAt == null;
 
         private bool isBusy;
         private Vector3 targetPosition;
@@ -17,8 +17,8 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
             Guard();
         }
 
-        public override void Activate() {
-            base.Activate();
+        public override void Activate(bool isSecondaryState = false) {
+            base.Activate(isSecondaryState);
             targetPosition = GetRandomTargetPosition();
             isBusy = true;
         }
@@ -37,16 +37,16 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         private void Guard() {
 
             // Get the current rotation of the object
-            Quaternion currentRotation = StateObject.transform.rotation;
+            Quaternion currentRotation = AutomatedObject.transform.rotation;
 
             // Get the target rotation
-            Vector3 targetDirection = targetPosition - StateObject.transform.position;
+            Vector3 targetDirection = targetPosition - AutomatedObject.transform.position;
 
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
             if (Quaternion.Angle(currentRotation, targetRotation) > .2f) {
                 // Smoothly rotate towards the target point
-                StateObject.transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, StateObject.GuardingSpeed * Time.deltaTime);
+                AutomatedObject.transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, AutomatedObject.GuardingSpeed * Time.deltaTime);
             } else {
                 Fulfil();
             }
@@ -55,25 +55,25 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         private Vector3 GetRandomTargetPosition() {
             //-1 or 1 for negative or positive
             int direction = Random.Range(0, 2) * 2 - 1;
-            Vector3 xPosition = StateObject.transform.right * (Random.Range(StateObject.GuardingXRange.x, StateObject.GuardingXRange.y) * direction);
+            Vector3 xPosition = AutomatedObject.transform.right * (Random.Range(AutomatedObject.GuardingXRange.x, AutomatedObject.GuardingXRange.y) * direction);
 
             // Air security weapon can not look down
-            if (StateObject is AirSecurityWeapon) {
+            if (AutomatedObject is AirSecurityWeapon) {
                 direction = 1;
             } else {
                 direction = Random.Range(0, 2) * 2 - 1;
             }
 
-            Vector3 yPosition = StateObject.transform.up * (Random.Range(StateObject.GuardingYRange.x, StateObject.GuardingYRange.y) * direction);
+            Vector3 yPosition = AutomatedObject.transform.up * (Random.Range(AutomatedObject.GuardingYRange.x, AutomatedObject.GuardingYRange.y) * direction);
 
             // Air security weapon can rotate 360 on z axis
-            if (StateObject is AirSecurityWeapon) {
+            if (AutomatedObject is AirSecurityWeapon) {
                 direction = Random.Range(0, 2) * 2 - 1;
             } else {
                 direction = 1;
             }
 
-            Vector3 zPosition = StateObject.transform.forward * (100 * direction);
+            Vector3 zPosition = AutomatedObject.transform.forward * (100 * direction);
 
             return xPosition + yPosition + zPosition;
         }

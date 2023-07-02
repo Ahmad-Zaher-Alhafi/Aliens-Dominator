@@ -4,18 +4,18 @@ using UnityEngine;
 namespace FiniteStateMachine.SecurityWeaponMachine {
     public class ShootingState : SecurityWeaponState {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Shooting;
-        public override bool CanBeActivated() => StateObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate;
+        public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate;
 
-        private float FireRate => 1 / StateObject.BulletsPerSecond;
+        private float FireRate => 1 / AutomatedObject.BulletsPerSecond;
         private float lastTimeShot;
 
         public ShootingState(SecurityWeapon securityWeapon) : base(securityWeapon) { }
 
 
-        public override void Activate() {
-            base.Activate();
+        public override void Activate(bool isSecondaryState = false) {
+            base.Activate(isSecondaryState);
             lastTimeShot = Time.time;
-            StateObject.Shoot(StateObject.WeaponSensor.TargetToAimAt);
+            AutomatedObject.Shoot(AutomatedObject.WeaponSensor.TargetToAimAt);
             Fulfil();
         }
     }

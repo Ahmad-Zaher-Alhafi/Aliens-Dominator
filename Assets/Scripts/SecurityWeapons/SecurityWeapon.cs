@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Context;
 using FiniteStateMachine;
-using FiniteStateMachine.CreatureStateMachine;
 using FiniteStateMachine.SecurityWeaponMachine;
 using ManagersAndControllers;
 using Projectiles;
@@ -16,6 +15,7 @@ namespace SecurityWeapons {
         public bool IsShooting;
         [HideInInspector]
         public bool HasToDefend;
+        public GameObject GameObject => gameObject;
         public Enum CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
         [HideInInspector]
         public bool IsDestroyed;
@@ -40,7 +40,7 @@ namespace SecurityWeapons {
         [SerializeField] private TextMeshProUGUI ammoStateText;
         [SerializeField] protected int maxBulletsNumber;
         [SerializeField] private Transform ammoStateCanves;
-        
+
         [SerializeField] private WeaponSensor weaponSensor;
         public WeaponSensor WeaponSensor => weaponSensor;
 
