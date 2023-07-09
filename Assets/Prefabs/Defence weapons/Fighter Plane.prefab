@@ -15078,7 +15078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5949094263690635765}
   - component: {fileID: 8921797642620062675}
-  - component: {fileID: 541102046754252789}
+  - component: {fileID: 1968061742312605515}
   m_Layer: 2
   m_Name: Security Sensor
   m_TagString: SecuritySensor
@@ -15114,7 +15114,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &541102046754252789
+--- !u!114 &1968061742312605515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15123,7 +15123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2362468976211023769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa72563e20d46d9ad877420a682fbba, type: 3}
+  m_Script: {fileID: 11500000, guid: c0e89bd064e7463c8188631456fcc722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensorRange: 150
@@ -16282,7 +16282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6771601484532986675}
   m_Layer: 9
-  m_Name: Fighter AirPlane
+  m_Name: Fighter Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16398,6 +16398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5339142272931065833}
+  - component: {fileID: 737129712005555352}
   - component: {fileID: 5743793896088468407}
   - component: {fileID: 1423992062661006230}
   m_Layer: 9
@@ -16429,6 +16430,19 @@ Transform:
   m_Father: {fileID: 6771601484532986675}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &737129712005555352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7919893160873747283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1223a4809e4d1fb4be9edc2e4d9e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineData: {fileID: 11400000, guid: e870ac6abf9313343adf28309adb75c4, type: 2}
 --- !u!114 &5743793896088468407
 MonoBehaviour:
   m_ObjectHideFlags: 0

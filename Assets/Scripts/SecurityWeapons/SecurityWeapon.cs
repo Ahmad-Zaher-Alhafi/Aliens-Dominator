@@ -17,9 +17,7 @@ namespace SecurityWeapons {
         public bool HasToDefend;
         public GameObject GameObject => gameObject;
         public Enum CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
-        [HideInInspector]
-        public bool IsDestroyed;
-
+        public bool IsDestroyed => weaponHealth <= 0;
         [SerializeField] private float guardingSpeed;
         public float GuardingSpeed => guardingSpeed;
 
@@ -48,7 +46,7 @@ namespace SecurityWeapons {
         [SerializeField] private GameObject updateWeaponFireRateImg;
         [SerializeField] private GameObject updateWeaponStrengthImg;
         [SerializeField] private int weaponLevel;
-        [SerializeField] private float weaponHealth;
+        [SerializeField] private float weaponHealth = 200;
         [SerializeField] private Slider weaponHealthBar;
         [SerializeField] private float repairCost;
         //
@@ -129,7 +127,6 @@ namespace SecurityWeapons {
             if (weaponHealth <= 0) {
                 weaponHealthBar.normalizedValue = 0;
                 weaponHealth = 0;
-                IsDestroyed = true;
                 gameObject.SetActive(false);
                 Ctx.Deps.EventsManager.OnSecurityWeaponDestroy();
             }

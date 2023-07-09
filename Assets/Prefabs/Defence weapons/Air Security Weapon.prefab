@@ -499,7 +499,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsShooting: 0
   HasToDefend: 0
-  IsDestroyed: 0
   guardingSpeed: 0.8
   aimingSpeed: 15
   bulletsPerSecond: 0.33333334
@@ -515,7 +514,7 @@ MonoBehaviour:
   updateWeaponFireRateImg: {fileID: 0}
   updateWeaponStrengthImg: {fileID: 0}
   weaponLevel: 0
-  weaponHealth: 0
+  weaponHealth: 200
   weaponHealthBar: {fileID: 0}
   repairCost: 0
   audioSource: {fileID: 0}

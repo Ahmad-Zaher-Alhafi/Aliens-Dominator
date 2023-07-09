@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61bcb2242ef047568709ee23cebde535, type: 3}
-  m_Name: Creature State Machine Data
+  m_Name: Creature State Machine
   m_EditorClassIdentifier: 
   statesData:
   - originStateType: 0

@@ -30,11 +30,6 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
             }
         }
 
-        protected override void Tick() {
-            if (AutomatedObject.IsDestroyed) return;
-            base.Tick();
-        }
-
 #if UNITY_EDITOR
         [CustomEditor(typeof(SecurityWeaponStateMachine))]
         public class CreatureStateMachineEditor : StateMachineEditor<SecurityWeaponStateType> { }

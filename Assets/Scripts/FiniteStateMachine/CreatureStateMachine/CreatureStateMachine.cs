@@ -36,11 +36,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
             }
         }
 
-        protected override void Tick() {
-            if (AutomatedObject.IsDead) return;
-            base.Tick();
-        }
-
         /// <summary>
         /// Some states have a random chance activation, this function will decide randomly the next state that could be activated
         /// </summary>

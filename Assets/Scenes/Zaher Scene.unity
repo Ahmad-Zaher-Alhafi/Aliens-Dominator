@@ -87525,6 +87525,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 88979148883853345}
     - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: takeOffPoint
+      value: 
+      objectReference: {fileID: 88979148883853345}
+    - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: pointToLookAt
       value: 
       objectReference: {fileID: 88979150325071612}
@@ -87614,11 +87618,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: m_Name
-      value: Fighter AirPlane
+      value: Fighter Plane
       objectReference: {fileID: 0}
     - target: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df57a70065a818245890639027a7226f, type: 3}
@@ -87634,6 +87638,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1233670467}
     m_Modifications:
+    - target: {fileID: 8586219355482853064, guid: 9531caaa5f8ef3a41b3535f46a1f8ee0, type: 3}
+      propertyPath: m_Name
+      value: Take Off Point
+      objectReference: {fileID: 0}
     - target: {fileID: 8586219355860579049, guid: 9531caaa5f8ef3a41b3535f46a1f8ee0, type: 3}
       propertyPath: m_RootOrder
       value: 1

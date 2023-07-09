@@ -5,7 +5,7 @@ namespace SecurityWeapons {
     public class WeaponCommander : MonoBehaviour {
         [SerializeField] private SecurityWeapon weaponToComand;
         [Header("Only for fighter airplane")]
-        [SerializeField] private FighterAirPlane airplaneToComand;
+        [SerializeField] private FighterPlane airplaneToComand;
         [SerializeField] private bool isItWeaponChanger; //if it was the responsible of changeing the weapon that the airplane use
         [Header("For Weapon Changer Only")]
         [SerializeField] private TextMeshProUGUI weaponStateText;

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79ca2fd2b244bd987609700f44323a0, type: 3}
+  m_Name: Fighter Plane State Machine
+  m_EditorClassIdentifier: 
+  statesData:
+  - originStateType: 0
+    transitionsData:
+    - destinationStateType: 1
+    - destinationStateType: 6
+    statesSyncedWithMask: 0
+    interruptStatesMask: 0
+  - originStateType: 1
+    transitionsData:
+    - destinationStateType: 2
+    - destinationStateType: 3
+    - destinationStateType: 5
+    - destinationStateType: 6
+    statesSyncedWithMask: 24
+    interruptStatesMask: 32
+  - originStateType: 2
+    transitionsData:
+    - destinationStateType: 3
+    - destinationStateType: 5
+    - destinationStateType: 6
+    statesSyncedWithMask: 38
+    interruptStatesMask: 0
+  - originStateType: 3
+    transitionsData:
+    - destinationStateType: 2
+    - destinationStateType: 4
+    - destinationStateType: 5
+    - destinationStateType: 6
+    statesSyncedWithMask: 38
+    interruptStatesMask: 0
+  - originStateType: 4
+    transitionsData:
+    - destinationStateType: 3
+    - destinationStateType: 5
+    - destinationStateType: 6
+    statesSyncedWithMask: 38
+    interruptStatesMask: 0
+  - originStateType: 5
+    transitionsData:
+    - destinationStateType: 0
+    - destinationStateType: 6
+    statesSyncedWithMask: 24
+    interruptStatesMask: 6
+  - originStateType: 6
+    transitionsData:
+    - destinationStateType: 0
+    statesSyncedWithMask: 0
+    interruptStatesMask: 63

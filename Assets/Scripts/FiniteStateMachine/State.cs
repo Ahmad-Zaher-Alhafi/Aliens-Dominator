@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FiniteStateMachine.CreatureStateMachine {
+namespace FiniteStateMachine {
     public abstract class State<TAutomatable, TType> where TAutomatable : IAutomatable where TType : Enum {
         public abstract TType Type { get; }
 

@@ -1,22 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Context;
+using FiniteStateMachine;
+using FiniteStateMachine.FighterPlaneStateMachine;
 using Projectiles;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SecurityWeapons {
-    public class FighterAirPlane : MonoBehaviour {
-        [HideInInspector] public bool HasToDefend;
-        [HideInInspector] public bool IsShooting;
-        [HideInInspector] public bool HasToUseRockets; //true then use rockets, false then use bullets
+    public class FighterPlane : MonoBehaviour, IAutomatable {
+        public GameObject GameObject => gameObject;
+        public bool IsDestroyed => false;
+
+        public bool HasToTakeOff { get; private set; }
+        public bool IsShooting { get; private set; }
+        public bool HasToUseRockets { get; private set; } //true then use rockets, false then use bullets
+
+        [SerializeField] private Transform takeOffPoint;
+        /// <summary>
+        /// Point where the plane will go to while taking off
+        /// </summary>
+        public Transform TakeOffPoint => takeOffPoint;
+        public float TakeOffSpeed => takeOffSpeed;
+        [SerializeField] private float takeOffSpeed;
 
         [SerializeField] private List<Transform> airPathPoint = new(); //air points which the creature has to follow
         [SerializeField] private float patrolSpeed; //speed of moveming between the airplane wayoints
         [SerializeField] private float animatingSpeed; //speed of going up and down in animating phase
-        [SerializeField] private float takeOffSpeed; //speed of taking off
         [SerializeField] private float smoothRotatingSpeed; //speed of rotating towards a point
         [SerializeField] private Transform pointToLookAt; //point to look at if there was no target to look at
         [SerializeField] private float secondsBetwennPatrols; //secnods to wait before going to next pathPoint
@@ -66,83 +77,17 @@ namespace SecurityWeapons {
         private Coroutine shootCoroutine;
         private IDamageable target;
         private Vector3 upAnimatingPoint; //up animating point where the airplane is gonna use it to animate up
+        private FighterPlaneStateMachine fighterPlaneStateMachine;
 
-        /*private void Start() {
-            isItTimeToShootAgain = true;
-            hasToPlayTakeOffSound = true;
-            hasToPlayLandSound = true;
-            initialPosition = transform.position;
-            initialRotation = transform.rotation;
-            isGoingBackToBase = false;
-            hasToLand = false;
-            isPatrolling = false;
-            hasToAnimate = false;
-            HasToDefend = false;
-            hadTakenOff = false;
-            airPointIndex = 0;
-            nextTargetPoint = airPathPoint[0];
-
-            playerPointToLookAt = GameObject.FindGameObjectWithTag(Constants.PlayerAttackPoint).transform;
-            currentBulletsNumber = maxBulletsNumber;
-            currentRocketsNumber = maxRocketsNumber;
-            UpdateAmmoStateText(false); //update bullets number text
-            UpdateAmmoStateText(true); //update rockets number text
-
-
-            for (int i = 0; i < airRockets.Count; i++) airRocketsReloadPoints.Add(new AirRocketsReloadPoint(airRockets[i].transform.parent.transform, airRockets[i].transform.localPosition));
-
-            Ctx.Deps.EventsManager.onTakingAmmo += ReloadWeapon;
-            Ctx.Deps.EventsManager.onLevelFinishs += GoBackToBase;
-            Ctx.Deps.EventsManager.onLevelFinishs += ShowUpdateImages;
-            Ctx.Deps.EventsManager.onLevelStarts += HideUpdateImages;
-
-            IsShooting = false;
-            HasToUseRockets = false;
-        }*/
-
-
-        /*private void Update() {
-            ammoStateCanves.LookAt(playerPointToLookAt);
-
-            if (HasToDefend) {
-                if (!hadTakenOff) {
-                    TakeOff();
-                } else if (!isPatrolling && !hasToLand) {
-                    isPatrolling = true;
-                    StartCoroutine(PatrollAround());
-                } else if (hasToAnimate) {
-                    Animate();
-                } else if (hasToLand) {
-                    Land();
-                }
-
-                if (!hasToLand) {
-                    if (target != null) //if there was a target to look at
-                        RotateToTheWantedAngle(target, true);
-                    else //look at a point in the scene if there was no target 
-                        RotateToTheWantedAngle(pointToLookAt, false);
-                }
-            }
-
-            if (HasToDefend && !audioSource.isPlaying) //this code needed to loop the sound manually because i'm using the PlayOneShot() function and this one does not loop the sound and i can not use Play() function because the clip sound is so low, so when we get good clip we can remove this code
-            {
-                hasToPlayTakeOffSound = true;
-                PlayTakeOffSound();
-            }
-        }*/
-
-        private void OnDestroy() {
-            Ctx.Deps.EventsManager.onTakingAmmo -= ReloadWeapon;
-            Ctx.Deps.EventsManager.onLevelFinishs -= GoBackToBase;
-            Ctx.Deps.EventsManager.onLevelFinishs -= ShowUpdateImages;
-            Ctx.Deps.EventsManager.onLevelStarts -= HideUpdateImages;
+        private void Awake() {
+            fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
+            fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
         }
 
         private void ShowUpdateImages() {
             weaponFixImg.SetActive(true);
             updateWeaponFireRateImg.SetActive(true);
             updateWeaponStrengthImg.SetActive(true);
-
         }
 
         private void HideUpdateImages() {
@@ -153,7 +98,7 @@ namespace SecurityWeapons {
 
         public void Defend() {
             PlayTakeOffSound();
-            HasToDefend = true;
+            HasToTakeOff = true;
 
             if (hasToLand) {
                 hasToLand = false;
@@ -164,11 +109,13 @@ namespace SecurityWeapons {
 
             airPointIndex = 0;
             nextTargetPoint = airPathPoint[0];
-            for (int i = 0; i < smokeParticles.Length; i++) smokeParticles[i].Play();
+            for (int i = 0; i < smokeParticles.Length; i++) {
+                smokeParticles[i].Play();
+            }
         }
 
         public IEnumerator PatrollAround() {
-            while (HasToDefend && !hasToLand && hadTakenOff)
+            while (HasToTakeOff && !hasToLand && hadTakenOff)
                 if (Mathf.Abs(Vector3.Distance(transform.position, nextTargetPoint.position)) <= .5f) //if the airplane has reached the nextTargetPoint point
                 {
                     if (isGoingBackToBase) {
@@ -234,8 +181,8 @@ namespace SecurityWeapons {
             else hadTakenOff = true;
         }
 
-        private void Animate() //to let the airplane move up and down in small movement
-        {
+        private void Animate() {
+            //to let the airplane move up and down in small movement
             if (Mathf.Abs(Vector3.Distance(transform.position, upAnimatingPoint)) <= .5f) //if the airplane has reached the nextTargetPoint point
                 nextAnimatingPoint = downAnimatingPoint;
             else if (Mathf.Abs(Vector3.Distance(transform.position, downAnimatingPoint)) <= .5f) nextAnimatingPoint = upAnimatingPoint;
@@ -243,8 +190,8 @@ namespace SecurityWeapons {
             transform.position = Vector3.Lerp(transform.position, nextAnimatingPoint, animatingSpeed * Time.deltaTime / Vector3.Distance(transform.position, nextAnimatingPoint)); //move the airplane to the nextAnimatingPoint
         }
 
-        public void GoBackToBase() //let the airplane get back to the point which is above the airplane base to prepare to land
-        {
+        public void GoBackToBase() {
+            //let the airplane get back to the point which is above the airplane base to prepare to land
             if (hadTakenOff) {
                 isGoingBackToBase = true;
                 nextTargetPoint = landingPoint;
@@ -254,14 +201,14 @@ namespace SecurityWeapons {
             }
         }
 
-        private void Land() //let the airplane get down to the base
-        {
+        private void Land() {
+            //let the airplane get down to the base
             if (Mathf.Abs(transform.position.y - initialPosition.y) >= .5f) {
                 transform.position += Vector3.down * takeOffSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.Slerp(transform.rotation, initialRotation, smoothRotatingSpeed / Quaternion.Angle(transform.rotation, initialRotation));
             } else {
                 PlayLandSound();
-                HasToDefend = false;
+                HasToTakeOff = false;
                 isPatrolling = false;
                 hasToLand = false;
                 hadTakenOff = false;
@@ -283,8 +230,8 @@ namespace SecurityWeapons {
             IsShooting = false;
         }
 
-        private IEnumerator Shoot(IDamageable target) //to creat projectiles and shoot them towards the target
-        {
+        private IEnumerator Shoot(IDamageable target) {
+            //to creat projectiles and shoot them towards the target
             while (IsShooting) {
                 if (!hasToLand && hadTakenOff) {
                     if (HasToUseRockets && isItTimeToShootAgain) {
@@ -329,8 +276,8 @@ namespace SecurityWeapons {
             isItTimeToShootAgain = true;
         }
 
-        private void ReloadWeapon(Constants.SuppliesTypes suppliesType, int ammoNumber) //to realod the waepon when the player takes ammo pack
-        {
+        private void ReloadWeapon(Constants.SuppliesTypes suppliesType, int ammoNumber) {
+            //to realod the waepon when the player takes ammo pack
             switch (suppliesType) {
                 case Constants.SuppliesTypes.RocketsAmmo: {
                     int counter = ammoNumber;
@@ -358,20 +305,20 @@ namespace SecurityWeapons {
             }
         }
 
-        public void UpdateDefendingState(bool defendState) //to start or stop defending
-        {
+        public void UpdateDefendingState(bool defendState) {
+            //to start or stop defending
             if (defendState) Defend();
             else GoBackToBase();
         }
 
-        public void SetWeaponToUse(bool hasToUseRockets) //to switch between rockets and bullets which the airplane use it to attack
-        {
+        public void SetWeaponToUse(bool hasToUseRockets) {
+            //to switch between rockets and bullets which the airplane use it to attack
             if (hasToUseRockets) HasToUseRockets = true;
             else HasToUseRockets = false;
         }
 
-        public void UpdateAmmoStateText(bool hasToUpdateRocketsNumber) //to change the ammo texts in the scene for thw weapon 
-        {
+        public void UpdateAmmoStateText(bool hasToUpdateRocketsNumber) {
+            //to change the ammo texts in the scene for thw weapon 
             if (!hasToUpdateRocketsNumber) bulletsAmmoStateText.text = currentBulletsNumber + "/" + maxBulletsNumber;
             else rocketsAmmoStateText.text = currentRocketsNumber + "/" + maxRocketsNumber;
         }

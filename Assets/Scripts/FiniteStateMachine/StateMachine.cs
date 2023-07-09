@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FiniteStateMachine.CreatureStateMachine;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
@@ -57,7 +56,9 @@ namespace FiniteStateMachine {
 
         private void Update() => Tick();
 
-        protected virtual void Tick() {
+        private void Tick() {
+            if (AutomatedObject.IsDestroyed) return;
+            
             foreach (TState state in States.Values) {
                 if (state.IsActive) {
                     state.Tick();
