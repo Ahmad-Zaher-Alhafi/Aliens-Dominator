@@ -58,7 +58,7 @@ namespace FiniteStateMachine {
 
         private void Tick() {
             if (AutomatedObject.IsDestroyed) return;
-            
+
             foreach (TState state in States.Values) {
                 if (state.IsActive) {
                     state.Tick();
@@ -113,6 +113,7 @@ namespace FiniteStateMachine {
         }
 
         private void ActivateAsSecondaryState(TState secondaryState) {
+            if (!secondaryState.CanBeActivated()) return;
             secondaryState.Activate();
         }
 
@@ -121,10 +122,11 @@ namespace FiniteStateMachine {
         }
 
         private void AssignSyncedWithStates() {
-            List<State<TAutomatable, TType>> statesSyncedWith = new();
             Array enumValues = Enum.GetValues(typeof(TType));
 
             foreach (StateMachineData<TType>.StateData stateData in stateMachineData.statesData) {
+                List<State<TAutomatable, TType>> statesSyncedWith = new();
+
                 for (int i = 0; i < enumValues.Length; i++) {
                     int layer = 1 << i;
                     if (((int) (object) stateData.statesSyncedWithMask & layer) == 0) continue;
@@ -138,9 +140,10 @@ namespace FiniteStateMachine {
         }
 
         private void AssignInterruptStates() {
+            Array enumValues = Enum.GetValues(typeof(TType));
+            
             foreach (StateMachineData<TType>.StateData stateData in stateMachineData.statesData) {
                 List<State<TAutomatable, TType>> interruptStates = new();
-                Array enumValues = Enum.GetValues(typeof(TType));
 
                 for (int i = 0; i < enumValues.Length; i++) {
                     int layer = 1 << i;
