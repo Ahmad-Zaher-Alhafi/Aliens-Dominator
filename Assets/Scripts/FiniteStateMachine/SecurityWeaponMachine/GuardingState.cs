@@ -55,7 +55,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         private Vector3 GetRandomTargetPosition() {
             //-1 or 1 for negative or positive
             int direction = Random.Range(0, 2) * 2 - 1;
-            Vector3 xPosition = AutomatedObject.transform.right * (Random.Range(AutomatedObject.GuardingXRange.x, AutomatedObject.GuardingXRange.y) * direction);
+            Vector3 xPosition = AutomatedObject.transform.right * (Random.Range(AutomatedObject.RotateXRange.x, AutomatedObject.RotateXRange.y) * direction);
 
             // Air security weapon can not look down
             if (AutomatedObject is AirSecurityWeapon) {
@@ -64,7 +64,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
                 direction = Random.Range(0, 2) * 2 - 1;
             }
 
-            Vector3 yPosition = AutomatedObject.transform.up * (Random.Range(AutomatedObject.GuardingYRange.x, AutomatedObject.GuardingYRange.y) * direction);
+            Vector3 yPosition = AutomatedObject.transform.up * (Random.Range(AutomatedObject.RotateYRange.x, AutomatedObject.RotateYRange.y) * direction);
 
             // Air security weapon can rotate 360 on z axis
             if (AutomatedObject is AirSecurityWeapon) {

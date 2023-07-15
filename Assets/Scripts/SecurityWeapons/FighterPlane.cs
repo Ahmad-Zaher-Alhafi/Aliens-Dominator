@@ -10,13 +10,18 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SecurityWeapons {
-    public class FighterPlane : MonoBehaviour, IAutomatable {
+    public class FighterPlane : MonoBehaviour, IAutomatable, IWeaponSpecification {
         public GameObject GameObject => gameObject;
         public bool IsDestroyed => false;
 
         public bool HasToTakeOff { get; private set; }
         public bool IsShooting { get; private set; }
         public bool HasToUseRockets { get; private set; } //true then use rockets, false then use bullets
+        [Header("Define the random target position that weapon will look at while guarding")]
+        [SerializeField] private Vector2 guardingXRange;
+        [SerializeField] private Vector2 guardingYRange;
+        public Vector3 RotateXRange => guardingXRange;
+        public Vector3 RotateYRange => guardingYRange;
 
         [SerializeField] private Transform takeOffPoint;
         /// <summary>

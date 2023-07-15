@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SecurityWeapons {
-    public abstract class SecurityWeapon<TEnemyType> : MonoBehaviour, IAutomatable where TEnemyType : IAutomatable {
+    public abstract class SecurityWeapon<TEnemyType> : MonoBehaviour, IWeaponSpecification, IAutomatable where TEnemyType : IAutomatable {
         [HideInInspector]
         public bool IsShooting;
         [HideInInspector]
@@ -32,8 +32,8 @@ namespace SecurityWeapons {
         [Header("Define the random target position that weapon will look at while guarding")]
         [SerializeField] private Vector2 guardingXRange;
         [SerializeField] private Vector2 guardingYRange;
-        public Vector2 GuardingXRange => guardingXRange;
-        public Vector2 GuardingYRange => guardingYRange;
+        public Vector3 RotateXRange => guardingXRange;
+        public Vector3 RotateYRange => guardingYRange;
 
         [SerializeField] private TextMeshProUGUI ammoStateText;
         [SerializeField] protected int maxBulletsNumber;
@@ -137,7 +137,5 @@ namespace SecurityWeapons {
             public AudioClip audioClip;
             public float volume;
         }
-
-
     }
 }

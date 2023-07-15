@@ -13,11 +13,11 @@ namespace SecurityWeapons {
         public IReadOnlyList<Creature> Targets;
 
         protected readonly List<IDamageable> targets = new();
-        protected SecurityWeapon<TEnemyType> securityWeapon;
+        protected IWeaponSpecification weaponSpecification;
         private RaycastHit[] raycastHits = new RaycastHit[10];
 
         private void Awake() {
-            securityWeapon = GetComponentInParent<SecurityWeapon<TEnemyType>>();
+            weaponSpecification = GetComponentInParent<IWeaponSpecification>();
         }
 
         private void Update() {
@@ -55,7 +55,7 @@ namespace SecurityWeapons {
             Vector3 targetDirection = target.transform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
-            return Quaternion.Angle(currentRotation, targetRotation) >= securityWeapon.GuardingYRange.x && Quaternion.Angle(currentRotation, targetRotation) <= securityWeapon.GuardingYRange.y;
+            return Quaternion.Angle(currentRotation, targetRotation) >= weaponSpecification.RotateXRange.x && Quaternion.Angle(currentRotation, targetRotation) <= weaponSpecification.RotateYRange.y;
 
         }
 
