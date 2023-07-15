@@ -6,7 +6,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Shooting;
         public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate;
 
-        private float FireRate => 1 / AutomatedObject.BulletsPerSecond;
+        private float FireRate => 1f / AutomatedObject.BulletsPerSecond;
         private float lastTimeShot;
 
         public ShootingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }

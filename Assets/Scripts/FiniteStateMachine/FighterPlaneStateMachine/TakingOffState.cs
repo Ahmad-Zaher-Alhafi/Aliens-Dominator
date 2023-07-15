@@ -8,19 +8,25 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
 
         public TakingOffState(FighterPlane fighterPlane) : base(fighterPlane) { }
 
+        public override void Activate(bool isSecondaryState = false) {
+            base.Activate(isSecondaryState);
+            AutomatedObject.HasLanded = false;
+            AutomatedObject.HasToTakeOff = false;
+            AutomatedObject.Activate();
+        }
+
         public override void Tick() {
             base.Tick();
             TakeOff();
         }
 
         private void TakeOff() {
-            var planePosition = AutomatedObject.transform.position;
-            if (Vector3.Distance(planePosition, AutomatedObject.TakeOffPoint.position) >= .5f) {
-                Vector3 targetPoint = AutomatedObject.TakeOffPoint.position - planePosition;
-                Vector3.MoveTowards(planePosition, targetPoint, AutomatedObject.TakeOffSpeed * Time.deltaTime);
-            } else {
-                Fulfil();
+            if (Vector3.Distance(AutomatedObject.transform.position, AutomatedObject.LandingPoint.position) >= .5f) {
+                AutomatedObject.transform.position = Vector3.MoveTowards(AutomatedObject.transform.position, AutomatedObject.LandingPoint.position, AutomatedObject.TakeOffSpeed * Time.deltaTime);
+                return;
             }
+
+            Fulfil();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
                     FighterPlaneStateType.Patrolling => new PatrollingState(AutomatedObject),
                     FighterPlaneStateType.Aiming => new AimingState(AutomatedObject),
                     FighterPlaneStateType.Shooting => new ShootingState(AutomatedObject),
-                    FighterPlaneStateType.Landing => new LandingState(AutomatedObject),
+                    FighterPlaneStateType.GoingBackToBase => new GoingBackToBaseState(AutomatedObject),
                     FighterPlaneStateType.Destroyed => new DestroyedState(AutomatedObject),
                     _ => throw new ArgumentOutOfRangeException()
                 };

@@ -29,10 +29,11 @@ MonoBehaviour:
     interruptStatesMask: 32
   - originStateType: 2
     transitionsData:
+    - destinationStateType: 2
     - destinationStateType: 3
     - destinationStateType: 5
     - destinationStateType: 6
-    statesSyncedWithMask: 38
+    statesSyncedWithMask: 0
     interruptStatesMask: 0
   - originStateType: 3
     transitionsData:

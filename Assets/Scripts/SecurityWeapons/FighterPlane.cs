@@ -1,22 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Creatures;
 using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
 using Projectiles;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SecurityWeapons {
     public class FighterPlane : MonoBehaviour, IAutomatable, IWeaponSpecification {
+        public FighterPlaneStateType CurrentStateType => fighterPlaneStateMachine.PrimaryState.Type;
         public GameObject GameObject => gameObject;
         public bool IsDestroyed => false;
 
-        public bool HasToTakeOff { get; private set; }
+        public bool HasToTakeOff { get; set; }
+        public bool HasToGoBack { get; private set; }
         public bool IsShooting { get; private set; }
-        public bool HasToUseRockets { get; private set; } //true then use rockets, false then use bullets
+
+        [SerializeField]
+        private bool hasToUseRockets;
+        public bool HasToUseRockets => hasToUseRockets;
+
         [Header("Define the random target position that weapon will look at while guarding")]
         [SerializeField] private Vector2 guardingXRange;
         [SerializeField] private Vector2 guardingYRange;
@@ -28,28 +36,53 @@ namespace SecurityWeapons {
         /// Point where the plane will go to while taking off
         /// </summary>
         public Transform TakeOffPoint => takeOffPoint;
+        [SerializeField] private Transform landingPoint;
+        /// <summary>
+        /// The point where the plane should go back to before it lands
+        /// </summary>
+        public Transform LandingPoint => landingPoint;
         public float TakeOffSpeed => takeOffSpeed;
         [SerializeField] private float takeOffSpeed;
 
-        [SerializeField] private List<Transform> airPathPoint = new(); //air points which the creature has to follow
-        [SerializeField] private float patrolSpeed; //speed of moveming between the airplane wayoints
-        [SerializeField] private float animatingSpeed; //speed of going up and down in animating phase
+        [SerializeField] private List<Transform> patrollingPoints = new();
+        public IReadOnlyList<Transform> PatrollingPoints => patrollingPoints;
+
+        [SerializeField] private float patrollingSpeed;
+        public float PatrollingSpeed => patrollingSpeed;
+
+        [SerializeField] private float rotateSpeed = 2;
+        public float RotateSpeed => rotateSpeed;
+
+        [SerializeField] private float aimingSpeed = 15;
+        public float AimingSpeed => aimingSpeed;
+
+        [SerializeField] private float bulletsPerSecond = 4;
+        public float BulletsPerSecond => bulletsPerSecond;
+
+        [SerializeField] private WeaponSensor<Creature> weaponSensor;
+        public WeaponSensor<Creature> WeaponSensor => weaponSensor;
+        public bool HasLanded { get; set; }
+
+        [SerializeField] private float animatingSpeed = 1; 
+        public float AnimatingSpeed => animatingSpeed;
+        
+        private readonly Dictionary<RocketsReloadPoint, Projectile> rockets = new();
+        
+        
         [SerializeField] private float smoothRotatingSpeed; //speed of rotating towards a point
         [SerializeField] private Transform pointToLookAt; //point to look at if there was no target to look at
         [SerializeField] private float secondsBetwennPatrols; //secnods to wait before going to next pathPoint
         [SerializeField] private float heightOnAnimation; //how much hight should the airplane should move aup and down on the y axis
-        [SerializeField] private Transform landingPoint; //the point where the airplane should back to it before it lands(this point is above the airplane base)
         [SerializeField] private GameObject airplaneRocketPrefab;
         [SerializeField] private List<Projectile> airRockets = new(); //rockets of the airplane
         [SerializeField] private int maxBulletsNumber;
         [SerializeField] private int maxRocketsNumber;
         [SerializeField] private Transform ammoStateCanves;
         [SerializeField] private GameObject projectilePrefab; //bullet to threw
-        [SerializeField] private Transform projectileCreatPoint; //bullet creat position
+        [FormerlySerializedAs("projectileCreatPoint")]
+        [SerializeField] private Transform projectileCreatePoint; //bullet creat position
         [SerializeField] private float secondsBetweenEachProjectile;
         [SerializeField] private float secondsBetweenEachRocket;
-        [FormerlySerializedAs("securitySensor")]
-        [SerializeField] private WeaponSensor<Creature> weaponSensor;
         [SerializeField] private float aimAccuracy; //the bigger the number the less the rotating accuracy which let the airplane shoot even before reaching the exact target angle(becasue the airplane shoot at the target after it rotates towads the target)
         [SerializeField] private TextMeshProUGUI rocketsAmmoStateText;
         [SerializeField] private TextMeshProUGUI bulletsAmmoStateText;
@@ -86,6 +119,10 @@ namespace SecurityWeapons {
         private FighterPlaneStateMachine fighterPlaneStateMachine;
 
         private void Awake() {
+            foreach (Projectile projectile in GetComponentsInChildren<Projectile>()) {
+                rockets.Add(new RocketsReloadPoint(projectile.transform.parent, projectile.transform.position), projectile);
+            }
+
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
         }
@@ -102,21 +139,21 @@ namespace SecurityWeapons {
             updateWeaponStrengthImg.SetActive(false);
         }
 
-        public void Defend() {
+        public void Activate() {
+            if (IsDestroyed) return;
+
             PlayTakeOffSound();
-            HasToTakeOff = true;
-
-            if (hasToLand) {
-                hasToLand = false;
-                hadTakenOff = false;
+            foreach (var particles in smokeParticles) {
+                particles.Play();
             }
+        }
 
-            isGoingBackToBase = false;
+        public void Deactivate() {
+            if (IsDestroyed) return;
 
-            airPointIndex = 0;
-            nextTargetPoint = airPathPoint[0];
-            for (int i = 0; i < smokeParticles.Length; i++) {
-                smokeParticles[i].Play();
+            PlayLandSound();
+            foreach (var particles in smokeParticles) {
+                particles.Stop();
             }
         }
 
@@ -129,11 +166,11 @@ namespace SecurityWeapons {
                         hasToLand = true;
                         break;
                     }
-                    if (airPointIndex + 1 < airPathPoint.Count) //if the next index is not out of range of the array
+                    if (airPointIndex + 1 < patrollingPoints.Count) //if the next index is not out of range of the array
                         airPointIndex++; //get the next point index
                     else airPointIndex = 0;
 
-                    nextTargetPoint = airPathPoint[airPointIndex];
+                    nextTargetPoint = patrollingPoints[airPointIndex];
 
                     upAnimatingPoint = transform.position + Vector3.up * heightOnAnimation; //set the upAnimatingPoint
                     downAnimatingPoint = transform.position + Vector3.down * heightOnAnimation; //set the downAnimatingPoint
@@ -143,57 +180,15 @@ namespace SecurityWeapons {
                     yield return new WaitForSeconds(secondsBetwennPatrols);
                     hasToAnimate = false; //to stop animating and keep moving to next pathPoint
                 } else {
-                    transform.position = Vector3.Lerp(transform.position, nextTargetPoint.position, patrolSpeed * Time.deltaTime / Vector3.Distance(transform.position, nextTargetPoint.position)); //move the airplane to the nextTargetPoint
+                    transform.position = Vector3.Lerp(transform.position, nextTargetPoint.position, patrollingSpeed * Time.deltaTime / Vector3.Distance(transform.position, nextTargetPoint.position)); //move the airplane to the nextTargetPoint
                     yield return new WaitForSeconds(.001f);
                 }
             isPatrolling = false;
         }
 
-        /// <summary>
-        ///     To let the airplane look towards the objectToLookAt
-        /// </summary>
-        /// <param name="objectToLookAt">the object that you want the airplane to look at while he is moving</param>
-        /// <param name="isItTarget">
-        ///     true if it is rotating towards a target (then it has to shoot after finishing rotating) else
-        ///     it's rotating towards some point(so it does not have to shoot after rotating)
-        /// </param>
-        private void RotateToTheWantedAngle(Transform objectToLookAt, bool isItTarget) {
-            Quaternion wantedAngle = transform.rotation;
-
-            if (HasToUseRockets && !isItTarget || !HasToUseRockets) //if it was using rockets and there were no target or if it was not using rockets(because using rockets does not need to look at the player because the air plane is gonna shoot all the target at once using multi rockets so no need to look at the targets)
-            {
-                //I'm doing that as a trick to get the wanted angle and after that i'm resetting the angle to it's old angle and that because we need to rotates the airplane smoothly and not suddenly which make it cooler
-                Quaternion oldAngle = transform.rotation; //save old angle
-                transform.LookAt(objectToLookAt); //look at the target
-                wantedAngle = transform.rotation; //get the wanted eural angle after he looked
-                transform.rotation = oldAngle; //reset the angle to the old angle 
-                transform.rotation = Quaternion.Lerp(transform.rotation, wantedAngle, smoothRotatingSpeed / Quaternion.Angle(transform.rotation, wantedAngle)); //rotate the airplane smoothly from old angle to the new one
-            }
-
-            if (isItTarget) {
-                if (HasToUseRockets && !IsShooting) {
-                    IsShooting = true;
-                    shootCoroutine = StartCoroutine(Shoot(target)); //give orders to airplane to rotate towards the target to shootCoroutine
-                } else if (!HasToUseRockets && !IsShooting && Quaternion.Angle(transform.rotation, wantedAngle) <= aimAccuracy) //if the airplane finished rotating to the correct angle wihch is the target angle
-                {
-                    IsShooting = true;
-                    shootCoroutine = StartCoroutine(Shoot(target)); //give orders to airplane to rotate towards the target to shootCoroutine
-                }
-            }
-        }
-
         private void TakeOff() {
             if (Mathf.Abs(transform.position.y - nextTargetPoint.position.y) >= .5f) transform.position += Vector3.up * takeOffSpeed * Time.deltaTime; //make the airplane moves upwards
             else hadTakenOff = true;
-        }
-
-        private void Animate() {
-            //to let the airplane move up and down in small movement
-            if (Mathf.Abs(Vector3.Distance(transform.position, upAnimatingPoint)) <= .5f) //if the airplane has reached the nextTargetPoint point
-                nextAnimatingPoint = downAnimatingPoint;
-            else if (Mathf.Abs(Vector3.Distance(transform.position, downAnimatingPoint)) <= .5f) nextAnimatingPoint = upAnimatingPoint;
-
-            transform.position = Vector3.Lerp(transform.position, nextAnimatingPoint, animatingSpeed * Time.deltaTime / Vector3.Distance(transform.position, nextAnimatingPoint)); //move the airplane to the nextAnimatingPoint
         }
 
         public void GoBackToBase() {
@@ -236,7 +231,39 @@ namespace SecurityWeapons {
             IsShooting = false;
         }
 
-        private IEnumerator Shoot(IDamageable target) {
+        public void Shoot(IDamageable target) {
+            if (HasToUseRockets) {
+                KeyValuePair<RocketsReloadPoint, Projectile> projectile = rockets.FirstOrDefault(pair => !pair.Key.isUed);
+                if (projectile.Value == null) return;
+
+                projectile.Key.isUed = true;
+                projectile.Value.FollowTarget(target);
+
+            } else {
+                GameObject projectile = Instantiate(projectilePrefab, projectileCreatePoint.position, projectilePrefab.transform.rotation);
+                projectile.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 200, ForceMode.Impulse);
+            }
+        }
+
+        public void Reload(int ammoNumber) {
+            foreach (RocketsReloadPoint rocketsReloadPoint in rockets.Keys) {
+                if (!rocketsReloadPoint.isUed) return;
+                if (ammoNumber <= 0) return;
+
+                ammoNumber--;
+
+                rocketsReloadPoint.isUed = false;
+
+                rockets[rocketsReloadPoint] = Instantiate(projectilePrefab, rocketsReloadPoint.Parent).GetComponent<Projectile>();
+                rockets[rocketsReloadPoint].transform.localScale = Vector3.one;
+                rockets[rocketsReloadPoint].transform.localEulerAngles = Vector3.zero;
+                rockets[rocketsReloadPoint].transform.position = rocketsReloadPoint.InitialPosition;
+            }
+
+            //UpdateAmmoStateText();
+        }
+
+        /*private IEnumerator Shoot(IDamageable target) {
             //to creat projectiles and shoot them towards the target
             while (IsShooting) {
                 if (!hasToLand && hadTakenOff) {
@@ -274,7 +301,7 @@ namespace SecurityWeapons {
                 }
                 yield return new WaitForSeconds(0.001f);
             }
-        }
+        }*/
 
         private IEnumerator WaitForShootingAgain() {
             isItTimeToShootAgain = false;
@@ -313,14 +340,14 @@ namespace SecurityWeapons {
 
         public void UpdateDefendingState(bool defendState) {
             //to start or stop defending
-            if (defendState) Defend();
+            if (defendState) Activate();
             else GoBackToBase();
         }
 
         public void SetWeaponToUse(bool hasToUseRockets) {
             //to switch between rockets and bullets which the airplane use it to attack
-            if (hasToUseRockets) HasToUseRockets = true;
-            else HasToUseRockets = false;
+            if (hasToUseRockets) this.hasToUseRockets = true;
+            else hasToUseRockets = false;
         }
 
         public void UpdateAmmoStateText(bool hasToUpdateRocketsNumber) {
@@ -363,5 +390,37 @@ namespace SecurityWeapons {
                 InitialLocalPosition = initialLocalPosition;
             }
         }
+
+        private class RocketsReloadPoint {
+            public bool isUed;
+            public readonly Vector3 InitialPosition;
+            public readonly Transform Parent;
+
+            public RocketsReloadPoint(Transform parent, Vector3 initialPosition) {
+                Parent = parent;
+                InitialPosition = initialPosition;
+            }
+        }
+
+
+#if UNITY_EDITOR
+        [CustomEditor(typeof(FighterPlane))]
+        public class FighterPlaneEditor : Editor {
+            public override void OnInspectorGUI() {
+                base.OnInspectorGUI();
+
+                FighterPlane fighterPlane = (FighterPlane) target;
+
+                // Activate the plane button
+                if (GUILayout.Button("Activate plane")) {
+                    if (Application.isPlaying) {
+                        fighterPlane.HasToTakeOff = true;
+                    } else {
+                        Debug.LogError("Works only in play mode!");
+                    }
+                }
+            }
+        }
+#endif
     }
 }

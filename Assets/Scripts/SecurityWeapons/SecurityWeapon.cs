@@ -21,7 +21,7 @@ namespace SecurityWeapons {
         [SerializeField] private float guardingSpeed;
         public float GuardingSpeed => guardingSpeed;
 
-        [SerializeField] private float aimingSpeed;
+        [SerializeField] private float aimingSpeed = 15;
         public float AimingSpeed => aimingSpeed;
 
         [SerializeField] private float bulletsPerSecond;

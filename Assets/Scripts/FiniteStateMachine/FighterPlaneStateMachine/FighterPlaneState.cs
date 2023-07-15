@@ -7,7 +7,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         Patrolling,
         Aiming,
         Shooting,
-        Landing,
+        GoingBackToBase,
         Destroyed,
     }
 

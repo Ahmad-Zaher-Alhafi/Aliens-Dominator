@@ -501,7 +501,7 @@ MonoBehaviour:
   HasToDefend: 0
   guardingSpeed: 0.8
   aimingSpeed: 15
-  bulletsPerSecond: 0.33333334
+  bulletsPerSecond: 0.5
   projectilePrefab: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
   projectileCreatePoint: {fileID: 5519423600134972092}
   guardingXRange: {x: 100, y: 300}
