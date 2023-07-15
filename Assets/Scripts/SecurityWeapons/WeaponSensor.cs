@@ -55,7 +55,7 @@ namespace SecurityWeapons {
             Vector3 targetDirection = target.transform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
-            return Quaternion.Angle(currentRotation, targetRotation) >= weaponSpecification.RotateXRange.x && Quaternion.Angle(currentRotation, targetRotation) <= weaponSpecification.RotateYRange.y;
+            return Quaternion.Angle(currentRotation, targetRotation) >= weaponSpecification.RotateYRange.x && Quaternion.Angle(currentRotation, targetRotation) <= weaponSpecification.RotateYRange.y;
 
         }
 
