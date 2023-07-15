@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Creatures;
 using Projectiles;
 using UnityEngine;
 
 namespace SecurityWeapons {
-    public class AirSecurityWeapon : SecurityWeapon {
+    public class AirSecurityWeapon : SecurityWeapon<FlyingCreature> {
         private readonly Dictionary<RocketsReloadPoint, Projectile> rockets = new();
 
         protected override void Awake() {
@@ -28,9 +29,9 @@ namespace SecurityWeapons {
                 if (ammoNumber <= 0) return;
 
                 ammoNumber--;
-                
+
                 rocketsReloadPoint.isUed = false;
-                
+
                 rockets[rocketsReloadPoint] = Instantiate(projectilePrefab, rocketsReloadPoint.Parent).GetComponent<Projectile>();
                 rockets[rocketsReloadPoint].transform.localScale = Vector3.one;
                 rockets[rocketsReloadPoint].transform.localEulerAngles = Vector3.zero;

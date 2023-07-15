@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SecurityWeapons {
-    public abstract class SecurityWeapon : MonoBehaviour, IAutomatable {
+    public abstract class SecurityWeapon<TEnemyType> : MonoBehaviour, IAutomatable where TEnemyType : IAutomatable {
         [HideInInspector]
         public bool IsShooting;
         [HideInInspector]
@@ -39,8 +39,8 @@ namespace SecurityWeapons {
         [SerializeField] protected int maxBulletsNumber;
         [SerializeField] private Transform ammoStateCanves;
 
-        [SerializeField] private WeaponSensor weaponSensor;
-        public WeaponSensor WeaponSensor => weaponSensor;
+        [SerializeField] private WeaponSensor<TEnemyType> weaponSensor;
+        public WeaponSensor<TEnemyType> WeaponSensor => weaponSensor;
 
         [SerializeField] private GameObject weaponFixImg;
         [SerializeField] private GameObject updateWeaponFireRateImg;
@@ -74,10 +74,10 @@ namespace SecurityWeapons {
         private Quaternion originalEuralAngles; //the rotation which are we gonna use them to reset the weapon rotation
         private Transform playerPointToLookAt;
 
-        private SecurityWeaponStateMachine securityWeaponStateMachine;
+        private SecurityWeaponStateMachine<TEnemyType> securityWeaponStateMachine;
 
         protected virtual void Awake() {
-            securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine>();
+            securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
         }
 

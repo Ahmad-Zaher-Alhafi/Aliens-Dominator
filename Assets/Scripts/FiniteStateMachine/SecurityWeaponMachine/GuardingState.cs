@@ -3,14 +3,14 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace FiniteStateMachine.SecurityWeaponMachine {
-    public class GuardingState : SecurityWeaponState {
+    public class GuardingState<TEnemyType> : SecurityWeaponState<TEnemyType> where TEnemyType : IAutomatable {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Guarding;
         public override bool CanBeActivated() => !isBusy && AutomatedObject.WeaponSensor.TargetToAimAt == null;
 
         private bool isBusy;
         private Vector3 targetPosition;
 
-        public GuardingState(SecurityWeapon securityWeapon) : base(securityWeapon) { }
+        public GuardingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
 
         public override void Tick() {
             base.Tick();

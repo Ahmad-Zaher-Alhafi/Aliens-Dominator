@@ -1,5 +1,4 @@
-﻿using FiniteStateMachine.CreatureStateMachine;
-using SecurityWeapons;
+﻿using SecurityWeapons;
 
 namespace FiniteStateMachine.SecurityWeaponMachine {
     public enum SecurityWeaponStateType {
@@ -10,7 +9,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         Destroyed,
     }
 
-    public abstract class SecurityWeaponState : State<SecurityWeapon, SecurityWeaponStateType> {
-        protected SecurityWeaponState(SecurityWeapon automatedObject) : base(automatedObject) { }
+    public abstract class SecurityWeaponState<TEnemyType> : State<SecurityWeapon<TEnemyType>, SecurityWeaponStateType> where TEnemyType : IAutomatable {
+        protected SecurityWeaponState(SecurityWeapon<TEnemyType> automatedObject) : base(automatedObject) { }
     }
 }

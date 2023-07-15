@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FiniteStateMachine.SecurityWeaponMachine;
 using ScriptableObjects;
 using SecurityWeapons;
 using UnityEditor;
@@ -34,8 +33,8 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         }
 
 #if UNITY_EDITOR
-        [CustomEditor(typeof(SecurityWeaponStateMachine))]
-        public class CreatureStateMachineEditor : StateMachineEditor<FighterPlaneStateType> { }
+        [CustomEditor(typeof(FighterPlaneStateMachine))]
+        public class FighterPlaneStateMachineEditor : StateMachineEditor<FighterPlaneStateType> { }
 #endif
     }
 }

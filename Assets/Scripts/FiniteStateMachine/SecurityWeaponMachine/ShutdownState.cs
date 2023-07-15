@@ -1,11 +1,10 @@
-﻿using FiniteStateMachine.CreatureStateMachine;
-using SecurityWeapons;
+﻿using SecurityWeapons;
 
 namespace FiniteStateMachine.SecurityWeaponMachine {
-    public class ShutdownState : SecurityWeaponState {
+    public class ShutdownState<TEnemyType> : SecurityWeaponState<TEnemyType> where TEnemyType : IAutomatable {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Shutdown;
         public override bool CanBeActivated() => true;
 
-        public ShutdownState(SecurityWeapon securityWeapon) : base(securityWeapon) { }
+        public ShutdownState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
     }
 }

@@ -1,9 +1,10 @@
+using Creatures;
 using TMPro;
 using UnityEngine;
 
 namespace SecurityWeapons {
     public class WeaponCommander : MonoBehaviour {
-        [SerializeField] private SecurityWeapon weaponToComand;
+        [SerializeField] private SecurityWeapon<Creature> weaponToComand;
         [Header("Only for fighter airplane")]
         [SerializeField] private FighterPlane airplaneToComand;
         [SerializeField] private bool isItWeaponChanger; //if it was the responsible of changeing the weapon that the airplane use

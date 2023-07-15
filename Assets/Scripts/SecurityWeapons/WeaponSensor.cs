@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 using Context;
 using Creatures;
+using FiniteStateMachine;
 using UnityEngine;
+using Utils;
 
 namespace SecurityWeapons {
-    public abstract class WeaponSensor : MonoBehaviour {
+    public abstract class WeaponSensor<TEnemyType> : MonoBehaviour where TEnemyType : IAutomatable {
         [SerializeField] private float sensorRange = 150;
         public IDamageable TargetToAimAt { get; protected set; }
 
         public IReadOnlyList<Creature> Targets;
 
         protected readonly List<IDamageable> targets = new();
-        protected SecurityWeapon securityWeapon;
+        protected SecurityWeapon<TEnemyType> securityWeapon;
         private RaycastHit[] raycastHits = new RaycastHit[10];
 
         private void Awake() {
-            securityWeapon = GetComponentInParent<SecurityWeapon>();
+            securityWeapon = GetComponentInParent<SecurityWeapon<TEnemyType>>();
         }
 
         private void Update() {
@@ -78,6 +80,33 @@ namespace SecurityWeapons {
                     ~LayerMask.GetMask("Ignore Raycast")) == 0) return true;
 
             return raycastHits[0].collider.gameObject.layer != LayerMask.NameToLayer("Enemy");
+        }
+        
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.layer != Constants.ENEMY_LAYER_ID) return;
+
+            Creature creature = other.GetComponentInParent<Creature>();
+
+            if (creature is not TEnemyType) return;
+
+            BodyPart bodyPart = MathUtils.GetRandomObjectFromList(creature.BodyParts);
+            if (targets.Contains(bodyPart)) return;
+
+            targets.Add(bodyPart);
+        }
+
+        private void OnTriggerExit(Collider other) {
+            if (other.gameObject.layer != Constants.ENEMY_LAYER_ID) return;
+
+            BodyPart bodyPart = other.GetComponent<BodyPart>();
+            if (bodyPart == null) return;
+
+            if (!targets.Contains(bodyPart)) return;
+
+            targets.Remove(bodyPart);
+            if (bodyPart == (BodyPart) TargetToAimAt) {
+                TargetToAimAt = null;
+            }
         }
     }
 }

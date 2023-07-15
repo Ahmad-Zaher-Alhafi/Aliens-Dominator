@@ -16455,13 +16455,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab57d18c903e2f4cacea4c219e02d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasToDefend: 0
-  IsShooting: 0
-  HasToUseRockets: 0
+  takeOffPoint: {fileID: 0}
+  takeOffSpeed: 5
   airPathPoint: []
   patrolSpeed: 7
   animatingSpeed: 1
-  takeOffSpeed: 5
   smoothRotatingSpeed: 1
   pointToLookAt: {fileID: 0}
   secondsBetwennPatrols: 5
@@ -16516,7 +16514,7 @@ MonoBehaviour:
   projectileCreatPoint: {fileID: 6591588923433466406}
   secondsBetweenEachProjectile: 0.5
   secondsBetweenEachRocket: 5
-  weaponSensor: {fileID: 0}
+  weaponSensor: {fileID: 1968061742312605515}
   aimAccuracy: 4
   rocketsAmmoStateText: {fileID: 8287151047405654124}
   bulletsAmmoStateText: {fileID: 7965462894665537839}

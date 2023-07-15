@@ -2,11 +2,11 @@
 using UnityEngine;
 
 namespace FiniteStateMachine.SecurityWeaponMachine {
-    public class AimingState : SecurityWeaponState {
+    public class AimingState<TEnemyType> : SecurityWeaponState<TEnemyType> where TEnemyType : IAutomatable {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Aiming;
         public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null;
 
-        public AimingState(SecurityWeapon securityWeapon) : base(securityWeapon) { }
+        public AimingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
 
         public override void Tick() {
             base.Tick();

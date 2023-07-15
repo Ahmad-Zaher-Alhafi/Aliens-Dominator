@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Creatures;
 using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
 using Projectiles;
@@ -43,7 +44,7 @@ namespace SecurityWeapons {
         [SerializeField] private float secondsBetweenEachProjectile;
         [SerializeField] private float secondsBetweenEachRocket;
         [FormerlySerializedAs("securitySensor")]
-        [SerializeField] private WeaponSensor weaponSensor;
+        [SerializeField] private WeaponSensor<Creature> weaponSensor;
         [SerializeField] private float aimAccuracy; //the bigger the number the less the rotating accuracy which let the airplane shoot even before reaching the exact target angle(becasue the airplane shoot at the target after it rotates towads the target)
         [SerializeField] private TextMeshProUGUI rocketsAmmoStateText;
         [SerializeField] private TextMeshProUGUI bulletsAmmoStateText;
