@@ -76822,7 +76822,7 @@ PrefabInstance:
       objectReference: {fileID: 145440974}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: waves.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: playerTargetPoint
@@ -76832,6 +76832,10 @@ PrefabInstance:
       propertyPath: waves.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: c8ce1fcd55df3b140ade2256fe68fca7, type: 2}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: attackPoints.Array.data[0]
       value: 

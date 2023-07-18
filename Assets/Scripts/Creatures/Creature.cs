@@ -144,7 +144,7 @@ namespace Creatures {
         }
 
         private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
-            Ctx.Deps.CreatureSpawnController.OnCreatureDeath(this);
+            Ctx.Deps.EventsManager.TriggerEnemyDied(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
             ReturnToPool();
             Debug.Log($"Creature {this} disappeared");

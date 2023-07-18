@@ -28,7 +28,7 @@ namespace ManagersAndControllers {
             if (instance == null) instance = this;
         }
         
-        private void OnWaveStarted() {
+        private void OnWaveStarted(int waveIndex) {
             PlayScreamSound();
         }
 

@@ -50,11 +50,14 @@ namespace ManagersAndControllers {
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
 
-        public bool HasWaveStarted { get; private set; }
-
-
         private readonly List<Creature> creatures = new();
+        private bool finishedSpawningCreatures = true;
+        public int WavesCount => waves.Count;
 
+        private void Awake() {
+            Ctx.Deps.EventsManager.EnemyDied += OnEnemyDied;
+            Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
+        }
 
         private void Start() {
             if (spawnCinematicCreatures) {
@@ -62,7 +65,13 @@ namespace ManagersAndControllers {
             }
         }
 
+        private void SpawnWaveCreatures(int waveIndex) {
+            StartCoroutine(SpawnWaveCreatures(waves[waveIndex]));
+        }
+
         private IEnumerator SpawnWaveCreatures(Wave wave) {
+            finishedSpawningCreatures = false;
+
             Dictionary<Creature, int> creaturesData = wave.WaveCreatures.Where(creature => creature.NumberToSpawn > 0)
                 .ToDictionary(prefab => prefab.CreaturePrefab, num => num.NumberToSpawn);
             List<Creature> waveCreaturesPrefabs = creaturesData.Keys.ToList();
@@ -81,6 +90,8 @@ namespace ManagersAndControllers {
 
                 yield return new WaitForSeconds(timeBetweenEachCreatureSpawn);
             }
+
+            finishedSpawningCreatures = true;
         }
 
         private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
@@ -101,7 +112,7 @@ namespace ManagersAndControllers {
         private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialCreatureState == CreatureStateType.None) {
-                initialCreatureState = HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
+                initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
             }
 
             creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState);
@@ -121,15 +132,23 @@ namespace ManagersAndControllers {
             return creatures.OfType<T>().ToList();
         }
 
-        public void OnCreatureDeath(Creature creature) {
+        private void OnEnemyDied(Creature creature) {
             creatures.Remove(creature);
+
+            if (!finishedSpawningCreatures) return;
+
+            if (creatures.Count(c => !c.IsCinematic) == 0) {
+                Ctx.Deps.EventsManager.TriggerWaveFinished();
+            }
         }
 
-        public void OnCreatureHit() {
-            if (HasWaveStarted) return;
-            HasWaveStarted = true;
-            Ctx.Deps.EventsManager.TriggerWaveStarted();
-            StartCoroutine(SpawnWaveCreatures(waves[0]));
+        private void OnWaveStarted(int waveIndex) {
+            SpawnWaveCreatures(waveIndex);
+        }
+
+        private void OnDestroy() {
+            Ctx.Deps.EventsManager.EnemyDied -= OnEnemyDied;
+            Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
         }
 
 #if UNITY_EDITOR
@@ -144,14 +163,6 @@ namespace ManagersAndControllers {
                     if (Application.isPlaying) {
                         Creature groundCreature = creatureSpawnController.waves[0].WaveCreatures[0].CreaturePrefab;
                         creatureSpawnController.SpawnCreature(groundCreature, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
-                    } else {
-                        Debug.LogError("Works only in play mode!");
-                    }
-                }
-                
-                if (GUILayout.Button("Start waves")) {
-                    if (Application.isPlaying) {
-                        creatureSpawnController.OnCreatureHit();
                     } else {
                         Debug.LogError("Works only in play mode!");
                     }

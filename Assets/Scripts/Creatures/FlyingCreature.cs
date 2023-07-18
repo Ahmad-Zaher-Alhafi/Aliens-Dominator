@@ -141,10 +141,6 @@ namespace Creatures {
         }*/
 
         private void OnDestroy() {
-            if (CompareTag(Constants.OnStartWaves)) {
-                Ctx.Deps.EventsManager.WaveStarted -= OrderToRunAway;
-            }
-
             if (IsItGroupMember && !IsItTheLeader) //if it was an air group member and not the leader
             {
                 Ctx.Deps.EventsManager.onAirLeaderPatrolling -= OrderToPatrol;
@@ -155,7 +151,7 @@ namespace Creatures {
 
         public void FindTarget() {
             bool isThereTarget = false;
-            
+
 
             if (!isThereTarget) //if all the security weapons were destroied
             {
@@ -376,14 +372,9 @@ namespace Creatures {
             else patrollingSpeed *= speedDivider;
         }
 
-        public void Attack() {
+        private void Attack() {
             isAttacking = true;
             hasFinishedAttacking = false;
-        }
-
-        public void OrderToRunAway() //to let the air cinematic creature run away when one of the cinematics enemies dies
-        {
-            hasToRunAway = true;
         }
 
         /*public void RunAway() {

@@ -21,7 +21,7 @@ namespace SecurityWeapons {
         }
 
         private void Update() {
-            if (!Ctx.Deps.CreatureSpawnController.HasWaveStarted) return;
+            if (!Ctx.Deps.GameController.HasWaveStarted) return;
 
             if (CanBeShot(TargetToAimAt)) return;
 

@@ -25,9 +25,9 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
             AutomatedObject.Animator.PlayGettingHitAnimation(OnAnimationFinished);
 
-            Ctx.Deps.CreatureSpawnController.OnCreatureHit();
-            
             gotHit = false;
+            
+            Ctx.Deps.EventsManager.TriggerEnemyGotHit(AutomatedObject);
         }
 
         public void GotHit(IDamager damager, int damageWeight) {
