@@ -87,6 +87,7 @@ namespace Creatures {
             IsCinematic = isCinematic;
             HasToFollowPath = pathToFollow != null;
             HasToDisappear = false;
+            TargetReached = false;
 
             if (targetPoint is not null) {
                 TargetPoint = targetPoint;
