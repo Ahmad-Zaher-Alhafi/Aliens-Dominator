@@ -2,17 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Creatures;
 using Projectiles;
+using UnityEditor;
 using UnityEngine;
 
 namespace SecurityWeapons {
     public class AirSecurityWeapon : SecurityWeapon<FlyingCreature> {
+        [SerializeField]
+        private List<Transform> projectileCreatePoints;
         private readonly Dictionary<RocketsReloadPoint, Projectile> rockets = new();
 
         protected override void Awake() {
             base.Awake();
-            foreach (Projectile projectile in GetComponentsInChildren<Projectile>()) {
-                rockets.Add(new RocketsReloadPoint(projectile.transform.parent, projectile.transform.position), projectile);
+            Init();
+        }
+
+        private void Init() {
+            for (int i = 0; i < ammoNumberOnStart; i++) {
+                rockets.Add(new RocketsReloadPoint(projectileCreatePoints[i].parent, projectileCreatePoints[i].localPosition), null);
             }
+            Reload(ammoNumberOnStart);
         }
 
         public override void Shoot(IDamageable target) {
@@ -21,37 +29,42 @@ namespace SecurityWeapons {
 
             projectile.Key.isUed = true;
             projectile.Value.FollowTarget(target);
+            currentAmmoNumber--;
         }
 
-        public override void Reload(int ammoNumber) {
-            foreach (RocketsReloadPoint rocketsReloadPoint in rockets.Keys) {
-                if (!rocketsReloadPoint.isUed) return;
-                if (ammoNumber <= 0) return;
+        protected override void Reload(int ammoNumberToAdd) {
+            foreach (RocketsReloadPoint rocketsReloadPoint in rockets.Keys.ToList()) {
+                if (!rocketsReloadPoint.isUed) continue;
+                if (ammoNumberToAdd <= 0) break;
 
-                ammoNumber--;
+                ammoNumberToAdd--;
+                currentAmmoNumber++;
 
                 rocketsReloadPoint.isUed = false;
 
                 rockets[rocketsReloadPoint] = Instantiate(projectilePrefab, rocketsReloadPoint.Parent).GetComponent<Projectile>();
                 rockets[rocketsReloadPoint].transform.localScale = Vector3.one;
                 rockets[rocketsReloadPoint].transform.localEulerAngles = Vector3.zero;
-                rockets[rocketsReloadPoint].transform.position = rocketsReloadPoint.InitialPosition;
+                rockets[rocketsReloadPoint].transform.localPosition = rocketsReloadPoint.InitialLocalPosition;
             }
-
-            UpdateAmmoStateText();
         }
 
 
         private class RocketsReloadPoint {
-            public bool isUed;
-            public readonly Vector3 InitialPosition;
+            public bool isUed = true;
+            public readonly Vector3 InitialLocalPosition;
             public readonly Transform Parent;
 
-            public RocketsReloadPoint(Transform parent, Vector3 initialPosition) {
+            public RocketsReloadPoint(Transform parent, Vector3 initialLocalPosition) {
                 Parent = parent;
-                InitialPosition = initialPosition;
+                InitialLocalPosition = initialLocalPosition;
             }
         }
-    }
 
+
+#if UNITY_EDITOR
+        [CustomEditor(typeof(AirSecurityWeapon))]
+        public class AirSecurityWeaponEditor : SecurityWeaponEditor { }
+#endif
+    }
 }

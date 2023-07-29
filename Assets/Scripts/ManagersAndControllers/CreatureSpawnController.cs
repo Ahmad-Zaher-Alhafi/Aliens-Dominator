@@ -154,21 +154,32 @@ namespace ManagersAndControllers {
         }
 
 #if UNITY_EDITOR
+        [Space, Header("Editor Stuff")]
+        [SerializeField, HideInInspector] private Creature testCreaturePrefab;
+
         [CustomEditor(typeof(CreatureSpawnController))]
         public class CreatureSpawnControllerEditor : Editor {
-            [SerializeField] private Creature testCreaturePrefab;
+            private SerializedProperty testCreaturePrefab;
+
+            private void OnEnable() {
+                testCreaturePrefab = serializedObject.FindProperty("testCreaturePrefab");
+            }
 
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
-                CreatureSpawnController creatureSpawnController = (CreatureSpawnController) target;
+                serializedObject.Update();
+                DrawDefaultInspector();
 
                 EditorGUILayout.Space();
 
-                testCreaturePrefab = (Creature) EditorGUILayout.ObjectField("Test creature prefab", testCreaturePrefab, typeof(Creature), allowSceneObjects: false);
+                EditorGUILayout.PropertyField(testCreaturePrefab, new GUIContent("Test creature prefab"));
+                serializedObject.ApplyModifiedProperties();
 
                 if (GUILayout.Button("Spawn Test Creature")) {
                     if (Application.isPlaying) {
-                        Creature creature = creatureSpawnController.SpawnCreature(testCreaturePrefab, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
+                        CreatureSpawnController creatureSpawnController = (CreatureSpawnController) target;
+
+                        Creature creature = creatureSpawnController.SpawnCreature((Creature) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
                         creature.tag = "TestCreature";
                         creature.name = "Test Creature";
                         creature.GetComponent<CreatureStateMachine>().enabled = false;

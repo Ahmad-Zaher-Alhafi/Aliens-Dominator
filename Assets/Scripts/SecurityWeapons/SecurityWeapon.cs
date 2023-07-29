@@ -6,6 +6,7 @@ using FiniteStateMachine.SecurityWeaponMachine;
 using ManagersAndControllers;
 using Projectiles;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,7 @@ namespace SecurityWeapons {
 
         [SerializeField] private TextMeshProUGUI ammoStateText;
         [SerializeField] protected int maxBulletsNumber;
+        [SerializeField] protected int ammoNumberOnStart;
         [SerializeField] private Transform ammoStateCanves;
 
         [SerializeField] private WeaponSensor<TEnemyType> weaponSensor;
@@ -63,7 +65,7 @@ namespace SecurityWeapons {
         [SerializeField] private GameObject airRocketPrefab;
 
 
-        protected int currentBulletsNumber;
+        protected int currentAmmoNumber;
         private Vector3 escortPoint; //point where the weapon is gonna look towards
         private GameController gameController;
         private bool hasToLookAtTheTarget; //if there is a target to shoot at
@@ -84,14 +86,20 @@ namespace SecurityWeapons {
             InitialEulerAngels = transform.eulerAngles;
         }
 
+        private void Update() {
+#if UNITY_EDITOR
+            EditorUpdate();
+#endif
+        }
+
 
         // To creat projectiles and shoot them towards the target
         public abstract void Shoot(IDamageable target);
 
-        public abstract void Reload(int ammoNumber);
+        protected abstract void Reload(int ammoNumberToAdd);
 
         public void UpdateAmmoStateText() {
-            ammoStateText.text = currentBulletsNumber + "/" + maxBulletsNumber;
+            ammoStateText.text = currentAmmoNumber + "/" + maxBulletsNumber;
         }
 
         private void PlayStartShootingSound() {
@@ -140,5 +148,44 @@ namespace SecurityWeapons {
             public AudioClip audioClip;
             public float volume;
         }
+
+
+#if UNITY_EDITOR
+        [Header("Editor stuff")]
+        [SerializeField, HideInInspector] private bool useInfiniteAmmo;
+        private void EditorUpdate() {
+            if (useInfiniteAmmo && currentAmmoNumber == 0) {
+                Reload(ammoNumberOnStart);
+            }
+        }
+
+
+        [CustomEditor(typeof(SecurityWeapon<>))]
+        public class SecurityWeaponEditor : Editor {
+            private SerializedProperty useInfiniteAmmo;
+
+            private void OnEnable() {
+                // Find the serialized property by name
+                useInfiniteAmmo = serializedObject.FindProperty("useInfiniteAmmo");
+            }
+
+            public override void OnInspectorGUI() {
+                base.OnInspectorGUI();
+                EditorGUILayout.Space();
+
+                // Update the serialized object
+                serializedObject.Update();
+
+                // Show the default inspector
+                DrawDefaultInspector();
+
+                // Show a checkbox using the serialized property
+                EditorGUILayout.PropertyField(useInfiniteAmmo, new GUIContent("Infinite ammo"));
+
+                // Apply the changes to the serialized object
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+#endif
     }
 }
