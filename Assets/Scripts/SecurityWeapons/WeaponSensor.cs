@@ -2,30 +2,51 @@ using System.Collections.Generic;
 using Context;
 using Creatures;
 using FiniteStateMachine;
+using UnityEditor;
 using UnityEngine;
-using Utils;
+using BodyPart = Creatures.BodyPart;
+using MathUtils = Utils.MathUtils;
 
 namespace SecurityWeapons {
     public abstract class WeaponSensor<TEnemyType> : MonoBehaviour where TEnemyType : IAutomatable {
         [SerializeField] private float sensorRange = 150;
-        public IDamageable TargetToAimAt { get; protected set; }
+        public IDamageable TargetToAimAt { get; private set; }
 
-        public IReadOnlyList<Creature> Targets;
+        private readonly List<IDamageable> targets = new();
+        private IWeaponSpecification weaponSpecification;
+        private readonly RaycastHit[] raycastHits = new RaycastHit[10];
+        private bool hasToDefend;
 
-        protected readonly List<IDamageable> targets = new();
-        protected IWeaponSpecification weaponSpecification;
-        private RaycastHit[] raycastHits = new RaycastHit[10];
+        /// <summary>
+        /// The transform.up as it was set in the editor before the sensor rotates
+        /// </summary>
+        private Vector3 initialUpVector;
+        /// <summary>
+        /// The transform.forward as it was set in the editor before the sensor rotates
+        /// </summary>
+        private Vector3 initialForwardVector;
+        /// <summary>
+        /// The transform.right as it was set in the editor before the sensor rotates
+        /// </summary>
+        private Vector3 initialRightVector;
 
         private void Awake() {
             weaponSpecification = GetComponentInParent<IWeaponSpecification>();
+            Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
+            initialUpVector = transform.up;
+            initialForwardVector = transform.forward;
+            initialRightVector = transform.right;
+        }
+
+        private void OnWaveStarted(int waveIndex) {
+            hasToDefend = true;
         }
 
         private void Update() {
-            if (!Ctx.Deps.GameController.HasWaveStarted) return;
+            if (!hasToDefend) return;
 
             if (CanBeShot(TargetToAimAt)) return;
 
-            TargetToAimAt = null;
             // Find new target if the current one is no longer shoot able
             FindNewTarget();
         }
@@ -44,23 +65,31 @@ namespace SecurityWeapons {
         }
 
         /// <summary>
-        /// True if the weapon angel does not exceed the angel between the weapon and the target
+        /// True if the required rotation does not exceed the rotation range of the weapon
         /// </summary>
         /// <returns></returns>
         private bool CanRotateTowards(GameObject target) {
-            // Get the current rotation of the object
-            Quaternion currentRotation = transform.rotation;
-
-            // Get the target rotation
+            // Get the target direction
             Vector3 targetDirection = target.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
-            return Quaternion.Angle(currentRotation, targetRotation) >= weaponSpecification.RotateYRange.x && Quaternion.Angle(currentRotation, targetRotation) <= weaponSpecification.RotateYRange.y;
+            // project the vectors onto the yz plane (to prevent the angel from getting affected by the change of the target position on x axis)
+            Vector3 fromX = Vector3.ProjectOnPlane(initialForwardVector, initialRightVector);
+            Vector3 toX = Vector3.ProjectOnPlane(targetDirection, initialRightVector);
+            float signedXAngel = Vector3.SignedAngle(fromX, toX, initialRightVector);
 
+            // project the vectors onto the xz plane (to prevent the angel from getting affected by the change of the target position on y axis)
+            Vector3 from = Vector3.ProjectOnPlane(initialForwardVector, initialUpVector);
+            Vector3 to = Vector3.ProjectOnPlane(targetDirection, initialUpVector);
+            float signedYAngel = Vector3.SignedAngle(from, to, initialUpVector);
+
+            // Check if the rotation does not exceed the rotation range of the weapon
+            return weaponSpecification.RotateOnXAxisRange.x <= signedXAngel && signedXAngel <= weaponSpecification.RotateOnXAxisRange.y &&
+                   weaponSpecification.RotateOnYAxisRange.x <= signedYAngel && signedYAngel <= weaponSpecification.RotateOnYAxisRange.y;
         }
 
         // Find new target to aim at
         private void FindNewTarget() {
+            TargetToAimAt = null;
             foreach (IDamageable target in targets) {
                 bool canBeShot = CanBeShot(target);
                 if (canBeShot) {
@@ -81,7 +110,7 @@ namespace SecurityWeapons {
 
             return raycastHits[0].collider.gameObject.layer != LayerMask.NameToLayer("Enemy");
         }
-        
+
         private void OnTriggerEnter(Collider other) {
             if (other.gameObject.layer != Constants.ENEMY_LAYER_ID) return;
 
@@ -104,9 +133,38 @@ namespace SecurityWeapons {
             if (!targets.Contains(bodyPart)) return;
 
             targets.Remove(bodyPart);
-            if (bodyPart == (BodyPart) TargetToAimAt) {
+            if (bodyPart == TargetToAimAt as BodyPart) {
                 TargetToAimAt = null;
             }
         }
+
+        private void OnDestroy() {
+            Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
+        }
+
+
+#if UNITY_EDITOR
+        [CustomEditor(typeof(WeaponSensor<>))]
+        public class WeaponSensorEditor : Editor {
+            private Creature testCreature;
+
+            public override void OnInspectorGUI() {
+                base.OnInspectorGUI();
+
+                WeaponSensor<TEnemyType> weaponSensor = (WeaponSensor<TEnemyType>) target;
+
+                // Use test target
+                if (GUILayout.Button("Use test target")) {
+                    if (Application.isPlaying) {
+                        weaponSensor.hasToDefend = true;
+                        testCreature ??= GameObject.FindGameObjectWithTag("TestCreature").GetComponent<Creature>();
+                        weaponSensor.TargetToAimAt = testCreature;
+                    } else {
+                        Debug.LogError("Works only in play mode!");
+                    }
+                }
+            }
+        }
+#endif
     }
 }

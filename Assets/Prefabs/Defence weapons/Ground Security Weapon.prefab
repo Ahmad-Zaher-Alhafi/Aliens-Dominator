@@ -344,7 +344,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149274130378010877}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -645,7 +645,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4978288515570775906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.9205049, z: -0, w: -0.3907311}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -655,7 +655,7 @@ Transform:
   - {fileID: 2149274130378010878}
   m_Father: {fileID: 7144631825962316977}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 226, z: 0}
 --- !u!114 &7702305597586085937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,13 +683,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsShooting: 0
   HasToDefend: 0
-  guardingSpeed: 0.8
+  guardingSpeed: 10
   aimingSpeed: 15
   bulletsPerSecond: 5
   projectilePrefab: {fileID: 5943349952556042467, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
   projectileCreatePoint: {fileID: 1029521935}
-  guardingXRange: {x: 100, y: 300}
-  guardingYRange: {x: 0, y: 175}
+  rotateOnYAxisRange: {x: -65, y: 65}
+  rotateOnXAxisRange: {x: 0, y: 45}
   ammoStateText: {fileID: 2318433737040672894}
   maxBulletsNumber: 200
   ammoStateCanves: {fileID: 2664595134012710247}
@@ -1215,7 +1215,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7144631825962316979}
-  m_LocalRotation: {x: 0, y: 0.9205049, z: -0, w: -0.3907311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0

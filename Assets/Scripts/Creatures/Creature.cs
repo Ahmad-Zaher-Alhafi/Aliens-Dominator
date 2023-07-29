@@ -15,7 +15,7 @@ namespace Creatures {
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
-        public Enum CurrentStateType => creatureStateMachine.PrimaryState.Type;
+        public CreatureStateType CurrentStateType => creatureStateMachine.PrimaryState?.Type ?? default;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
@@ -54,7 +54,7 @@ namespace Creatures {
         [SerializeField] private int secondsToDestroyDeadBody = 10;
         public int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
 
-        public int InitialHealth { get; set; }
+        private int initialHealth;
         private AudioSource audioSource;
         public Rigidbody Rig { get; private set; }
         public CreatureAnimator Animator { get; private set; }
@@ -64,7 +64,7 @@ namespace Creatures {
         public bool IsCinematic { get; private set; }
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
-        public bool IsDead { get; set; }
+        public bool IsDead => CurrentStateType == CreatureStateType.Dead;
         public bool PathFinished { get; private set; }
         private CreatureStateMachine creatureStateMachine;
 
@@ -76,18 +76,18 @@ namespace Creatures {
             BodyParts = GetComponentsInChildren<BodyPart>();
             audioSource = GetComponent<AudioSource>();
 
-            InitialHealth = health;
+            initialHealth = health;
         }
 
         public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
             Rig.isKinematic = false;
             transform.position = spawnPosition;
             IsSlowedDown = false;
-            IsDead = false;
             IsCinematic = isCinematic;
             HasToFollowPath = pathToFollow != null;
             HasToDisappear = false;
             TargetReached = false;
+            Health = initialHealth;
 
             if (targetPoint is not null) {
                 TargetPoint = targetPoint;

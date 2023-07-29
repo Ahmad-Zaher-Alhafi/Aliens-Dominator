@@ -8,6 +8,7 @@ using Pool;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 using MathUtils = Utils.MathUtils;
 using Random = UnityEngine.Random;
@@ -94,7 +95,7 @@ namespace ManagersAndControllers {
             finishedSpawningCreatures = true;
         }
 
-        private void SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
+        private Creature SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
             SpawnPointPath pathToFollow;
             TargetPoint targetPoint;
 
@@ -106,10 +107,10 @@ namespace ManagersAndControllers {
                 targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
             }
 
-            SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState);
+            return SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState);
         }
 
-        private void SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {
+        private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialCreatureState == CreatureStateType.None) {
                 initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
@@ -117,6 +118,7 @@ namespace ManagersAndControllers {
 
             creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState);
             creatures.Add(creature);
+            return creature;
         }
 
         private void SpawnCinematicCreatures() {
@@ -154,15 +156,26 @@ namespace ManagersAndControllers {
 #if UNITY_EDITOR
         [CustomEditor(typeof(CreatureSpawnController))]
         public class CreatureSpawnControllerEditor : Editor {
+            [SerializeField] private Creature testCreaturePrefab;
+
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
                 CreatureSpawnController creatureSpawnController = (CreatureSpawnController) target;
 
                 EditorGUILayout.Space();
-                if (GUILayout.Button("Spawn Test Ground Creature")) {
+
+                testCreaturePrefab = (Creature) EditorGUILayout.ObjectField("Test creature prefab", testCreaturePrefab, typeof(Creature), allowSceneObjects: false);
+
+                if (GUILayout.Button("Spawn Test Creature")) {
                     if (Application.isPlaying) {
-                        Creature groundCreature = creatureSpawnController.waves[0].WaveCreatures[0].CreaturePrefab;
-                        creatureSpawnController.SpawnCreature(groundCreature, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
+                        Creature creature = creatureSpawnController.SpawnCreature(testCreaturePrefab, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
+                        creature.tag = "TestCreature";
+                        creature.name = "Test Creature";
+                        creature.GetComponent<CreatureStateMachine>().enabled = false;
+                        NavMeshAgent navMeshAgent = creature.GetComponent<NavMeshAgent>();
+                        if (navMeshAgent != null) {
+                            navMeshAgent.enabled = false;
+                        }
                     } else {
                         Debug.LogError("Works only in play mode!");
                     }

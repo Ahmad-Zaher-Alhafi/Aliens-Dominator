@@ -2,8 +2,9 @@
 
 namespace SecurityWeapons {
     public interface IWeaponSpecification {
-        Vector3 RotateXRange { get; }
-        Vector3 RotateYRange { get; }
+        Transform Transform { get; }
+        Vector3 RotateOnYAxisRange { get; }
+        Vector3 RotateOnXAxisRange { get; }
         float AimingSpeed { get; }
         float BulletsPerSecond { get; }
     }

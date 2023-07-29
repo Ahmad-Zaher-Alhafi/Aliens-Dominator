@@ -21,8 +21,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
         }
 
         private void Die() {
-            AutomatedObject.IsDead = true;
-
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(AutomatedObject.transform.position, AutomatedObject.ChanceOfDroppingBalloon);
 
             // Force to push the creature away once get killed (More realistic)
@@ -31,7 +29,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
             }
 
             AutomatedObject.PlayDeathSound();
-            AutomatedObject.Health = AutomatedObject.InitialHealth;
             AutomatedObject.OnDeath();
             Debug.Log($"Creature {AutomatedObject} is dead");
         }

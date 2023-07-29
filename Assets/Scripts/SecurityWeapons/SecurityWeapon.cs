@@ -16,6 +16,7 @@ namespace SecurityWeapons {
         [HideInInspector]
         public bool HasToDefend;
         public GameObject GameObject => gameObject;
+        public Transform Transform => transform;
         public Enum CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
         public bool IsDestroyed => weaponHealth <= 0;
         [SerializeField] private float guardingSpeed;
@@ -30,10 +31,11 @@ namespace SecurityWeapons {
         [SerializeField] protected Transform projectileCreatePoint; //bullet creat position
 
         [Header("Define the random target position that weapon will look at while guarding")]
-        [SerializeField] private Vector2 guardingXRange;
-        [SerializeField] private Vector2 guardingYRange;
-        public Vector3 RotateXRange => guardingXRange;
-        public Vector3 RotateYRange => guardingYRange;
+        [SerializeField] private Vector2 rotateOnYAxisRange;
+        [SerializeField] private Vector2 rotateOnXAxisRange;
+        public Vector3 RotateOnYAxisRange => rotateOnYAxisRange;
+        public Vector3 RotateOnXAxisRange => rotateOnXAxisRange;
+        public Vector3 InitialEulerAngels { get; private set; }
 
         [SerializeField] private TextMeshProUGUI ammoStateText;
         [SerializeField] protected int maxBulletsNumber;
@@ -79,6 +81,7 @@ namespace SecurityWeapons {
         protected virtual void Awake() {
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
+            InitialEulerAngels = transform.eulerAngles;
         }
 
 

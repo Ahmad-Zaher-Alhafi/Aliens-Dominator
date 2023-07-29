@@ -461,7 +461,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2772084413189351656}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.9205049, z: -0, w: -0.3907311}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -471,7 +471,7 @@ Transform:
   - {fileID: 5519423599643542843}
   m_Father: {fileID: 7935034431726217735}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 226, z: 0}
 --- !u!114 &501818008103459189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,13 +499,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsShooting: 0
   HasToDefend: 0
-  guardingSpeed: 0.8
+  guardingSpeed: 10
   aimingSpeed: 15
   bulletsPerSecond: 0.5
   projectilePrefab: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
   projectileCreatePoint: {fileID: 5519423600134972092}
-  guardingXRange: {x: 100, y: 300}
-  guardingYRange: {x: 0, y: 75}
+  rotateOnYAxisRange: {x: -180, y: 180}
+  rotateOnXAxisRange: {x: -35, y: 0}
   ammoStateText: {fileID: 0}
   maxBulletsNumber: 0
   ammoStateCanves: {fileID: 0}
@@ -1928,13 +1928,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2014,13 +2010,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2100,13 +2092,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2186,13 +2174,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2530,13 +2514,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2734,13 +2714,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -2820,13 +2796,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled
@@ -3078,13 +3050,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6812278478472683796, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7512363924210945437, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
       propertyPath: m_Enabled

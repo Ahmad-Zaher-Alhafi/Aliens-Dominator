@@ -15,6 +15,7 @@ namespace SecurityWeapons {
     public class FighterPlane : MonoBehaviour, IAutomatable, IWeaponSpecification {
         public FighterPlaneStateType CurrentStateType => fighterPlaneStateMachine.PrimaryState.Type;
         public GameObject GameObject => gameObject;
+        public Transform Transform => transform;
         public bool IsDestroyed => false;
 
         public bool HasToTakeOff { get; set; }
@@ -28,8 +29,8 @@ namespace SecurityWeapons {
         [Header("Define the random target position that weapon will look at while guarding")]
         [SerializeField] private Vector2 guardingXRange;
         [SerializeField] private Vector2 guardingYRange;
-        public Vector3 RotateXRange => guardingXRange;
-        public Vector3 RotateYRange => guardingYRange;
+        public Vector3 RotateOnYAxisRange => guardingXRange;
+        public Vector3 RotateOnXAxisRange => guardingYRange;
 
         [SerializeField] private Transform takeOffPoint;
         /// <summary>
@@ -62,13 +63,14 @@ namespace SecurityWeapons {
         [SerializeField] private WeaponSensor<Creature> weaponSensor;
         public WeaponSensor<Creature> WeaponSensor => weaponSensor;
         public bool HasLanded { get; set; }
+        public Vector3 InitialEulerAngels { get; private set; }
 
-        [SerializeField] private float animatingSpeed = 1; 
+        [SerializeField] private float animatingSpeed = 1;
         public float AnimatingSpeed => animatingSpeed;
-        
+
         private readonly Dictionary<RocketsReloadPoint, Projectile> rockets = new();
-        
-        
+
+
         [SerializeField] private float smoothRotatingSpeed; //speed of rotating towards a point
         [SerializeField] private Transform pointToLookAt; //point to look at if there was no target to look at
         [SerializeField] private float secondsBetwennPatrols; //secnods to wait before going to next pathPoint
@@ -119,6 +121,8 @@ namespace SecurityWeapons {
         private FighterPlaneStateMachine fighterPlaneStateMachine;
 
         private void Awake() {
+            InitialEulerAngels = transform.eulerAngles;
+
             foreach (Projectile projectile in GetComponentsInChildren<Projectile>()) {
                 rockets.Add(new RocketsReloadPoint(projectile.transform.parent, projectile.transform.position), projectile);
             }
