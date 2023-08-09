@@ -55,11 +55,12 @@ namespace Projectiles {
             base.Fire(target);
             wasLaunched = true;
             transform.parent = null;
-            AudioSource.PlayOneShot(rocketLaunchSound.AudioClip, rocketLaunchSound.Volume);
             this.target = target;
+            
             launchSmokeParticle = launchSmokeParticlePrefab.GetObject<RocketParticle>(transform);
             launchSmokeParticle.transform.position = launchSmokeParticlePoint.position;
             launchSmokeParticle.transform.rotation = launchSmokeParticlePoint.rotation;
+            launchSmokeParticle.PlaySound();
             launchSmokeParticle.ParticleSystem.Play();
         }
 
@@ -84,15 +85,16 @@ namespace Projectiles {
             launchSmokeParticle.transform.parent = null;
             launchSmokeParticle.HideOncePlayingFinished();
 
-            explosionParticle = explosionParticlePrefab.GetObject<RocketParticle>(null);
+            explosionParticle = explosionParticlePrefab.GetObject<RocketParticle>(transform);
             explosionParticle.transform.position = explosionParticlePoint.position;
             explosionParticle.transform.rotation = explosionParticlePoint.rotation;
+            explosionParticle.transform.parent = null;
             explosionParticle.ParticleSystem.Play();
+            explosionParticle.PlaySound();
             explosionParticle.HideOncePlayingFinished();
 
             collider.enabled = false;
             meshRenderer.enabled = false;
-            AudioSource.PlayOneShot(rocketExplosionSound.AudioClip, rocketExplosionSound.Volume);
             StopAllCoroutines();
             StartCoroutine(DestroyAfterTime(0));
         }

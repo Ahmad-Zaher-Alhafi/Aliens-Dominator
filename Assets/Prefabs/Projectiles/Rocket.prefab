@@ -4897,8 +4897,6 @@ GameObject:
   - component: {fileID: 7512363924210945437}
   - component: {fileID: 1149262158727332854}
   - component: {fileID: 7362764552057238124}
-  - component: {fileID: 313804188921120258}
-  - component: {fileID: 1662611114457784401}
   m_Layer: 2
   m_Name: Rocket
   m_TagString: Untagged
@@ -5008,8 +5006,8 @@ MonoBehaviour:
   launchSmokeParticlePoint: {fileID: 104055243184516066}
   explosionParticlePrefab: {fileID: -1718876641769188022, guid: c95c8eb38724cb14280de7de9cfe9597, type: 3}
   explosionParticlePoint: {fileID: 2899604198034687784}
-  rocketLaunchSound: {fileID: 313804188921120258}
-  rocketExplosionSound: {fileID: 1662611114457784401}
+  rocketLaunchSound: {fileID: 0}
+  rocketExplosionSound: {fileID: 0}
 --- !u!82 &7362764552057238124
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5106,34 +5104,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &313804188921120258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5140444623459532068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32297e081d149ca8639ecbb5c1f2b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 5d24470277a666442b9f35b460882fcb, type: 3}
-  volume: 0.2
---- !u!114 &1662611114457784401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5140444623459532068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32297e081d149ca8639ecbb5c1f2b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 4364552834c745a47a97c8503036c0a1, type: 3}
-  volume: 0.5
 --- !u!1 &6812278478472683796
 GameObject:
   m_ObjectHideFlags: 0
