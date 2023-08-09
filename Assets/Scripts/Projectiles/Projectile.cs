@@ -16,11 +16,12 @@ namespace Projectiles {
 
         protected AudioSource AudioSource;
         protected Rigidbody Rig;
-
+        private float initialSpeed;
 
         protected virtual void Awake() {
             AudioSource = GetComponent<AudioSource>();
             Rig = GetComponent<Rigidbody>();
+            initialSpeed = speed;
         }
 
         public virtual void InitDefaults(Vector3 initialLocalPosition) {
@@ -30,6 +31,7 @@ namespace Projectiles {
             if (Rig != null) {
                 Rig.velocity = Vector3.zero;
             }
+            speed = initialSpeed;
         }
 
         public virtual void Fire(IDamageable target) {
