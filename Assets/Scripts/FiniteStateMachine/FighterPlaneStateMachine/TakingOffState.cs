@@ -12,7 +12,6 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
             base.Activate(isSecondaryState);
             AutomatedObject.HasLanded = false;
             AutomatedObject.HasToTakeOff = false;
-            AutomatedObject.Activate();
         }
 
         public override void Tick() {

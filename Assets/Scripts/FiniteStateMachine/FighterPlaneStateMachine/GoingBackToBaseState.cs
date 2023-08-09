@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FiniteStateMachine.FighterPlaneStateMachine {
     public class GoingBackToBaseState : FighterPlaneState {
         public override FighterPlaneStateType Type => FighterPlaneStateType.GoingBackToBase;
-        public override bool CanBeActivated() => AutomatedObject.HasToGoBack;
+        public override bool CanBeActivated() => AutomatedObject.HasToGoBackToBase;
 
         /// <summary>
         /// It reached the landing point only if it has the almost the same x and z position of the landing point
@@ -38,6 +38,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override void Fulfil() {
             base.Fulfil();
             AutomatedObject.HasLanded = true;
+            AutomatedObject.HasToGoBackToBase = false;
         }
     }
 }

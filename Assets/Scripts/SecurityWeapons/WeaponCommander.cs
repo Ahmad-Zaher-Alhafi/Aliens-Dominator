@@ -33,10 +33,8 @@ namespace SecurityWeapons {
                 if (isItWeaponChanger) {
                     hasToUseRockets = !hasToUseRockets;
                     UpdateWeaponStateText();
-                    airplaneToComand.SetWeaponToUse(hasToUseRockets);
                 } else {
                     hasToDefend = !hasToDefend;
-                    airplaneToComand.UpdateDefendingState(hasToDefend);
                 }
             }
 

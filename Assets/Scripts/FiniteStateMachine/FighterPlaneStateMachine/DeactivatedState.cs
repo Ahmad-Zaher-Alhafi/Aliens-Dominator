@@ -9,7 +9,6 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
-            AutomatedObject.Deactivate();
             Fulfil();
         }
     }

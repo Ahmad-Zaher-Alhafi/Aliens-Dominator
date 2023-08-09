@@ -1,108 +1,56 @@
-using System;
 using System.Collections;
+using Pool;
 using UnityEngine;
 
 namespace Projectiles {
-    public class Projectile : MonoBehaviour, IDamager {
-        public bool HasPushingForce => false;
-        public int Damage => DamageCost;
-
+    public abstract class Projectile : PooledObject, IDamager {
+        [Header("Specifications")]
+        [SerializeField]
+        protected float speed = 5;
+        [SerializeField]
+        private int damageCost = 1;
+        public int Damage => damageCost;
+        public abstract bool HasPushingForce { get; }
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
 
-        public int DamageCost;
-        [HideInInspector]
-        public bool WasShoot;
-        [HideInInspector]
-        public bool IsUsed;
-        [SerializeField] private AudioSource audioSource;
-        public float speed;
-        [SerializeField] private float rotatingSpeed = 15;
-        [SerializeField] private Vector3 targetOffset;
-        [Header("Only for rockets")]
-        [SerializeField] private bool isItRocket;
-        [SerializeField] private ParticleSystem rocketSmokeParticle;
-        [SerializeField] private Sound rocketLaunch;
-        [SerializeField] private Sound rocketExplosion;
-        [SerializeField] private MeshRenderer rocketMeshRenderer;
-        private CapsuleCollider rocketCapsuleCollider;
+        protected AudioSource AudioSource;
+        protected Rigidbody Rig;
 
-        private IDamageable target;
-        private Vector3 wantedAngle, oldAngle; //wanted angle is the angle that the creature has to rotate to it to reach the wanted point, old angle is the current angle
 
-        private void Start() {
-            rocketCapsuleCollider = GetComponent<CapsuleCollider>();
-            IsUsed = false;
+        protected virtual void Awake() {
+            AudioSource = GetComponent<AudioSource>();
+            Rig = GetComponent<Rigidbody>();
         }
 
-        private void Update() {
-            if (target is null) return;
-
-            transform.position += transform.forward * speed * Time.deltaTime;
-            if (!target.IsDestroyed) {
-                RotateToTheWantedAngle(target.GameObject);
+        public virtual void InitDefaults(Vector3 initialLocalPosition) {
+            transform.localScale = Vector3.one;
+            transform.localEulerAngles = Vector3.zero;
+            transform.localPosition = initialLocalPosition;
+            if (Rig != null) {
+                Rig.velocity = Vector3.zero;
             }
-
-            rotatingSpeed += Time.deltaTime * 4;
-            speed += Time.deltaTime * 2;
         }
 
-        private void OnTriggerEnter(Collider other) {
-            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            if (damageable == null) return;
+        public virtual void Fire(IDamageable target) {
+            StartCoroutine(DestroyAfterTime(15));
+        }
 
-
-            if (isItRocket) {
-                if (rocketSmokeParticle != null) {
-                    rocketSmokeParticle.transform.parent = null;
-                }
-
-                rocketCapsuleCollider.enabled = false;
-                rocketMeshRenderer.enabled = false;
-                rocketSmokeParticle.GetComponent<DestroyAfterTime>().OrderToDestroy(rocketSmokeParticle.GetComponent<ParticleSystem>().main.startLifetime.constant);
-                audioSource.PlayOneShot(rocketExplosion.audioClip, rocketExplosion.volume);
-                StartCoroutine(DestroyAfterTime(3));
-            } else {
-                Destroy(gameObject);
+        /// <param name="createPoint">Use it if the projectile has to be created in a specific place like bullet,
+        /// On the other hand, Rockets do not need it as they have their own create points</param>
+        public void Fire(IDamageable target, Transform createPoint) {
+            if (createPoint != null) {
+                transform.position = createPoint.position;
+                transform.rotation = createPoint.rotation;
             }
 
+            Fire(target);
         }
 
         // To not let the projectile flying in the air for the rest of the game if it does not hit anything
-        private IEnumerator DestroyAfterTime(float secondsToDestroy) {
+        protected IEnumerator DestroyAfterTime(float secondsToDestroy) {
             yield return new WaitForSeconds(secondsToDestroy);
-            if (gameObject != null) {
-                Destroy(gameObject);
-            }
-        }
-
-        public void FollowTarget(IDamageable target) {
-            transform.parent = null;
-            WasShoot = true;
-            StartCoroutine(DestroyAfterTime(15));
-            audioSource.PlayOneShot(rocketLaunch.audioClip, rocketLaunch.volume);
-            this.target = target;
-            if (isItRocket) rocketSmokeParticle.Play();
-        }
-
-        /// <summary>
-        ///     To put the projectile in the right rotation
-        /// </summary>
-        /// <param name="objectToLookAt">the object that you want the projectile to look at while he is moving</param>
-        private void RotateToTheWantedAngle(GameObject objectToLookAt) {
-            if (objectToLookAt == null) return;
-
-            Vector3 targetDirection = objectToLookAt.transform.position - transform.position;
-
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime); //rotate the projectile smoothly from old angle to the new one
-        }
-
-        [Serializable]
-        private class Sound {
-            public AudioClip audioClip;
-            public float volume;
+            ReturnToPool();
         }
     }
 }

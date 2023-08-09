@@ -4,18 +4,10 @@ using UnityEngine;
 
 namespace SecurityWeapons {
     public class GroundSecurityWeapon : SecurityWeapon<GroundCreature> {
-        protected override void Awake() {
-            base.Awake();
-            Reload(ammoNumberOnStart);
-        }
-        public override void Shoot(IDamageable target) {
-            GameObject projectile = Instantiate(projectilePrefab, projectileCreatePoint.position, projectilePrefab.transform.rotation);
-            projectile.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 200, ForceMode.Impulse);
-            currentAmmoNumber--;
-        }
+        [SerializeField] private Transform projectileCreatePoint;
 
-        protected override void Reload(int ammoNumberToAdd) {
-            currentAmmoNumber = Mathf.Clamp(currentAmmoNumber + ammoNumberToAdd, 0, maxBulletsNumber);
+        public override void Shoot(IDamageable target) {
+            Magazine.GetProjectile().Fire(target, projectileCreatePoint);
         }
 
 

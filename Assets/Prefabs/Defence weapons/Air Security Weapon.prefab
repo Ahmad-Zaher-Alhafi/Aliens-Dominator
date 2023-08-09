@@ -34,7 +34,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.21}
   m_SizeDelta: {x: -20, y: -20.83}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -77647,6 +77647,7 @@ GameObject:
   - component: {fileID: 501818008103459189}
   - component: {fileID: 5595361726097724051}
   - component: {fileID: 9026428318939452632}
+  - component: {fileID: 1397264187273096799}
   m_Layer: 2
   m_Name: Weapon Parent
   m_TagString: SecurityWeapon
@@ -77697,38 +77698,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03fa7281fa84ed585e48be8fd15073d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsShooting: 0
-  HasToDefend: 0
+  weaponSensor: {fileID: 5519423599643542842}
+  rotateOnYAxisRange: {x: -360, y: 360}
+  rotateOnXAxisRange: {x: -35, y: 5}
+  weaponHealth: 200
   guardingSpeed: 10
   aimingSpeed: 15
-  bulletsPerSecond: 0.5
-  projectilePrefab: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
-  projectileCreatePoint: {fileID: 5519423600134972092}
-  rotateOnYAxisRange: {x: -180, y: 180}
-  rotateOnXAxisRange: {x: -35, y: 0}
-  ammoStateText: {fileID: 0}
-  maxBulletsNumber: 16
   ammoNumberOnStart: 16
-  ammoStateCanves: {fileID: 0}
-  weaponSensor: {fileID: 5519423599643542842}
-  weaponFixImg: {fileID: 0}
-  updateWeaponFireRateImg: {fileID: 0}
-  updateWeaponStrengthImg: {fileID: 0}
-  weaponLevel: 0
-  weaponHealth: 200
-  weaponHealthBar: {fileID: 0}
-  repairCost: 0
-  audioSource: {fileID: 0}
-  GroundGunStartShootingSound:
-    audioClip: {fileID: 0}
-    volume: 0
-  GroundGunStopShootingSound:
-    audioClip: {fileID: 0}
-    volume: 0
-  rotatingPart: {fileID: 0}
-  airRockets: []
-  airRocketPrefab: {fileID: 0}
-  projectileCreatePoints:
+  bulletsPerSecond: 0.5
+  useInfiniteAmmo: 1
+--- !u!65 &9026428318939452632
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772084413189351656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6645339, y: 1.6888841, z: 1.8649706}
+  m_Center: {x: -0.019954123, y: 0.7457987, z: -0.009238043}
+--- !u!114 &1397264187273096799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772084413189351656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95e926ff4824dffac4badfdc03c6495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilesNumberOnStart: 8
+  capacity: 16
+  rocketsCreatePoints:
   - {fileID: 6750177224903415048}
   - {fileID: 6750177226048676407}
   - {fileID: 6750177226773330605}
@@ -77745,19 +77751,7 @@ MonoBehaviour:
   - {fileID: 6750177225539461221}
   - {fileID: 6750177225600698980}
   - {fileID: 6750177226298430646}
---- !u!65 &9026428318939452632
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772084413189351656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6645339, y: 1.6888841, z: 1.8649706}
-  m_Center: {x: -0.019954123, y: 0.7457987, z: -0.009238043}
+  rocketPrefab: {fileID: 1149262158727332854, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
 --- !u!1 &3335034965246214114
 GameObject:
   m_ObjectHideFlags: 0
@@ -78709,7 +78703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6309438247781902741
 RectTransform:
   m_ObjectHideFlags: 0

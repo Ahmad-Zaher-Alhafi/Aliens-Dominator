@@ -39,7 +39,6 @@ namespace Projectiles {
                 DestroyParticles();
                 Destroy(gameObject);
             } else if (other.CompareTag(Constants.SecurityWeapon)) {
-                other.GetComponent<SecurityWeapon<Creature>>().TakeDamage(damageCost);
                 DestroyParticles();
                 Destroy(gameObject);
             } else if (other.gameObject.layer != Constants.ENEMY_LAYER_ID && other.gameObject.layer != Constants.IGNORE_RAYCAST_LAYER_ID && !other.CompareTag(Constants.SecuritySensor)) //to prevent the stinky ball from being destroied if hit a creature(prevent selt destruction)

@@ -1,4 +1,5 @@
-﻿using SecurityWeapons;
+﻿using Projectiles;
+using SecurityWeapons;
 using UnityEngine;
 
 namespace FiniteStateMachine.FighterPlaneStateMachine {
@@ -6,7 +7,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override FighterPlaneStateType Type => FighterPlaneStateType.Shooting;
         public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate;
 
-        private float FireRate => 1f / AutomatedObject.BulletsPerSecond;
+        private float FireRate => 1f / (AutomatedObject.HasToUseRockets ? AutomatedObject.RocketsPerSecond : AutomatedObject.BulletsPerSecond);
         private float lastTimeShot;
 
         public ShootingState(FighterPlane fighterPlane) : base(fighterPlane) { }
@@ -14,7 +15,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
             lastTimeShot = Time.time;
-            AutomatedObject.Shoot(AutomatedObject.WeaponSensor.TargetToAimAt);
+            AutomatedObject.Shoot(AutomatedObject.HasToUseRockets ? typeof(Rocket) : typeof(Bullet), AutomatedObject.WeaponSensor.TargetToAimAt);
             Fulfil();
         }
     }
