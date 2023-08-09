@@ -88,6 +88,7 @@ namespace Creatures {
             HasToDisappear = false;
             TargetReached = false;
             Health = initialHealth;
+            ObjectDamagedWith = null;
 
             if (targetPoint is not null) {
                 TargetPoint = targetPoint;
