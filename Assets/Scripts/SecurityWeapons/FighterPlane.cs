@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AmmoMagazines;
@@ -7,6 +8,7 @@ using Context;
 using Creatures;
 using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
+using Projectiles;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,10 +48,15 @@ namespace SecurityWeapons {
 
         [SerializeField] private Transform bulletCreatePoint;
 
-        public float BulletsPerSecond => bulletsPerSecond;
         [SerializeField] private float bulletsPerSecond = 4;
-        public float RocketsPerSecond => rocketsPerSecond;
+        public float BulletsPerSecond => bulletsPerSecond;
+        
         [SerializeField] private float rocketsPerSecond = .5f;
+        
+        [SerializeField] private bool useBursts;
+        [SerializeField] private int numOfRocketsInBurst;
+        [SerializeField] private float rocketsPerSecondInBurst;
+        [SerializeField] private float burstCoolDown = 1.5f;
 
 
         [Header("Flying Points")]
@@ -86,6 +93,33 @@ namespace SecurityWeapons {
         private FighterPlaneStateMachine fighterPlaneStateMachine;
         private List<Magazine> magazines = new();
 
+        private int numOfRocketsShotInBurst;
+        private bool isCoolingDown;
+
+        public float RocketsPerSecond {
+            get {
+                if (useBursts) {
+                    return rocketsPerSecondInBurst;
+                }
+
+                numOfRocketsShotInBurst = 0;
+                return rocketsPerSecond;
+            }
+        }
+
+        public float CoolDownTime {
+            get {
+                if (useBursts && numOfRocketsShotInBurst == numOfRocketsInBurst) {
+                    if (!isCoolingDown) {
+                        StartCoroutine(CoolDown());
+                    }
+                    return burstCoolDown;
+                }
+
+                return 0;
+            }
+        }
+
         private void Awake() {
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
@@ -100,6 +134,9 @@ namespace SecurityWeapons {
 
         public void Shoot(Type ammoType, IDamageable target) {
             magazines.Single(magazine => magazine.AmmoType == ammoType).GetProjectile()?.Fire(target, hasToUseRockets ? null : bulletCreatePoint);
+            if (ammoType == typeof(Rocket) && useBursts) {
+                numOfRocketsShotInBurst++;
+            }
         }
 
         private void Reload(Type ammoType, int ammoNumberToAdd) {
@@ -137,6 +174,13 @@ namespace SecurityWeapons {
             audioSource.PlayOneShot(landSound.AudioClip, landSound.Volume);
         }
 
+        private IEnumerator CoolDown() {
+            isCoolingDown = true;
+            yield return new WaitForSeconds(burstCoolDown);
+            numOfRocketsShotInBurst = 0;
+            isCoolingDown = false;
+        }
+
 
 #if UNITY_EDITOR
         [Header("Editor stuff")]
@@ -161,7 +205,7 @@ namespace SecurityWeapons {
         public class FighterPlaneEditor : Editor {
             private SerializedProperty activateOnStart;
             private SerializedProperty useInfiniteAmmo;
-            
+
             private void OnEnable() {
                 // Find the serialized property by name
                 activateOnStart = serializedObject.FindProperty("activateOnStart");

@@ -32,8 +32,10 @@ namespace SecurityWeapons {
         public float AimingSpeed => aimingSpeed;
 
         [Header("Shooting and ammo")]
-        [SerializeField] private float bulletsPerSecond;
-        public float BulletsPerSecond => bulletsPerSecond;
+        [SerializeField] protected float projectilesPerSecond = 1;
+        public virtual float ProjectilesPerSecond => projectilesPerSecond;
+        
+        public virtual float CoolDownTime => 0;
 
         protected Magazine Magazine;
         private SecurityWeaponStateMachine<TEnemyType> securityWeaponStateMachine;
@@ -83,9 +85,6 @@ namespace SecurityWeapons {
 
                 // Update the serialized object
                 serializedObject.Update();
-
-                // Show the default inspector
-                DrawDefaultInspector();
 
                 // Show a checkbox using the serialized property
                 EditorGUILayout.PropertyField(useInfiniteAmmo, new GUIContent("Infinite ammo"));

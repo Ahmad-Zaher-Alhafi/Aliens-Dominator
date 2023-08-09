@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FiniteStateMachine.FighterPlaneStateMachine {
     public class ShootingState : FighterPlaneState {
         public override FighterPlaneStateType Type => FighterPlaneStateType.Shooting;
-        public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate;
+        public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null && Time.time >= lastTimeShot + FireRate + AutomatedObject.CoolDownTime;
 
         private float FireRate => 1f / (AutomatedObject.HasToUseRockets ? AutomatedObject.RocketsPerSecond : AutomatedObject.BulletsPerSecond);
         private float lastTimeShot;
