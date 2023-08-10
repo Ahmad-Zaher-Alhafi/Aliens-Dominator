@@ -10,6 +10,7 @@ using MathUtils = Utils.MathUtils;
 namespace SecurityWeapons {
     public abstract class WeaponSensor<TEnemyType> : MonoBehaviour where TEnemyType : IAutomatable {
         [SerializeField] private float sensorRange = 150;
+        [SerializeField] private bool activateDebugging;
         public IDamageable TargetToAimAt { get; private set; }
 
         private readonly List<IDamageable> targets = new();
@@ -71,12 +72,31 @@ namespace SecurityWeapons {
         private bool CanRotateTowards(GameObject target) {
             // Get the target direction
             Vector3 targetDirection = target.transform.position - transform.position;
+            Vector3 targetForward = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
 
             // project the vectors onto the yz plane (to prevent the angel from getting affected by the change of the target position on x axis)
-            Vector3 fromX = Vector3.ProjectOnPlane(initialForwardVector, initialRightVector);
+            Vector3 fromX = Vector3.ProjectOnPlane(targetForward, initialRightVector);
             Vector3 toX = Vector3.ProjectOnPlane(targetDirection, initialRightVector);
-            float signedXAngel = Vector3.SignedAngle(fromX, toX, initialRightVector);
 
+            float signedXAngel = Vector3.SignedAngle(targetForward, targetDirection, initialRightVector);
+            float dotProduct = Vector3.Dot(targetDirection, initialForwardVector);
+
+            if (dotProduct < 0) {
+                // The target is behind the weapon, so negate the angle
+                // This is needed because the signed angel is being returned as positive when the target is behind the inital right vector
+                signedXAngel = -signedXAngel;
+            }
+
+            if (activateDebugging) {
+                Debug.LogWarning(signedXAngel);
+
+                Debug.DrawRay(transform.position, fromX * 1000, Color.black);
+                Debug.DrawRay(transform.position, toX * 1000, Color.white);
+                Debug.DrawRay(transform.position, targetDirection.normalized * dotProduct * 1000, Color.magenta);
+                Debug.DrawRay(transform.position, initialRightVector * 1000, Color.green);
+                Debug.DrawRay(transform.position, initialForwardVector * 1000, Color.blue);
+            }
+            
             // project the vectors onto the xz plane (to prevent the angel from getting affected by the change of the target position on y axis)
             Vector3 from = Vector3.ProjectOnPlane(initialForwardVector, initialUpVector);
             Vector3 to = Vector3.ProjectOnPlane(targetDirection, initialUpVector);

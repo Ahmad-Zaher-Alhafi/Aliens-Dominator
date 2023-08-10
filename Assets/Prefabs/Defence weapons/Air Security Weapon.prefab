@@ -5272,7 +5272,7 @@ GameObject:
   - component: {fileID: 5360783122981891470}
   - component: {fileID: 1965715059547334353}
   - component: {fileID: 5191800993323837689}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10097,7 +10097,7 @@ GameObject:
   - component: {fileID: 5360783122992476281}
   - component: {fileID: 1965715059534134054}
   - component: {fileID: 5191800993318761742}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19747,7 +19747,7 @@ GameObject:
   - component: {fileID: 5360783123236074407}
   - component: {fileID: 1965715059794508024}
   - component: {fileID: 5191800993042265808}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24572,7 +24572,7 @@ GameObject:
   - component: {fileID: 5360783123242979339}
   - component: {fileID: 1965715059783261012}
   - component: {fileID: 5191800993035474300}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29397,7 +29397,7 @@ GameObject:
   - component: {fileID: 5360783123288344608}
   - component: {fileID: 1965715059770917759}
   - component: {fileID: 5191800992947637591}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34222,7 +34222,7 @@ GameObject:
   - component: {fileID: 5360783123503227190}
   - component: {fileID: 1965715060061596265}
   - component: {fileID: 5191800992776676417}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48697,7 +48697,7 @@ GameObject:
   - component: {fileID: 5360783124027122904}
   - component: {fileID: 1965715060642901895}
   - component: {fileID: 5191800992209002927}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53522,7 +53522,7 @@ GameObject:
   - component: {fileID: 5360783124074663641}
   - component: {fileID: 1965715060565984646}
   - component: {fileID: 5191800992136022958}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: White Airplane Smoke Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77704,9 +77704,12 @@ MonoBehaviour:
   weaponHealth: 200
   guardingSpeed: 10
   aimingSpeed: 15
-  ammoNumberOnStart: 16
-  bulletsPerSecond: 0.5
+  projectilesPerSecond: 1
   useInfiniteAmmo: 1
+  useBursts: 0
+  numOfRocketsInBurst: 0
+  rocketsPerSecondInBurst: 0
+  burstCoolDown: 1.5
 --- !u!65 &9026428318939452632
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -78214,7 +78217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226037929355}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78278,7 +78281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226412477597}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78310,7 +78313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226298430646}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78342,7 +78345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226305091354}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78406,7 +78409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226582242500}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78438,7 +78441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177226584697139}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78630,7 +78633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177225600698980}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78662,7 +78665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750177225539461221}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Projectile Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79019,7 +79022,7 @@ GameObject:
   - component: {fileID: 5519423599643542843}
   - component: {fileID: 5519423599643542981}
   - component: {fileID: 5519423599643542842}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Weapon Sensor
   m_TagString: SecuritySensor
   m_Icon: {fileID: 0}
