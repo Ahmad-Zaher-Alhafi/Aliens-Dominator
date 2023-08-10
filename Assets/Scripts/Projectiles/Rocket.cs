@@ -1,5 +1,3 @@
-using System.Collections;
-using Audio;
 using UnityEngine;
 
 namespace Projectiles {
@@ -12,10 +10,6 @@ namespace Projectiles {
         [SerializeField] private Transform launchSmokeParticlePoint;
         [SerializeField] private RocketParticle explosionParticlePrefab;
         [SerializeField] private Transform explosionParticlePoint;
-
-        [Header("Audio files")]
-        [SerializeField] private Sound rocketLaunchSound;
-        [SerializeField] private Sound rocketExplosionSound;
 
         private new Collider collider;
         public override bool HasPushingForce => true;
@@ -37,6 +31,7 @@ namespace Projectiles {
             collider.enabled = true;
             meshRenderer.enabled = true;
             wasLaunched = false;
+            collider.enabled = false;
         }
 
         protected void Update() {
@@ -56,7 +51,8 @@ namespace Projectiles {
             wasLaunched = true;
             transform.parent = null;
             this.target = target;
-            
+            collider.enabled = true;
+
             launchSmokeParticle = launchSmokeParticlePrefab.GetObject<RocketParticle>(transform);
             launchSmokeParticle.transform.position = launchSmokeParticlePoint.position;
             launchSmokeParticle.transform.rotation = launchSmokeParticlePoint.rotation;
@@ -93,7 +89,6 @@ namespace Projectiles {
             explosionParticle.PlaySound();
             explosionParticle.HideOncePlayingFinished();
 
-            collider.enabled = false;
             meshRenderer.enabled = false;
             StopAllCoroutines();
             StartCoroutine(DestroyAfterTime(0));
