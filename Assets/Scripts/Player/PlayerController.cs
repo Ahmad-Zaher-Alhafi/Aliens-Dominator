@@ -1,4 +1,5 @@
 using Arrows;
+using FMODUnity;
 using UnityEngine;
 
 namespace Player {
@@ -14,13 +15,12 @@ namespace Player {
         [SerializeField] private Transform bow;
         [SerializeField] private float maxBowMovement = 0.4f;
 
-        [SerializeField] private AudioClip releaseSound;
-        [SerializeField] private AudioClip drawSound;
+        [SerializeField] private StudioEventEmitter releaseSound;
+        [SerializeField] private StudioEventEmitter drawSound;
         
         [SerializeField] private PlayerTeleportObject currentPlayerTeleportObject;
 
         private Arrow arrow;
-        private new AudioSource audio;
         private float draw;
         private Vector3 initialDrawPosition;
         private float initialYRotation;
@@ -29,10 +29,6 @@ namespace Player {
         public PlayerTeleportObject CurrentPlayerTeleportObject {
             get => currentPlayerTeleportObject;
             set => currentPlayerTeleportObject = value;
-        }
-
-        private void Awake() {
-            audio = GetComponent<AudioSource>();
         }
 
         private void Start() {
@@ -61,7 +57,7 @@ namespace Player {
                 if (arrow == null) {
                     arrow = defaultArrow.GetObject<DefaultArrow>(arrowSpawnPoint);
                     arrow.Init(arrowSpawnPoint);
-                    audio.PlayOneShot(drawSound);
+                    drawSound.Play();
                 }
 
                 draw = Mathf.Clamp(draw + Time.deltaTime, 0, 1);
@@ -78,7 +74,7 @@ namespace Player {
                 arrow.Release(draw);
                 arrow = null;
                 draw = 0;
-                audio.PlayOneShot(releaseSound);
+                releaseSound.Play();
             }
 
             // Reset the bow position if its not already reset

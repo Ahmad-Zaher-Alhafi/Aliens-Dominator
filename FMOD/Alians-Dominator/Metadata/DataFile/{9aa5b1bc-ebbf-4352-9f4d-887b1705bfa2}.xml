@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{9aa5b1bc-ebbf-4352-9f4d-887b1705bfa2}">
+		<property name="assetPath">
+			<value>Sound/alien_sounds/Serpent Death Sound.mp3.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c75f23a5-8c8b-4114-8a33-03ac63bb8f74}</destination>
+		</relationship>
+	</object>
+</objects>

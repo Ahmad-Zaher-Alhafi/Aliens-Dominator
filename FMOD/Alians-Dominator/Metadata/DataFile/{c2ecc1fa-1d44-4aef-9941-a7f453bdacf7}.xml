@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{c2ecc1fa-1d44-4aef-9941-a7f453bdacf7}">
+		<property name="assetPath">
+			<value>Music/Minstrel_Dance.mp3.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c75f23a5-8c8b-4114-8a33-03ac63bb8f74}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{6e00e3f2-f665-4cd4-99af-de24764f6a11}">
+		<property name="assetPath">
+			<value>Sound/Ground Security Weapon Stop Shooting.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c75f23a5-8c8b-4114-8a33-03ac63bb8f74}</destination>
+		</relationship>
+	</object>
+</objects>

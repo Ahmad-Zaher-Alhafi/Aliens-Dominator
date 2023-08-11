@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1b86730f-8fc3-494e-8f0c-4b818e35b30b}">
+		<property name="assetPath">
+			<value>Sound/alien_sounds/ES_Space Blast Sci Fi - SFX Producer.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6.9119999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c75f23a5-8c8b-4114-8a33-03ac63bb8f74}</destination>
+		</relationship>
+	</object>
+</objects>

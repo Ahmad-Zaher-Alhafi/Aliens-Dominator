@@ -94,9 +94,9 @@ GameObject:
   - component: {fileID: 5248556992477843343}
   - component: {fileID: -1795867759985544209}
   - component: {fileID: 4661949902064241916}
-  - component: {fileID: 8865632143552520356}
   - component: {fileID: 7658154178271482251}
   - component: {fileID: 8059447444177858186}
+  - component: {fileID: 243671901626287143}
   m_Layer: 7
   m_Name: SciFiArrow
   m_TagString: Arrow
@@ -244,102 +244,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!82 &8865632143552520356
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5123602584278176004}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243470941342873040, guid: fd729a94845ae2841b742f3286f27056, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &7658154178271482251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,12 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1600c152dc15440971046bb28815e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolRelatedTo: {fileID: 0}
   speed: 100
-  hitSounds:
-  - {fileID: 8300000, guid: 0e52e00aad74d3e49a2d81491e3627f4, type: 3}
-  releaseSound: {fileID: 8300000, guid: 19c0dd63a5d24c64fb5fed537a327292, type: 3}
-  knockingSound: {fileID: 8300000, guid: b2957a002a75e3b4fac15fdf2f630ee4, type: 3}
+  arrowHitSound: {fileID: 243671901626287143}
   damage: 1
   TimeToDestroyArrow: 5
   ChanceOfReceiving: 50
@@ -374,3 +274,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0048835636, y: 0.0049204356, z: 0.09676885}
   m_Center: {x: 0, y: 0, z: 0.044}
+--- !u!114 &243671901626287143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123602584278176004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1547938601
+      Data2: 1261129243
+      Data3: 159702407
+      Data4: 1736070791
+    Path: event:/Arrow/Arrow Hit
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

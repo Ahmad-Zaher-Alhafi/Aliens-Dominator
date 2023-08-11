@@ -1,22 +1,20 @@
 using System.Collections;
-using Audio;
+using FMODUnity;
 using Pool;
 using UnityEngine;
 public class RocketParticle : PooledObject {
     public ParticleSystem ParticleSystem { get; private set; }
 
-    private AudioSource audioSource;
-    private Sound sound;
+    private StudioEventEmitter sound;
 
     private void Awake() {
         ParticleSystem = GetComponent<ParticleSystem>();
-        audioSource = GetComponent<AudioSource>();
-        sound = GetComponent<Sound>();
+        sound = GetComponent<StudioEventEmitter>();
     }
 
     public void PlaySound() {
         if (sound == null) return;
-        audioSource.PlayOneShot(sound.AudioClip, sound.Volume);
+        sound.Play();
     }
 
     public void HideOncePlayingFinished() {

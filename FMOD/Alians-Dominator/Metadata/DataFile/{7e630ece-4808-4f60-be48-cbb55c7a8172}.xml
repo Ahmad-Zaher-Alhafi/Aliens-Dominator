@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{7e630ece-4808-4f60-be48-cbb55c7a8172}">
+		<property name="assetPath">
+			<value>Sound/alien_sounds/ES_UFO Sci Fi - SFX Producer.mp3.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c75f23a5-8c8b-4114-8a33-03ac63bb8f74}</destination>
+		</relationship>
+	</object>
+</objects>

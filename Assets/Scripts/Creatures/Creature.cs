@@ -6,6 +6,7 @@ using Creatures.Animators;
 using FiniteStateMachine;
 using Pool;
 using FiniteStateMachine.CreatureStateMachine;
+using FMODUnity;
 using UnityEngine;
 
 namespace Creatures {
@@ -55,7 +56,7 @@ namespace Creatures {
         public int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
 
         private int initialHealth;
-        private AudioSource audioSource;
+        private StudioEventEmitter deathSound;
         public Rigidbody Rig { get; private set; }
         public CreatureAnimator Animator { get; private set; }
         public IReadOnlyList<BodyPart> BodyParts { get; private set; }
@@ -74,7 +75,7 @@ namespace Creatures {
             Mover = GetComponent<CreatureMover>();
             Animator = GetComponent<CreatureAnimator>();
             BodyParts = GetComponentsInChildren<BodyPart>();
-            audioSource = GetComponent<AudioSource>();
+            deathSound = GetComponent<StudioEventEmitter>();
 
             initialHealth = health;
         }
@@ -130,7 +131,7 @@ namespace Creatures {
         }
 
         public void PlayDeathSound() {
-            audioSource.Play();
+            deathSound.Play();
         }
 
         public void OnDeath() {

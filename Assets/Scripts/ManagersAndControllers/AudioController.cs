@@ -1,25 +1,21 @@
-using System;
 using System.Collections;
 using Context;
+using FMODUnity;
 using UnityEngine;
 
 namespace ManagersAndControllers {
     public class AudioController : MonoBehaviour {
         private static AudioController instance;
 
-        [SerializeField] private Sound screamSound;
-        [SerializeField] private Sound warningSound;
-        [SerializeField] private Sound mainMusic;
-        [SerializeField] private Sound bgMusic;
+        [SerializeField] private StudioEventEmitter screamSound;
+        [SerializeField] private StudioEventEmitter warningSound;
+        [SerializeField] private StudioEventEmitter mainMusic;
+        [SerializeField] private StudioEventEmitter bgMusic;
 
-        [SerializeField] private AudioSource musicAudioSource;
-        [SerializeField] private AudioSource bgMusicAudioSource;
-        [SerializeField] private AudioSource soundsAudioSource;
-
-        private bool wasScreamSoundPlayed; //to know if the cinematic view was started or not so we do not play the scream and the warning sounds twice 
+        private bool wasScreamSoundPlayed;
 
         private void Awake() {
-            PlayBGMusic();
+            PlayBackgroundMusic();
             wasScreamSoundPlayed = false;
             Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
         }
@@ -27,50 +23,38 @@ namespace ManagersAndControllers {
         private void OnEnable() {
             if (instance == null) instance = this;
         }
-        
+
         private void OnWaveStarted(int waveIndex) {
             PlayScreamSound();
         }
 
         private void PlayMainMusic() {
-            bgMusicAudioSource.Stop();
-            musicAudioSource.clip = mainMusic.audioClip;
-            musicAudioSource.volume = mainMusic.volume;
-            musicAudioSource.Play();
-            musicAudioSource.loop = true;
+            bgMusic.Stop();
+            mainMusic.Play();
         }
 
-        private void PlayBGMusic() {
-            bgMusicAudioSource.clip = bgMusic.audioClip;
-            bgMusicAudioSource.volume = bgMusic.volume;
-            bgMusicAudioSource.Play();
-            bgMusicAudioSource.loop = true;
+        private void PlayBackgroundMusic() {
+            bgMusic.Play();
         }
 
         private void PlayScreamSound() {
             if (!wasScreamSoundPlayed) {
                 wasScreamSoundPlayed = true;
-                soundsAudioSource.PlayOneShot(screamSound.audioClip, screamSound.volume);
+                screamSound.Play();
                 StartCoroutine(PlayWarningSound());
             }
         }
 
         private IEnumerator PlayWarningSound() {
             yield return new WaitForSeconds(3);
-            soundsAudioSource.PlayOneShot(warningSound.audioClip, warningSound.volume);
+            warningSound.Play();
             yield return new WaitForSeconds(5);
             PlayMainMusic();
-            soundsAudioSource.Stop();
+            warningSound.Stop();
         }
 
         private void OnDestroy() {
             Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
-        }
-
-        [Serializable]
-        private class Sound {
-            public AudioClip audioClip;
-            public float volume;
         }
     }
 }

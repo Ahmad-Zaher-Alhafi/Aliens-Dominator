@@ -22,7 +22,6 @@ namespace Arrows {
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) target.HandleArrowHit(this);
-            else audio.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
         }
     }
 }

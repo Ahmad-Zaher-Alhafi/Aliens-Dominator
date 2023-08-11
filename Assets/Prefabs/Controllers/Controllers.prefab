@@ -271,9 +271,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: waves.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: testSpawningPoint
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: testCreaturePrefab
+      value: 
+      objectReference: {fileID: -7780425046225090788, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c7f70b507f8e0a4c82002b9a5d3a6c9, type: 2}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: waves.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: attackPoints.Array.size
       value: 8
@@ -357,6 +377,10 @@ PrefabInstance:
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: spawningPoints.Array.data[8]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: timeBetweenEachCreatureSpawn
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
@@ -731,14 +755,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Controller
       objectReference: {fileID: 0}
-    - target: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
-      propertyPath: bgMusic.volume
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
-      propertyPath: bgMusic.audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: b65e60dd136500045909557108e1ed42, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924487621673f264bad704c42296a5d2, type: 3}
 --- !u!114 &2360920366251837563 stripped

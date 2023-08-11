@@ -2,8 +2,6 @@ using UnityEngine;
 
 namespace Arrows {
     public class SlowdownArrow : Arrow {
-       
-
         protected override void OnCollisionEnter(Collision collision) {
             base.OnCollisionEnter(collision);
             if (hasCollided) return;
@@ -19,7 +17,6 @@ namespace Arrows {
 
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) target.HandleArrowHit(this);
-            else audio.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
         }
     }
 }

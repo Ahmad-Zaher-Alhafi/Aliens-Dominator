@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+using FMODUnity;
 using UnityEngine;
 
 namespace Creatures {
@@ -8,8 +7,7 @@ namespace Creatures {
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private Transform bulletCreatPoint; //position where the bullet is gonna be created
         [SerializeField] private float smoothWeaponRotatingSpeed = .1f;
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private Sound enemyBulletSound;
+        [SerializeField] private StudioEventEmitter enemyBulletSound;
         private bool hasToLookAtTheTarget; //true if gun has to look towards the target (the player)
         private bool hasToShoot; //true if has to shoot
         private GroundCreatureMover groundCreatureMover;
@@ -54,13 +52,6 @@ namespace Creatures {
         {
             hasToLookAtTheTarget = false;
             hasToShoot = false; //prevent the shooting
-        }
-
-
-        [Serializable]
-        private class Sound {
-            public AudioClip audioClip;
-            public float volume;
         }
     }
 }

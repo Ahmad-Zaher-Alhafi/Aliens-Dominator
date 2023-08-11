@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +8,11 @@ namespace ManagersAndControllers {
         public Image HealthImage;
         public GameObject HealthbarCanvas;
 
-        public List<AudioClip> WallHitSounds = new();
         private PlayerController playerController;
-        private AudioSource AudioSource;
         private GameController gameController;
         private float HealthFromBeginning;
 
         private void Awake() {
-            AudioSource = GetComponent<AudioSource>();
-
             HealthFromBeginning = Health;
 
             gameController = FindObjectOfType<GameController>();
@@ -28,8 +23,6 @@ namespace ManagersAndControllers {
 
         public void ReduceHealth(float dmg) {
             Health -= dmg;
-
-            AudioSource.PlayOneShot(WallHitSounds[Random.Range(0, WallHitSounds.Count)]);
 
             HealthImage.fillAmount = Health / HealthFromBeginning;
 

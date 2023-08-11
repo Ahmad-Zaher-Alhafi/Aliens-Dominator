@@ -1,6 +1,6 @@
 using System.Collections;
 using Context;
-using ManagersAndControllers;
+using FMODUnity;
 using UnityEngine;
 public class Airplane : MonoBehaviour {
 
@@ -13,9 +13,8 @@ public class Airplane : MonoBehaviour {
     [SerializeField] private float secondsToResetAirplanePostion; //seconds needed for the airplane to get diaapeared from player view field
     [SerializeField] private Transform dropCreatingPoint; //where should the drop be creating(in this case it should be created in the airplane position but a bit lower to looks like it was dropped out of the airplane)
     [SerializeField] private float dropRotatingSpeed; //the speed of the rotating movement of the drop
-    [SerializeField] private float airplaneSoundVolume = 2;
 
-    private AudioSource audioSource;
+    private StudioEventEmitter airplaneSound;
     private Vector3 initialPosition; //the start postion of the aireplane where it comes from
     private Rigidbody rig;
 
@@ -25,7 +24,7 @@ public class Airplane : MonoBehaviour {
     }
 
     private void Awake() {
-        audioSource = GetComponent<AudioSource>();
+        airplaneSound = GetComponent<StudioEventEmitter>();
         rig = GetComponent<Rigidbody>();
         initialPosition = transform.position;
     }
@@ -39,7 +38,7 @@ public class Airplane : MonoBehaviour {
     /// </summary>
     public void MoveToDropArea(Constants.SuppliesTypes suppliesType) {
         IsItBusy = true;
-        audioSource.PlayOneShot(audioSource.clip, airplaneSoundVolume);
+        airplaneSound.Play();
         rig.velocity = transform.forward * airplaneSpeed; //move the airplane
         StartCoroutine(DropSupplies(suppliesType));
     }
@@ -80,7 +79,7 @@ public class Airplane : MonoBehaviour {
         rig.velocity = Vector3.zero; //stop the airplane movement
         yield return new WaitForSeconds(3); //wait until the smoke disappears
         transform.position = initialPosition; //reset the airplane to it's initial position
-        audioSource.Stop();
+        airplaneSound.Stop();
         IsItBusy = false;
         gameObject.SetActive(false);
     }

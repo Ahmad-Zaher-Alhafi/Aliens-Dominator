@@ -1,11 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using FMODUnity;
 using ManagersAndControllers;
 using Pool;
 using UnityEngine;
 
 namespace Arrows {
-    [RequireComponent(typeof(TrailRenderer), typeof(Rigidbody), typeof(AudioSource))]
     public abstract class Arrow : PooledObject, IDamager {
         public bool HasPushingForce => true;
         public int Damage => damage;
@@ -13,9 +12,7 @@ namespace Arrows {
         public GameObject GameObject => gameObject;
 
         [SerializeField] protected float speed = 5;
-        [SerializeField] protected List<AudioClip> hitSounds = new();
-        [SerializeField] protected AudioClip releaseSound;
-        [SerializeField] protected AudioClip knockingSound;
+        [SerializeField] protected StudioEventEmitter arrowHitSound;
         [Range(1, 5)]
         [SerializeField] private int damage = 1;
 
@@ -24,7 +21,6 @@ namespace Arrows {
         //Set the chance of a certain arrow to be added
         [Range(1, 100)]
         public int ChanceOfReceiving = 50;
-        protected new AudioSource audio;
         protected Rigidbody body;
         protected GameController GameController;
         protected bool hasCollided;
@@ -34,7 +30,6 @@ namespace Arrows {
         private void Awake() {
             trail = GetComponent<TrailRenderer>();
             body = GetComponent<Rigidbody>();
-            audio = GetComponent<AudioSource>();
             collider = GetComponent<Collider>();
             GameController = FindObjectOfType<GameController>();
         }
@@ -47,6 +42,25 @@ namespace Arrows {
 
         protected virtual void OnCollisionEnter(Collision collision) {
             collider.enabled = false;
+            if (hasCollided) return;
+
+            hasCollided = true;
+            transform.SetParent(collision.transform);
+            body.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            if (GetComponent<Rigidbody>())
+                GetComponent<Rigidbody>().isKinematic = true;
+
+            trail.enabled = false;
+
+            var target = collision.gameObject.GetComponent<Hitable>();
+            if (target != null) {
+                Debug.Log("Hit");
+                target.HandleArrowHit(this);
+            } else {
+                arrowHitSound.Play();
+            }
+
+            StartCoroutine(DestroyArrow());
         }
 
         public void Release(float drawForce) {
@@ -57,7 +71,6 @@ namespace Arrows {
             body.velocity = transform.forward * speed * drawForce;
             body.collisionDetectionMode = CollisionDetectionMode.Continuous;
             body.detectCollisions = true;
-            audio.PlayOneShot(releaseSound);
         }
 
         public void Init(Transform spawnPoint) {
@@ -70,7 +83,6 @@ namespace Arrows {
             body.detectCollisions = false;
             collider.enabled = true;
             body.velocity = Vector3.zero;
-            audio.PlayOneShot(knockingSound);
         }
 
         protected IEnumerator DestroyArrow() {

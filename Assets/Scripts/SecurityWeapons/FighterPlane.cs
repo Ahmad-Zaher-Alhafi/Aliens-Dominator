@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AmmoMagazines;
-using Audio;
 using Context;
 using Creatures;
 using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
+using FMODUnity;
 using Projectiles;
 using UnityEditor;
 using UnityEngine;
@@ -50,9 +50,9 @@ namespace SecurityWeapons {
 
         [SerializeField] private float bulletsPerSecond = 4;
         public float BulletsPerSecond => bulletsPerSecond;
-        
+
         [SerializeField] private float rocketsPerSecond = .5f;
-        
+
         [SerializeField] private bool useBursts;
         [SerializeField] private int numOfRocketsInBurst;
         [SerializeField] private float rocketsPerSecondInBurst;
@@ -76,9 +76,9 @@ namespace SecurityWeapons {
         public IReadOnlyList<Transform> PatrollingPoints => patrollingPoints;
 
         [Header("Audio")]
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private Sound takeOffSound;
-        [SerializeField] private Sound landSound;
+        [SerializeField] private StudioEventEmitter takeOffSound;
+        [SerializeField] private StudioEventEmitter landSound;
+        [SerializeField] private StudioEventEmitter bulletSound;
 
         [Header("Others")]
         [SerializeField] private ParticleSystem[] smokeParticles;
@@ -137,6 +137,10 @@ namespace SecurityWeapons {
             if (ammoType == typeof(Rocket) && useBursts) {
                 numOfRocketsShotInBurst++;
             }
+
+            if (ammoType == typeof(Bullet)) {
+                bulletSound.Play();
+            }
         }
 
         private void Reload(Type ammoType, int ammoNumberToAdd) {
@@ -165,13 +169,11 @@ namespace SecurityWeapons {
         }
 
         private void PlayTakeOffSound() {
-            audioSource.Stop();
-            audioSource.PlayOneShot(takeOffSound.AudioClip, takeOffSound.Volume);
+            takeOffSound.Play();
         }
 
         private void PlayLandSound() {
-            audioSource.Stop();
-            audioSource.PlayOneShot(landSound.AudioClip, landSound.Volume);
+            landSound.Play();
         }
 
         private IEnumerator CoolDown() {

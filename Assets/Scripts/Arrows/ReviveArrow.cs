@@ -1,4 +1,3 @@
-using Creatures;
 using UnityEngine;
 
 namespace Arrows {
@@ -19,9 +18,6 @@ namespace Arrows {
             var target = collision.gameObject.GetComponent<Hitable>();
             if (target != null) {
                 var creature = target.GetComponentInParent<Creatures.Creature>();
-                
-            } else {
-                audio.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
             }
 
             StartCoroutine(DestroyArrow());

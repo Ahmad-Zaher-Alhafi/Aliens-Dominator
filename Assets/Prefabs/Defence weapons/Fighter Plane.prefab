@@ -15468,6 +15468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensorRange: 150
+  activateDebugging: 0
 --- !u!1 &2422370486760904943
 GameObject:
   m_ObjectHideFlags: 0
@@ -17454,12 +17455,11 @@ GameObject:
   - component: {fileID: 5339142272931065833}
   - component: {fileID: 737129712005555352}
   - component: {fileID: 5743793896088468407}
-  - component: {fileID: 1423992062661006230}
   - component: {fileID: 1536504171}
   - component: {fileID: 1536504170}
-  - component: {fileID: 8358773067222363058}
-  - component: {fileID: 8358773067222363056}
-  - component: {fileID: 8358773067222363057}
+  - component: {fileID: 1011293635}
+  - component: {fileID: 1011293634}
+  - component: {fileID: 1338177725166116797}
   m_Layer: 2
   m_Name: Fighter Parent
   m_TagString: Untagged
@@ -17520,10 +17520,14 @@ MonoBehaviour:
   rotateSpeed: 2
   aimingSpeed: 15
   takeOffSpeed: 5
-  hasToUseRockets: 0
+  hasToUseRockets: 1
   bulletCreatePoint: {fileID: 6591588923433466406}
   bulletsPerSecond: 2
   rocketsPerSecond: 1
+  useBursts: 1
+  numOfRocketsInBurst: 5
+  rocketsPerSecondInBurst: 5
+  burstCoolDown: 1.5
   takeOffPoint: {fileID: 0}
   landingPoint: {fileID: 0}
   patrollingPoints:
@@ -17537,111 +17541,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  audioSource: {fileID: 1423992062661006230}
-  takeOffSound: {fileID: 8358773067222363058}
-  landSound: {fileID: 8358773067222363057}
+  takeOffSound: {fileID: 1011293635}
+  landSound: {fileID: 1011293634}
+  bulletSound: {fileID: 1338177725166116797}
   smokeParticles:
   - {fileID: 685942585}
   - {fileID: 201708389}
   - {fileID: 1695884081}
   weaponSensor: {fileID: 1968061742312605515}
   activateOnStart: 1
---- !u!82 &1423992062661006230
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  useInfiniteAmmo: 1
 --- !u!114 &1536504171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17713,7 +17622,7 @@ MonoBehaviour:
   - {fileID: 4694321516088902126}
   - {fileID: 3008401254946144321}
   rocketPrefab: {fileID: 8894950018666185079, guid: 435e5b92fd9ef4443af2bba2b196f095, type: 3}
---- !u!114 &8358773067222363058
+--- !u!114 &1011293635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17722,12 +17631,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7919893160873747283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32297e081d149ca8639ecbb5c1f2b06, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 38371e4039075654b930b9e1a30855ca, type: 3}
-  volume: 1
---- !u!114 &8358773067222363056
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1929645922
+      Data2: 1141610261
+      Data3: 238008465
+      Data4: 2054293556
+    Path: event:/Fighter Plane/Fighter Airplane Take Off
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1011293634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17736,12 +17662,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7919893160873747283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32297e081d149ca8639ecbb5c1f2b06, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 3d04448f3b1ebce4298217c72cb22c48, type: 3}
-  volume: 1
---- !u!114 &8358773067222363057
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1097352172
+      Data2: 1102286571
+      Data3: 1032565667
+      Data4: 468157298
+    Path: event:/Fighter Plane/Fighter Airplane Land
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1338177725166116797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17750,11 +17693,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 7919893160873747283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32297e081d149ca8639ecbb5c1f2b06, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 38371e4039075654b930b9e1a30855ca, type: 3}
-  volume: 1
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1310762784
+      Data2: 1114990550
+      Data3: 886814852
+      Data4: 1912839383
+    Path: event:/Projectiles/Bullet
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &7938083978550586952
 GameObject:
   m_ObjectHideFlags: 0
