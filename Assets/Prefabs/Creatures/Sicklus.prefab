@@ -898,9 +898,9 @@ Transform:
   - {fileID: 4910149497717562}
   - {fileID: 4946793850068084}
   - {fileID: 4331323287140710}
-  - {fileID: 681358832625015468}
   - {fileID: 6906085146594222068}
   - {fileID: 855696945682832305}
+  - {fileID: 2560155676963752951}
   m_Father: {fileID: 4897413720355004}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -0.000013660378, y: -87.999985, z: -160.48407}
@@ -2695,7 +2695,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dfd8cc74ed451eb317ddaf05c4b5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForceWhenDead: 1000
+  bloodParticlesPrefab: {fileID: 8607470412565423328, guid: f4b6b4037279df64883cdd36c998941c, type: 3}
+  bloodEffectCreatePoint: {fileID: 2560155676963752951}
+  bloodColor: {r: 1, g: 0.15686274, b: 1, a: 1}
   colors:
   - {fileID: 2100000, guid: 1befd5ffa2d4afa46a46a3472957c4ae, type: 2}
   - {fileID: 2100000, guid: 818161e05bb0a7e4f875a1c644cf0018, type: 2}
@@ -2708,22 +2710,6 @@ MonoBehaviour:
   chanceOfDroppingBalloon: 0
   specialActionPathPointIndex: 2
   secondsToDestroyDeadBody: 10
-  IsItTheLeader: 0
-  IsItGroupMember: 0
-  CreaturePointInGroup: {fileID: 0}
-  mingroupMemberSecondsToPatrolAgain: 0
-  maxgroupMemberSecondsToPatrolAgain: 0
-  smoothRotatingSpeed: 0
-  patrollingSpeed: 0
-  patrolRange: {x: 0, y: 0, z: 0}
-  patrolUnWantedPositions: {x: 0, y: 0, z: 0}
-  patrolOffset: {x: 0, y: 0, z: 0}
-  stinkyBallPrefabs: []
-  stinkyBallSpawnPoint: {fileID: 0}
-  stinkyBallSpeed: 0
-  stinkyBallGrowingTime: 0
-  stinkyBallGrowingAnimationClip: {fileID: 0}
-  BodyRig: {fileID: 0}
 --- !u!114 &6908029350979284551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2832,6 +2818,37 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!1 &8638282311381099197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2560155676963752951}
+  m_Layer: 6
+  m_Name: Blood Particles Create Point
+  m_TagString: BloodEffect
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2560155676963752951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638282311381099197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4919023890601730}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9136750086314276167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2861,86 +2878,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4919023890601730}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1075149900474015033
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4919023890601730}
-    m_Modifications:
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.4392724
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.9621153
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.01600033
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.00000009755604
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.99999243
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.003906318
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.000000059604645
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5074988988317857207, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5379995299221349485, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_Name
-      value: Blood Effect Blue
-      objectReference: {fileID: 0}
-    - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6288507178687217382, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
---- !u!4 &681358832625015468 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 549191888259549077, guid: 09373820d454ba14ea94610afac4c6cb, type: 3}
-  m_PrefabInstance: {fileID: 1075149900474015033}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4061406666379363433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2982,7 +2921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926634794968, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_AnchorMax.x

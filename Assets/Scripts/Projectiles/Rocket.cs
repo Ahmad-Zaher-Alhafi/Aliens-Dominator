@@ -8,7 +8,7 @@ namespace Projectiles {
         [Header("Particles")]
         [SerializeField] private RocketParticle launchSmokeParticlePrefab;
         [SerializeField] private Transform launchSmokeParticlePoint;
-        [SerializeField] private RocketParticle explosionParticlePrefab;
+        [SerializeField] private ExplosionParticle explosionParticlePrefab;
         [SerializeField] private Transform explosionParticlePoint;
 
         private new Collider collider;
@@ -16,7 +16,7 @@ namespace Projectiles {
         private MeshRenderer meshRenderer;
         private bool wasLaunched;
         private RocketParticle launchSmokeParticle;
-        private RocketParticle explosionParticle;
+        private ExplosionParticle explosionParticle;
 
         protected override void Awake() {
             base.Awake();

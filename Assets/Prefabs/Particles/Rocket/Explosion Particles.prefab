@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2969727664172297851}
   - component: {fileID: 6794549793625502012}
+  - component: {fileID: -669715797986214137}
   - component: {fileID: 5203186975151425299}
-  - component: {fileID: -1718876641769188022}
   - component: {fileID: 1158514703328956858}
   m_Layer: 4
   m_Name: Explosion Particles
@@ -4800,6 +4800,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &-669715797986214137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930297777374528572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1eb04353b045a7b232ad959811397d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!199 &5203186975151425299
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4872,18 +4884,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-1718876641769188022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930297777374528572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc11dfc36df46b7afa215f961d92fb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1158514703328956858
 MonoBehaviour:
   m_ObjectHideFlags: 0

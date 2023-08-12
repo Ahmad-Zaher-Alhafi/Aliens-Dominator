@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wave 1
   m_EditorClassIdentifier: 
   waveCreatures:
-  - creaturePrefab: {fileID: 5593732503635476519, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
+  - creaturePrefab: {fileID: 1867506747118803822, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
     numberToSpawn: 10
   - creaturePrefab: {fileID: -7780425046225090788, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
     numberToSpawn: 10

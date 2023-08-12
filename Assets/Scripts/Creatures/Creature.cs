@@ -24,6 +24,9 @@ namespace Creatures {
         public bool HasToDisappear { get; set; }
         public IDamager ObjectDamagedWith { get; private set; }
 
+        [SerializeField] private BloodParticle bloodParticlesPrefab;
+        [SerializeField] private Transform bloodEffectCreatePoint;
+        [SerializeField] private Color bloodColor;
         [SerializeField] private List<Material> colors;
         [SerializeField] private PhysicMaterial bouncingMaterial;
 
@@ -113,6 +116,11 @@ namespace Creatures {
         public void TakeDamage(IDamager damager, int damageWeight) {
             ObjectDamagedWith = damager;
             creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
+            
+            BloodParticle bloodParticle = bloodParticlesPrefab.GetObject<BloodParticle>(null);
+            bloodParticle.transform.position = bloodEffectCreatePoint.position;
+            bloodParticle.SetColor(bloodColor);
+            bloodParticle.Play();
         }
 
         public void PlayDeathSound() {

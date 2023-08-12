@@ -5004,7 +5004,7 @@ MonoBehaviour:
   acceleration: 7
   launchSmokeParticlePrefab: {fileID: 575880782705855588, guid: c09425a8baa50864ebe841aef3e3b1d4, type: 3}
   launchSmokeParticlePoint: {fileID: 104055243184516066}
-  explosionParticlePrefab: {fileID: -1718876641769188022, guid: c95c8eb38724cb14280de7de9cfe9597, type: 3}
+  explosionParticlePrefab: {fileID: -669715797986214137, guid: c95c8eb38724cb14280de7de9cfe9597, type: 3}
   explosionParticlePoint: {fileID: 2899604198034687784}
 --- !u!1 &6812278478472683796
 GameObject:
