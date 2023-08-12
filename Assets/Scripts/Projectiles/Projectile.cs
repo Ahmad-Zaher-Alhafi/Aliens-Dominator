@@ -7,19 +7,22 @@ namespace Projectiles {
         [Header("Specifications")]
         [SerializeField]
         protected float speed = 5;
+
         [SerializeField]
         private int damageCost = 1;
         public int Damage => damageCost;
-        public abstract bool HasPushingForce { get; }
+
+        [SerializeField] private float pushingForce;
+        public float PushingForce => pushingForce;
+
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
 
-        protected AudioSource AudioSource;
+
         protected Rigidbody Rig;
         private float initialSpeed;
 
         protected virtual void Awake() {
-            AudioSource = GetComponent<AudioSource>();
             Rig = GetComponent<Rigidbody>();
             initialSpeed = speed;
         }

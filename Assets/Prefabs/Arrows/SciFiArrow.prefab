@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1600c152dc15440971046bb28815e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pushingForce: 100
   speed: 100
   arrowHitSound: {fileID: 243671901626287143}
   damage: 1

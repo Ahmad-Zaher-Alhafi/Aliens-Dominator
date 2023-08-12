@@ -12,8 +12,6 @@ namespace Projectiles {
         [SerializeField] private Transform explosionParticlePoint;
 
         private new Collider collider;
-        public override bool HasPushingForce => true;
-
         private IDamageable target;
         private MeshRenderer meshRenderer;
         private bool wasLaunched;

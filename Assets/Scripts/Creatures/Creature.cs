@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
@@ -16,48 +15,40 @@ namespace Creatures {
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
+        public float PushingForce => 0;
         public CreatureStateType CurrentStateType => creatureStateMachine.PrimaryState?.Type ?? default;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
         public TargetPoint TargetPoint { get; private set; }
         public bool HasToDisappear { get; set; }
-
-        [SerializeField] private int pushForceWhenDead = 1000;
-        public int PushForceWhenDead => pushForceWhenDead;
+        public IDamager ObjectDamagedWith { get; private set; }
 
         [SerializeField] private List<Material> colors;
         [SerializeField] private PhysicMaterial bouncingMaterial;
 
         [SerializeField] private int slowdownTimer = 6;
         [SerializeField] private int attackDamage = 10;
-        protected Constants.ObjectsColors CreatureColor => creatureColor;
+
         [SerializeField]
         private Constants.ObjectsColors creatureColor;
+        protected Constants.ObjectsColors CreatureColor => creatureColor;
 
-        //[SerializeField] private GameObject CreatureStateCanves;
-        //[SerializeField] private Slider CreatureHealthBar;
-
-        [Range(1, 5)]
         [SerializeField] private int health = 5;
         public int Health {
             get => health;
             set => health = value;
         }
 
-        public IDamager ObjectDamagedWith { get; private set; }
-
         [Range(1, 100)]
         [SerializeField] private int chanceOfDroppingBalloon;
         public int ChanceOfDroppingBalloon => chanceOfDroppingBalloon;
 
         [SerializeField] private int specialActionPathPointIndex = 2;
-        [SerializeField] private int secondsToDestroyDeadBody = 10;
-        public int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
 
-        private int initialHealth;
-        private StudioEventEmitter deathSound;
-        public Rigidbody Rig { get; private set; }
+        [SerializeField] private int secondsToDestroyDeadBody = 10;
+        private int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
+
         public CreatureAnimator Animator { get; private set; }
         public IReadOnlyList<BodyPart> BodyParts { get; private set; }
         public bool HasToFollowPath { get; set; }
@@ -66,7 +57,10 @@ namespace Creatures {
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
         public bool IsDead => CurrentStateType == CreatureStateType.Dead;
-        public bool PathFinished { get; private set; }
+
+        private int initialHealth;
+        private StudioEventEmitter deathSound;
+        private Rigidbody Rig { get; set; }
         private CreatureStateMachine creatureStateMachine;
 
         private void Awake() {
@@ -98,9 +92,6 @@ namespace Creatures {
 
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
-            //CreatureHealthBar.minValue = 0;
-            //CreatureStateCanves.SetActive(false);
-
             Animator.Init();
             Mover.Init(pathToFollow);
 
@@ -122,12 +113,6 @@ namespace Creatures {
         public void TakeDamage(IDamager damager, int damageWeight) {
             ObjectDamagedWith = damager;
             creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
-
-            /*if (!CreatureStateCanves.activeInHierarchy) {
-                CreatureStateCanves.SetActive(true);
-            }*/
-
-            //CreatureHealthBar.normalizedValue = health / InitialHealth;
         }
 
         public void PlayDeathSound() {
@@ -138,6 +123,7 @@ namespace Creatures {
             Mover.OnDeath();
             Animator.OnDeath();
             Rig.isKinematic = true;
+
             foreach (BodyPart bodyPart in BodyParts) {
                 bodyPart.OnDeath();
             }

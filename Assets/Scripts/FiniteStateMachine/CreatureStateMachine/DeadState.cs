@@ -22,12 +22,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         private void Die() {
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(AutomatedObject.transform.position, AutomatedObject.ChanceOfDroppingBalloon);
-
-            // Force to push the creature away once get killed (More realistic)
-            if (AutomatedObject.ObjectDamagedWith?.HasPushingForce == true) {
-                AutomatedObject.Rig.AddForce(AutomatedObject.ObjectDamagedWith.Transform.forward * AutomatedObject.PushForceWhenDead);
-            }
-
             AutomatedObject.PlayDeathSound();
             AutomatedObject.OnDeath();
             Debug.Log($"Creature {AutomatedObject} is dead");

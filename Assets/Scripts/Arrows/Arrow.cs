@@ -10,6 +10,8 @@ namespace Arrows {
         public int Damage => damage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
+        public float PushingForce => pushingForce;
+        [SerializeField] private float pushingForce;
 
         [SerializeField] protected float speed = 5;
         [SerializeField] protected StudioEventEmitter arrowHitSound;

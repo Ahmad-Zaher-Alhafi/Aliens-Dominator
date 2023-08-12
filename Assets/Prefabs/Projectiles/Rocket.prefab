@@ -4999,6 +4999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   damageCost: 1
+  pushingForce: 100
   rotatingSpeed: 15
   acceleration: 7
   launchSmokeParticlePrefab: {fileID: 575880782705855588, guid: c09425a8baa50864ebe841aef3e3b1d4, type: 3}
