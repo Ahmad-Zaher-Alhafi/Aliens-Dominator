@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using FMODUnity;
-using ManagersAndControllers;
 using Pool;
 using UnityEngine;
 
 namespace Arrows {
     public abstract class Arrow : PooledObject, IDamager {
-        public bool HasPushingForce => true;
         public int Damage => damage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
@@ -20,76 +18,62 @@ namespace Arrows {
 
         public float TimeToDestroyArrow = 5f;
 
-        //Set the chance of a certain arrow to be added
-        [Range(1, 100)]
-        public int ChanceOfReceiving = 50;
-        protected Rigidbody body;
-        protected GameController GameController;
-        protected bool hasCollided;
-        protected TrailRenderer trail;
+        private Rigidbody rig;
+        private TrailRenderer trailRenderer;
         private new Collider collider;
 
         private void Awake() {
-            trail = GetComponent<TrailRenderer>();
-            body = GetComponent<Rigidbody>();
+            trailRenderer = GetComponent<TrailRenderer>();
+            rig = GetComponent<Rigidbody>();
             collider = GetComponent<Collider>();
-            GameController = FindObjectOfType<GameController>();
-        }
-
-        private void Update() {
-            if (hasCollided == false)
-                //Making the arrows move more realistic
-                transform.forward = Vector3.Slerp(transform.forward, body.velocity.normalized, 10f * Time.deltaTime);
-        }
-
-        protected virtual void OnCollisionEnter(Collision collision) {
-            collider.enabled = false;
-            if (hasCollided) return;
-
-            hasCollided = true;
-            transform.SetParent(collision.transform);
-            body.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            if (GetComponent<Rigidbody>())
-                GetComponent<Rigidbody>().isKinematic = true;
-
-            trail.enabled = false;
-
-            var target = collision.gameObject.GetComponent<Hitable>();
-            if (target != null) {
-                Debug.Log("Hit");
-                target.HandleArrowHit(this);
-            } else {
-                arrowHitSound.Play();
-            }
-
-            StartCoroutine(DestroyArrow());
-        }
-
-        public void Release(float drawForce) {
-            transform.SetParent(null);
-            hasCollided = false;
-            trail.enabled = true;
-            body.isKinematic = false;
-            body.velocity = transform.forward * speed * drawForce;
-            body.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            body.detectCollisions = true;
         }
 
         public void Init(Transform spawnPoint) {
             transform.localPosition = Vector3.zero;
             transform.rotation = spawnPoint.rotation;
-            hasCollided = false;
-            trail.enabled = false;
-            body.isKinematic = true;
-            body.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            body.detectCollisions = false;
+            
+            trailRenderer.enabled = false;
+            
+            rig.isKinematic = true;
+            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rig.detectCollisions = false;
+            rig.velocity = Vector3.zero;
+            
             collider.enabled = true;
-            body.velocity = Vector3.zero;
         }
 
-        protected IEnumerator DestroyArrow() {
-            yield return new WaitForSeconds(TimeToDestroyArrow);
+        private void Update() {
+            if (!collider.enabled) return;
+            // Rotate towards the velocity direction
+            transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
+        }
 
+        protected void OnTriggerEnter(Collider other) {
+            collider.enabled = false;
+
+            transform.SetParent(other.transform);
+
+            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rig.isKinematic = true;
+
+            trailRenderer.enabled = false;
+            
+            arrowHitSound.Play();
+
+            StartCoroutine(Destroy());
+        }
+
+        public void Fire(float drawForce) {
+            transform.SetParent(null);
+            trailRenderer.enabled = true;
+            rig.isKinematic = false;
+            rig.velocity = transform.forward * speed * drawForce;
+            rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rig.detectCollisions = true;
+        }
+
+        private IEnumerator Destroy() {
+            yield return new WaitForSeconds(TimeToDestroyArrow);
             transform.SetParent(null);
             gameObject.SetActive(false);
             ReturnToPool();

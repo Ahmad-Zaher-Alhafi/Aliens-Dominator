@@ -71,7 +71,7 @@ namespace Player {
             } else if (Input.GetButtonUp("Fire1")) {
                 if (arrow == null) return;
 
-                arrow.Release(draw);
+                arrow.Fire(draw);
                 arrow = null;
                 draw = 0;
                 releaseSound.Play();
