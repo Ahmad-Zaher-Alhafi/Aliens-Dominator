@@ -13,7 +13,7 @@ namespace FiniteStateMachine {
             get => primaryState;
             private set {
                 primaryState = value;
-                primaryState.IsActiveAsSecondaryState = false;
+                primaryState.MarkAsPrimaryState();
             }
         }
         private TState primaryState;
@@ -71,7 +71,6 @@ namespace FiniteStateMachine {
             foreach (var transition in currentStatePossibleTransitions.Where(transition => transition.DestinationState.CanInterruptState(PrimaryState))) {
                 // If already active as a secondary state then mark it as primary state instead
                 if (transition.DestinationState.IsActiveAsSecondaryState) {
-                    Debug.Log($"{transition.DestinationState} state became a primary state");
                     PrimaryState = transition.DestinationState;
                     break;
                 }

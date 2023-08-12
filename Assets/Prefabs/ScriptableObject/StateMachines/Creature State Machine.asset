@@ -41,13 +41,13 @@ MonoBehaviour:
     transitionsData:
     - destinationStateType: 5
     - destinationStateType: 4
-    statesSyncedWithMask: 0
+    statesSyncedWithMask: 32
     interruptStatesMask: 0
   - originStateType: 4
     transitionsData:
     - destinationStateType: 6
     - destinationStateType: 5
-    statesSyncedWithMask: 0
+    statesSyncedWithMask: 32
     interruptStatesMask: 143
   - originStateType: 5
     transitionsData:
@@ -56,7 +56,7 @@ MonoBehaviour:
     - destinationStateType: 4
     - destinationStateType: 3
     - destinationStateType: 8
-    statesSyncedWithMask: 0
+    statesSyncedWithMask: 152
     interruptStatesMask: 255
   - originStateType: 6
     transitionsData:
@@ -68,7 +68,7 @@ MonoBehaviour:
     transitionsData:
     - destinationStateType: 5
     - destinationStateType: 8
-    statesSyncedWithMask: 0
+    statesSyncedWithMask: 32
     interruptStatesMask: 95
   - originStateType: 8
     transitionsData: []

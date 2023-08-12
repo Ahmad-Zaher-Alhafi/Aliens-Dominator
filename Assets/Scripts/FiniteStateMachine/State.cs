@@ -7,12 +7,13 @@ namespace FiniteStateMachine {
         public abstract TType Type { get; }
 
         public bool IsActive { get; private set; }
-        public bool IsActiveAsSecondaryState { get; set; }
+        public bool IsActiveAsSecondaryState => IsActive && isSecondaryState;
 
         protected readonly TAutomatable AutomatedObject;
 
         private List<State<TAutomatable, TType>> statesSyncedWith = new();
         private List<State<TAutomatable, TType>> interruptStates = new();
+        private bool isSecondaryState;
 
         protected State(TAutomatable automatedObject) {
             AutomatedObject = automatedObject;
@@ -20,22 +21,29 @@ namespace FiniteStateMachine {
 
         public virtual void Activate(bool isSecondaryState = false) {
             string stateRank = isSecondaryState ? "Secondary state" : "PrimaryState";
-            Debug.Log($"State {Type} of {AutomatedObject} was activated as {stateRank} with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
+            Debug.Log($"State {Type} of {AutomatedObject.GameObject.name} was activated as {stateRank} with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
             IsActive = true;
-            IsActiveAsSecondaryState = isSecondaryState;
+            this.isSecondaryState = isSecondaryState;
         }
 
         public virtual void Fulfil() {
-            Debug.Log($"State {Type} of {AutomatedObject} was deactivated with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
+            Debug.Log($"State {Type} of {AutomatedObject.GameObject.name} was deactivated with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
             IsActive = false;
+            isSecondaryState = false;
         }
 
         /// <summary>
         /// Deactivate the state even if it's not finished
         /// </summary>
         public virtual void Interrupt() {
-            Debug.Log($"State {Type} of {AutomatedObject} was Interrupted with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
+            Debug.Log($"State {Type} of {AutomatedObject.GameObject.name} was Interrupted with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
             IsActive = false;
+            isSecondaryState = false;
+        }
+
+        public void MarkAsPrimaryState() {
+            Debug.Log($"State {Type} of {AutomatedObject.GameObject.name} became a Primary state with instance id {AutomatedObject.GameObject.GetInstanceID()}");
+            isSecondaryState = false;
         }
 
         public virtual void Tick() { }
