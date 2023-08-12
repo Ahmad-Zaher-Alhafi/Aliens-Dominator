@@ -8,7 +8,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public override bool IsCinematic => true;
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => false;
-        
+
 
         private bool waveStarted;
 
@@ -31,7 +31,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
             waveStarted = true;
         }
 
-        protected override void Clear() {
+        public override void Clear() {
             base.Clear();
             Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
             waveStarted = false;

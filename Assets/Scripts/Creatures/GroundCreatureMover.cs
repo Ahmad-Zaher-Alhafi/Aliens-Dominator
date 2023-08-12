@@ -31,7 +31,7 @@ namespace Creatures {
 
         protected override void FixedUpdate() {
             base.FixedUpdate();
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Dead) {
+            if (Creature.CurrentStateType == CreatureStateType.Dead) {
                 navMeshAgent.enabled = false;
                 return;
             }
@@ -44,19 +44,19 @@ namespace Creatures {
             }
         }
 
-        public override void Patrol(Action informOrderFulfilled) {
+        public override void Patrol(Action<bool> informOrderFulfilled) {
             base.Patrol(informOrderFulfilled);
             Transform patrolPoint = MathUtils.GetRandomObjectFromList(Ctx.Deps.CreatureSpawnController.GroundCinematicEnemyPathPoints).transform;
             OrderToMoveTo(patrolPoint);
         }
 
-        public override void RunAway(Action informOrderFulfilled) {
+        public override void RunAway(Action<bool> informOrderFulfilled) {
             base.RunAway(informOrderFulfilled);
             Transform closestRunAwayPoint = FindClosestPoint(Ctx.Deps.CreatureSpawnController.RunningAwayPoints);
             OrderToMoveTo(closestRunAwayPoint);
         }
 
-        public override PathPoint FollowPath(Action informOrderFulfilled) {
+        public override PathPoint FollowPath(Action<bool> informOrderFulfilled) {
             Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
             if (nextPathPoint == null) return null;
 

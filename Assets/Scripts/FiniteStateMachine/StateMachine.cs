@@ -141,7 +141,7 @@ namespace FiniteStateMachine {
 
         private void AssignInterruptStates() {
             Array enumValues = Enum.GetValues(typeof(TType));
-            
+
             foreach (StateMachineData<TType>.StateData stateData in stateMachineData.statesData) {
                 List<State<TAutomatable, TType>> interruptStates = new();
 
@@ -154,6 +154,12 @@ namespace FiniteStateMachine {
                 }
 
                 States[stateData.originStateType].SetInterruptStates(interruptStates);
+            }
+        }
+
+        private void OnDestroy() {
+            foreach (TState state in States.Values) {
+                state.Clear();
             }
         }
 

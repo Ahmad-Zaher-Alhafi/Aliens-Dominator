@@ -24,19 +24,19 @@ namespace Creatures {
             }
         }
 
-        public override void Patrol(Action informOrderFulfilled) {
+        public override void Patrol(Action<bool> informOrderFulfilled) {
             base.Patrol(informOrderFulfilled);
             Transform nextCinematicPatrolPoint = MathUtils.GetRandomObjectFromList(creatureSpawnController.AirCinematicEnemyPathPoints).transform;
             OrderToMoveTo(nextCinematicPatrolPoint);
         }
 
-        public override void RunAway(Action informOrderFulfilled) {
+        public override void RunAway(Action<bool> informOrderFulfilled) {
             base.RunAway(informOrderFulfilled);
             Transform randomRunAwayPoint = creatureSpawnController.RunningAwayPoints[Random.Range(0, creatureSpawnController.RunningAwayPoints.Count)].transform;
             OrderToMoveTo(randomRunAwayPoint);
         }
 
-        public override PathPoint FollowPath(Action informOrderFulfilled) {
+        public override PathPoint FollowPath(Action<bool> informOrderFulfilled) {
             Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
             if (nextPathPoint == null) return null;
             

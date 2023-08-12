@@ -36,7 +36,6 @@ namespace FiniteStateMachine {
         public virtual void Interrupt() {
             Debug.Log($"State {Type} of {AutomatedObject} was Interrupted with instance id {AutomatedObject.GameObject.GetInstanceID()}", AutomatedObject.GameObject);
             IsActive = false;
-            Clear();
         }
 
         public virtual void Tick() { }
@@ -59,8 +58,6 @@ namespace FiniteStateMachine {
             return interruptStates.Contains(state);
         }
 
-        protected virtual void Clear() {
-            IsActive = false;
-        }
+        public virtual void Clear() { }
     }
 }

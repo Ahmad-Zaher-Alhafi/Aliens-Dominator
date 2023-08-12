@@ -16,19 +16,8 @@ namespace Creatures.Animators {
 
         protected Creature Creature;
         private Animator animator;
-        private Action informAnimationFinishedCallback;
+        private Action<bool> informAnimationFinishedCallback;
         private AnimationClip currentActiveAnimationClip;
-
-        public bool IsBusy {
-            get => isBusy;
-            private set {
-                isBusy = value;
-                if (!isBusy) {
-                    informAnimationFinishedCallback?.Invoke();
-                }
-            }
-        }
-        private bool isBusy;
 
         protected const float ANIMATION_SWITCH_TIME = 3;
         private static readonly int currentSpeedParameter = Animator.StringToHash("Current Speed");
@@ -47,20 +36,18 @@ namespace Creatures.Animators {
             InterpolateFloatParameter(currentSpeedParameter, Creature.Mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
 
-        public virtual void PlayIdleAnimation(Action informAnimationFinished) {
+        public virtual void PlayIdleAnimation(Action<bool> informAnimationFinished) {
             informAnimationFinishedCallback = informAnimationFinished;
         }
 
-        public void PlayAttackAnimation(Action informAnimationFinished, Action informToAttack) {
-            IsBusy = true;
+        public void PlayAttackAnimation(Action<bool> informAnimationFinished, Action informToAttack) {
             informAnimationFinishedCallback = informAnimationFinished;
             AnimationClip randomAttackAnimationClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
             PlayAnimationClip(randomAttackAnimationClip);
             StartCoroutine(InformToApplyDamageAfter(currentActiveAnimationClip.length, informToAttack));
         }
 
-        public void PlayGettingHitAnimation(Action informAnimationFinished) {
-            IsBusy = true;
+        public void PlayGettingHitAnimation(Action<bool> informAnimationFinished) {
             informAnimationFinishedCallback = informAnimationFinished;
             ResetCurrentAnimationTrigger();
             PlayAnimationClip(takeDamageAnimationClip);
@@ -95,12 +82,20 @@ namespace Creatures.Animators {
 
         protected IEnumerator InformAnimationFinishedAfter(float length) {
             yield return new WaitForSeconds(length);
-            IsBusy = false;
+            FulfillCurrentOrder();
         }
 
         private void ResetCurrentAnimationTrigger() {
             if (currentActiveAnimationClip == null) return;
             animator.ResetTrigger(currentActiveAnimationClip.name);
+        }
+        
+        private void FulfillCurrentOrder() {
+            informAnimationFinishedCallback?.Invoke(false);
+        }
+
+        public void InterruptCurrentOrder() {
+            informAnimationFinishedCallback?.Invoke(true);
         }
 
         public void OnDeath() {

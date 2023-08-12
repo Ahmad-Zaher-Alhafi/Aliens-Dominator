@@ -1,6 +1,4 @@
-﻿
-
-namespace Creatures {
+﻿namespace Creatures {
     public class CreatureGaroo : GroundCreature {
         
     }

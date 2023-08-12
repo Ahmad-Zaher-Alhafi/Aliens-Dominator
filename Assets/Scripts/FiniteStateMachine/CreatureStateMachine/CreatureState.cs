@@ -39,26 +39,29 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         public override void Interrupt() {
             base.Interrupt();
-            AutomatedObject.Mover.TerminateCurrentOrder();
+            AutomatedObject.Mover.InterruptCurrentOrder();
+            AutomatedObject.Animator.InterruptCurrentOrder();
         }
 
-        protected void OnMoverOrderFulfilled() {
+        protected void OnMoverOrderFulfilled(bool wasInterrupted) {
             if (!WaitForMoverToFulfill) return;
             hasMoverOrderFinished = true;
 
+            if (wasInterrupted) return;
             if (WaitForAnimatorToFulfill && !hasAnimationFinished) return;
             Fulfil();
         }
 
-        protected void OnAnimationFinished() {
+        protected void OnAnimationFinished(bool wasInterrupted) {
             if (!WaitForAnimatorToFulfill) return;
             hasAnimationFinished = true;
 
+            if (wasInterrupted) return;
             if (WaitForMoverToFulfill && !hasMoverOrderFinished) return;
             Fulfil();
         }
 
-        protected override void Clear() {
+        public override void Clear() {
             base.Clear();
             hasMoverOrderFinished = true;
             hasAnimationFinished = true;

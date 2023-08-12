@@ -10,7 +10,6 @@ using UnityEngine;
 
 namespace Creatures {
     public abstract class Creature : PooledObject, IDamager, IDamageable, IAutomatable {
-        public bool HasPushingForce => false;
         public bool IsDestroyed => IsDead;
         public int Damage => attackDamage;
         public Transform Transform => transform;

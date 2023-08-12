@@ -14,12 +14,12 @@ namespace Creatures.Animators {
 
         protected override void Update() {
             base.Update();
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Idle) {
+            if (Creature.CurrentStateType == CreatureStateType.Idle) {
                 InterpolateFloatParameter(idleIndexParameter, idleAnimationIndex, ANIMATION_SWITCH_TIME);
             }
         }
 
-        public override void PlayIdleAnimation(Action informAnimationFinished) {
+        public override void PlayIdleAnimation(Action<bool> informAnimationFinished) {
             base.PlayIdleAnimation(informAnimationFinished);
             SetRandomIdleAnimation();
         }

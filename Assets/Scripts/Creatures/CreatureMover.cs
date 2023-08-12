@@ -7,17 +7,6 @@ using Utils;
 
 namespace Creatures {
     public abstract class CreatureMover : MonoBehaviour {
-        public bool IsBusy {
-            get => isBusy;
-            private set {
-                isBusy = value;
-                if (!isBusy) {
-                    informOrderFulfilled?.Invoke();
-                }
-            }
-        }
-        private bool isBusy;
-
         public float CurrentSpeed { get; private set; }
 
         [SerializeField] private float secondsToStayIdle = 5;
@@ -37,7 +26,7 @@ namespace Creatures {
         private SpawnPointPath pathToFollow;
         private int lastFollowedPathPointIndex = -1;
         private PathPoint lastFollowedPathPoint;
-        private Action informOrderFulfilled;
+        private Action<bool> informOrderFulfilled;
 
         private bool HasReachedPathEnd => pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == lastFollowedPathPoint;
 
@@ -52,40 +41,35 @@ namespace Creatures {
         }
 
         protected virtual void FixedUpdate() {
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Dead) return;
+            if (Creature.CurrentStateType == CreatureStateType.Dead) return;
 
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Attacking) {
+            if (Creature.CurrentStateType == CreatureStateType.Attacking) {
                 RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
             }
         }
 
-        public void StayIdle(Action informOrderFulfilled) {
-            IsBusy = true;
+        public void StayIdle(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
             CurrentSpeed = 0;
             StartCoroutine(StayIdleForSeconds(secondsToStayIdle));
         }
 
-        public virtual void Patrol(Action informOrderFulfilled) {
-            IsBusy = true;
+        public virtual void Patrol(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
             CurrentSpeed = patrolSpeed;
         }
 
-        public virtual void RunAway(Action informOrderFulfilled) {
-            IsBusy = true;
+        public virtual void RunAway(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
             CurrentSpeed = runSpeed;
         }
 
-        public virtual PathPoint FollowPath(Action informOrderFulfilled) {
-            IsBusy = true;
+        public virtual PathPoint FollowPath(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
             return ContinueToNextPathPoint();
         }
 
-        public void ChaseTarget(Action informOrderFulfilled, Transform target) {
-            IsBusy = true;
+        public void ChaseTarget(Action<bool> informOrderFulfilled, Transform target) {
             this.informOrderFulfilled = informOrderFulfilled;
             CurrentSpeed = runSpeed;
             OrderToMoveTo(target);
@@ -122,21 +106,25 @@ namespace Creatures {
         }
 
         private void FulfillCurrentOrder() {
-            TerminateCurrentOrder();
+            OnCurrentOrderFinished(false);
             Creature.OnMoverOrderFulfilled();
         }
 
-        public void TerminateCurrentOrder() {
+        public void InterruptCurrentOrder() {
+            OnCurrentOrderFinished(true);
+        }
+
+        private void OnCurrentOrderFinished(bool wasInterrupted) {
             HasMovingOrder = false;
-            IsBusy = false;
+            informOrderFulfilled?.Invoke(wasInterrupted);
             CurrentSpeed = 0;
         }
 
         protected void OnDestinationReached() {
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.FollowingPath && !HasReachedPathEnd) {
+            if (Creature.CurrentStateType == CreatureStateType.FollowingPath && !HasReachedPathEnd) {
                 ContinueToNextPathPoint();
             } else {
-                if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.FollowingPath && Creature.TargetPoint != null) {
+                if (Creature.CurrentStateType == CreatureStateType.FollowingPath && Creature.TargetPoint != null) {
                     HasReachedBaseAttackPoint = true;
                 }
 
@@ -146,7 +134,7 @@ namespace Creatures {
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
-            if ((CreatureStateType) Creature.CurrentStateType == CreatureStateType.Idle) {
+            if (Creature.CurrentStateType == CreatureStateType.Idle) {
                 FulfillCurrentOrder();
             }
         }

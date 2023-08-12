@@ -18,7 +18,7 @@ namespace Creatures {
         [SerializeField] private int damageWeight = 1;
         [SerializeField] private CreatureBodyPart type;
         private CreatureBodyPart Type => type;
-        [SerializeField] private Creature creature;
+        private Creature creature;
 
         private new Collider collider;
         private Rigidbody Rig { get;set; }
@@ -26,6 +26,7 @@ namespace Creatures {
         private Quaternion initialLocalRotation;
 
         private void Awake() {
+            creature = GetComponentInParent<Creature>();
             collider = GetComponent<Collider>();
             Rig = GetComponent<Rigidbody>();
             initialLocalPosition = transform.localPosition;
