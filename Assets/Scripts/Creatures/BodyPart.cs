@@ -21,7 +21,7 @@ namespace Creatures {
         private Creature creature;
 
         private new Collider collider;
-        private Rigidbody Rig { get;set; }
+        private Rigidbody Rig { get; set; }
         private Vector3 initialLocalPosition;
         private Quaternion initialLocalRotation;
 
@@ -53,11 +53,10 @@ namespace Creatures {
             Rig.useGravity = true;
             Rig.isKinematic = false;
             Rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            
+
             if (creature.ObjectDamagedWith != null && Type == CreatureBodyPart.Body) {
                 // Force to push the creature away and rotate it once get killed (More realistic)
                 Rig.AddForce(creature.ObjectDamagedWith.Transform.forward * creature.ObjectDamagedWith.PushingForce, ForceMode.Impulse);
-                Rig.AddTorque(Vector3.one * creature.ObjectDamagedWith.PushingForce, ForceMode.Impulse);
             }
         }
 
