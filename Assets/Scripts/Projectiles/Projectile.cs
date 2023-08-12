@@ -21,9 +21,11 @@ namespace Projectiles {
 
         protected Rigidbody Rig;
         private float initialSpeed;
+        protected Collider Collider;
 
         protected virtual void Awake() {
             Rig = GetComponent<Rigidbody>();
+            Collider = GetComponent<Collider>();
             initialSpeed = speed;
         }
 
@@ -50,6 +52,10 @@ namespace Projectiles {
             }
 
             Fire(target);
+        }
+
+        protected virtual void OnTriggerEnter(Collider other) {
+            Collider.enabled = false;
         }
 
         // To not let the projectile flying in the air for the rest of the game if it does not hit anything

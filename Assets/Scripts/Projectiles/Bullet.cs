@@ -7,7 +7,8 @@ namespace Projectiles {
             Rig.AddForce(transform.forward * 200, ForceMode.Impulse);
         }
 
-        private void OnTriggerEnter(Collider other) {
+        protected override void OnTriggerEnter(Collider other) {
+            base.OnTriggerEnter(other);
             ReturnToPool();
         }
     }

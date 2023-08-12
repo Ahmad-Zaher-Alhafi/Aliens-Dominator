@@ -11,7 +11,6 @@ namespace Projectiles {
         [SerializeField] private ExplosionParticle explosionParticlePrefab;
         [SerializeField] private Transform explosionParticlePoint;
 
-        private new Collider collider;
         private IDamageable target;
         private MeshRenderer meshRenderer;
         private bool wasLaunched;
@@ -20,16 +19,14 @@ namespace Projectiles {
 
         protected override void Awake() {
             base.Awake();
-            collider = GetComponent<Collider>();
             meshRenderer = GetComponent<MeshRenderer>();
         }
 
         public override void InitDefaults(Vector3 initialLocalPosition) {
             base.InitDefaults(initialLocalPosition);
-            collider.enabled = true;
             meshRenderer.enabled = true;
             wasLaunched = false;
-            collider.enabled = false;
+            Collider.enabled = false;
         }
 
         protected void Update() {
@@ -49,13 +46,12 @@ namespace Projectiles {
             wasLaunched = true;
             transform.parent = null;
             this.target = target;
-            collider.enabled = true;
+            Collider.enabled = true;
 
             launchSmokeParticle = launchSmokeParticlePrefab.GetObject<RocketParticle>(transform);
             launchSmokeParticle.transform.position = launchSmokeParticlePoint.position;
             launchSmokeParticle.transform.rotation = launchSmokeParticlePoint.rotation;
-            launchSmokeParticle.PlaySound();
-            launchSmokeParticle.ParticleSystem.Play();
+            launchSmokeParticle.Play();
         }
 
         /// <summary>
@@ -72,20 +68,18 @@ namespace Projectiles {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
         }
 
-        private void OnTriggerEnter(Collider other) {
+        protected override void OnTriggerEnter(Collider other) {
+            base.OnTriggerEnter(other);
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
             if (damageable == null) return;
 
             launchSmokeParticle.transform.parent = null;
-            launchSmokeParticle.HideOncePlayingFinished();
 
-            explosionParticle = explosionParticlePrefab.GetObject<RocketParticle>(transform);
+            explosionParticle = explosionParticlePrefab.GetObject<ExplosionParticle>(transform);
             explosionParticle.transform.position = explosionParticlePoint.position;
             explosionParticle.transform.rotation = explosionParticlePoint.rotation;
             explosionParticle.transform.parent = null;
-            explosionParticle.ParticleSystem.Play();
-            explosionParticle.PlaySound();
-            explosionParticle.HideOncePlayingFinished();
+            explosionParticle.Play();
 
             meshRenderer.enabled = false;
             StopAllCoroutines();
