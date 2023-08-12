@@ -49,12 +49,6 @@ namespace Creatures {
             TakeDamage(damager, damageWeight);
         }
 
-        private void OnCollisionEnter(Collision collision) {
-            IDamager damager = collision.gameObject.GetComponent<IDamager>();
-            if (damager == null) return;
-            TakeDamage(damager, damageWeight);
-        }
-
         public void OnDeath() {
             Rig.useGravity = true;
             Rig.isKinematic = false;
