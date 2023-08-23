@@ -29,9 +29,12 @@ namespace Creatures {
         private PathPoint pathPointCurrentlyGoingTo;
         private Action<bool> informOrderFulfilled;
 
-        public bool HasReachedPathEnd => pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == LastReachedPathPoint;
-
-        public bool HasReachedBaseAttackPoint { get; private set; }
+        public bool HasReachedPathEnd {
+            get {
+                if (pathToFollow == null) return true;
+                return pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == LastReachedPathPoint;
+            }
+        }
 
         protected virtual void Awake() {
             Creature = GetComponent<Creature>();
