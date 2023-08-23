@@ -13,10 +13,5 @@ namespace FiniteStateMachine.CreatureStateMachine {
             base.Activate(isSecondaryState);
             AutomatedObject.Mover.FollowPath(OnMoverOrderFulfilled);
         }
-
-        public override void Fulfil() {
-            base.Fulfil();
-            AutomatedObject.HasToFollowPath = false;
-        }
     }
 }

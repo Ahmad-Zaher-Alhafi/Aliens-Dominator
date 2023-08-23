@@ -53,7 +53,7 @@ namespace Creatures {
 
         public CreatureAnimator Animator { get; private set; }
         public IReadOnlyList<BodyPart> BodyParts { get; private set; }
-        public bool HasToFollowPath { get; set; }
+        public bool HasToFollowPath => !Mover.HasReachedPathEnd;
 
         public bool IsCinematic { get; private set; }
         public bool IsPoisoned { get; private set; }

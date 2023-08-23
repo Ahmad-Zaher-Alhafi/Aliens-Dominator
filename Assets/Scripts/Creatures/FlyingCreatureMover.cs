@@ -36,14 +36,6 @@ namespace Creatures {
             OrderToMoveTo(randomRunAwayPoint);
         }
 
-        public override PathPoint FollowPath(Action<bool> informOrderFulfilled) {
-            Transform nextPathPoint = base.FollowPath(informOrderFulfilled)?.transform;
-            if (nextPathPoint == null) return null;
-            
-            OrderToMoveTo(nextPathPoint);
-            return null;
-        }
-
         protected override void OrderToMoveTo(Transform point) {
             base.OrderToMoveTo(point);
             pointToMoveTo = point;

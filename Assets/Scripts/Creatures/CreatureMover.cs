@@ -24,11 +24,11 @@ namespace Creatures {
         protected Creature Creature;
         protected bool HasMovingOrder;
         private SpawnPointPath pathToFollow;
-        private int lastFollowedPathPointIndex = -1;
-        private PathPoint lastFollowedPathPoint;
+        public PathPoint LastReachedPathPoint { get; private set; }
+        private PathPoint pathPointCurrentlyGoingTo;
         private Action<bool> informOrderFulfilled;
 
-        private bool HasReachedPathEnd => pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == lastFollowedPathPoint;
+        public bool HasReachedPathEnd => pathToFollow.PathPoints.Count == 0 || pathToFollow.PathPoints.Last() == LastReachedPathPoint;
 
         public bool HasReachedBaseAttackPoint { get; private set; }
 
@@ -64,9 +64,9 @@ namespace Creatures {
             CurrentSpeed = runSpeed;
         }
 
-        public virtual PathPoint FollowPath(Action<bool> informOrderFulfilled) {
+        public void FollowPath(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
-            return ContinueToNextPathPoint();
+            ContinueToNextPathPoint();
         }
 
         public void ChaseTarget(Action<bool> informOrderFulfilled, Transform target) {
@@ -75,16 +75,19 @@ namespace Creatures {
             OrderToMoveTo(target);
         }
 
-        private PathPoint ContinueToNextPathPoint() {
-            PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, lastFollowedPathPointIndex);
-            lastFollowedPathPointIndex = pathToFollow.PathPoints.IndexOf(nextPathPoint);
-            lastFollowedPathPoint = nextPathPoint;
+        private void ContinueToNextPathPoint() {
+            LastReachedPathPoint = pathPointCurrentlyGoingTo;
+            PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, LastReachedPathPoint != null ? LastReachedPathPoint.Index : -1);
+            pathPointCurrentlyGoingTo = nextPathPoint;
             CurrentSpeed = runSpeed;
-            if (nextPathPoint != null) return nextPathPoint;
+
+            if (nextPathPoint != null) {
+                OrderToMoveTo(nextPathPoint.transform);
+                return;
+            }
 
             // Has Reached the end of the path
             OnDestinationReached();
-            return null;
         }
 
         protected virtual void OrderToMoveTo(Transform point) {
@@ -140,8 +143,8 @@ namespace Creatures {
         }
 
         public void OnDeath() {
-            lastFollowedPathPointIndex = -1;
-            lastFollowedPathPoint = null;
+            LastReachedPathPoint = null;
+            pathPointCurrentlyGoingTo = null;
             HasReachedBaseAttackPoint = false;
         }
     }
