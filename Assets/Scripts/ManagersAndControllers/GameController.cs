@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Context;
 using Creatures;
 using UnityEditor;
@@ -10,13 +9,13 @@ using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {
     public class GameController : MonoBehaviour {
-        private List<NavMeshSurface> navMeshSurfaces;
+        [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
+
         private int currentWaveIndex = -1;
         public bool HasWaveStarted { get; private set; }
         int NextWaveIndex => currentWaveIndex + 1;
 
         private void Awake() {
-            navMeshSurfaces = FindObjectsOfType<NavMeshSurface>().ToList();
             foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
                 navMeshSurface.BuildNavMesh();
             }
@@ -59,7 +58,7 @@ namespace ManagersAndControllers {
             Ctx.Deps.EventsManager.WaveFinished -= OnWaveFinished;
         }
 
-        
+
 #if UNITY_EDITOR
         [CustomEditor(typeof(GameController))]
         public class GameControllerEditor : Editor {
