@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Context;
 using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using Utils;
@@ -76,7 +77,6 @@ namespace Creatures {
         }
 
         private void ContinueToNextPathPoint() {
-            LastReachedPathPoint = pathPointCurrentlyGoingTo;
             PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, LastReachedPathPoint != null ? LastReachedPathPoint.Index : -1);
             pathPointCurrentlyGoingTo = nextPathPoint;
             CurrentSpeed = runSpeed;
@@ -124,15 +124,16 @@ namespace Creatures {
         }
 
         protected void OnDestinationReached() {
-            if (Creature.CurrentStateType == CreatureStateType.FollowingPath && !HasReachedPathEnd) {
-                ContinueToNextPathPoint();
-            } else {
-                if (Creature.CurrentStateType == CreatureStateType.FollowingPath && Creature.TargetPoint != null) {
-                    HasReachedBaseAttackPoint = true;
+            if (Creature.CurrentStateType == CreatureStateType.FollowingPath) {
+                LastReachedPathPoint = pathPointCurrentlyGoingTo;
+                Ctx.Deps.EventsManager.TriggerPathPointReached(LastReachedPathPoint);
+                if (!HasReachedPathEnd) {
+                    ContinueToNextPathPoint();
+                    return;
                 }
-
-                FulfillCurrentOrder();
             }
+
+            FulfillCurrentOrder();
         }
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
@@ -145,7 +146,6 @@ namespace Creatures {
         public void OnDeath() {
             LastReachedPathPoint = null;
             pathPointCurrentlyGoingTo = null;
-            HasReachedBaseAttackPoint = false;
         }
     }
 }

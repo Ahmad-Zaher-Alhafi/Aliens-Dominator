@@ -46,7 +46,12 @@ namespace Creatures {
         [SerializeField] private int chanceOfDroppingBalloon;
         public int ChanceOfDroppingBalloon => chanceOfDroppingBalloon;
 
-        [SerializeField] private int specialActionPathPointIndex = 2;
+        [SerializeField] private bool hasSpecialAbility = true;
+        [Tooltip("The min path point index that the creature has to reach in the path to be able to start special ability")]
+        [SerializeField] private int specialAbilityMinPathPointIndex = 2;
+        [Range(0, 100)]
+        [SerializeField] private int specialAbilityChance = 50;
+        public int SpecialAbilityChance => specialAbilityChance;
 
         [SerializeField] private int secondsToDestroyDeadBody = 10;
         private int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
@@ -55,6 +60,14 @@ namespace Creatures {
         public IReadOnlyList<BodyPart> BodyParts { get; private set; }
         public bool HasToFollowPath => !Mover.HasReachedPathEnd;
 
+        public bool CouldActivateSpecialAbility {
+            get {
+                if (!hasSpecialAbility) return false;
+                
+                if (Mover.LastReachedPathPoint == null) return false;
+                return specialAbilityMinPathPointIndex <= Mover.LastReachedPathPoint.Index;
+            }
+        }
         public bool IsCinematic { get; private set; }
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
@@ -81,7 +94,6 @@ namespace Creatures {
             transform.position = spawnPosition;
             IsSlowedDown = false;
             IsCinematic = isCinematic;
-            HasToFollowPath = pathToFollow != null;
             HasToDisappear = false;
             TargetReached = false;
             Health = initialHealth;
@@ -115,7 +127,7 @@ namespace Creatures {
         public void TakeDamage(IDamager damager, int damageWeight) {
             ObjectDamagedWith = damager;
             creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
-            
+
             BloodParticle bloodParticle = bloodParticlesPrefab.GetObject<BloodParticle>(null);
             bloodParticle.transform.position = bloodEffectCreatePoint.position;
             bloodParticle.SetColor(bloodColor);

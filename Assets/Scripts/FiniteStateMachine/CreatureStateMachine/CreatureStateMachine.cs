@@ -28,6 +28,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
                     CreatureStateType.Attacking => new AttackingState(AutomatedObject),
                     CreatureStateType.RunningAway => new RunningAwayState(AutomatedObject),
                     CreatureStateType.Dead => new DeadState(AutomatedObject),
+                    CreatureStateType.SpecialAbility => new SpecialAbilityState(AutomatedObject),
                     _ => throw new ArgumentOutOfRangeException()
                 };
 

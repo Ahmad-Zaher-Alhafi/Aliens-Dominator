@@ -157,7 +157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1090620295023546
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 4
   type: 1
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1125328105195496
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1163043794454906
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +510,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1210807387151782
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +636,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1229418648672802
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +761,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1249578135310528
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +887,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1264079500935790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1012,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1282195504468032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1285435540576826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1307440081845722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,7 +1390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1396435137538184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,7 +1516,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1425096543267256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1642,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1445719100043730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,7 +1768,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1450742840476716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +1893,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1486520531662860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,7 +2019,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1487194687576482
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,7 +2145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1506126674423662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2271,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1591194365784740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,7 +2397,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1606027654611784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,7 +2523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1644708188338916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,7 +2603,9 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
-  specialActionPathPointIndex: 2
+  hasSpecialAbility: 1
+  specialAbilityMinPathPointIndex: 2
+  specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
 --- !u!114 &2173812142681769714
 MonoBehaviour:
@@ -2881,7 +2863,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1656225944258496
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,7 +2989,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1660126884827708
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,7 +3114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1660659461276330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,7 +3240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1675184924792352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,7 +3366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1742878744461062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,7 +3494,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 5
   type: 0
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1744190487038050
 GameObject:
   m_ObjectHideFlags: 0
@@ -3799,7 +3775,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1804488589258958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,7 +3901,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1818579544607952
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,7 +4026,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1855398426840456
 GameObject:
   m_ObjectHideFlags: 0
@@ -4179,7 +4152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1875566410638494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,7 +4278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1917546711311814
 GameObject:
   m_ObjectHideFlags: 0
@@ -4432,7 +4403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1934240927934488
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,7 +4561,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 2
   type: 2
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1960646120719430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4687,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 1
   type: 5
-  creature: {fileID: 5473156317307805654}
 --- !u!1 &1978347204074472
 GameObject:
   m_ObjectHideFlags: 0

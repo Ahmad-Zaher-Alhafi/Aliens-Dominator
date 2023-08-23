@@ -76,7 +76,7 @@ namespace FiniteStateMachine {
                 }
 
                 ActivateDestinationState(transition);
-                break;
+                return;
             }
 
             // Find all states that can be synced with the PrimaryState

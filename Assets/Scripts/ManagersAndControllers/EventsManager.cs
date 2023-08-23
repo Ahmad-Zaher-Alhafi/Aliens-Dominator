@@ -23,6 +23,11 @@ namespace ManagersAndControllers {
         public void TriggerEnemyGotHit(Creature creature) {
             EnemyGotHit?.Invoke(creature);
         }
+        
+        public event Action<PathPoint> PathPointReached;
+        public void TriggerPathPointReached(PathPoint pathPoint) {
+            PathPointReached?.Invoke(pathPoint);
+        }
 
         public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
         public void OnCallingSupplies(Constants.SuppliesTypes suppliesType) {

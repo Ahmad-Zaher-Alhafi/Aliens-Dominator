@@ -182,11 +182,11 @@ namespace ManagersAndControllers {
                         Creature creature = creatureSpawnController.SpawnCreature((Creature) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
                         creature.tag = "TestCreature";
                         creature.name = "Test Creature";
-                        creature.GetComponent<CreatureStateMachine>().enabled = false;
+                        /*creature.GetComponent<CreatureStateMachine>().enabled = false;
                         NavMeshAgent navMeshAgent = creature.GetComponent<NavMeshAgent>();
                         if (navMeshAgent != null) {
                             navMeshAgent.enabled = false;
-                        }
+                        }*/
                     } else {
                         Debug.LogError("Works only in play mode!");
                     }
