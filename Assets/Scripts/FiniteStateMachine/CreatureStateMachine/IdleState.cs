@@ -6,13 +6,14 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public override bool CanBeActivated() => AutomatedObject.IsCinematic && IsNextCinematicState;
         public override bool IsCinematic => true;
         protected override bool WaitForMoverToFulfill => true;
-        protected override bool WaitForAnimatorToFulfill => false;
+        protected override bool WaitForAnimatorToFulfill => true;
 
         public IdleState(Creature creature) : base(creature) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
             AutomatedObject.Mover.StayIdle(OnMoverOrderFulfilled);
+            AutomatedObject.Animator.PlayIdleAnimation(OnAnimationFinished);
         }
     }
 }

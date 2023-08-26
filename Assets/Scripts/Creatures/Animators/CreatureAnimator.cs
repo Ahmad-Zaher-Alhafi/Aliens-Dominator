@@ -12,7 +12,7 @@ namespace Creatures.Animators {
         [SerializeField] protected AnimationClip IdleAnimationClip;
         [SerializeField] protected AnimationClip takeDamageAnimationClip;
         [SerializeField] protected AnimationClip dieAnimationClip;
-        [SerializeField] private float timeBetweenAttacks = 2;
+
 
         protected Creature Creature;
         private Animator animator;
@@ -89,7 +89,7 @@ namespace Creatures.Animators {
             if (currentActiveAnimationClip == null) return;
             animator.ResetTrigger(currentActiveAnimationClip.name);
         }
-        
+
         private void FulfillCurrentOrder() {
             informAnimationFinishedCallback?.Invoke(false);
         }
