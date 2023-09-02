@@ -19,25 +19,28 @@ namespace Creatures.Animators {
             }
         }
 
-        public override void SetRandomIdleAnimation(Action<bool> informAnimationFinished) {
-            base.SetRandomIdleAnimation(informAnimationFinished);
+        /// <summary>
+        /// Garoo creature inherits this because it has multi idle animations
+        /// </summary>
+        public override void SetRandomIdleAnimation(Action<bool> informAnimationFinished, float animationLength = 0) {
             switch (Random.Range(1, 4)) {
                 case 1: {
                     idleAnimationIndex = 1;
-                    StartCoroutine(InformAnimationFinishedAfter(IdleAnimationClip.length));
+                    animationLength = IdleAnimationClip.length;
                 }
                     break;
                 case 2: {
                     idleAnimationIndex = 2;
-                    StartCoroutine(InformAnimationFinishedAfter(lookAroundAnimationClip.length));
+                    animationLength = lookAroundAnimationClip.length;
                 }
                     break;
                 case 3: {
                     idleAnimationIndex = 3;
-                    StartCoroutine(InformAnimationFinishedAfter(feedAnimationClip.length));
+                    animationLength = feedAnimationClip.length;
                 }
                     break;
             }
+            base.SetRandomIdleAnimation(informAnimationFinished, animationLength);
         }
     }
 }

@@ -36,8 +36,9 @@ namespace Creatures.Animators {
             InterpolateFloatParameter(currentSpeedParameter, Creature.Mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
 
-        public virtual void SetRandomIdleAnimation(Action<bool> informAnimationFinished) {
+        public virtual void SetRandomIdleAnimation(Action<bool> informAnimationFinished, float animationLength = 0) {
             informAnimationFinishedCallback = informAnimationFinished;
+            StartCoroutine(InformAnimationFinishedAfter(animationLength));
         }
 
         public void PlayAttackAnimation(Action<bool> informAnimationFinished, Action informToAttack) {
