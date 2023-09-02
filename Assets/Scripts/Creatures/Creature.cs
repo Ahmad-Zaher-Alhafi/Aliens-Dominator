@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Context;
 using Creatures.Animators;
@@ -15,7 +16,6 @@ namespace Creatures {
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
         public float PushingForce => 0;
-        public CreatureStateType CurrentStateType => creatureStateMachine.PrimaryState?.Type ?? default;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
         public GameObject ObjectToAttack { get; private set; }
@@ -63,7 +63,7 @@ namespace Creatures {
         public bool CouldActivateSpecialAbility {
             get {
                 if (!hasSpecialAbility) return false;
-                
+
                 if (Mover.LastReachedPathPoint == null) return false;
                 return specialAbilityMinPathPointIndex <= Mover.LastReachedPathPoint.Index;
             }
@@ -71,14 +71,14 @@ namespace Creatures {
         public bool IsCinematic { get; private set; }
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
-        public bool IsDead => CurrentStateType == CreatureStateType.Dead;
+        public bool IsDead => IsStateActive<DeadState>();
 
         private int initialHealth;
         private StudioEventEmitter deathSound;
         private Rigidbody Rig { get; set; }
         private CreatureStateMachine creatureStateMachine;
 
-        private void Awake() {
+        protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
             Rig = GetComponent<Rigidbody>();
             Mover = GetComponent<CreatureMover>();
@@ -134,11 +134,14 @@ namespace Creatures {
             bloodParticle.Play();
         }
 
-        public void PlayDeathSound() {
-            deathSound.Play();
+        public virtual void ExecuteSpecialAbility(Action<bool> informAnimationFinishedCallback) { }
+
+        public bool IsStateActive<T>() where T : CreatureState {
+            return creatureStateMachine.GetState<T>().IsActive;
         }
 
-        public void OnDeath() {
+        public virtual void OnDeath() {
+            deathSound.Play();
             Mover.OnDeath();
             Animator.OnDeath();
             Rig.isKinematic = true;

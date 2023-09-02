@@ -22,7 +22,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         private void Die() {
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(AutomatedObject.transform.position, AutomatedObject.ChanceOfDroppingBalloon);
-            AutomatedObject.PlayDeathSound();
             AutomatedObject.OnDeath();
             Debug.Log($"Creature {AutomatedObject} is dead");
         }

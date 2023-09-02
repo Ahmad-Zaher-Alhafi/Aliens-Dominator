@@ -7,35 +7,33 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public override CreatureStateType Type => CreatureStateType.SpecialAbility;
 
         public override bool CanBeActivated() {
-            if (AutomatedObject.CouldActivateSpecialAbility && HasChanceForActivation() && newPathPointReached) {
-                newPathPointReached = false;
-                return true;
-            }
-
+            if (AutomatedObject.CouldActivateSpecialAbility && HasChanceForActivation() && newPathPointReached) return true;
             newPathPointReached = false;
             return false;
         }
 
-        protected override bool WaitForMoverToFulfill => true;
-        protected override bool WaitForAnimatorToFulfill => false;
+        protected override bool WaitForMoverToFulfill => false;
+        protected override bool WaitForAnimatorToFulfill => true;
 
         /// <summary>
         /// This will be true only when the automated object reaches a new path point
-        /// It will be false directly after checking if the state canBeActivated()
-        /// As i do not want this state to be activated when the automated object is not on a path point
+        /// It will be false directly if the creature can not do special ability or when this state get activated
+        /// As i do not want this state to be activated when the automated object is not on a path point and it shall be activated only once per path point if can be activated
         /// </summary>
         private bool newPathPointReached;
 
         public SpecialAbilityState(Creature creature) : base(creature) {
             Ctx.Deps.EventsManager.PathPointReached += OnPathPointReached;
         }
-        private void OnPathPointReached(PathPoint pathPoint) {
+        private void OnPathPointReached(Creature creature, PathPoint pathPoint) {
+            if (creature != AutomatedObject) return;
             newPathPointReached = true;
         }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
-            Fulfil();
+            newPathPointReached = false;
+            AutomatedObject.ExecuteSpecialAbility(OnAnimationFinished);
         }
 
         /// <summary>

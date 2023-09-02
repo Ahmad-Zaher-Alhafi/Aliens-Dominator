@@ -13,7 +13,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
             AutomatedObject.Mover.StayIdle(OnMoverOrderFulfilled);
-            AutomatedObject.Animator.PlayIdleAnimation(OnAnimationFinished);
+            AutomatedObject.Animator.SetRandomIdleAnimation(OnAnimationFinished);
         }
     }
 }

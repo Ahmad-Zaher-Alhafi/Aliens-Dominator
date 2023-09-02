@@ -113,7 +113,7 @@ namespace FiniteStateMachine {
 
         private void ActivateAsSecondaryState(TState secondaryState) {
             if (!secondaryState.CanBeActivated()) return;
-            secondaryState.Activate();
+            secondaryState.Activate(true);
         }
 
         public T GetState<T>() where T : TState {

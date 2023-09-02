@@ -45,9 +45,9 @@ namespace Creatures {
         }
 
         protected virtual void FixedUpdate() {
-            if (Creature.CurrentStateType == CreatureStateType.Dead) return;
+            if (Creature.IsStateActive<DeadState>()) return;
 
-            if (Creature.CurrentStateType == CreatureStateType.Attacking) {
+            if (Creature.IsStateActive<AttackingState>()) {
                 RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
             }
         }
@@ -127,9 +127,9 @@ namespace Creatures {
         }
 
         protected void OnDestinationReached() {
-            if (Creature.CurrentStateType == CreatureStateType.FollowingPath) {
+            if (Creature.IsStateActive<FollowingPathState>()) {
                 LastReachedPathPoint = pathPointCurrentlyGoingTo;
-                Ctx.Deps.EventsManager.TriggerPathPointReached(LastReachedPathPoint);
+                Ctx.Deps.EventsManager.TriggerPathPointReached(Creature, LastReachedPathPoint);
                 if (!HasReachedPathEnd) {
                     ContinueToNextPathPoint();
                     return;
@@ -141,7 +141,7 @@ namespace Creatures {
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
-            if (Creature.CurrentStateType == CreatureStateType.Idle) {
+            if (Creature.IsStateActive<IdleState>()) {
                 FulfillCurrentOrder();
             }
         }

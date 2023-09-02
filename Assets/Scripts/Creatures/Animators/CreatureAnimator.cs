@@ -36,22 +36,21 @@ namespace Creatures.Animators {
             InterpolateFloatParameter(currentSpeedParameter, Creature.Mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
 
-        public virtual void PlayIdleAnimation(Action<bool> informAnimationFinished) {
+        public virtual void SetRandomIdleAnimation(Action<bool> informAnimationFinished) {
             informAnimationFinishedCallback = informAnimationFinished;
         }
 
         public void PlayAttackAnimation(Action<bool> informAnimationFinished, Action informToAttack) {
-            informAnimationFinishedCallback = informAnimationFinished;
             AnimationClip randomAttackAnimationClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
-            PlayAnimationClip(randomAttackAnimationClip);
+            PlayAnimationClip(randomAttackAnimationClip, true, informAnimationFinished);
             StartCoroutine(InformToApplyDamageAfter(currentActiveAnimationClip.length, informToAttack));
         }
 
         public void PlayGettingHitAnimation(Action<bool> informAnimationFinished) {
-            informAnimationFinishedCallback = informAnimationFinished;
-            ResetCurrentAnimationTrigger();
-            PlayAnimationClip(takeDamageAnimationClip);
+            PlayAnimationClip(takeDamageAnimationClip, true, informAnimationFinished);
         }
+
+        public virtual void PlaySpecialAbilityAnimation(Action<bool> informAnimationFinished) { }
 
         /// <summary>
         /// To set a float parameter in a smooth way, useful in switching between idle, walking and running
@@ -65,11 +64,20 @@ namespace Creatures.Animators {
             animator.SetFloat(animationClipID, value);
         }
 
-        private void PlayAnimationClip(AnimationClip animationClip) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="animationClip"></param>
+        /// <param name="informOnAnimationFinished">If true, the animator will send a call back to it's state that the animation has finished</param>
+        /// <param name="informAnimationFinished"></param>
+        protected void PlayAnimationClip(AnimationClip animationClip, bool informOnAnimationFinished, Action<bool> informAnimationFinished) {
+            informAnimationFinishedCallback = informAnimationFinished;
+            ResetCurrentAnimationTrigger();
             currentActiveAnimationClip = animationClip;
             animator.SetTrigger(currentActiveAnimationClip.name);
-            currentActiveAnimationClip = takeDamageAnimationClip;
-            StartCoroutine(InformAnimationFinishedAfter(currentActiveAnimationClip.length));
+            if (informOnAnimationFinished) {
+                StartCoroutine(InformAnimationFinishedAfter(currentActiveAnimationClip.length));
+            }
         }
 
         private IEnumerator InformToApplyDamageAfter(float length, Action informToApplyDamage) {

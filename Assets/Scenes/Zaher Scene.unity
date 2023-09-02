@@ -77398,9 +77398,17 @@ PrefabInstance:
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: testCreaturePrefab
       value: 
-      objectReference: {fileID: 5473156317307805654, guid: 5acd5a1f5df01854d9c443eb56b29a1e, type: 3}
+      objectReference: {fileID: -4609342481440302439, guid: de885bb7d42d28444b6a87c422b0efdc, type: 3}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: waves.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 5befd9fe9d150c046bd314f3f9b439fb, type: 2}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}

@@ -31,7 +31,7 @@ namespace Creatures {
 
         protected override void FixedUpdate() {
             base.FixedUpdate();
-            if (Creature.CurrentStateType == CreatureStateType.Dead) {
+            if (Creature.IsStateActive<DeadState>()) {
                 navMeshAgent.enabled = false;
                 return;
             }

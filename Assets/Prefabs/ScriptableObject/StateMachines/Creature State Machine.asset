@@ -41,7 +41,6 @@ MonoBehaviour:
     transitionsData:
     - destinationStateType: 5
     - destinationStateType: 4
-    - destinationStateType: 9
     statesSyncedWithMask: 32
     interruptStatesMask: 0
   - originStateType: 4
@@ -57,7 +56,7 @@ MonoBehaviour:
     - destinationStateType: 4
     - destinationStateType: 3
     - destinationStateType: 8
-    statesSyncedWithMask: 152
+    statesSyncedWithMask: 664
     interruptStatesMask: 255
   - originStateType: 6
     transitionsData:
@@ -76,8 +75,8 @@ MonoBehaviour:
     - destinationStateType: 3
     - destinationStateType: 4
     - destinationStateType: 5
-    statesSyncedWithMask: 0
-    interruptStatesMask: 8
+    statesSyncedWithMask: 536
+    interruptStatesMask: 0
   - originStateType: 8
     transitionsData: []
     statesSyncedWithMask: 0
