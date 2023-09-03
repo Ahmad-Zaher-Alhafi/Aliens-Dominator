@@ -80,4 +80,4 @@ MonoBehaviour:
   - originStateType: 8
     transitionsData: []
     statesSyncedWithMask: 0
-    interruptStatesMask: 255
+    interruptStatesMask: 767

@@ -77398,7 +77398,7 @@ PrefabInstance:
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: testCreaturePrefab
       value: 
-      objectReference: {fileID: -4609342481440302439, guid: de885bb7d42d28444b6a87c422b0efdc, type: 3}
+      objectReference: {fileID: -7780425046225090788, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: waves.Array.data[0]
       value: 

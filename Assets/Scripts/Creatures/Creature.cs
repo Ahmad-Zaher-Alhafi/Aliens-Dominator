@@ -77,6 +77,7 @@ namespace Creatures {
         private StudioEventEmitter deathSound;
         private Rigidbody Rig { get; set; }
         private CreatureStateMachine creatureStateMachine;
+        protected Action<bool> InformAnimationFinishedCallback;
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -134,7 +135,9 @@ namespace Creatures {
             bloodParticle.Play();
         }
 
-        public virtual void ExecuteSpecialAbility(Action<bool> informAnimationFinishedCallback) { }
+        public virtual void ExecuteSpecialAbility(Action<bool> informAnimationFinishedCallback) {
+            InformAnimationFinishedCallback = informAnimationFinishedCallback;
+        }
 
         public bool IsStateActive<T>() where T : CreatureState {
             return creatureStateMachine.GetState<T>().IsActive;

@@ -22,7 +22,7 @@ namespace Creatures.Animators {
         /// <summary>
         /// Garoo creature inherits this because it has multi idle animations
         /// </summary>
-        public override void SetRandomIdleAnimation(Action<bool> informAnimationFinished, float animationLength = 0) {
+        public override void SetRandomIdleAnimation(Action<bool> informAnimationFinishedCallBack, float animationLength = 0) {
             switch (Random.Range(1, 4)) {
                 case 1: {
                     idleAnimationIndex = 1;
@@ -40,7 +40,7 @@ namespace Creatures.Animators {
                 }
                     break;
             }
-            base.SetRandomIdleAnimation(informAnimationFinished, animationLength);
+            base.SetRandomIdleAnimation(informAnimationFinishedCallBack, animationLength);
         }
     }
 }
