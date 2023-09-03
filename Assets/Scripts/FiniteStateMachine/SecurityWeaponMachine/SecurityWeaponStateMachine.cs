@@ -8,10 +8,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
     public abstract class SecurityWeaponStateMachine<TEnemyType> : StateMachine<SecurityWeaponState<TEnemyType>, SecurityWeapon<TEnemyType>, SecurityWeaponStateType> where TEnemyType : IAutomatable {
         public override void Init(SecurityWeapon<TEnemyType> automatedObject, Enum initialState) {
             base.Init(automatedObject, initialState);
-
-            if (PrimaryState.Type is SecurityWeaponStateType.Shutdown) {
-                PrimaryState.Fulfil();
-            }
+            GetState<ShutdownState<TEnemyType>>().Fulfil();
         }
 
         protected override void CreateStates() {

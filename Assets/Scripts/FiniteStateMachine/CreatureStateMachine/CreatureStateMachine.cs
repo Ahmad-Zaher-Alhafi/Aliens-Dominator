@@ -10,10 +10,8 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class CreatureStateMachine : StateMachine<CreatureState, Creature, CreatureStateType> {
         public override void Init(Creature automatedObject, Enum initialState) {
             base.Init(automatedObject, initialState);
-
-            if (PrimaryState.Type is CreatureStateType.None or CreatureStateType.Dead) {
-                PrimaryState.Fulfil();
-            }
+            GetState<NoneState>().Fulfil();
+            GetState<DeadState>().Fulfil();
         }
 
         protected override void CreateStates() {
