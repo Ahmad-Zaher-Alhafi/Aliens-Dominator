@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Context;
-using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
@@ -25,18 +24,17 @@ namespace Creatures {
         public override void Init(SpawnPointPath pathToFollow) {
             base.Init(pathToFollow);
             navMeshAgent.enabled = true;
-            navMeshAgent.speed = CurrentSpeed;
             navMeshAgent.stoppingDistance = stoppingDistance;
         }
 
         protected override void FixedUpdate() {
             base.FixedUpdate();
-            if (Creature.IsStateActive<DeadState>()) {
+            if (Creature.IsDead) {
                 navMeshAgent.enabled = false;
                 return;
             }
 
-            navMeshAgent.speed = CurrentSpeed;
+            navMeshAgent.speed = Creature.CurrentSpeed;
             if (HasMovingOrder) {
                 if (HasReachedDestination) {
                     OnDestinationReached();

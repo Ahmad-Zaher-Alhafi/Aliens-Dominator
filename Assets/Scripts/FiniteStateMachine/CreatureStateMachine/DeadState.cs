@@ -6,6 +6,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class DeadState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.Dead;
         public override bool CanBeActivated() => AutomatedObject.Health <= 0 || AutomatedObject.HasToDisappear;
+        public override float? Speed => 0;
         protected override bool WaitForMoverToFulfill => false;
         protected override bool WaitForAnimatorToFulfill => false;
 

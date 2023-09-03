@@ -32,8 +32,8 @@ namespace Creatures.Animators {
         }
 
         protected virtual void Update() {
-            animator.speed = Mathf.Clamp(Creature.Mover.CurrentSpeed / Creature.Mover.PatrolSpeed, 1, 1.5f);
-            InterpolateFloatParameter(currentSpeedParameter, Creature.Mover.CurrentSpeed, ANIMATION_SWITCH_TIME);
+            animator.speed = Mathf.Clamp(Creature.CurrentSpeed / Creature.PatrolSpeed, 1, 1.5f);
+            InterpolateFloatParameter(currentSpeedParameter, Creature.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
 
         public virtual void SetRandomIdleAnimation(Action<bool> informAnimationFinishedCallBack, float animationLength = 0) {

@@ -4,6 +4,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class PatrollingState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.Patrolling;
         public override bool CanBeActivated() => AutomatedObject.IsCinematic && IsNextCinematicState;
+        public override float? Speed => AutomatedObject.PatrolSpeed;
         public override bool IsCinematic => true;
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => false;

@@ -2,26 +2,17 @@
 using System.Collections;
 using System.Linq;
 using Context;
-using FiniteStateMachine.CreatureStateMachine;
 using UnityEngine;
 using Utils;
 
 namespace Creatures {
     public abstract class CreatureMover : MonoBehaviour {
-        public float CurrentSpeed { get; private set; }
-
         [SerializeField] private float secondsToStayIdle = 5;
-        [SerializeField] private float patrolSpeed = 3;
-        public float PatrolSpeed => patrolSpeed;
-        [SerializeField] private float runSpeed = 6;
-        [SerializeField] private float rotatingSpeed = 1;
-
         // Distance between creature and destination point to stop moving
         [SerializeField] protected float stoppingDistance = 1;
         // Angel between creature and destination point to stop rotating
         [SerializeField] protected float stoppingAngel = 1;
 
-        private float RotatingSpeed => rotatingSpeed;
         protected Creature Creature;
         protected bool HasMovingOrder;
         private SpawnPointPath pathToFollow;
@@ -45,27 +36,24 @@ namespace Creatures {
         }
 
         protected virtual void FixedUpdate() {
-            if (Creature.IsStateActive<DeadState>()) return;
+            if (Creature.IsDead) return;
 
-            if (Creature.IsStateActive<AttackingState>()) {
+            if (Creature.IsAttacking) {
                 RotateToTheWantedAngle(Creature.ObjectToAttack.transform.position);
             }
         }
 
         public void StayIdle(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
-            CurrentSpeed = 0;
             StartCoroutine(StayIdleForSeconds(secondsToStayIdle));
         }
 
         public virtual void Patrol(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
-            CurrentSpeed = patrolSpeed;
         }
 
         public virtual void RunAway(Action<bool> informOrderFulfilled) {
             this.informOrderFulfilled = informOrderFulfilled;
-            CurrentSpeed = runSpeed;
         }
 
         public void FollowPath(Action<bool> informOrderFulfilled) {
@@ -75,14 +63,12 @@ namespace Creatures {
 
         public void ChaseTarget(Action<bool> informOrderFulfilled, Transform target) {
             this.informOrderFulfilled = informOrderFulfilled;
-            CurrentSpeed = runSpeed;
             OrderToMoveTo(target);
         }
 
         private void ContinueToNextPathPoint() {
             PathPoint nextPathPoint = MathUtils.GetNextObjectInList(pathToFollow.PathPoints, LastReachedPathPoint != null ? LastReachedPathPoint.Index : -1);
             pathPointCurrentlyGoingTo = nextPathPoint;
-            CurrentSpeed = runSpeed;
 
             if (nextPathPoint != null) {
                 OrderToMoveTo(nextPathPoint.transform);
@@ -107,7 +93,7 @@ namespace Creatures {
 
             var creatureTransform = transform;
             Vector3 direction = targetPosition - creatureTransform.position;
-            Vector3 newDirection = Vector3.RotateTowards(creatureTransform.forward, direction, RotatingSpeed * Time.deltaTime, 0);
+            Vector3 newDirection = Vector3.RotateTowards(creatureTransform.forward, direction, Creature.RotatingSpeed * Time.deltaTime, 0);
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
 
@@ -123,11 +109,10 @@ namespace Creatures {
         private void OnCurrentOrderFinished(bool wasInterrupted) {
             HasMovingOrder = false;
             informOrderFulfilled?.Invoke(wasInterrupted);
-            CurrentSpeed = 0;
         }
 
         protected void OnDestinationReached() {
-            if (Creature.IsStateActive<FollowingPathState>()) {
+            if (Creature.IsFollowingPath) {
                 LastReachedPathPoint = pathPointCurrentlyGoingTo;
                 Ctx.Deps.EventsManager.TriggerPathPointReached(Creature, LastReachedPathPoint);
                 if (!HasReachedPathEnd) {
@@ -141,7 +126,7 @@ namespace Creatures {
 
         private IEnumerator StayIdleForSeconds(float secondsToStayIdle) {
             yield return new WaitForSeconds(secondsToStayIdle);
-            if (Creature.IsStateActive<IdleState>()) {
+            if (Creature.IsIdle) {
                 FulfillCurrentOrder();
             }
         }

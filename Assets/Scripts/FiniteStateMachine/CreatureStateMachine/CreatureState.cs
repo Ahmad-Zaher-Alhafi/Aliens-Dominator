@@ -18,7 +18,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         public virtual bool IsCinematic => false;
 
         public bool IsNextCinematicState;
-
+        public virtual float? Speed => null;
         protected abstract bool WaitForMoverToFulfill { get; }
         protected abstract bool WaitForAnimatorToFulfill { get; }
 

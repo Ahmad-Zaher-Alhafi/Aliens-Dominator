@@ -5,6 +5,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class RunningAwayState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.RunningAway;
         public override bool CanBeActivated() => waveStarted && AutomatedObject.IsCinematic;
+        public override float? Speed => AutomatedObject.RunSpeed;
         public override bool IsCinematic => true;
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => false;

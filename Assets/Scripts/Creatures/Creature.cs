@@ -45,7 +45,8 @@ namespace Creatures {
         [Range(1, 100)]
         [SerializeField] private int chanceOfDroppingBalloon;
         public int ChanceOfDroppingBalloon => chanceOfDroppingBalloon;
-
+        [SerializeField]
+        private bool doNotMoveWhileExecutingSpecialAbility;
         [SerializeField] private bool hasSpecialAbility = true;
         [Tooltip("The min path point index that the creature has to reach in the path to be able to start special ability")]
         [SerializeField] private int specialAbilityMinPathPointIndex = 2;
@@ -55,6 +56,16 @@ namespace Creatures {
 
         [SerializeField] private int secondsToDestroyDeadBody = 10;
         private int SecondsToDestroyDeadBody => secondsToDestroyDeadBody;
+
+        [Header("Speeds")]
+        [SerializeField] private float patrolSpeed = 3;
+        public float PatrolSpeed => patrolSpeed;
+        
+        [SerializeField] private float runSpeed = 6;
+        public float RunSpeed => runSpeed;
+        
+        [SerializeField] private float rotatingSpeed = 1;
+        public float RotatingSpeed => rotatingSpeed;
 
         public CreatureAnimator Animator { get; private set; }
         public IReadOnlyList<BodyPart> BodyParts { get; private set; }
@@ -71,7 +82,24 @@ namespace Creatures {
         public bool IsCinematic { get; private set; }
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
+
         public bool IsDead => IsStateActive<DeadState>();
+        public bool IsIdle => IsStateActive<IdleState>();
+        public bool IsAttacking => IsStateActive<AttackingState>();
+        public bool IsFollowingPath => IsStateActive<FollowingPathState>();
+        public float CurrentSpeed {
+            get {
+                if (IsStateActive<SpecialAbilityState>() && doNotMoveWhileExecutingSpecialAbility) {
+                    currentSpeed = 0;
+                    return 0;
+                }
+
+                if (!creatureStateMachine.PrimaryState.Speed.HasValue) return currentSpeed;
+                currentSpeed = creatureStateMachine.PrimaryState.Speed.Value;
+                return currentSpeed;
+            }
+        }
+        private float currentSpeed;
 
         private int initialHealth;
         private StudioEventEmitter deathSound;

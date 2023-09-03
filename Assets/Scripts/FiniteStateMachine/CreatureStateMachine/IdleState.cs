@@ -4,6 +4,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class IdleState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.Idle;
         public override bool CanBeActivated() => AutomatedObject.IsCinematic && IsNextCinematicState;
+        public override float? Speed => 0;
         public override bool IsCinematic => true;
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => true;

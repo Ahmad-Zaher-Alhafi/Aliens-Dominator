@@ -44,7 +44,7 @@ namespace Creatures {
         private void MoveTo(Vector3 position) {
             // If the creature has not reached the position
             if (Vector3.Distance(transform.position, position) >= stoppingDistance) {
-                transform.position = Vector3.MoveTowards(transform.position, position, CurrentSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, position, Creature.CurrentSpeed * Time.deltaTime);
             } else {
                 OnDestinationReached();
             }
