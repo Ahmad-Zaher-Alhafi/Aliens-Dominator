@@ -1337,10 +1337,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 2
   chanceOfDroppingBalloon: 60
+  doNotMoveWhileExecutingSpecialAbility: 0
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 25
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &3169669432306727347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1354,9 +1358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 10
-  rotatingSpeed: 5
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &9041872463804614534
@@ -1372,15 +1373,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: 8afdb3101fe3cf74da29661169949f85, type: 3}
-  - {fileID: 7400000, guid: 6220dc6a53bd56d49af9c5a1e59dd969, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: af8148be9256ca84b8127dc18e822888, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: 51190117297ee6343b4ecd4eb0983ef5, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: aa0bc9eb0ac286646afe74cead6fe91a, type: 3}
-  timeBetweenAttacks: 2
-  flyAnimationClip: {fileID: 7400000, guid: a8107572ca0baf2469f6874b717807cc, type: 3}
-  dodgeAnimationClip: {fileID: 7400000, guid: d1f3b1e16b3271e459380b18dc338bb1, type: 3}
-  castSpellAnimationClip: {fileID: 7400000, guid: da54c8a8c54cd8e479368ae5cf0dfbc0, type: 3}
+  - {fileID: 7400000, guid: c959a64f0958aa64995233a172257b88, type: 2}
+  - {fileID: 7400000, guid: b509cd63e3981b144808ffbbbf4aba38, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: a20353ba280884645a7d3151d38c44fb, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: c40caa318486114458a53d2b60fb9442, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: ac2b0e8fc06ad2649a3fd53c67d61c3c, type: 2}
+  flyAnimationClip: {fileID: 7400000, guid: 9d7ff614421a197438d08cb5348694b2, type: 2}
+  dodgeAnimationClip: {fileID: 7400000, guid: f5a0f12938b88754d91460275bde1c83, type: 2}
+  castSpellAnimationClip: {fileID: 7400000, guid: 258b3ad4bf0398648b0cbfe1aa3b61ad, type: 2}
 --- !u!54 &-7737086928778009939
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -81,10 +81,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
+  doNotMoveWhileExecutingSpecialAbility: 0
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 1
   specialAbilityChance: 100
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &-4915043128095148453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,9 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 6
-  rotatingSpeed: 1
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &7078580859053159318
@@ -116,15 +117,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: 2648d704353aa04478e36948ee591fa7, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: 2d1197bf53a68f04b8dfcd3c0ccb6ac6, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: e72171fb7d388b944bb558a100af280a, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: 1a88a979d2f2fb844904476117eccfb1, type: 3}
-  walkAnimationClip: {fileID: 7400000, guid: f708940265d2a1e48afe1b2cd5142f58, type: 3}
-  runAnimationClip: {fileID: 7400000, guid: 90ac474f706e26f42aba2f6f6e3906ac, type: 3}
-  rollAnimationClip: {fileID: 7400000, guid: 4cecc16222019944f917f1eff8d6d3fc, type: 3}
-  rollToIdleAnimationClip: {fileID: 7400000, guid: 0918c773fb5692546bde1e59ed5a57ba, type: 3}
-  spawnFromMouthAnimationClip: {fileID: 7400000, guid: 753c75d787b0373489fb27f075d530c4, type: 3}
+  - {fileID: 7400000, guid: 35af848cbee78684a85d35a36d156b62, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: bb31168cc58619a44b55c06dc26b181d, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: 98e0bdd7e52e6084f99cb16c2aa9e6e6, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: 25c6ab280eb8ff4428535c83ccc0fb00, type: 2}
+  walkAnimationClip: {fileID: 7400000, guid: 667de44d9631f214d8aa5dfc4e2cdaa7, type: 2}
+  runAnimationClip: {fileID: 7400000, guid: 4c11785e7dc78fb4aa11a77995062046, type: 2}
+  rollAnimationClip: {fileID: 7400000, guid: 37135fa0a96d10d4682d621fe729d5ca, type: 2}
+  rollToIdleAnimationClip: {fileID: 7400000, guid: 51ad729cd55e33948a6e496a090c9f16, type: 2}
+  spawnFromMouthAnimationClip: {fileID: 7400000, guid: a329555742b442c45b9c65cc900d3d40, type: 2}
 --- !u!195 &-2658274803881555633
 NavMeshAgent:
   m_ObjectHideFlags: 0

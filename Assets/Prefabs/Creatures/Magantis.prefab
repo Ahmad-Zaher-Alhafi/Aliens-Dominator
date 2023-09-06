@@ -2423,16 +2423,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: 67d7476b5285a82418b23edc98033ca0, type: 3}
-  - {fileID: 7400000, guid: c53ca3e0501ff734695219daf2ee8b6b, type: 3}
-  - {fileID: 7400000, guid: 7e2730546f081a246afc5dcde88cdc68, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: 9e984b77daa6d9a46bc4e6c6f13ca6d7, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: 4c5c2ef45eb7241429b209e28f32342b, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: a775a1df16be25040a685e60533c6e77, type: 3}
-  walkAnimationClip: {fileID: 7400000, guid: f33450586184ef54bb4b5756264d639b, type: 3}
-  runAnimationClip: {fileID: 7400000, guid: 4b3162cc8ac7d194e9b31c601974a513, type: 3}
-  roarAnimationClip: {fileID: 7400000, guid: 45506abc24445cc499dbaa15d2c9b433, type: 3}
-  spawnBugFromMouthAnimationClip: {fileID: 7400000, guid: 31c0ff410754c334a8e9c47bab90c1da, type: 3}
+  - {fileID: 7400000, guid: 76c4bb14a3f9acf45a2418d98d49d73b, type: 2}
+  - {fileID: 7400000, guid: 250f2ea6e5fea2041ab4ff437531db74, type: 2}
+  - {fileID: 7400000, guid: 047618a915a96184f82f873fbb481686, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: 617a95b19ceead34d9e3ef0fe0e1f7a3, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: d0046e3232b45e04ca20c80002e3d27d, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: 23639377767870448807eb7c06f9bca6, type: 2}
+  walkAnimationClip: {fileID: 7400000, guid: 56267d1761332e54ab5b1a02792af27a, type: 2}
+  runAnimationClip: {fileID: 7400000, guid: a10bab8ab2be59d4b82c42588d928832, type: 2}
+  roarAnimationClip: {fileID: 7400000, guid: b751661b496d7504f8bcef5efe5f5a1b, type: 2}
+  spawnBugFromMouthAnimationClip: {fileID: 7400000, guid: c573ccd28098d8c4fa82607cb1274808, type: 2}
 --- !u!195 &-3841631695108653284
 NavMeshAgent:
   m_ObjectHideFlags: 0

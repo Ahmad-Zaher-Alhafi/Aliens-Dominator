@@ -3109,10 +3109,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
+  doNotMoveWhileExecutingSpecialAbility: 0
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &-4983734145092856337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,9 +3130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 6
-  rotatingSpeed: 1
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &2436722827175234457
@@ -3144,19 +3145,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: c5ebe7ca883db494ca5d115bda5c4d37, type: 3}
-  - {fileID: 7400000, guid: c04582d648727bb46a52de99eed048ad, type: 3}
-  - {fileID: 7400000, guid: be65c4725e1f2a04ca6aadb8c684e354, type: 3}
-  - {fileID: 7400000, guid: c9b064fb388598f469aed577bb702a81, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: e4f8d602e13acc04cb506b3b15872968, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: 93b40a4c9735cd9458948d81d7da7fc4, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: 79e9da434a300364a8cea248e7acc819, type: 3}
-  timeBetweenAttacks: 2
-  walkAnimationClip: {fileID: 7400000, guid: 4e21fc05c07558145880c62ab7bf071c, type: 3}
-  runAnimationClip: {fileID: 7400000, guid: e0c70f906d237a14d9c4ef0b363d79fe, type: 3}
-  roarAnimationClip: {fileID: 7400000, guid: 071086719b5df9d4db7e5312eb519f3c, type: 3}
-  defendAnimationClip: {fileID: 7400000, guid: 39950c8d2d352fc4482d1e76da3acba0, type: 3}
-  castSpellAnimationClip: {fileID: 7400000, guid: 5f6d4986a97c28b43ba31cd57299f172, type: 3}
+  - {fileID: 7400000, guid: e11393e2bb0d6d34a8830a4f71ff360e, type: 2}
+  - {fileID: 7400000, guid: 23b7517b6ac25bd4e9856d138e2ace66, type: 2}
+  - {fileID: 7400000, guid: 35f2b8d955b01ea408b6d6aeb0954288, type: 2}
+  - {fileID: 7400000, guid: f4faac8cf79dbcd4aa81302cda0a4459, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: e6eeffcf138ef644bb262382a2ab81cb, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: 8942e8828f8c5cb4eac69aff3fa46460, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: 54688b79dbe4bfd4c9c9f514f16b7f1e, type: 2}
+  walkAnimationClip: {fileID: 7400000, guid: e96b5c2df08e312478e542d56268425f, type: 2}
+  runAnimationClip: {fileID: 7400000, guid: 730e622ac905cbb48a4e061ade272ece, type: 2}
+  roarAnimationClip: {fileID: 7400000, guid: 025d71f2f80f1c143bb054ce53ecede2, type: 2}
+  defendAnimationClip: {fileID: 7400000, guid: cbf3f3e2e2350754aa9b5facdd98e02b, type: 2}
+  castSpellAnimationClip: {fileID: 7400000, guid: 208574d958bf9594798c9d83532d61ad, type: 2}
 --- !u!95 &95215628326204866
 Animator:
   serializedVersion: 4

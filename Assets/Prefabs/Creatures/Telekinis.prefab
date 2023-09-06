@@ -264,7 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 4
   type: 1
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1127940084105700
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,8 +712,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
-  specialActionPathPointIndex: 2
+  doNotMoveWhileExecutingSpecialAbility: 0
+  hasSpecialAbility: 1
+  specialAbilityMinPathPointIndex: 2
+  specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &-3585766586628731396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,9 +733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 6
-  rotatingSpeed: 1
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &4495753460047811325
@@ -746,19 +748,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: 962e09bb6f8f88e409adcf9f931f54a6, type: 3}
-  - {fileID: 7400000, guid: 274c9a235d22cc540900a724b7101c44, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: dc5e000bec0af8b49a99a0857040c94c, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: 18c19c5ed84f8694684bba0126bf39b0, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: 9999100dc9f59b647a744853ccf4bfc8, type: 3}
-  timeBetweenAttacks: 2
-  flyAnimationClip: {fileID: 7400000, guid: b6cff056a0afa7c49b83b3a511e1dcd3, type: 3}
-  meditateAnimationClip: {fileID: 7400000, guid: 88d9eb3165dad5e4ba99ff87dfa07300, type: 3}
-  mindControlAnimationClip: {fileID: 7400000, guid: 04e45217312c4ff4a8843e9d4c5ad783, type: 3}
-  flyAwayAnimationClip: {fileID: 7400000, guid: 0db946e0f5304144fa4787eb8a8a5f79, type: 3}
-  defendForceFieldAnimationClip: {fileID: 7400000, guid: 9501b3e711c132e46a4d5f3b15a4f037, type: 3}
-  spawnFromSkyAnimationClip: {fileID: 7400000, guid: 3a1dff237ce41734f93ef116ced1c4e7, type: 3}
-  castSpellAnimationClip: {fileID: 7400000, guid: 61fcaaf39d9b0554681b42fcbad3c1ba, type: 3}
+  - {fileID: 7400000, guid: 488444f4bfa013b4ea02c77a4187fd10, type: 2}
+  - {fileID: 7400000, guid: 20e168689352add4bbcf8c9903c5e8c3, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: 57235a1a254bd4145b6c8935d96b62bd, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: 4e5690bebb60c37419ad569b385ab9e7, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: 214da8180ba9a8846aa80e4d85638f0f, type: 2}
+  flyAnimationClip: {fileID: 7400000, guid: bf09dee831df99946860da7958e77812, type: 2}
+  meditateAnimationClip: {fileID: 7400000, guid: ba1607af3a15f2e4ea11ee27dd2d8099, type: 2}
+  mindControlAnimationClip: {fileID: 7400000, guid: adb9ed1651a8c07479bc1d8f64d1554a, type: 2}
+  flyAwayAnimationClip: {fileID: 7400000, guid: 20fe78c4ff20d3848a720d7ede7ae976, type: 2}
+  defendForceFieldAnimationClip: {fileID: 7400000, guid: 4ef3dbd0a93edab42a85515a8cc7fd2d, type: 2}
+  spawnFromSkyAnimationClip: {fileID: 7400000, guid: a658940756d049e4eb692bd1f50ba51b, type: 2}
+  castSpellAnimationClip: {fileID: 7400000, guid: 7af72901da221ac4dbd16d1ab9d8f245, type: 2}
 --- !u!54 &-6893499242144558978
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1016,7 +1017,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1498410232377544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1506643734385324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1550220043926498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,7 +1701,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1762710176232038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,7 +1890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1968261735209088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,7 +2048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageWeight: 3
   type: 3
-  creature: {fileID: -993809750006227965}
 --- !u!1 &1976309145673838
 GameObject:
   m_ObjectHideFlags: 0

@@ -2603,10 +2603,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
+  doNotMoveWhileExecutingSpecialAbility: 0
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &2173812142681769714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2620,9 +2624,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 6
-  rotatingSpeed: 1
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &5412415905568442702
@@ -2638,17 +2639,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhysicalAttackAnimationClips:
-  - {fileID: 7400000, guid: fcb5b08dc07e6964099bb8fbb6dd03b9, type: 3}
-  - {fileID: 7400000, guid: fe0f19f56fdda1741a954456849b1ddb, type: 3}
-  - {fileID: 7400000, guid: 5d8afad6e1e98844981828dfb9fe8bad, type: 3}
-  - {fileID: 7400000, guid: 062a8b6db24ca5d40889be5813f3295c, type: 3}
-  - {fileID: 7400000, guid: 9ce654e496d251845af7d049926e2985, type: 3}
-  IdleAnimationClip: {fileID: 7400000, guid: 80d823c3a7ce5fe49bb1b372ddb30dd0, type: 3}
-  takeDamageAnimationClip: {fileID: 7400000, guid: 8d83daed2f96a714da75b2e2ca75dd39, type: 3}
-  dieAnimationClip: {fileID: 7400000, guid: e4596d7ad749ca648b70a07198838663, type: 3}
-  timeBetweenAttacks: 2
-  walkAnimationClip: {fileID: 7400000, guid: 1b83af6bdbcdf8842aef55e36f43299a, type: 3}
-  runAnimationClip: {fileID: 7400000, guid: b050d41f0ab88634687efe351fd27dea, type: 3}
+  - {fileID: 7400000, guid: e1cb2ceeac609ef43a8dc62e0bd69f38, type: 2}
+  - {fileID: 7400000, guid: 7c28c199361f1454c854344c86feb9b2, type: 2}
+  - {fileID: 7400000, guid: acb58a8d1beb1d84f8e90f8ab9cc18a9, type: 2}
+  - {fileID: 7400000, guid: 54530960206392f4286b113fa1a481aa, type: 2}
+  - {fileID: 7400000, guid: 41d5b5b8f38895247a37298c64262dbc, type: 2}
+  IdleAnimationClip: {fileID: 7400000, guid: 33d6c066a7bbb4c449820fbb8bd82530, type: 2}
+  takeDamageAnimationClip: {fileID: 7400000, guid: c2b7f5b2f9f99a74d94f6a18d40b970f, type: 2}
+  dieAnimationClip: {fileID: 7400000, guid: 34d2e16036bed2945b58b32784810790, type: 2}
+  walkAnimationClip: {fileID: 7400000, guid: f52d16dd11752d841a0b2c1afcd2fc33, type: 2}
+  runAnimationClip: {fileID: 7400000, guid: a7c78da260edbc349a54613fb6424246, type: 2}
 --- !u!195 &-8975212886695622010
 NavMeshAgent:
   m_ObjectHideFlags: 0
