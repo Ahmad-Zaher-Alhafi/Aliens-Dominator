@@ -8,13 +8,16 @@ using Pool;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Serialization;
 using MathUtils = Utils.MathUtils;
 using Random = UnityEngine.Random;
 
 namespace ManagersAndControllers {
     public class CreatureSpawnController : MonoBehaviour {
+        [Header("Creatures Prefab")]
+        [SerializeField] private CreatureMagantee creatureMaganteePrefab;
+
+        [Space]
         [SerializeField] private bool spawnCinematicCreatures;
 
         [Header("Cinematic wave Setup")]
@@ -110,13 +113,25 @@ namespace ManagersAndControllers {
             return SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState);
         }
 
-        private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {
+        /// <summary>
+        /// Used to spawn creature Magantee from creature Magantis' mouth
+        /// </summary>
+        public void SpawnCreatureMagantee(Transform spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
+            TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
+            // Find the ground where the magantee creature should land on
+            Physics.Linecast(spawnPoint.position, spawnPoint.position + Vector3.down * 100, out RaycastHit raycastHit, ~LayerMask.GetMask("Enemy"));
+
+            // inform the creature to not init the mover directly when creature magantee is being spawned from the mouth of creature Magantis, otherwise the spawn animation will be ruined (initMover: false)
+            SpawnCreature(creatureMaganteePrefab, raycastHit.point, targetPoint, null, isCinematic, initialCreatureState: initialCreatureState, initMover: false);
+        }
+
+        private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None, bool initMover = true) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialCreatureState == CreatureStateType.None) {
                 initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
             }
 
-            creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState);
+            creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState, initMover);
             creatures.Add(creature);
             return creature;
         }

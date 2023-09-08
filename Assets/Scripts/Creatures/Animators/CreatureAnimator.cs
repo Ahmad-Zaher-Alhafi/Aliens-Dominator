@@ -12,6 +12,7 @@ namespace Creatures.Animators {
         [SerializeField] protected AnimationClip IdleAnimationClip;
         [SerializeField] protected AnimationClip takeDamageAnimationClip;
         [SerializeField] protected AnimationClip dieAnimationClip;
+        [SerializeField] protected AnimationClip SpawnAnimationClip;
 
 
         protected Creature Creature;
@@ -45,6 +46,10 @@ namespace Creatures.Animators {
             AnimationClip randomAttackAnimationClip = MathUtils.GetRandomObjectFromList(PhysicalAttackAnimationClips);
             PlayAnimationClip(randomAttackAnimationClip, informAnimationFinishedCallBack);
             StartCoroutine(InformToApplyDamageAfter(currentActiveAnimationClip.length, informToAttack));
+        }
+        
+        public void PlaySpawnAnimation(Action<bool> informAnimationFinishedCallBack) {
+            PlayAnimationClip(SpawnAnimationClip, informAnimationFinishedCallBack);
         }
 
         public void PlayGettingHitAnimation(Action<bool> informAnimationFinishedCallBack) {

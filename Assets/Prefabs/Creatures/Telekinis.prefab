@@ -713,7 +713,7 @@ MonoBehaviour:
   health: 5
   chanceOfDroppingBalloon: 0
   doNotMoveWhileExecutingSpecialAbility: 0
-  hasSpecialAbility: 1
+  hasSpecialAbility: 0
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
@@ -753,6 +753,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: 57235a1a254bd4145b6c8935d96b62bd, type: 2}
   takeDamageAnimationClip: {fileID: 7400000, guid: 4e5690bebb60c37419ad569b385ab9e7, type: 2}
   dieAnimationClip: {fileID: 7400000, guid: 214da8180ba9a8846aa80e4d85638f0f, type: 2}
+  SpawnAnimationClip: {fileID: 0}
   flyAnimationClip: {fileID: 7400000, guid: bf09dee831df99946860da7958e77812, type: 2}
   meditateAnimationClip: {fileID: 7400000, guid: ba1607af3a15f2e4ea11ee27dd2d8099, type: 2}
   mindControlAnimationClip: {fileID: 7400000, guid: adb9ed1651a8c07479bc1d8f64d1554a, type: 2}

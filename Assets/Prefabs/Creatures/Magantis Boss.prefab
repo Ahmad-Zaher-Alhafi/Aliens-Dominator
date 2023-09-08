@@ -2385,10 +2385,14 @@ MonoBehaviour:
   creatureColor: 0
   health: 5
   chanceOfDroppingBalloon: 0
+  doNotMoveWhileExecutingSpecialAbility: 1
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
+  patrolSpeed: 3
+  runSpeed: 6
+  rotatingSpeed: 1
 --- !u!114 &4306525941300499825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2402,9 +2406,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToStayIdle: 5
-  patrolSpeed: 3
-  runSpeed: 6
-  rotatingSpeed: 1
   stoppingDistance: 1
   stoppingAngel: 1
 --- !u!114 &8500977470719864059
@@ -2426,7 +2427,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: 9e984b77daa6d9a46bc4e6c6f13ca6d7, type: 3}
   takeDamageAnimationClip: {fileID: 7400000, guid: 4c5c2ef45eb7241429b209e28f32342b, type: 3}
   dieAnimationClip: {fileID: 7400000, guid: a775a1df16be25040a685e60533c6e77, type: 3}
-  timeBetweenAttacks: 2
+  SpawnAnimationClip: {fileID: 0}
   walkAnimationClip: {fileID: 7400000, guid: f33450586184ef54bb4b5756264d639b, type: 3}
   runAnimationClip: {fileID: 7400000, guid: 4b3162cc8ac7d194e9b31c601974a513, type: 3}
   roarAnimationClip: {fileID: 7400000, guid: 45506abc24445cc499dbaa15d2c9b433, type: 3}

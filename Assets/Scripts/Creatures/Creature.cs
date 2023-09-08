@@ -22,6 +22,7 @@ namespace Creatures {
         public TargetPoint TargetPoint { get; private set; }
         public bool HasToDisappear { get; set; }
         public IDamager ObjectDamagedWith { get; private set; }
+        public virtual bool HasSpawningAnimation => false;
 
         [SerializeField] private BloodParticle bloodParticlesPrefab;
         [SerializeField] private Transform bloodEffectCreatePoint;
@@ -60,10 +61,10 @@ namespace Creatures {
         [Header("Speeds")]
         [SerializeField] private float patrolSpeed = 3;
         public float PatrolSpeed => patrolSpeed;
-        
+
         [SerializeField] private float runSpeed = 6;
         public float RunSpeed => runSpeed;
-        
+
         [SerializeField] private float rotatingSpeed = 1;
         public float RotatingSpeed => rotatingSpeed;
 
@@ -106,6 +107,7 @@ namespace Creatures {
         private Rigidbody Rig { get; set; }
         private CreatureStateMachine creatureStateMachine;
         protected Action<bool> InformAnimationFinishedCallback;
+        public SkinnedMeshRenderer SkinnedMeshRenderer { get; private set; }
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -114,11 +116,16 @@ namespace Creatures {
             Animator = GetComponent<CreatureAnimator>();
             BodyParts = GetComponentsInChildren<BodyPart>();
             deathSound = GetComponent<StudioEventEmitter>();
+            SkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            if (HasSpawningAnimation) {
+                // Hide the skin here, Spawning state will show it in the correct time
+                SkinnedMeshRenderer.enabled = false;
+            }
 
             initialHealth = health;
         }
 
-        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState, bool initMover = true) {
             Rig.isKinematic = false;
             transform.position = spawnPosition;
             IsSlowedDown = false;
@@ -136,7 +143,9 @@ namespace Creatures {
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             Animator.Init();
-            Mover.Init(pathToFollow);
+            if (initMover) {
+                Mover.Init(pathToFollow);
+            }
 
             gameObject.SetActive(true);
 

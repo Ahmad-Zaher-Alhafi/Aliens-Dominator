@@ -12,6 +12,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         RunningAway,
         Dead,
         SpecialAbility,
+        Spawning
     }
 
     public abstract class CreatureState : State<Creature, CreatureStateType> {

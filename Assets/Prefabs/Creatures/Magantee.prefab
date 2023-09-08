@@ -121,6 +121,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: bb31168cc58619a44b55c06dc26b181d, type: 2}
   takeDamageAnimationClip: {fileID: 7400000, guid: 98e0bdd7e52e6084f99cb16c2aa9e6e6, type: 2}
   dieAnimationClip: {fileID: 7400000, guid: 25c6ab280eb8ff4428535c83ccc0fb00, type: 2}
+  SpawnAnimationClip: {fileID: 7400000, guid: a329555742b442c45b9c65cc900d3d40, type: 2}
   walkAnimationClip: {fileID: 7400000, guid: 667de44d9631f214d8aa5dfc4e2cdaa7, type: 2}
   runAnimationClip: {fileID: 7400000, guid: 4c11785e7dc78fb4aa11a77995062046, type: 2}
   rollAnimationClip: {fileID: 7400000, guid: 37135fa0a96d10d4682d621fe729d5ca, type: 2}
@@ -147,7 +148,7 @@ NavMeshAgent:
   m_Height: 0.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 0
 --- !u!54 &1106512231514522776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3606,11 +3607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548692, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548692, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3728144926436548693, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
@@ -3707,6 +3708,10 @@ PrefabInstance:
     - target: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}

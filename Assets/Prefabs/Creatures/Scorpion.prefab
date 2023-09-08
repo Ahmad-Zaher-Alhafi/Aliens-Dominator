@@ -2604,7 +2604,7 @@ MonoBehaviour:
   health: 5
   chanceOfDroppingBalloon: 0
   doNotMoveWhileExecutingSpecialAbility: 0
-  hasSpecialAbility: 1
+  hasSpecialAbility: 0
   specialAbilityMinPathPointIndex: 2
   specialAbilityChance: 50
   secondsToDestroyDeadBody: 10
@@ -2647,6 +2647,7 @@ MonoBehaviour:
   IdleAnimationClip: {fileID: 7400000, guid: 33d6c066a7bbb4c449820fbb8bd82530, type: 2}
   takeDamageAnimationClip: {fileID: 7400000, guid: c2b7f5b2f9f99a74d94f6a18d40b970f, type: 2}
   dieAnimationClip: {fileID: 7400000, guid: 34d2e16036bed2945b58b32784810790, type: 2}
+  SpawnAnimationClip: {fileID: 0}
   walkAnimationClip: {fileID: 7400000, guid: f52d16dd11752d841a0b2c1afcd2fc33, type: 2}
   runAnimationClip: {fileID: 7400000, guid: a7c78da260edbc349a54613fb6424246, type: 2}
 --- !u!195 &-8975212886695622010
@@ -2668,7 +2669,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.2
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
 --- !u!54 &-8754579027228423257

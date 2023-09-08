@@ -5,6 +5,8 @@ using FiniteStateMachine.CreatureStateMachine;
 
 namespace Creatures {
     public class CreatureMagantee : GroundCreature {
+        public override bool HasSpawningAnimation => true;
+        
         protected override void Awake() {
             base.Awake();
             Ctx.Deps.EventsManager.PathPointReached += OnPathPointReached;

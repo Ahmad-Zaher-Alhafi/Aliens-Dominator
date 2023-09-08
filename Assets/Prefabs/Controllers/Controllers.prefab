@@ -281,11 +281,11 @@ PrefabInstance:
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: testCreaturePrefab
       value: 
-      objectReference: {fileID: -7780425046225090788, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
+      objectReference: {fileID: 39428396123731887, guid: 5cad126635ef17742b4b66be012999ff, type: 3}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: waves.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 4c7f70b507f8e0a4c82002b9a5d3a6c9, type: 2}
+      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: waves.Array.data[1]
       value: 
@@ -293,7 +293,11 @@ PrefabInstance:
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: waves.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
+      objectReference: {fileID: 11400000, guid: 5befd9fe9d150c046bd314f3f9b439fb, type: 2}
+    - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
+      propertyPath: creatureMaganteePrefab
+      value: 
+      objectReference: {fileID: -4609342481440302439, guid: de885bb7d42d28444b6a87c422b0efdc, type: 3}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: attackPoints.Array.size
       value: 8
@@ -380,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: timeBetweenEachCreatureSpawn
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
@@ -959,6 +963,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: navMeshSurfaces.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: SpecialArrows.Array.data[0]
       value: 
       objectReference: {fileID: 7209041577102087292, guid: fd42df988dc97a1499b13b277dcb3fcf, type: 3}
@@ -1137,6 +1145,10 @@ PrefabInstance:
     - target: {fileID: 5996011780452104927, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: m_Name
       value: Game Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996011780452104927, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
