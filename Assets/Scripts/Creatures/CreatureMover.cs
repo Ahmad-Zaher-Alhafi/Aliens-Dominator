@@ -102,6 +102,10 @@ namespace Creatures {
             OnCurrentOrderFinished(true);
         }
 
+        public void SetLastPointReachedExternally(PathPoint pathPoint) {
+            LastReachedPathPoint = pathPoint;
+        }
+
         private void OnCurrentOrderFinished(bool wasInterrupted) {
             HasMovingOrder = false;
             informOrderFulfilled?.Invoke(wasInterrupted);

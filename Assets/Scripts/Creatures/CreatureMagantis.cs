@@ -25,7 +25,8 @@ namespace Creatures {
         }
 
         public void SpawnCreature() {
-            Ctx.Deps.CreatureSpawnController.SpawnCreatureMagantee(maganteeSpawnPoint, PathToFollow, CreatureStateType.Spawning);
+            CreatureMagantee creatureMagantee = Ctx.Deps.CreatureSpawnController.SpawnCreatureMagantee(maganteeSpawnPoint, PathToFollow, CreatureStateType.Spawning);
+            creatureMagantee.Mover.SetLastPointReachedExternally(Mover.LastReachedPathPoint);
         }
     }
 }
