@@ -24,12 +24,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
             Ctx.Deps.GameController.StartCoroutine(ShowSkinDelayed());
         }
 
-        public override void Fulfil() {
-            base.Fulfil();
-            // Needed to be called by spawn animation, as when Magantee spawns from the mouth of Magantis the mover should be initialized after spawn animation finished
-            AutomatedObject.Mover.Init(null);
-        }
-
         /// <summary>
         /// Creatures that has spawning animation might requires to hide their skin on awake and show it after a short time, like creature magantee for example
         /// </summary>

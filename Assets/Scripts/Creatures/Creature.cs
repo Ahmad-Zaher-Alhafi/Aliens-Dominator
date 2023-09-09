@@ -125,7 +125,7 @@ namespace Creatures {
             initialHealth = health;
         }
 
-        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState, bool initMover = true) {
+        public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
             Rig.isKinematic = false;
             transform.position = spawnPosition;
             IsSlowedDown = false;
@@ -143,9 +143,7 @@ namespace Creatures {
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             Animator.Init();
-            if (initMover) {
-                Mover.Init(pathToFollow);
-            }
+            Mover.Init(pathToFollow);
 
             gameObject.SetActive(true);
 

@@ -118,20 +118,16 @@ namespace ManagersAndControllers {
         /// </summary>
         public void SpawnCreatureMagantee(Transform spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
             TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
-            // Find the ground where the magantee creature should land on
-            Physics.Linecast(spawnPoint.position, spawnPoint.position + Vector3.down * 100, out RaycastHit raycastHit, ~LayerMask.GetMask("Enemy"));
-
-            // inform the creature to not init the mover directly when creature magantee is being spawned from the mouth of creature Magantis, otherwise the spawn animation will be ruined (initMover: false)
-            SpawnCreature(creatureMaganteePrefab, raycastHit.point, targetPoint, null, isCinematic, initialCreatureState: initialCreatureState, initMover: false);
+            SpawnCreature(creatureMaganteePrefab, spawnPoint.position, targetPoint, null, isCinematic, initialCreatureState: initialCreatureState);
         }
 
-        private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None, bool initMover = true) {
+        private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {
             Creature creature = creatureToSpawnPool.GetObject<Creature>(creaturesHolder);
             if (initialCreatureState == CreatureStateType.None) {
                 initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
             }
 
-            creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState, initMover);
+            creature.Init(spawnPosition, pathToFollow, isCinematic, targetPoint, initialCreatureState);
             creatures.Add(creature);
             return creature;
         }
