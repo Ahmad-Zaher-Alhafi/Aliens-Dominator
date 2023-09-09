@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using Context;
-using Creatures;
-using UnityEngine;
+﻿using Creatures;
 
 namespace FiniteStateMachine.CreatureStateMachine {
     public class SpawningState : CreatureState {
@@ -20,17 +17,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
             } else {
                 Fulfil();
             }
-
-            Ctx.Deps.GameController.StartCoroutine(ShowSkinDelayed());
-        }
-
-        /// <summary>
-        /// Creatures that has spawning animation might requires to hide their skin on awake and show it after a short time, like creature magantee for example
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator ShowSkinDelayed() {
-            yield return new WaitForEndOfFrame();
-            AutomatedObject.SkinnedMeshRenderer.enabled = true;
         }
     }
 }

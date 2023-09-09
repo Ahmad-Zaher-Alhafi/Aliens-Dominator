@@ -108,7 +108,6 @@ namespace Creatures {
         private Rigidbody Rig { get; set; }
         private CreatureStateMachine creatureStateMachine;
         protected Action<bool> InformAnimationFinishedCallback;
-        public SkinnedMeshRenderer SkinnedMeshRenderer { get; private set; }
         protected SpawnPointPath PathToFollow { get; private set; }
 
         protected virtual void Awake() {
@@ -118,10 +117,7 @@ namespace Creatures {
             Animator = GetComponent<CreatureAnimator>();
             BodyParts = GetComponentsInChildren<BodyPart>();
             deathSound = GetComponent<StudioEventEmitter>();
-            SkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
-            // Hide the skin here, it will be shown later
-            SkinnedMeshRenderer.enabled = false;
             initialHealth = health;
         }
 
@@ -153,11 +149,6 @@ namespace Creatures {
             }
 
             creatureStateMachine.Init(this, initialCreatureState);
-
-            if (!HasSpawningAnimation) {
-                // Show the skin here if there is no spawning animation
-                SkinnedMeshRenderer.enabled = true;
-            }
         }
 
         public void OnMoverOrderFulfilled() {
