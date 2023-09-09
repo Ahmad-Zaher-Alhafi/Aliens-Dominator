@@ -1,5 +1,5 @@
 using UnityEngine;
-public class gizmo : MonoBehaviour {
+public class Gizmo : MonoBehaviour {
     public Color Color;
 
     private void OnDrawGizmos() {
