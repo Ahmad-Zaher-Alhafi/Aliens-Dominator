@@ -10,6 +10,7 @@ namespace Creatures {
         [SerializeField] private Transform maganteeSpawnPoint;
         [SerializeField] private int numOfMaganteeToSpawn;
         [SerializeField] private float delayBetweenEachMaganteeSpawn;
+        [SerializeField] private ParticleSystem maganteeSpawnParticles;
 
         public override void ExecuteSpecialAbility(Action<bool> informAnimationFinishedCallback) {
             base.ExecuteSpecialAbility(informAnimationFinishedCallback);
@@ -27,6 +28,8 @@ namespace Creatures {
         public void SpawnCreature() {
             CreatureMagantee creatureMagantee = Ctx.Deps.CreatureSpawnController.SpawnCreatureMagantee(maganteeSpawnPoint, PathToFollow, CreatureStateType.Spawning);
             creatureMagantee.Mover.SetLastPointReachedExternally(Mover.LastReachedPathPoint);
+            creatureMagantee.transform.rotation = transform.rotation;
+            maganteeSpawnParticles.Play();
         }
     }
 }

@@ -2396,6 +2396,7 @@ MonoBehaviour:
   maganteeSpawnPoint: {fileID: 9052728272116632152}
   numOfMaganteeToSpawn: 3
   delayBetweenEachMaganteeSpawn: 3
+  maganteeSpawnParticles: {fileID: 4072366266197261514}
 --- !u!114 &4306525941300499825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5225,7 +5226,7 @@ GameObject:
   - component: {fileID: 4072366266197261514}
   - component: {fileID: 8317758939895690286}
   m_Layer: 6
-  m_Name: Bug Spawn Particles
+  m_Name: Magantee Spawn Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5238,14 +5239,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910175228975757480}
-  m_LocalRotation: {x: -0.23586264, y: -0.66660994, z: -0.23586264, w: 0.66660994}
+  m_LocalRotation: {x: -0.40557975, y: -0.579228, z: -0.40557975, w: 0.579228}
   m_LocalPosition: {x: -1.585, y: -0.154, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4383809042114972}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -38.97, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -70, y: -90, z: 0}
 --- !u!198 &4072366266197261514
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5319,7 +5320,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -5382,8 +5383,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 1
+      scalar: 8
+      minScalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8883,9 +8884,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -8895,7 +8896,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -8948,7 +8949,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9056,7 +9057,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 7103
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -10108,14 +10109,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2786210720581632225}
-  m_LocalRotation: {x: -0.23586264, y: -0.66660994, z: -0.23586264, w: 0.66660994}
+  m_LocalRotation: {x: -0.40557975, y: -0.579228, z: -0.40557975, w: 0.579228}
   m_LocalPosition: {x: -1.57, y: -0.167, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4383809042114972}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: -38.97, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -70, y: -90, z: 0}
 --- !u!198 &7031443945781674392
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -13697,7 +13698,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -13707,7 +13708,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -13760,7 +13761,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -13868,7 +13869,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 7103
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
