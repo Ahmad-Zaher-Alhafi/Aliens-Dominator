@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Context;
 using Creatures.Animators;
 using FiniteStateMachine;
@@ -76,8 +77,8 @@ namespace Creatures {
             get {
                 if (!hasSpecialAbility) return false;
 
-                if (Mover.LastReachedPathPoint == null) return false;
-                return specialAbilityMinPathPointIndex <= Mover.LastReachedPathPoint.Index;
+                if (Mover.LastReachedPathPoint == null || PathToFollow == null) return false;
+                return specialAbilityMinPathPointIndex <= Mover.LastReachedPathPoint.Index && Mover.LastReachedPathPoint.Index < PathToFollow.PathPoints.Last().Index;
             }
         }
         public bool IsCinematic { get; private set; }
@@ -108,6 +109,7 @@ namespace Creatures {
         private CreatureStateMachine creatureStateMachine;
         protected Action<bool> InformAnimationFinishedCallback;
         public SkinnedMeshRenderer SkinnedMeshRenderer { get; private set; }
+        protected SpawnPointPath PathToFollow { get; private set; }
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -141,6 +143,7 @@ namespace Creatures {
             }
 
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            PathToFollow = pathToFollow;
 
             Animator.Init();
             Mover.Init(pathToFollow);

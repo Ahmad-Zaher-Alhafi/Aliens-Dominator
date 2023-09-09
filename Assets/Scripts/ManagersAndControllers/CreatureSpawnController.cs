@@ -116,9 +116,9 @@ namespace ManagersAndControllers {
         /// <summary>
         /// Used to spawn creature Magantee from creature Magantis' mouth
         /// </summary>
-        public void SpawnCreatureMagantee(Transform spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
+        public void SpawnCreatureMagantee(Transform spawnPoint, SpawnPointPath pathToFollow = null, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
             TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
-            SpawnCreature(creatureMaganteePrefab, spawnPoint.position, targetPoint, null, isCinematic, initialCreatureState: initialCreatureState);
+            SpawnCreature(creatureMaganteePrefab, spawnPoint.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState);
         }
 
         private Creature SpawnCreature(PooledObject creatureToSpawnPool, Vector3 spawnPosition, TargetPoint targetPoint, SpawnPointPath pathToFollow = null, bool isCinematic = false, CreatureStateType initialCreatureState = CreatureStateType.None) {

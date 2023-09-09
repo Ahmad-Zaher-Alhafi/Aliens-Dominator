@@ -75,12 +75,15 @@ namespace Creatures.Animators {
         /// </summary>
         /// <param name="animationClip"></param>
         /// <param name="informAnimationFinishedCallBack">If true, the animator will send a call back to it's state that the animation has finished</param>
-        protected void PlayAnimationClip(AnimationClip animationClip, Action<bool> informAnimationFinishedCallBack) {
+        /// <param name="loop"></param>
+        protected void PlayAnimationClip(AnimationClip animationClip, Action<bool> informAnimationFinishedCallBack, bool loop = false) {
             informAnimationFinishedCallback = informAnimationFinishedCallBack;
             ResetCurrentAnimationTrigger();
             currentActiveAnimationClip = animationClip;
             animator.SetTrigger(currentActiveAnimationClip.name);
-            StartCoroutine(FulfilCurrentOrderOnceFinished(currentActiveAnimationClip.length));
+            if (!loop) {
+                StartCoroutine(FulfilCurrentOrderOnceFinished(currentActiveAnimationClip.length));
+            }
         }
 
         private IEnumerator InformToApplyDamageAfter(float length, Action informToApplyDamage) {

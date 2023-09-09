@@ -9,7 +9,7 @@ namespace Creatures.Animators {
 
         public override void PlaySpecialAbilityAnimation(Action<bool> informAnimationFinishedCallBack) {
             base.PlaySpecialAbilityAnimation(informAnimationFinishedCallBack);
-            PlayAnimationClip(rollAnimationClip, informAnimationFinishedCallBack);
+            PlayAnimationClip(rollAnimationClip, informAnimationFinishedCallBack, true);
         }
 
         public void PlayRollToIdleAnimation(Action<bool> informAnimationFinishedCallBack) {

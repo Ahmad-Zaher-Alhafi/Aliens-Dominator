@@ -72,11 +72,7 @@ namespace Creatures {
 
             if (nextPathPoint != null) {
                 OrderToMoveTo(nextPathPoint.transform);
-                return;
             }
-
-            // Has Reached the end of the path
-            OnDestinationReached();
         }
 
         protected virtual void OrderToMoveTo(Transform point) {
@@ -115,6 +111,7 @@ namespace Creatures {
             if (Creature.IsFollowingPath) {
                 LastReachedPathPoint = pathPointCurrentlyGoingTo;
                 Ctx.Deps.EventsManager.TriggerPathPointReached(Creature, LastReachedPathPoint);
+
                 if (!HasReachedPathEnd) {
                     ContinueToNextPathPoint();
                     return;
