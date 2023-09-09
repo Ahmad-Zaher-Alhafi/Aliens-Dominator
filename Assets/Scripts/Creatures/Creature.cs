@@ -119,11 +119,9 @@ namespace Creatures {
             BodyParts = GetComponentsInChildren<BodyPart>();
             deathSound = GetComponent<StudioEventEmitter>();
             SkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-            if (HasSpawningAnimation) {
-                // Hide the skin here, Spawning state will show it in the correct time
-                SkinnedMeshRenderer.enabled = false;
-            }
 
+            // Hide the skin here, it will be shown later
+            SkinnedMeshRenderer.enabled = false;
             initialHealth = health;
         }
 
@@ -155,6 +153,11 @@ namespace Creatures {
             }
 
             creatureStateMachine.Init(this, initialCreatureState);
+
+            if (!HasSpawningAnimation) {
+                // Show the skin here if there is no spawning animation
+                SkinnedMeshRenderer.enabled = true;
+            }
         }
 
         public void OnMoverOrderFulfilled() {
