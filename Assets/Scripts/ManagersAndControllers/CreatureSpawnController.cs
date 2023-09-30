@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Context;
@@ -69,6 +70,36 @@ namespace ManagersAndControllers {
             }
         }
 
+        public void InitWavePaths(int waveIndex) {
+            Wave wave = waves[waveIndex];
+
+            for (int i = 0; i < wave.NumOfSpawnPoints; i++) {
+                SpawnPoint randomSpawnPoint = MathUtils.GetRandomObjectFromList(spawningPoints);
+                SpawnPointPath pathToFollow;
+                TargetPoint targetPoint;
+
+                for (int j = 0; j < wave.NumOfGroundPaths; j++) {
+                    pathToFollow = MathUtils.GetRandomObjectFromList(randomSpawnPoint.GroundPaths);
+                    targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
+                    // Do not draw it if already exists
+                    if (wave.AddWavePath(randomSpawnPoint, pathToFollow, true, targetPoint)) continue;
+                    DrawPath(randomSpawnPoint.transform.position, pathToFollow.PathPoints.Select(point => point.transform.position).ToList(), targetPoint.transform.position);
+                }
+
+                for (int j = 0; j < wave.NumOfAirPaths; j++) {
+                    pathToFollow = randomSpawnPoint.AirPath;
+                    targetPoint = playerTargetPoint;
+                    wave.AddWavePath(randomSpawnPoint, pathToFollow, false, targetPoint);
+                }
+            }
+        }
+
+        private void DrawPath(Vector3 startPoint, List<Vector3> pathPoints, Vector3 endPoint) {
+            pathPoints.Insert(0, startPoint);
+            pathPoints.Add(endPoint);
+            Ctx.Deps.GameController.DrawPath(pathPoints);
+        }
+
         private void SpawnWaveCreatures(int waveIndex) {
             StartCoroutine(SpawnWaveCreatures(waves[waveIndex]));
         }
@@ -81,11 +112,17 @@ namespace ManagersAndControllers {
             List<Creature> waveCreaturesPrefabs = creaturesData.Keys.ToList();
 
             while (waveCreaturesPrefabs.Count > 0) {
-                SpawnPoint randomPointToSpawnAt = MathUtils.GetRandomObjectFromList(spawningPoints);
+                // This is a deconstruct statement, do not be confused, it just gives you better reading for the variables of the tuple instead of item1, item2...etc
+                (SpawnPoint randomPointToSpawnAt, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(wave.WavePaths);
+
                 int randomCreaturePrefabIndex = Random.Range(0, waveCreaturesPrefabs.Count);
                 Creature randomCreaturePrefab = waveCreaturesPrefabs[randomCreaturePrefabIndex];
 
-                SpawnCreature(randomCreaturePrefab, randomPointToSpawnAt);
+                SpawnPointPath pathToFollow = MathUtils.GetRandomObjectFromList(randomCreaturePrefab is FlyingCreature
+                    ? wave.WavePaths.Where(tuple => tuple.Item1 == randomPointToSpawnAt && !tuple.Item3).Select(tuple => tuple.Item2).ToList()
+                    : wave.WavePaths.Where(tuple => tuple.Item1 == randomPointToSpawnAt && tuple.Item3).Select(tuple => tuple.Item2).ToList());
+
+                SpawnCreature(randomCreaturePrefab, randomPointToSpawnAt.transform.position, targetPoint, pathToFollow);
                 creaturesData[randomCreaturePrefab]--;
 
                 if (creaturesData[randomCreaturePrefab] == 0) {
@@ -96,21 +133,6 @@ namespace ManagersAndControllers {
             }
 
             finishedSpawningCreatures = true;
-        }
-
-        private Creature SpawnCreature(PooledObject creatureToSpawnPool, SpawnPoint spawnPoint, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
-            SpawnPointPath pathToFollow;
-            TargetPoint targetPoint;
-
-            if (creatureToSpawnPool is FlyingCreature) {
-                pathToFollow = spawnPoint.AirPath;
-                targetPoint = playerTargetPoint;
-            } else {
-                pathToFollow = MathUtils.GetRandomObjectFromList(spawnPoint.GroundPaths);
-                targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
-            }
-
-            return SpawnCreature(creatureToSpawnPool, spawnPoint.transform.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState);
         }
 
         /// <summary>
@@ -179,7 +201,6 @@ namespace ManagersAndControllers {
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
                 serializedObject.Update();
-                DrawDefaultInspector();
 
                 EditorGUILayout.Space();
 
@@ -190,7 +211,12 @@ namespace ManagersAndControllers {
                     if (Application.isPlaying) {
                         CreatureSpawnController creatureSpawnController = (CreatureSpawnController) target;
 
-                        Creature creature = creatureSpawnController.SpawnCreature((Creature) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint, CreatureStateType.FollowingPath);
+                        SpawnPointPath pathToFollow = testCreaturePrefab.objectReferenceValue is FlyingCreature
+                            ? creatureSpawnController.testSpawnPoint.AirPath
+                            : MathUtils.GetRandomObjectFromList(creatureSpawnController.testSpawnPoint.GroundPaths);
+
+                        Creature creature = creatureSpawnController.SpawnCreature((Creature) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint.transform.position, MathUtils.GetRandomObjectFromList(creatureSpawnController.attackPoints),
+                            pathToFollow, initialCreatureState: CreatureStateType.FollowingPath);
                         creature.tag = "TestCreature";
                         creature.name = "Test Creature";
                         /*creature.GetComponent<CreatureStateMachine>().enabled = false;

@@ -2388,7 +2388,7 @@ MonoBehaviour:
   doNotMoveWhileExecutingSpecialAbility: 1
   hasSpecialAbility: 1
   specialAbilityMinPathPointIndex: 0
-  specialAbilityChance: 100
+  specialAbilityChance: 0
   secondsToDestroyDeadBody: 10
   patrolSpeed: 3
   runSpeed: 6
