@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 public class AnimationClipCopy : MonoBehaviour {
     [MenuItem("Custom/CopyAnimationClips")]
     static void CopyAnimationClips() {
@@ -71,3 +72,4 @@ public class AnimationClipCopy : MonoBehaviour {
         AssetDatabase.Refresh();
     }
 }
+  #endif

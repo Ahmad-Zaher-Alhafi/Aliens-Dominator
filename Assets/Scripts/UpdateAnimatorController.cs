@@ -1,7 +1,9 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEditor.Animations;
+
 
 public class UpdateAnimatorController : MonoBehaviour {
     [MenuItem("Custom/UpdateAnimatorController")]
@@ -55,3 +57,4 @@ public class UpdateAnimatorController : MonoBehaviour {
         AssetDatabase.Refresh();
     }
 }
+  #endif

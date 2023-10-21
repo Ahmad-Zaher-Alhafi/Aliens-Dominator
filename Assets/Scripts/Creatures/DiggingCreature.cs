@@ -9,7 +9,6 @@ namespace Creatures {
         [SerializeField] private Transform rigParent;
         [SerializeField] private Vector3 digDownRotateAngle;
         [SerializeField] private Vector3 digUpRotateAngle;
-        [SerializeField] private float rotatingSpeed;
         [SerializeField] private float digSpeed;
         [SerializeField] private ParticleSystem soilParticles;
         [SerializeField] private Vector3 digUpPositionOffset; //needed because we wanted the creature to be under the ground and moset of the waypints are not under the ground so we need this offset

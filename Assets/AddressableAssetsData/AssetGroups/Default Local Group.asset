@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 07c8b68d86d5fe14e8b2c7c3864e31e6
-  m_SerializeEntries:
-  - m_GUID: 2544641d52e7d8a439cf09e77231e5bf
-    m_Address: Assets/Prefabs/UI/State Machine/State Visualiser.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3e3cbbdaf4895c94394e8a8a38b4129b
-    m_Address: Assets/Prefabs/UI/State Machine/Transition Visualiser.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6eaa895a54c5b3c4dbda18f892847802, type: 2}
   m_SchemaSet:

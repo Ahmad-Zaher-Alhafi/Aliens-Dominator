@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace EditorUtils {
+    #if UNITY_EDITOR
     public class ReplaceWithPrefab : EditorWindow {
         [SerializeField] private GameObject prefab;
 
@@ -26,7 +27,7 @@ namespace EditorUtils {
                     for (int j = 0; j < selected.transform.childCount; j++) {
                         children.Add(selected.transform.GetChild(j).gameObject);
                     }
-                    
+
                     for (int j = 0; j < selected.transform.childCount; j++) {
                         selected.transform.GetChild(j).SetParent(null);
                     }
@@ -62,4 +63,5 @@ namespace EditorUtils {
             EditorGUILayout.LabelField("Selection count: " + Selection.objects.Length);
         }
     }
+  #endif
 }

@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Start.unity
-    guid: 3b7891fbac32cc34cabcadb7afa20f84
-  - enabled: 0
-    path: Assets/Scenes/Game Scene.unity
-    guid: 40dc4f0cd31a32c4aa8d3bb84efdf359
   - enabled: 1
     path: Assets/Scenes/Zaher Scene.unity
     guid: 8aaa49e4d4eb82f43b6b008540ad0e62

@@ -66,7 +66,7 @@ namespace Creatures {
         [SerializeField] private float runSpeed = 6;
         public float RunSpeed => runSpeed;
 
-        [SerializeField] private float rotatingSpeed = 1;
+        [SerializeField] protected float rotatingSpeed = 1;
         public float RotatingSpeed => rotatingSpeed;
 
         public CreatureAnimator Animator { get; private set; }
