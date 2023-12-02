@@ -720,9 +720,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a9b1567c08c444b1ab1ac085a42b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkInterpolationSpeed: 0.1
   lookSpeed: 3
-  verticalClamp: 90
-  mainCamera: {fileID: 4094902096832300619}
+  cameraVerticalClamp: 90
   defaultArrow: {fileID: 7658154178271482251, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
   arrowSpawnPoint: {fileID: 8296447903864587603}
   bow: {fileID: 6836515080466163195}
@@ -730,6 +730,7 @@ MonoBehaviour:
   releaseSound: {fileID: 5156337647343923180}
   drawSound: {fileID: 5156337647343923181}
   currentPlayerTeleportObject: {fileID: 0}
+  playerCamera: {fileID: 4094902096832300616}
 --- !u!114 &5156337647343923180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1584,7 +1585,7 @@ Transform:
   m_GameObject: {fileID: 8296447903864587628}
   m_LocalRotation: {x: -0.00000008146034, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0652838, y: 0.0652838, z: 0.0652838}
+  m_LocalScale: {x: 0.065283805, y: 0.0652838, z: 0.065283805}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 236256616069896944}
@@ -6471,9 +6472,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9176926499745111892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0026, y: 0.0024, z: -0.0076}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0025995823, y: 0.0023999773, z: -0.0075999997}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8296447903864587603}
@@ -6588,6 +6589,7 @@ GameObject:
   - component: {fileID: 9176926500052309940}
   - component: {fileID: 9176926500052309942}
   - component: {fileID: 9176926500052309941}
+  - component: {fileID: 585874654642329510}
   m_Layer: 0
   m_Name: Point To Attack The Player
   m_TagString: PlayerAttackPoint
@@ -6660,6 +6662,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9176926500052309931}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &585874654642329510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176926500052309931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &9176926500189372567
 GameObject:
   m_ObjectHideFlags: 0
