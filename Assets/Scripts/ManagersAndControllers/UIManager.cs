@@ -14,8 +14,9 @@ namespace ManagersAndControllers {
         public Text CurrentStatus;
         public GameObject CurrentStatusParent;
 
+        [FormerlySerializedAs("playerController")]
         [FormerlySerializedAs("archeryRig")]
-        [SerializeField] private PlayerController playerController;
+        [SerializeField] private Player.Player player;
         [SerializeField] private GameObject UIMenue;
         [SerializeField] private GameObject playerBow;
         [SerializeField] private GameObject pauseBtn;

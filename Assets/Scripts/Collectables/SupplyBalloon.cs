@@ -31,7 +31,7 @@ namespace Collectables {
             if (collision.collider.tag != "Arrow") return;
 
             if (!CompareTag(Constants.SuppliesCallerTag)) {
-                var rig = FindObjectOfType<PlayerController>();
+                var rig = FindObjectOfType<Player.Player>();
             } else {
                 Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType); //call the airplane to get a supplies drop
             }

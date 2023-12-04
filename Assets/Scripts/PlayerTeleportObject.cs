@@ -1,16 +1,13 @@
-using Player;
 using UnityEngine;
 public class PlayerTeleportObject : MonoBehaviour {
-    [SerializeField] private Transform player;
+    [SerializeField] private Player.Player player;
     [SerializeField] private Transform pointToTeleportPlayerTo;
     [SerializeField] private float teleportSpeed;
-    private PlayerController playerController;
     private bool hasToTeleport;
     private MeshRenderer meshRenderer;
     private Vector3 teleportPosition; //position of the teleport object the the player wants to move to
 
     private void Start() {
-        playerController = player.GetComponent<PlayerController>();
         meshRenderer = GetComponent<MeshRenderer>();
         hasToTeleport = false;
     }
@@ -28,11 +25,11 @@ public class PlayerTeleportObject : MonoBehaviour {
     }
 
     private void Teleport() {
-        if (Vector3.Distance(player.position, teleportPosition) > .2f) {
-            player.position = Vector3.Lerp(player.position, teleportPosition, teleportSpeed /** Time.deltaTime*/ / Vector3.Distance(player.position, teleportPosition));
+        if (Vector3.Distance(player.transform.position, teleportPosition) > .2f) {
+            player.transform.position = Vector3.Lerp(player.transform.position, teleportPosition, teleportSpeed /** Time.deltaTime*/ / Vector3.Distance(player.transform.position, teleportPosition));
         } else {
-            playerController.CurrentPlayerTeleportObject.gameObject.SetActive(true);
-            playerController.CurrentPlayerTeleportObject = this;
+            player.CurrentPlayerTeleportObject.gameObject.SetActive(true);
+            player.CurrentPlayerTeleportObject = this;
 
             hasToTeleport = false;
             gameObject.SetActive(false);
