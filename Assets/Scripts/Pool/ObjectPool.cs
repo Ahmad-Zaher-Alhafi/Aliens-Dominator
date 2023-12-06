@@ -7,13 +7,8 @@ namespace Pool {
         private PooledObject objectPrefab;
         private readonly List<PooledObject> pooledObjects = new();
 
-        public static ObjectPool CreatNewPool(PooledObject prefab, ulong ownerId) {
-            GameObject poolObject = new GameObject(prefab.name + " Pool");
-            ObjectPool pool = poolObject.AddComponent<ObjectPool>();
-            pool.objectPrefab = prefab;
-            NetworkObject networkObject = poolObject.AddComponent<NetworkObject>();
-            networkObject.SpawnWithOwnership(ownerId);
-            return pool;
+        public void Init(PooledObject objectPrefab) {
+            this.objectPrefab = objectPrefab;
         }
 
         public static ObjectPool CreatNewPool(PooledObject prefab) {

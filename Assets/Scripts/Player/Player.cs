@@ -111,12 +111,7 @@ namespace Player {
             if (release) {
                 if (arrow == null) return;
 
-                if (IsServer) {
-                    arrow.FireServerRPC(draw);
-                } else {
-                    arrow.Fire(draw);
-                }
-
+                arrow.Fire(draw);
                 arrow = null;
                 draw = 0;
                 releaseSound.Play();

@@ -72,12 +72,16 @@ namespace Arrows {
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void FireServerRPC(float drawForce) {
-            Fire(drawForce);
+        private void ChangeParentServerRPC() {
+            transform.SetParent(null);
         }
 
         public void Fire(float drawForce) {
-            transform.SetParent(null);
+            if (IsServer) {
+                transform.SetParent(null);
+            } else {
+                ChangeParentServerRPC();
+            }
             trailRenderer.enabled = true;
             rig.isKinematic = false;
             rig.useGravity = true;

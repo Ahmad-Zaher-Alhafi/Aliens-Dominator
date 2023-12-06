@@ -1,3 +1,4 @@
+using Context;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Pool {
 
         public T GetObject<T>(Transform parent, ulong ownerId) where T : PooledObject {
             if (PoolRelatedTo == null) {
-                PoolRelatedTo = ObjectPool.CreatNewPool(this, ownerId);
+                PoolRelatedTo = Ctx.Deps.ObjectPoolController.CreatNewPool(this, ownerId);
             }
 
             var pooledObject = (T) PoolRelatedTo.GetPooledObject(parent);
