@@ -5,7 +5,7 @@ namespace Multiplayer {
     public class HelloWorldPlayer : NetworkBehaviour {
         public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
-        private static Vector3 serverPosition = new(136, 35, 211);
+        private static Vector3 serverPosition = new Vector3(153, 35, 245);
         private static Vector3 clientPosition = new(142, 35, 247);
 
         public override void OnNetworkSpawn() {

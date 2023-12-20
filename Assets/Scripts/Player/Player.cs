@@ -27,6 +27,8 @@ namespace Player {
         private float initialYRotation;
         private Vector2 rotation = Vector2.zero;
 
+        private NetworkVariable<Quaternion> networkRotation = new();
+
         public PlayerTeleportObject CurrentPlayerTeleportObject {
             get => currentPlayerTeleportObject;
             set => currentPlayerTeleportObject = value;
@@ -57,6 +59,8 @@ namespace Player {
                 }
 
                 ReleaseUpdate(Input.GetButtonUp("Fire1"));
+            } else {
+                transform.rotation = networkRotation.Value;
             }
         }
 
@@ -70,6 +74,13 @@ namespace Player {
 
             this.rotation = rotation;
             transform.rotation = Quaternion.Euler(new Vector2(rotation.x, rotation.y + initialYRotation));
+
+            LookUpdateServerRPC(transform.rotation);
+        }
+
+        [ServerRpc]
+        private void LookUpdateServerRPC(Quaternion rotation) {
+            networkRotation.Value = rotation;
         }
 
         [ServerRpc(RequireOwnership = false)]
