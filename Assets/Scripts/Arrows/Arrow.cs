@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Linq;
 using FMODUnity;
-using Pool;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Arrows {
-    public abstract class Arrow : PooledObject, IDamager {
+    public abstract class Arrow : NetworkBehaviour, IDamager {
         public int Damage => damage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
@@ -92,8 +91,22 @@ namespace Arrows {
 
         private IEnumerator Destroy() {
             yield return new WaitForSeconds(TimeToDestroyArrow);
+
+            if (IsServer) {
+                Despawn();
+            } else {
+                DespawnServerRPC();
+            }
+        }
+
+        private void Despawn() {
             gameObject.SetActive(false);
-            ReturnToPool();
+            NetworkObject.Despawn(false);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnServerRPC() {
+            Despawn();
         }
     }
 }

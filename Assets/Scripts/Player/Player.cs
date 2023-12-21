@@ -1,14 +1,16 @@
 using Arrows;
 using FMODUnity;
+using Multiplayer;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
     public class Player : NetworkBehaviour {
+        [SerializeField] private GameObject arrowPrefab;
+
         [SerializeField] private float lookSpeed = 3;
         [SerializeField] private float cameraVerticalClamp = 90;
 
-        [SerializeField] private Arrow defaultArrow;
         [SerializeField] private Transform arrowSpawnPoint;
         public Transform ArrowSpawnPoint => arrowSpawnPoint;
 
@@ -90,8 +92,11 @@ namespace Player {
         }
 
         private Arrow SpawnArrow() {
-            arrow = defaultArrow.GetObject<DefaultArrow>(transform, OwnerClientId);
-            arrow.Init();
+            NetworkObject networkObject = NetworkObjectPool.Singleton.GetNetworkObject(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+            networkObject.SpawnWithOwnership(OwnerClientId);
+            networkObject.transform.SetParent(transform);
+
+            arrow = networkObject.GetComponent<Arrow>();
             drawSound.Play();
             return arrow;
         }

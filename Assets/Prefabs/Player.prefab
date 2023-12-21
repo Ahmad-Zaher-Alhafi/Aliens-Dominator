@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a9b1567c08c444b1ab1ac085a42b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
   lookSpeed: 3
   cameraVerticalClamp: 90
   defaultArrow: {fileID: 7658154178271482251, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
