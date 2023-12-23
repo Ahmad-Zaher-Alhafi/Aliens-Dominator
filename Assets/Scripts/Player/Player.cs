@@ -87,8 +87,14 @@ namespace Player {
 
         [ServerRpc(RequireOwnership = false)]
         private void SpawnArrowServerRPC() {
-            ulong networkObjectId = SpawnArrow().NetworkObjectId;
-            UpdateSpawnedArrowClientRPC(networkObjectId);
+            Arrow spawnedArrow = SpawnArrow();
+            ReturnSpawnedArrowClientRPC(new NetworkBehaviourReference(spawnedArrow.GetComponent<NetworkBehaviour>()));
+        }
+        
+        [ClientRpc]
+        private void ReturnSpawnedArrowClientRPC(NetworkBehaviourReference spawnedArrowReference) {
+            NetworkBehaviour networkBehaviour = spawnedArrowReference;
+            arrow = networkBehaviour as Arrow;
         }
 
         private Arrow SpawnArrow() {
@@ -99,11 +105,6 @@ namespace Player {
             arrow = networkObject.GetComponent<Arrow>();
             drawSound.Play();
             return arrow;
-        }
-
-        [ClientRpc]
-        private void UpdateSpawnedArrowClientRPC(ulong networkObjectId) {
-            arrow = NetworkManager.SpawnManager.SpawnedObjects[networkObjectId].GetComponent<Arrow>();
         }
 
         private void DrawUpdate() {
