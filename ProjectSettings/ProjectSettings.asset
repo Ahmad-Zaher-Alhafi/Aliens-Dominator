@@ -704,10 +704,12 @@ PlayerSettings:
   vrEditorSettings: {}
   cloudServicesEnabled:
     Analytics: 1
-    Build: 1
+    Build: 0
     Collab: 0
     Game Performance: 0
+    Legacy Analytics: 0
     Purchasing: 0
+    UDP: 0
     UNet: 1
     Unity Ads: 0
   luminIcon:
@@ -723,11 +725,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: bd1b64eb-2a88-4ee3-b963-ea36d107a14a
+  cloudProjectId: 64f52cee-3745-4aa8-847c-d4210a21e6a9
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Archer
-  organizationId: niviun
+  projectName: Alians-Dominator
+  organizationId: zaherha
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
