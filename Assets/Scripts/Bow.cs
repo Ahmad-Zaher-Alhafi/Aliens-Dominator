@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-public class Bow : MonoBehaviour {
+﻿using Unity.Netcode;
+using UnityEngine;
+public class Bow : NetworkBehaviour {
     [SerializeField] private float drawingSpeed;
     [SerializeField] private float releaseSpeed;
     [SerializeField] private float maxZPos;
@@ -39,6 +40,8 @@ public class Bow : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        if (!IsOwner) return;
+
         if (shootRoutine) return;
 
         if (Input.GetMouseButton(0)) drawAngle += drawingSpeed * Time.deltaTime;

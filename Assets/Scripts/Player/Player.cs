@@ -1,4 +1,5 @@
 using Arrows;
+using Context;
 using FMODUnity;
 using Multiplayer;
 using Unity.Netcode;
@@ -10,6 +11,7 @@ namespace Player {
 
         [SerializeField] private float lookSpeed = 3;
         [SerializeField] private float cameraVerticalClamp = 90;
+        [SerializeField] private float teleportSpeed;
 
         [SerializeField] private Transform arrowSpawnPoint;
         public Transform ArrowSpawnPoint => arrowSpawnPoint;
@@ -20,20 +22,28 @@ namespace Player {
         [SerializeField] private StudioEventEmitter releaseSound;
         [SerializeField] private StudioEventEmitter drawSound;
 
-        [SerializeField] private PlayerTeleportObject currentPlayerTeleportObject;
         [SerializeField] private Camera playerCamera;
 
         private Arrow arrow;
         private float draw;
         private Vector3 initialDrawPosition;
+
         private float initialYRotation;
         private Vector2 rotation = Vector2.zero;
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
 
-        private NetworkVariable<Quaternion> networkRotation = new();
+        private bool hasToTeleport;
+        private Vector3 teleportPosition;
+        private readonly NetworkVariable<Vector3> networkPosition = new();
 
-        public PlayerTeleportObject CurrentPlayerTeleportObject {
-            get => currentPlayerTeleportObject;
-            set => currentPlayerTeleportObject = value;
+
+        private readonly Vector3 serverPosition = new(153, 35, 245);
+        private readonly Vector3 clientPosition = new(142, 35, 247);
+
+        public override void OnNetworkSpawn() {
+            if (IsOwner) {
+                MoveToInstantly();
+            }
         }
 
         private void Start() {
@@ -54,15 +64,20 @@ namespace Player {
                     }
                 }
 
-                if (arrow == null) return;
+                if (arrow != null) {
+                    if (Input.GetButton("Fire1")) {
+                        DrawUpdate();
+                    }
 
-                if (Input.GetButton("Fire1")) {
-                    DrawUpdate();
+                    ReleaseUpdate(Input.GetButtonUp("Fire1"));
                 }
 
-                ReleaseUpdate(Input.GetButtonUp("Fire1"));
+                if (hasToTeleport) {
+                    MoveTo();
+                }
             } else {
                 transform.rotation = networkRotation.Value;
+                transform.position = networkPosition.Value;
             }
         }
 
@@ -77,7 +92,11 @@ namespace Player {
             this.rotation = rotation;
             transform.rotation = Quaternion.Euler(new Vector2(rotation.x, rotation.y + initialYRotation));
 
-            LookUpdateServerRPC(transform.rotation);
+            if (IsServer) {
+                networkRotation.Value = transform.rotation;
+            } else {
+                LookUpdateServerRPC(transform.rotation);
+            }
         }
 
         [ServerRpc]
@@ -90,7 +109,7 @@ namespace Player {
             Arrow spawnedArrow = SpawnArrow();
             ReturnSpawnedArrowClientRPC(new NetworkBehaviourReference(spawnedArrow.GetComponent<NetworkBehaviour>()));
         }
-        
+
         [ClientRpc]
         private void ReturnSpawnedArrowClientRPC(NetworkBehaviourReference spawnedArrowReference) {
             NetworkBehaviour networkBehaviour = spawnedArrowReference;
@@ -133,6 +152,38 @@ namespace Player {
                 draw = 0;
                 releaseSound.Play();
             }
+        }
+
+        public void TeleportTo(Vector3 teleportPosition) {
+            hasToTeleport = true;
+            this.teleportPosition = teleportPosition;
+        }
+
+        private void MoveTo() {
+            if (Vector3.Distance(transform.position, teleportPosition) > .2f) {
+                transform.position = Vector3.LerpUnclamped(transform.position, teleportPosition, teleportSpeed * Time.deltaTime);
+                if (IsClient) {
+                    UpdatePositionServerRPC(transform.position);
+                }
+            } else {
+                hasToTeleport = false;
+                Ctx.Deps.EventsManager.TriggerPlayerTeleported(teleportPosition);
+            }
+        }
+
+        private void MoveToInstantly() {
+            if (NetworkManager.Singleton.IsServer) {
+                transform.position = serverPosition;
+                networkPosition.Value = serverPosition;
+            } else {
+                transform.position = clientPosition;
+                UpdatePositionServerRPC(clientPosition);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdatePositionServerRPC(Vector3 position) {
+            networkPosition.Value = position;
         }
     }
 }

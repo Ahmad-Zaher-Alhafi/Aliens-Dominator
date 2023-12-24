@@ -20758,7 +20758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &656372781
 Transform:
   m_ObjectHideFlags: 0
@@ -42987,74 +42987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff7f37cab507e44bbb422c68063242f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1220729975
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1220729978}
-  - component: {fileID: 1220729977}
-  - component: {fileID: 1220729976}
-  m_Layer: 0
-  m_Name: Netowrk Object Pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1220729976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220729975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2484510925
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &1220729977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220729975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed90d05de0f4d20aa7dbbf70657f505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledPrefabsList:
-  - Prefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
-    PrewarmCount: 0
---- !u!4 &1220729978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220729975}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 190.519, y: 54.37629, z: 186.95439}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1221043413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76100,14 +76032,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1220729976, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 623551972
+      objectReference: {fileID: 0}
     - target: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_Name
       value: Controllers
       objectReference: {fileID: 0}
-    - target: {fileID: 3044567553695726190, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: objectPoolController
-      value: 
-      objectReference: {fileID: 3044567552970725675}
     - target: {fileID: 3044567553695726191, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -76184,14 +76116,6 @@ PrefabInstance:
       propertyPath: creaturesHolder
       value: 
       objectReference: {fileID: 145440974}
-    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: playerTargetPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: spawnCinematicCreatures
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: attackPoints.Array.data[0]
       value: 
@@ -76426,17 +76350,6 @@ PrefabInstance:
       objectReference: {fileID: 753883942}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
---- !u!114 &3044567552970725675 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9157550214256001044, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-  m_PrefabInstance: {fileID: 3044567552970725674}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add08f39059a4133a7d3120c41d4071e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!199 &3104420159960821696
 ParticleSystemRenderer:
   serializedVersion: 6

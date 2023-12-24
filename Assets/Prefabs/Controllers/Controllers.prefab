@@ -88,6 +88,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bcf8bd2731c9224baddc504e0572ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1220729975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220729978}
+  - component: {fileID: 1220729977}
+  - component: {fileID: 1220729976}
+  m_Layer: 0
+  m_Name: Netowrk Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220729978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220729975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 190.519, y: 54.37629, z: 186.95439}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1220729977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220729975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed90d05de0f4d20aa7dbbf70657f505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledPrefabsList:
+  - Prefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
+    PrewarmCount: 0
+--- !u!114 &1220729976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220729975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3044567553695726185
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +193,7 @@ Transform:
   - {fileID: 3044567554515599070}
   - {fileID: 8800130589271052223}
   - {fileID: 6192327806096727282}
+  - {fileID: 1220729978}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,7 +214,7 @@ MonoBehaviour:
   eventsManager: {fileID: 515246896}
   gameController: {fileID: 3044567554920042975}
   audioController: {fileID: 2360920366251837563}
-  objectPoolController: {fileID: 0}
+  objectPoolController: {fileID: 9157550214256001044}
 --- !u!1 &3044567554523871306
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: spawnCinematicCreatures
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: spawningPoints.Array.size

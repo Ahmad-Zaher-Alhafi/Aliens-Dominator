@@ -1,45 +1,34 @@
+using System;
+using System.Linq;
+using Arrows;
+using Context;
 using UnityEngine;
 public class PlayerTeleportObject : MonoBehaviour {
-    [SerializeField] private Player.Player player;
-    [SerializeField] private Transform pointToTeleportPlayerTo;
-    [SerializeField] private float teleportSpeed;
-    private bool hasToTeleport;
     private MeshRenderer meshRenderer;
-    private Vector3 teleportPosition; //position of the teleport object the the player wants to move to
 
-    private void Start() {
+    private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
-        hasToTeleport = false;
-    }
-
-
-    private void Update() {
-        if (hasToTeleport) Teleport();
+        Ctx.Deps.EventsManager.PlayerTeleported += OnPlayerTeleported;
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag(Constants.Arrow)) {
-            Destroy(other.gameObject);
-            OrderToTeleport();
-        }
+        if (!other.TryGetComponent(out Arrow arrow)) return;
+
+        Player.Player player = FindObjectsOfType<Player.Player>().Single(player1 => player1.OwnerClientId == arrow.OwnerClientId).GetComponent<Player.Player>();
+        OrderToTeleport(player);
     }
 
-    private void Teleport() {
-        if (Vector3.Distance(player.transform.position, teleportPosition) > .2f) {
-            player.transform.position = Vector3.Lerp(player.transform.position, teleportPosition, teleportSpeed /** Time.deltaTime*/ / Vector3.Distance(player.transform.position, teleportPosition));
-        } else {
-            player.CurrentPlayerTeleportObject.gameObject.SetActive(true);
-            player.CurrentPlayerTeleportObject = this;
-
-            hasToTeleport = false;
-            gameObject.SetActive(false);
-            meshRenderer.enabled = true;
-        }
+    private void OrderToTeleport(Player.Player player) {
+        player.TeleportTo(transform.position);
+        gameObject.SetActive(false);
     }
 
-    private void OrderToTeleport() {
-        meshRenderer.enabled = false;
-        teleportPosition = transform.position;
-        hasToTeleport = true;
+    private void OnPlayerTeleported(Vector3 teleportPosition) {
+        if (teleportPosition == transform.position) return;
+        gameObject.SetActive(true);
+    }
+
+    private void OnDestroy() {
+        Ctx.Deps.EventsManager.PlayerTeleported -= OnPlayerTeleported;
     }
 }

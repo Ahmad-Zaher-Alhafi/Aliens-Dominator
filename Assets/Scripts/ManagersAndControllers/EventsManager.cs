@@ -28,6 +28,11 @@ namespace ManagersAndControllers {
         public void TriggerPathPointReached(Creature creature, PathPoint pathPoint) {
             PathPointReached?.Invoke(creature, pathPoint);
         }
+        
+        public event Action<Vector3> PlayerTeleported;
+        public void TriggerPlayerTeleported(Vector3 teleportPosition) {
+            PlayerTeleported?.Invoke(teleportPosition);
+        }
 
         public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
         public void OnCallingSupplies(Constants.SuppliesTypes suppliesType) {

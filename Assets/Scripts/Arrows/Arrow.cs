@@ -24,6 +24,9 @@ namespace Arrows {
         private new Collider collider;
         private Player.Player playerOwner;
 
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+
         private void Awake() {
             trailRenderer = GetComponent<TrailRenderer>();
             rig = GetComponent<Rigidbody>();
@@ -36,25 +39,65 @@ namespace Arrows {
             Init();
         }
 
-        public void Init() {
+        private void Init() {
             transform.position = playerOwner.ArrowSpawnPoint.position;
             transform.rotation = playerOwner.ArrowSpawnPoint.rotation;
 
             trailRenderer.enabled = false;
-
-            rig.isKinematic = true;
-            rig.useGravity = false;
-            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            rig.detectCollisions = false;
-            rig.velocity = Vector3.zero;
-
             collider.enabled = true;
+
+            if (IsOwner) {
+                if (rig == null) {
+                    rig = gameObject.AddComponent<Rigidbody>();
+                }
+                rig.isKinematic = true;
+                rig.useGravity = false;
+                rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+                rig.detectCollisions = false;
+                rig.velocity = Vector3.zero;
+            } else {
+                // If nt owner destroy the rigid body so it does not interfere with position that is coming from the network (from the owner)
+                Destroy(rig);
+            }
         }
 
         private void Update() {
             if (!collider.enabled) return;
+            if (IsOwner) {
+                Rotate();
+            }
+
+            if (IsServer && IsOwner) {
+                networkPosition.Value = transform.position;
+            } else {
+                if (IsOwner) {
+                    UpdatePositionServerRPC(transform.position);
+                } else {
+                    transform.position = networkPosition.Value;
+                    transform.rotation = networkRotation.Value;
+                }
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdatePositionServerRPC(Vector3 position) {
+            networkPosition.Value = position;
+        }
+
+        private void Rotate() {
             // Rotate towards the velocity direction
             transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
+
+            if (IsServer) {
+                networkRotation.Value = transform.rotation;
+            } else {
+                RotateServerRPC(transform.rotation);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void RotateServerRPC(Quaternion rotation) {
+            networkRotation.Value = rotation;
         }
 
         protected void OnTriggerEnter(Collider other) {
@@ -63,6 +106,7 @@ namespace Arrows {
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
             rig.isKinematic = true;
             rig.useGravity = false;
+
             trailRenderer.enabled = false;
 
             arrowHitSound.Play();
