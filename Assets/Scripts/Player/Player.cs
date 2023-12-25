@@ -37,8 +37,8 @@ namespace Player {
         private readonly NetworkVariable<Vector3> networkPosition = new();
 
 
-        private readonly Vector3 serverPosition = new(153, 35, 245);
-        private readonly Vector3 clientPosition = new(142, 35, 247);
+        private readonly Vector3 serverPosition = new(163,27,189);
+        private readonly Vector3 clientPosition = new(155,27,175);
 
         public override void OnNetworkSpawn() {
             if (IsOwner) {
