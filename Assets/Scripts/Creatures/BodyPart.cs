@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Creatures {
-    public class BodyPart : MonoBehaviour, IDamageable {
+    public class BodyPart : NetworkBehaviour, IDamageable {
         public enum CreatureBodyPart {
             Head,
             Body,
@@ -24,13 +25,29 @@ namespace Creatures {
         private Rigidbody Rig { get; set; }
         private Vector3 initialLocalPosition;
         private Quaternion initialLocalRotation;
+        private CharacterJoint characterJoint;
+
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
 
         private void Awake() {
             creature = GetComponentInParent<Creature>();
             collider = GetComponent<Collider>();
             Rig = GetComponent<Rigidbody>();
+            characterJoint = GetComponent<CharacterJoint>();
             initialLocalPosition = transform.localPosition;
             initialLocalRotation = transform.localRotation;
+        }
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (!IsServer) {
+                if (characterJoint != null) {
+                    Destroy(characterJoint);
+                }
+                Destroy(Rig);
+                Destroy(collider);
+            }
         }
 
         public void Init(PhysicMaterial physicMaterial) {
@@ -43,6 +60,16 @@ namespace Creatures {
             transform.localRotation = initialLocalRotation;
         }
 
+        private void Update() {
+            if (IsServer) {
+                networkPosition.Value = transform.position;
+                networkRotation.Value = transform.rotation;
+            } else {
+                transform.position = networkPosition.Value;
+                transform.rotation = networkRotation.Value;
+            }
+        }
+
         private void OnTriggerEnter(Collider other) {
             IDamager damager = other.gameObject.GetComponent<IDamager>();
             if (damager == null) return;
@@ -50,6 +77,7 @@ namespace Creatures {
         }
 
         public void OnDeath() {
+            collider.enabled = true;
             Rig.useGravity = true;
             Rig.isKinematic = false;
             Rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;

@@ -7972,6 +7972,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff7f37cab507e44bbb422c68063242f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &229572969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+  m_PrefabInstance: {fileID: 3044567552970725674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &229572972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229572969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3386635450
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &235903929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10919,15 +10944,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3632019836816242852, guid: 6cda580e9078aca40ae9fc85a8808534, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 163.37
+      value: 136.90648
       objectReference: {fileID: 0}
     - target: {fileID: 3632019836816242852, guid: 6cda580e9078aca40ae9fc85a8808534, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.63
+      value: 26.413986
       objectReference: {fileID: 0}
     - target: {fileID: 3632019836816242852, guid: 6cda580e9078aca40ae9fc85a8808534, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 189.28
+      value: 210.1479
       objectReference: {fileID: 0}
     - target: {fileID: 3632019836816242852, guid: 6cda580e9078aca40ae9fc85a8808534, type: 3}
       propertyPath: m_LocalRotation.w
@@ -76036,6 +76061,18 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 623551972
       objectReference: {fileID: 0}
+    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: pooledPrefabsList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: pooledPrefabsList.Array.data[1].Prefab
+      value: 
+      objectReference: {fileID: 1301338880282656, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
+    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: pooledPrefabsList.Array.data[2].Prefab
+      value: 
+      objectReference: {fileID: 1276567175080652, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
     - target: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_Name
       value: Controllers
@@ -76116,6 +76153,10 @@ PrefabInstance:
       propertyPath: creaturesHolder
       value: 
       objectReference: {fileID: 145440974}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: spawnCinematicCreatures
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: attackPoints.Array.data[0]
       value: 

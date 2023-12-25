@@ -5,13 +5,13 @@ using System.Linq;
 using Context;
 using Creatures.Animators;
 using FiniteStateMachine;
-using Pool;
 using FiniteStateMachine.CreatureStateMachine;
 using FMODUnity;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Creatures {
-    public abstract class Creature : PooledObject, IDamager, IDamageable, IAutomatable {
+    public abstract class Creature : NetworkBehaviour, IDamager, IDamageable, IAutomatable {
         public bool IsDestroyed => IsDead;
         public int Damage => attackDamage;
         public Transform Transform => transform;
@@ -110,6 +110,9 @@ namespace Creatures {
         protected Action<bool> InformAnimationFinishedCallback;
         protected SpawnPointPath PathToFollow { get; private set; }
 
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
+
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
             Rig = GetComponent<Rigidbody>();
@@ -119,6 +122,20 @@ namespace Creatures {
             deathSound = GetComponent<StudioEventEmitter>();
 
             initialHealth = health;
+        }
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (!IsServer) {
+                InitClient();
+            }
+        }
+
+        private void InitClient() {
+            Destroy(creatureStateMachine);
+            Destroy(Rig);
+            Destroy(Mover);
+            Destroy(Animator);
         }
 
         public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
@@ -148,7 +165,20 @@ namespace Creatures {
                 bodyPart.Init(bouncingMaterial);
             }
 
+            if (initialCreatureState == CreatureStateType.None) {
+                initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
+            }
             creatureStateMachine.Init(this, initialCreatureState);
+        }
+
+        private void Update() {
+            if (IsServer) {
+                networkPosition.Value = transform.position;
+                networkRotation.Value = transform.rotation;
+            } else {
+                transform.position = networkPosition.Value;
+                transform.rotation = networkRotation.Value;
+            }
         }
 
         public void OnMoverOrderFulfilled() {
@@ -191,8 +221,22 @@ namespace Creatures {
         private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
             Ctx.Deps.EventsManager.TriggerEnemyDied(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
-            ReturnToPool();
+            if (IsServer) {
+                Despawn();
+            } else {
+                DespawnServerRPC();
+            }
             Debug.Log($"Creature {this} disappeared");
+        }
+
+        private void Despawn() {
+            gameObject.SetActive(false);
+            NetworkObject.Despawn(false);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnServerRPC() {
+            Despawn();
         }
 
         public void Disappear() {
