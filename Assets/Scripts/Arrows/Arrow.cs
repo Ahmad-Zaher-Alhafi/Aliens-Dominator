@@ -63,18 +63,23 @@ namespace Arrows {
 
         private void Update() {
             if (!collider.enabled) return;
-            if (IsOwner) {
-                Rotate();
-            }
 
-            if (IsServer && IsOwner) {
-                networkPosition.Value = transform.position;
+            UpdatePosition();
+            Rotate();
+        }
+
+        private void UpdatePosition() {
+            if (IsServer) {
+                if (IsOwner) {
+                    networkPosition.Value = transform.position;
+                } else {
+                    transform.position = networkPosition.Value;
+                }
             } else {
                 if (IsOwner) {
                     UpdatePositionServerRPC(transform.position);
                 } else {
                     transform.position = networkPosition.Value;
-                    transform.rotation = networkRotation.Value;
                 }
             }
         }
@@ -85,13 +90,23 @@ namespace Arrows {
         }
 
         private void Rotate() {
-            // Rotate towards the velocity direction
-            transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
+            if (IsOwner) {
+                // Rotate towards the velocity direction
+                transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
+            }
 
             if (IsServer) {
-                networkRotation.Value = transform.rotation;
+                if (IsOwner) {
+                    networkRotation.Value = transform.rotation;
+                } else {
+                    transform.rotation = networkRotation.Value;
+                }
             } else {
-                RotateServerRPC(transform.rotation);
+                if (IsOwner) {
+                    RotateServerRPC(transform.rotation);
+                } else {
+                    transform.rotation = networkRotation.Value;
+                }
             }
         }
 
@@ -103,9 +118,12 @@ namespace Arrows {
         protected void OnTriggerEnter(Collider other) {
             collider.enabled = false;
 
-            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            rig.isKinematic = true;
-            rig.useGravity = false;
+
+            if (rig != null) {
+                rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+                rig.isKinematic = true;
+                rig.useGravity = false;
+            }
 
             trailRenderer.enabled = false;
 
