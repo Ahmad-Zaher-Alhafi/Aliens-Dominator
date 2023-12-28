@@ -875,11 +875,11 @@ MonoBehaviour:
   cameraVerticalClamp: 90
   teleportSpeed: 15
   arrowSpawnPoint: {fileID: 8296447903864587603}
+  enemyTargetPoint: {fileID: 9176926500301972966}
   bow: {fileID: 6836515080466163195}
   maxBowMovement: 0.25
   releaseSound: {fileID: 5156337647343923180}
   drawSound: {fileID: 5156337647343923181}
-  currentPlayerTeleportObject: {fileID: 0}
   playerCamera: {fileID: 3669274390887556824}
 --- !u!114 &5156337647343923180
 MonoBehaviour:
@@ -1154,7 +1154,7 @@ GameObject:
   - component: {fileID: 8398110243452901287}
   - component: {fileID: 9176926500301972966}
   m_Layer: 0
-  m_Name: Player Target Point
+  m_Name: Enemy Target Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

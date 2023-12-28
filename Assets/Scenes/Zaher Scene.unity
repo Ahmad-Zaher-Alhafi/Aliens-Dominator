@@ -7972,31 +7972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff7f37cab507e44bbb422c68063242f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &229572969 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-  m_PrefabInstance: {fileID: 3044567552970725674}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &229572972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229572969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3386635450
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &235903929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60520,6 +60495,7 @@ MonoBehaviour:
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: d12b82068a6c2ff4eb9b03e2901eec55, type: 2}
+      - {fileID: 11400000, guid: fa8ccb39bf6d39847bd27483d32187dd, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -76057,22 +76033,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229572972, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 592577465
+      objectReference: {fileID: 0}
     - target: {fileID: 1220729976, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 623551972
       objectReference: {fileID: 0}
-    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: pooledPrefabsList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: pooledPrefabsList.Array.data[1].Prefab
-      value: 
-      objectReference: {fileID: 1301338880282656, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
-    - target: {fileID: 1220729977, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: pooledPrefabsList.Array.data[2].Prefab
-      value: 
-      objectReference: {fileID: 1276567175080652, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
     - target: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_Name
       value: Controllers
@@ -76154,9 +76122,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 145440974}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: spawnCinematicCreatures
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ddb985b27acd46e4f895553688d74fd8, type: 2}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: attackPoints.Array.data[0]
       value: 

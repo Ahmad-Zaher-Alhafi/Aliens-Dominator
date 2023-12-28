@@ -136,6 +136,24 @@ MonoBehaviour:
   pooledPrefabsList:
   - Prefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 1301338880282656, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1276567175080652, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1002315138522022, guid: de885bb7d42d28444b6a87c422b0efdc, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1360792595289854, guid: 5cad126635ef17742b4b66be012999ff, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1644708188338916, guid: 5acd5a1f5df01854d9c443eb56b29a1e, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1937973867405028, guid: 1d481657223f4e54ba658b3f20a1409f, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1997315638701822, guid: 36924a6c532bf5f49baf7e29eaa34119, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1367487209626054, guid: 15b02acadabf14c45af835ffabd8dfba, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 1640262395653480, guid: ef566210804ab5e40926eb5195f0954c, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3044567553695726191}
   - component: {fileID: 3044567553695726190}
+  - component: {fileID: 229572972}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -215,6 +234,26 @@ MonoBehaviour:
   gameController: {fileID: 3044567554920042975}
   audioController: {fileID: 2360920366251837563}
   objectPoolController: {fileID: 9157550214256001044}
+--- !u!114 &229572972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044567553695726185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3044567554523871306
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: spawnCinematicCreatures
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8230789373497311135, guid: 82b00c006d9b1544982b7bd7512dc6f3, type: 3}
       propertyPath: spawningPoints.Array.size

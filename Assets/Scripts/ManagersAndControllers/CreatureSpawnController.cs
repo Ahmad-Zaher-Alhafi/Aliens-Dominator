@@ -41,6 +41,7 @@ namespace ManagersAndControllers {
         public List<PathPoint> GroundCinematicEnemyPathPoints => groundCinematicEnemyPathPoints;
         [SerializeField] private List<PathPoint> airCinematicEnemyPathPoints;
         public List<PathPoint> AirCinematicEnemyPathPoints => airCinematicEnemyPathPoints;
+        public int WavesCount => waves.Count;
 
         // Points where cinematic creatures are gonna run away when the waves starts
         [Header("Running Away Points")]
@@ -50,16 +51,13 @@ namespace ManagersAndControllers {
         [Header("Base's target points")]
         [SerializeField] private List<TargetPoint> attackPoints;
 
-        [FormerlySerializedAs("playerAttackPoint")]
-        [Header("Player's target point")]
-        [SerializeField] private TargetPoint playerTargetPoint;
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
 
         private readonly List<Creature> creatures = new();
         private bool finishedSpawningCreatures = true;
-        public int WavesCount => waves.Count;
+        private TargetPoint playerTargetPoint;
 
         private void Awake() {
             Ctx.Deps.EventsManager.EnemyDied += OnEnemyDied;
@@ -99,7 +97,7 @@ namespace ManagersAndControllers {
 
                 for (int j = 0; j < wave.NumOfAirPaths; j++) {
                     pathToFollow = randomSpawnPoint.AirPath;
-                    targetPoint = playerTargetPoint;
+                    targetPoint = MathUtils.GetRandomObjectFromList(NetworkManager.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint ;
                     wave.AddWavePath(randomSpawnPoint, pathToFollow, false, targetPoint);
                 }
             }
@@ -112,6 +110,7 @@ namespace ManagersAndControllers {
         }
 
         private void SpawnWaveCreatures(int waveIndex) {
+            if (!IsServer) return;
             StartCoroutine(SpawnWaveCreatures(waves[waveIndex]));
         }
 

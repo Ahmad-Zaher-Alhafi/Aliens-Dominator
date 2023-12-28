@@ -16,6 +16,9 @@ namespace Player {
         [SerializeField] private Transform arrowSpawnPoint;
         public Transform ArrowSpawnPoint => arrowSpawnPoint;
 
+        [SerializeField] private TargetPoint enemyTargetPoint;
+        public TargetPoint EnemyTargetPoint => enemyTargetPoint;
+
         [SerializeField] private Transform bow;
         [SerializeField] private float maxBowMovement = 0.4f;
 
@@ -37,8 +40,8 @@ namespace Player {
         private readonly NetworkVariable<Vector3> networkPosition = new();
 
 
-        private readonly Vector3 serverPosition = new(163,27,189);
-        private readonly Vector3 clientPosition = new(155,27,175);
+        private readonly Vector3 serverPosition = new(163, 27, 189);
+        private readonly Vector3 clientPosition = new(155, 27, 175);
 
         public override void OnNetworkSpawn() {
             if (IsOwner) {

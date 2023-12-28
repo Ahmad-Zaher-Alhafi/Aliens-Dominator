@@ -41,12 +41,7 @@ namespace ManagersAndControllers {
         }
 
         private void StartNextWave() {
-            Assert.IsTrue(NextWaveIndex < Ctx.Deps.CreatureSpawnController.WavesCount, "No next wave found");
-
-            HasWaveStarted = true;
-            Ctx.Deps.EventsManager.TriggerWaveStarted(NextWaveIndex);
-            currentWaveIndex = NextWaveIndex;
-            Debug.Log($"Wave {currentWaveIndex} has been started");
+            StartCoroutine(StartNextWaveDelayed());
         }
 
         private void OnWaveFinished() {
@@ -57,13 +52,20 @@ namespace ManagersAndControllers {
                 return;
             }
 
-            StartCoroutine(StartNextWaveDelayed());
+            StartNextWave();
         }
 
         private IEnumerator StartNextWaveDelayed() {
+            Assert.IsTrue(NextWaveIndex < Ctx.Deps.CreatureSpawnController.WavesCount, "No next wave found");
+
             yield return new WaitForEndOfFrame();
+
             Ctx.Deps.CreatureSpawnController.InitWavePaths(NextWaveIndex);
-            StartNextWave();
+
+            HasWaveStarted = true;
+            Ctx.Deps.EventsManager.TriggerWaveStarted(NextWaveIndex);
+            currentWaveIndex = NextWaveIndex;
+            Debug.Log($"Wave {currentWaveIndex} has been started");
         }
 
         public void DrawPath(List<Vector3> pathPoints) {
