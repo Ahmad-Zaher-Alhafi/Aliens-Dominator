@@ -191,10 +191,30 @@ namespace Creatures {
             ObjectDamagedWith = damager;
             creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
 
+            if (IsServer) {
+                PlayBloodParticles();
+                PlayBloodParticlesClientRPC();
+            } else {
+                PlayBloodParticlesServerRPC();
+            }
+        }
+
+        private void PlayBloodParticles() {
             BloodParticle bloodParticle = bloodParticlesPrefab.GetObject<BloodParticle>(null);
             bloodParticle.transform.position = bloodEffectCreatePoint.position;
             bloodParticle.SetColor(bloodColor);
             bloodParticle.Play();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayBloodParticlesServerRPC() {
+            PlayBloodParticles();
+            PlayBloodParticlesClientRPC();
+        }
+
+        [ClientRpc]
+        private void PlayBloodParticlesClientRPC() {
+            PlayBloodParticles();
         }
 
         public virtual void ExecuteSpecialAbility(Action<bool> informAnimationFinishedCallback) {
