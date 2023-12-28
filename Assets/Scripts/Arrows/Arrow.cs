@@ -115,6 +115,17 @@ namespace Arrows {
             networkRotation.Value = rotation;
         }
 
+        [ClientRpc]
+        private void ActivateLineRendererClientRPC() {
+            trailRenderer.enabled = true;
+        }
+
+        [ServerRpc]
+        private void ActivateLineRendererServerRPC() {
+            trailRenderer.enabled = true;
+            ActivateLineRendererClientRPC();
+        }
+
         protected void OnTriggerEnter(Collider other) {
             collider.enabled = false;
 
@@ -140,9 +151,12 @@ namespace Arrows {
         public void Fire(float drawForce) {
             if (IsServer) {
                 transform.SetParent(null);
+                ActivateLineRendererClientRPC();
             } else {
                 ChangeParentServerRPC();
+                ActivateLineRendererServerRPC();
             }
+
             trailRenderer.enabled = true;
             rig.isKinematic = false;
             rig.useGravity = true;
