@@ -192,7 +192,7 @@ namespace SecurityWeapons {
         private bool useInfiniteAmmo;
 
         private void EditorUpdate() {
-            if (activateOnStart && Ctx.Deps.GameController.HasWaveStarted) {
+            if (activateOnStart && Ctx.Deps.WaveController.HasWaveStarted) {
                 TakeOff();
             }
 

@@ -422,6 +422,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
   - {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
   cinematicWave: {fileID: 11400000, guid: a0780e19f2336bd49a518dad0d8cf0eb, type: 2}
+  pathDrawerPrefab: {fileID: -2207219392055801605, guid: af7bc854d7a347b4c93905fc7b45c5ac, type: 3}
+  pathDrawersHolder: {fileID: 0}
+  fragmentationDistance: 3
+  pathCreationSpeed: 0.5
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -166,7 +166,7 @@ namespace Creatures {
             }
 
             if (initialCreatureState == CreatureStateType.None) {
-                initialCreatureState = Ctx.Deps.GameController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
+                initialCreatureState = Ctx.Deps.WaveController.HasWaveStarted ? CreatureStateType.FollowingPath : CreatureStateType.Patrolling;
             }
             creatureStateMachine.Init(this, initialCreatureState);
         }
