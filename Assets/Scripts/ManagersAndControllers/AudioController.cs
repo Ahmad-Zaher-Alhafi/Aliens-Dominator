@@ -1,6 +1,7 @@
 using System.Collections;
 using Context;
 using FMODUnity;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace ManagersAndControllers {
@@ -24,7 +25,7 @@ namespace ManagersAndControllers {
             if (instance == null) instance = this;
         }
 
-        private void OnWaveStarted(int waveIndex) {
+        private void OnWaveStarted(Wave wave) {
             PlayScreamSound();
         }
 

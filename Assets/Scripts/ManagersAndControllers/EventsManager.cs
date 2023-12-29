@@ -1,12 +1,13 @@
 using System;
 using Creatures;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace ManagersAndControllers {
     public class EventsManager : MonoBehaviour {
-        public event Action<int> WaveStarted;
-        public void TriggerWaveStarted(int waveIndex) {
-            WaveStarted?.Invoke(waveIndex);
+        public event Action<Wave> WaveStarted;
+        public void TriggerWaveStarted(Wave wave) {
+            WaveStarted?.Invoke(wave);
         }
 
         public event Action WaveFinished;

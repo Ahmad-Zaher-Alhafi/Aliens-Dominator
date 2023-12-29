@@ -213,6 +213,7 @@ Transform:
   - {fileID: 8800130589271052223}
   - {fileID: 6192327806096727282}
   - {fileID: 1220729978}
+  - {fileID: 240670351010370967}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -230,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   supplyBalloonController: {fileID: 3044567554523871304}
   creatureSpawnController: {fileID: 8373024146854449137}
+  waveController: {fileID: 3637963087272948927}
   eventsManager: {fileID: 515246896}
   gameController: {fileID: 3044567554920042975}
   audioController: {fileID: 2360920366251837563}
@@ -350,6 +352,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolPrefab: {fileID: -2368059511089722103, guid: 567d9b555e542f64dae544208ecd5323, type: 3}
+--- !u!1 &6802640234199008622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 240670351010370967}
+  - component: {fileID: 3637963087272948927}
+  m_Layer: 0
+  m_Name: Wave Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &240670351010370967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802640234199008622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3637963087272948927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802640234199008622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914092b33e0d4aa78d61cb47ca7df021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  attackPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 4c7f70b507f8e0a4c82002b9a5d3a6c9, type: 2}
+  - {fileID: 11400000, guid: 5befd9fe9d150c046bd314f3f9b439fb, type: 2}
+  - {fileID: 11400000, guid: ddb985b27acd46e4f895553688d74fd8, type: 2}
+  - {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
+  - {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
+  cinematicWave: {fileID: 11400000, guid: a0780e19f2336bd49a518dad0d8cf0eb, type: 2}
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0

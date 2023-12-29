@@ -11,7 +11,6 @@ using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using MathUtils = Utils.MathUtils;
 using Random = UnityEngine.Random;
 
@@ -23,17 +22,6 @@ namespace ManagersAndControllers {
         [Space]
         [SerializeField] private bool spawnCinematicCreatures;
 
-        [Header("Cinematic wave Setup")]
-        [SerializeField] private Wave cinematicWave;
-
-        [Header("Waves Setup")]
-        [SerializeField] private List<Wave> waves;
-
-        [SerializeField] private Transform creaturesHolder;
-
-        [Header("Spawn points")]
-        [SerializeField] private List<SpawnPoint> spawningPoints;
-
         [SerializeField] private SpawnPoint testSpawnPoint;
 
         [Header("PathPoints")]
@@ -41,16 +29,11 @@ namespace ManagersAndControllers {
         public List<PathPoint> GroundCinematicEnemyPathPoints => groundCinematicEnemyPathPoints;
         [SerializeField] private List<PathPoint> airCinematicEnemyPathPoints;
         public List<PathPoint> AirCinematicEnemyPathPoints => airCinematicEnemyPathPoints;
-        public int WavesCount => waves.Count;
 
         // Points where cinematic creatures are gonna run away when the waves starts
         [Header("Running Away Points")]
         [SerializeField] private List<Transform> runningAwayPoints;
         public List<Transform> RunningAwayPoints => runningAwayPoints;
-
-        [Header("Base's target points")]
-        [SerializeField] private List<TargetPoint> attackPoints;
-
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
@@ -79,42 +62,12 @@ namespace ManagersAndControllers {
             SpawnCinematicCreatures();
         }
 
-        public void InitWavePaths(int waveIndex) {
-            Wave wave = waves[waveIndex];
-
-            for (int i = 0; i < wave.NumOfSpawnPoints; i++) {
-                SpawnPoint randomSpawnPoint = MathUtils.GetRandomObjectFromList(spawningPoints);
-                SpawnPointPath pathToFollow;
-                TargetPoint targetPoint;
-
-                for (int j = 0; j < wave.NumOfGroundPaths; j++) {
-                    pathToFollow = MathUtils.GetRandomObjectFromList(randomSpawnPoint.GroundPaths);
-                    targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
-                    // Do not draw it if already exists
-                    if (wave.AddWavePath(randomSpawnPoint, pathToFollow, true, targetPoint)) continue;
-                    DrawPath(randomSpawnPoint.transform.position, pathToFollow.PathPoints.Select(point => point.transform.position).ToList(), targetPoint.transform.position);
-                }
-
-                for (int j = 0; j < wave.NumOfAirPaths; j++) {
-                    pathToFollow = randomSpawnPoint.AirPath;
-                    targetPoint = MathUtils.GetRandomObjectFromList(NetworkManager.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint ;
-                    wave.AddWavePath(randomSpawnPoint, pathToFollow, false, targetPoint);
-                }
-            }
-        }
-
-        private void DrawPath(Vector3 startPoint, List<Vector3> pathPoints, Vector3 endPoint) {
-            pathPoints.Insert(0, startPoint);
-            pathPoints.Add(endPoint);
-            Ctx.Deps.GameController.DrawPath(pathPoints);
-        }
-
-        private void SpawnWaveCreatures(int waveIndex) {
+        private void SpawnWaveCreatures(Wave wave) {
             if (!IsServer) return;
-            StartCoroutine(SpawnWaveCreatures(waves[waveIndex]));
+            StartCoroutine(SpawnWaveCreaturesDelayed(wave));
         }
 
-        private IEnumerator SpawnWaveCreatures(Wave wave) {
+        private IEnumerator SpawnWaveCreaturesDelayed(Wave wave) {
             finishedSpawningCreatures = false;
 
             Dictionary<Creature, int> creaturesData = wave.WaveCreatures.Where(creature => creature.NumberToSpawn > 0)
@@ -149,7 +102,7 @@ namespace ManagersAndControllers {
         /// Used to spawn creature Magantee from creature Magantis' mouth
         /// </summary>
         public CreatureMagantee SpawnCreatureMagantee(Transform spawnPoint, SpawnPointPath pathToFollow = null, CreatureStateType initialCreatureState = CreatureStateType.None, bool isCinematic = false) {
-            TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
+            (_, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(Ctx.Deps.WaveController.CurrentWave.WavePaths);
             return SpawnCreature(creatureMaganteePrefab.gameObject, spawnPoint.position, targetPoint, pathToFollow, isCinematic, initialCreatureState: initialCreatureState) as CreatureMagantee;
         }
 
@@ -163,7 +116,7 @@ namespace ManagersAndControllers {
         }
 
         private void SpawnCinematicCreatures() {
-            foreach (Wave.WaveCreature waveCreature in cinematicWave.WaveCreatures) {
+            foreach (Wave.WaveCreature waveCreature in Ctx.Deps.WaveController.CinematicWave.WaveCreatures) {
                 for (int i = 0; i < waveCreature.NumberToSpawn; i++) {
                     PathPoint randomPoint = MathUtils.GetRandomObjectFromList(waveCreature.CreaturePrefab is FlyingCreature ? airCinematicEnemyPathPoints : groundCinematicEnemyPathPoints);
                     SpawnCreature(waveCreature.CreaturePrefab.gameObject, randomPoint.transform.position, null, isCinematic: true);
@@ -185,11 +138,11 @@ namespace ManagersAndControllers {
             }
         }
 
-        private void OnWaveStarted(int waveIndex) {
-            SpawnWaveCreatures(waveIndex);
+        private void OnWaveStarted(Wave wave) {
+            SpawnWaveCreatures(wave);
         }
 
-        private void OnDestroy() {
+        public override void OnDestroy() {
             Ctx.Deps.EventsManager.EnemyDied -= OnEnemyDied;
             Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
         }
@@ -223,7 +176,9 @@ namespace ManagersAndControllers {
                             ? creatureSpawnController.testSpawnPoint.AirPath
                             : MathUtils.GetRandomObjectFromList(creatureSpawnController.testSpawnPoint.GroundPaths);
 
-                        Creature creature = creatureSpawnController.SpawnCreature((GameObject) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint.transform.position, MathUtils.GetRandomObjectFromList(creatureSpawnController.attackPoints),
+                        (_, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(Ctx.Deps.WaveController.CurrentWave.WavePaths);
+
+                        Creature creature = creatureSpawnController.SpawnCreature((GameObject) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint.transform.position, targetPoint,
                             pathToFollow, initialCreatureState: CreatureStateType.FollowingPath);
                         creature.tag = "TestCreature";
                         creature.name = "Test Creature";

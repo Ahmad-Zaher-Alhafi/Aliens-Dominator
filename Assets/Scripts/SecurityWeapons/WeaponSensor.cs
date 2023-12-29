@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Context;
 using Creatures;
 using FiniteStateMachine;
+using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 using BodyPart = Creatures.BodyPart;
@@ -39,7 +40,7 @@ namespace SecurityWeapons {
             initialRightVector = transform.right;
         }
 
-        private void OnWaveStarted(int waveIndex) {
+        private void OnWaveStarted(Wave wave) {
             hasToDefend = true;
         }
 

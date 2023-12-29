@@ -1,5 +1,6 @@
 ﻿using Context;
 using Creatures;
+using ScriptableObjects;
 
 namespace FiniteStateMachine.CreatureStateMachine {
     public class RunningAwayState : CreatureState {
@@ -27,7 +28,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
             AutomatedObject.HasToDisappear = true;
         }
 
-        private void OnWaveStarted(int waveIndex) {
+        private void OnWaveStarted(Wave wave) {
             // Creatures will start running away once the wave is started
             waveStarted = true;
         }

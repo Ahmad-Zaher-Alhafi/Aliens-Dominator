@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Context;
 using Creatures;
+using Multiplayer;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {
-    public class GameController : MonoBehaviour {
+    public class GameController : NetworkBehaviour {
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
 
@@ -18,7 +21,9 @@ namespace ManagersAndControllers {
         [SerializeField] private float fragmentationDistance = 3;
         [SerializeField] private float pathCreationSpeed = .5f;
 
+        public int CurrentWaveIndex => currentWaveIndex;
         private int currentWaveIndex = -1;
+
         public bool HasWaveStarted { get; private set; }
         int NextWaveIndex => currentWaveIndex + 1;
 
@@ -47,7 +52,7 @@ namespace ManagersAndControllers {
         private void OnWaveFinished() {
             Debug.Log($"Wave {currentWaveIndex} has been finished");
 
-            if (NextWaveIndex >= Ctx.Deps.CreatureSpawnController.WavesCount) {
+            if (NextWaveIndex >= Ctx.Deps.WaveController.WavesCount) {
                 Debug.Log($"Game over, You win");
                 return;
             }
@@ -56,19 +61,18 @@ namespace ManagersAndControllers {
         }
 
         private IEnumerator StartNextWaveDelayed() {
-            Assert.IsTrue(NextWaveIndex < Ctx.Deps.CreatureSpawnController.WavesCount, "No next wave found");
+            Assert.IsTrue(NextWaveIndex < Ctx.Deps.WaveController.WavesCount, "No next wave found");
 
             yield return new WaitForEndOfFrame();
 
-            Ctx.Deps.CreatureSpawnController.InitWavePaths(NextWaveIndex);
 
             HasWaveStarted = true;
-            Ctx.Deps.EventsManager.TriggerWaveStarted(NextWaveIndex);
+            Ctx.Deps.WaveController.StartWave(NextWaveIndex);
             currentWaveIndex = NextWaveIndex;
             Debug.Log($"Wave {currentWaveIndex} has been started");
         }
 
-        public void DrawPath(List<Vector3> pathPoints) {
+        private void DrawPath(List<Vector3> pathPoints) {
             LineRenderer pathDrawerLocal = pathDrawerPrefab.GetObject<PathDrawer>(pathDrawersHolder).GetComponent<LineRenderer>();
             pathDrawerLocal.positionCount = 0;
 
@@ -116,6 +120,29 @@ namespace ManagersAndControllers {
             }
 
             StartCoroutine(SetPositionsDelayed(pathDrawerLocal, pointsToDraw));
+        }
+
+        public void DrawPaths(List<List<Vector3>> pathsPoints) {
+            if (!IsServer) return;
+
+            SerializedNetworkVector3List[] clientPathsPoints = new SerializedNetworkVector3List[pathsPoints.Count];
+
+            for (int i = 0; i < pathsPoints.Count; i++) {
+                clientPathsPoints[i] = new SerializedNetworkVector3List(pathsPoints[i].ToArray());
+            }
+
+            DrawPathsClientRPC(clientPathsPoints);
+
+            foreach (List<Vector3> pathPoints in pathsPoints) {
+                DrawPath(pathPoints);
+            }
+        }
+
+        [ClientRpc]
+        private void DrawPathsClientRPC(SerializedNetworkVector3List[] pathsPoints) {
+            foreach (SerializedNetworkVector3List pathPoints in pathsPoints) {
+                DrawPath(pathPoints.Objects.ToList());
+            }
         }
 
         private IEnumerator SetPositionsDelayed(LineRenderer pathDrawerLocal, List<Vector3> pointsToDraw) {

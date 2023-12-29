@@ -1,11 +1,13 @@
 using Creatures;
 using ManagersAndControllers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Context {
     public interface IControllers {
         public SupplyBalloonController SupplyBalloonController { get; }
         public CreatureSpawnController CreatureSpawnController { get; }
+        public WaveController WaveController { get; }
         public EventsManager EventsManager { get; }
         public GameController GameController { get; }
         public AudioController AudioController { get; }
@@ -18,6 +20,9 @@ namespace Context {
 
         [SerializeField] private CreatureSpawnController creatureSpawnController;
         public CreatureSpawnController CreatureSpawnController => creatureSpawnController;
+        
+        [SerializeField] private WaveController waveController;
+        public WaveController WaveController => waveController;
 
         [SerializeField] private EventsManager eventsManager;
         public EventsManager EventsManager => eventsManager;
@@ -28,7 +33,7 @@ namespace Context {
         [SerializeField]
         public AudioController audioController;
         public AudioController AudioController => audioController;
-        
+
         [SerializeField]
         public ObjectPoolController objectPoolController;
         public ObjectPoolController ObjectPoolController => objectPoolController;
