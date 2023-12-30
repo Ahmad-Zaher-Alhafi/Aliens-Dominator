@@ -24,6 +24,7 @@ namespace Pool {
             if (pooledObjects.Count > 0) {
                 pooledObject = pooledObjects[0];
                 pooledObjects.Remove(pooledObject);
+                pooledObject.transform.parent = parent;
                 pooledObject.gameObject.SetActive(true);
             } else {
                 pooledObject = Instantiate(objectPrefab, parent);
