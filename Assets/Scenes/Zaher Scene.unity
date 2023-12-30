@@ -24240,6 +24240,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2941489574
+      objectReference: {fileID: 0}
     - target: {fileID: 100666107, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: hasToDefend
       value: 0
@@ -24359,6 +24363,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1411318671
+      objectReference: {fileID: 0}
     - target: {fileID: 477977049, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: bulletSound
       value: 
@@ -29423,6 +29431,10 @@ PrefabInstance:
     - target: {fileID: 1397264187273096799, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: projectilesNumberOnStart
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948405218731504127, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3205227689
       objectReference: {fileID: 0}
     - target: {fileID: 6360699088146405396, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_Name
@@ -37411,6 +37423,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1224152494
+      objectReference: {fileID: 0}
     - target: {fileID: 100666107, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: hasToDefend
       value: 0
@@ -38415,6 +38431,10 @@ PrefabInstance:
     - target: {fileID: 2415967304877972511, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.607
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948405218731504127, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 748039945
       objectReference: {fileID: 0}
     - target: {fileID: 5519423599643542843, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54604,6 +54624,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1479619679
+      objectReference: {fileID: 0}
     - target: {fileID: 100666107, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: hasToDefend
       value: 0
@@ -61610,6 +61634,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.251
       objectReference: {fileID: 0}
+    - target: {fileID: 4948405218731504127, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2576069079
+      objectReference: {fileID: 0}
     - target: {fileID: 5519423599643542981, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_Radius
       value: 32
@@ -61824,6 +61852,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 687549632
+      objectReference: {fileID: 0}
     - target: {fileID: 100666107, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: hasToDefend
       value: 1
@@ -62187,6 +62219,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -2221461334052891818, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 332163716
+      objectReference: {fileID: 0}
     - target: {fileID: 100666107, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
       propertyPath: hasToDefend
       value: 0
@@ -65416,7 +65452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1990373298
 Transform:
   m_ObjectHideFlags: 0
@@ -100633,6 +100669,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990373298}
     m_Modifications:
+    - target: {fileID: -5727395568285840592, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3025486167
+      objectReference: {fileID: 0}
     - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: landingPoint
       value: 
@@ -103788,6 +103828,10 @@ PrefabInstance:
     - target: {fileID: 1162832290894224123, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948405218731504127, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 268159757
       objectReference: {fileID: 0}
     - target: {fileID: 5595361726097724051, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: useBursts

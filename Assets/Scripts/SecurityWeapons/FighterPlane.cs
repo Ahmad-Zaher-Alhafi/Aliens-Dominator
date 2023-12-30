@@ -9,11 +9,12 @@ using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
 using FMODUnity;
 using Projectiles;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
 namespace SecurityWeapons {
-    public class FighterPlane : MonoBehaviour, IAutomatable, IWeaponSpecification {
+    public class FighterPlane : NetworkBehaviour, IAutomatable, IWeaponSpecification {
         public FighterPlaneStateType CurrentStateType => fighterPlaneStateMachine.PrimaryState.Type;
         public GameObject GameObject => gameObject;
         public Transform Transform => transform;
@@ -120,6 +121,19 @@ namespace SecurityWeapons {
             }
         }
 
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (IsServer) return;
+
+            Destroy(fighterPlaneStateMachine);
+            foreach (Magazine magazine in magazines) {
+                Destroy(magazine);
+            }
+        }
+
         private void Awake() {
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
@@ -127,6 +141,16 @@ namespace SecurityWeapons {
         }
 
         private void Update() {
+            if (IsSpawned) {
+                if (IsServer) {
+                    networkPosition.Value = transform.position;
+                    networkRotation.Value = transform.rotation;
+                } else {
+                    transform.position = networkPosition.Value;
+                    transform.rotation = networkRotation.Value;
+                }
+            }
+
 #if UNITY_EDITOR
             EditorUpdate();
 #endif

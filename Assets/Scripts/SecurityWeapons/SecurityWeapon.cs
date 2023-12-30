@@ -1,11 +1,12 @@
 using AmmoMagazines;
 using FiniteStateMachine;
 using FiniteStateMachine.SecurityWeaponMachine;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
 namespace SecurityWeapons {
-    public abstract class SecurityWeapon<TEnemyType> : MonoBehaviour, IWeaponSpecification, IAutomatable where TEnemyType : IAutomatable {
+    public abstract class SecurityWeapon<TEnemyType> : NetworkBehaviour, IWeaponSpecification, IAutomatable where TEnemyType : IAutomatable {
         public GameObject GameObject => gameObject;
         public Transform Transform => transform;
         public Vector3 InitialEulerAngels { get; private set; }
@@ -34,11 +35,22 @@ namespace SecurityWeapons {
         [Header("Shooting and ammo")]
         [SerializeField] protected float projectilesPerSecond = 1;
         public virtual float ProjectilesPerSecond => projectilesPerSecond;
-        
+
         public virtual float CoolDownTime => 0;
 
         protected Magazine Magazine;
         private SecurityWeaponStateMachine<TEnemyType> securityWeaponStateMachine;
+
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
+
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (IsServer) return;
+
+            Destroy(securityWeaponStateMachine);
+            Destroy(Magazine);
+        }
 
         protected virtual void Awake() {
             InitialEulerAngels = transform.eulerAngles;
@@ -48,6 +60,14 @@ namespace SecurityWeapons {
         }
 
         private void Update() {
+            if (IsSpawned) {
+                if (IsServer) {
+                    networkRotation.Value = transform.rotation;
+                } else {
+                    transform.rotation = networkRotation.Value;
+                }
+            }
+
 #if UNITY_EDITOR
             EditorUpdate();
 #endif
