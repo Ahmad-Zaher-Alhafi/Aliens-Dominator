@@ -13,7 +13,10 @@ namespace SecurityWeapons {
 
         public override void Shoot(IDamageable target) {
             Projectile projectile = Magazine.GetProjectile();
-            if (projectile == null) return;
+            if (projectile == null) {
+                Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
+                return;
+            }
             projectile.Fire(target, projectileCreatePoint);
             bulletSound.Play();
         }

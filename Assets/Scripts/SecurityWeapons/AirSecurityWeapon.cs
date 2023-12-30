@@ -1,5 +1,6 @@
 using System.Collections;
 using Creatures;
+using Projectiles;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,7 +39,13 @@ namespace SecurityWeapons {
         }
 
         public override void Shoot(IDamageable target) {
-            Magazine.GetProjectile().Fire(target);
+            Projectile projectile = Magazine.GetProjectile();
+            if (projectile == null) {
+                Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
+                return;
+            }
+
+            projectile.Fire(target);
             if (useBursts) {
                 numOfRocketsShotInBurst++;
             }
