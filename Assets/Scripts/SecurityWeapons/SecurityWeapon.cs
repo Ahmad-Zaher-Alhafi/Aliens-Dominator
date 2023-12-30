@@ -1,6 +1,7 @@
 using AmmoMagazines;
 using FiniteStateMachine;
 using FiniteStateMachine.SecurityWeaponMachine;
+using Projectiles;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
@@ -73,7 +74,15 @@ namespace SecurityWeapons {
 #endif
         }
 
-        public abstract void Shoot(IDamageable target);
+        public virtual Projectile Shoot(IDamageable target) {
+            Projectile projectile = Magazine.GetProjectile();
+            if (projectile == null) {
+                Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
+                return null;
+            }
+
+            return projectile;
+        }
 
         private void Reload(int ammoNumberToAdd) {
             Magazine.Refill(ammoNumberToAdd);
@@ -84,7 +93,7 @@ namespace SecurityWeapons {
         [Header("Editor stuff")]
         [SerializeField, HideInInspector] private bool useInfiniteAmmo;
         private void EditorUpdate() {
-            if (useInfiniteAmmo && Magazine.IsEmpty) {
+            if (IsServer && useInfiniteAmmo && Magazine.IsEmpty) {
                 Reload(16);
             }
         }

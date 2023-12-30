@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Multiplayer;
 using Projectiles;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace AmmoMagazines {
     public class RocketsMagazine : Magazine {
         public override Type AmmoType => typeof(Rocket);
 
-        [SerializeField] private List<Transform> rocketsCreatePoints;
+        [SerializeField] private List<RocketReloadPoint> rocketsCreatePoints;
         [SerializeField] protected Rocket rocketPrefab;
 
         private readonly Dictionary<RocketReloadPoint, Rocket> rockets = new();
 
-        protected override void Awake() {
+        private void Awake() {
+            // Create the reload points
             for (int i = 0; i < capacity; i++) {
-                rockets.Add(new RocketReloadPoint(rocketsCreatePoints[i].parent, rocketsCreatePoints[i].localPosition), null);
+                rockets.Add(rocketsCreatePoints[i], null);
             }
-            base.Awake();
         }
 
         public override Projectile GetProjectile() {
@@ -38,8 +40,10 @@ namespace AmmoMagazines {
 
                 rocketsReloadPoint.IsUed = false;
 
-                Rocket rocket = rocketPrefab.GetObject<Rocket>(rocketsReloadPoint.Parent);
-                rocket.InitDefaults(rocketsReloadPoint.InitialLocalPosition);
+                Rocket rocket = NetworkObjectPool.Singleton.GetNetworkObject(rocketPrefab.gameObject, default, Quaternion.identity).GetComponent<Rocket>();
+                rocket.GetComponent<NetworkObject>().Spawn();
+                rocket.transform.SetParent(transform);
+                rocket.InitDefaults(rocketsReloadPoint.transform.position);
                 rockets[rocketsReloadPoint] = rocket;
             }
         }

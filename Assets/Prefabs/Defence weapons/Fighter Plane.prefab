@@ -14984,6 +14984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3643472913925065890}
+  - component: {fileID: 6580620025377625451}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15006,6 +15007,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6580620025377625451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521728404672898610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &541375085555719479
 GameObject:
   m_ObjectHideFlags: 0
@@ -15015,6 +15029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3616077905715214247}
+  - component: {fileID: 6530375647132849182}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15037,6 +15052,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6530375647132849182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541375085555719479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &637456452812710705
 GameObject:
   m_ObjectHideFlags: 0
@@ -15046,6 +15074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4428455926981069217}
+  - component: {fileID: 3562820802945911561}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15068,6 +15097,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3562820802945911561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637456452812710705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &778673153043101980
 GameObject:
   m_ObjectHideFlags: 0
@@ -15077,6 +15119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567737905187181452}
+  - component: {fileID: 6726395880611838918}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15099,6 +15142,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6726395880611838918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778673153043101980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &807925160539725059
 GameObject:
   m_ObjectHideFlags: 0
@@ -15108,6 +15164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4511456534753097619}
+  - component: {fileID: 216433316343433427}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15130,6 +15187,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &216433316343433427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807925160539725059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &836658422230320460
 GameObject:
   m_ObjectHideFlags: 0
@@ -15139,6 +15209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481594075167862748}
+  - component: {fileID: 3330617929195377424}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15161,6 +15232,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3330617929195377424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836658422230320460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &1240564562786156197
 GameObject:
   m_ObjectHideFlags: 0
@@ -15170,6 +15254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2637671848825771061}
+  - component: {fileID: 3623882156414252675}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15192,6 +15277,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3623882156414252675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240564562786156197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &1586200073159726434
 GameObject:
   m_ObjectHideFlags: 0
@@ -15201,6 +15299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2571250788515119090}
+  - component: {fileID: 6032345357823829559}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15223,6 +15322,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6032345357823829559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586200073159726434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &1634713033069736330
 GameObject:
   m_ObjectHideFlags: 0
@@ -15232,6 +15344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2522597021858274074}
+  - component: {fileID: 612205354382693294}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15254,6 +15367,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &612205354382693294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634713033069736330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &1902403371369827690
 GameObject:
   m_ObjectHideFlags: 0
@@ -15263,6 +15389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3443859253285201914}
+  - component: {fileID: 9168654813077403882}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15285,6 +15412,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9168654813077403882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902403371369827690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &2022757760753937105
 GameObject:
   m_ObjectHideFlags: 0
@@ -15294,6 +15434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3008401254946144321}
+  - component: {fileID: 5795835515856898334}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15316,6 +15457,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5795835515856898334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022757760753937105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &2177483095710275284
 GameObject:
   m_ObjectHideFlags: 0
@@ -15599,6 +15753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1460119182214562817}
+  - component: {fileID: 2850126271710676869}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15621,6 +15776,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2850126271710676869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445130099648016017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &3100114676256756493
 GameObject:
   m_ObjectHideFlags: 0
@@ -15630,6 +15798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2209133989002934685}
+  - component: {fileID: 8905319219460638281}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15652,6 +15821,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8905319219460638281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3100114676256756493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &3140345078017916487
 GameObject:
   m_ObjectHideFlags: 0
@@ -15692,6 +15874,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757800522668011654}
+  - component: {fileID: 7795250436083924816}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15714,6 +15897,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7795250436083924816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3299251992293005846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &3735401628359049208
 GameObject:
   m_ObjectHideFlags: 0
@@ -15723,6 +15919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 467096224164549992}
+  - component: {fileID: 191451633559794029}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15745,6 +15942,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191451633559794029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735401628359049208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &3910454371497521210
 GameObject:
   m_ObjectHideFlags: 0
@@ -15754,6 +15964,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281760848156498602}
+  - component: {fileID: 1301057516521101276}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15776,6 +15987,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301057516521101276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910454371497521210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &4186316013677358858
 GameObject:
   m_ObjectHideFlags: 0
@@ -15920,6 +16144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1060163693052601825}
+  - component: {fileID: 6218523865823990260}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15942,6 +16167,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6218523865823990260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259225698656980849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &4349831180389260156
 GameObject:
   m_ObjectHideFlags: 0
@@ -15951,6 +16189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716087864617972204}
+  - component: {fileID: 1558099876078267683}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -15973,6 +16212,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1558099876078267683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349831180389260156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &4410218935790245006
 GameObject:
   m_ObjectHideFlags: 0
@@ -15982,6 +16234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 619672343441718814}
+  - component: {fileID: 2949237217045607714}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16004,6 +16257,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2949237217045607714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410218935790245006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &4525068097783672887
 GameObject:
   m_ObjectHideFlags: 0
@@ -16219,6 +16485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754726379300717944}
+  - component: {fileID: 7718658255226197225}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16241,6 +16508,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7718658255226197225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599558213079576552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &4802132399305117870
 GameObject:
   m_ObjectHideFlags: 0
@@ -16250,6 +16530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8577426060687800894}
+  - component: {fileID: 4187165663878789106}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16272,6 +16553,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4187165663878789106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802132399305117870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5071677891337108014
 GameObject:
   m_ObjectHideFlags: 0
@@ -16281,6 +16575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8345031967042506942}
+  - component: {fileID: 7019196933157301602}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16303,6 +16598,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7019196933157301602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071677891337108014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5261844814357645354
 GameObject:
   m_ObjectHideFlags: 0
@@ -16312,6 +16620,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8982545511194321594}
+  - component: {fileID: 3142065383147579230}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16334,6 +16643,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3142065383147579230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261844814357645354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5320160645071666403
 GameObject:
   m_ObjectHideFlags: 0
@@ -16343,6 +16665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8969124939802269299}
+  - component: {fileID: 6146740308552507324}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16365,6 +16688,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6146740308552507324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5320160645071666403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5649763473641421936
 GameObject:
   m_ObjectHideFlags: 0
@@ -16374,6 +16710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8920020652373513952}
+  - component: {fileID: 3707742233821626811}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16396,6 +16733,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3707742233821626811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649763473641421936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5819130124144411280
 GameObject:
   m_ObjectHideFlags: 0
@@ -16405,6 +16755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7308232185182922752}
+  - component: {fileID: 8087132841285670432}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16427,6 +16778,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8087132841285670432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819130124144411280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &5843502194593720325
 GameObject:
   m_ObjectHideFlags: 0
@@ -16436,6 +16800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7256970526918820501}
+  - component: {fileID: 8298687329359011128}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16458,6 +16823,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8298687329359011128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5843502194593720325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &6045043236668486808
 GameObject:
   m_ObjectHideFlags: 0
@@ -16602,6 +16980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052255936787299006}
+  - component: {fileID: 3203191843158241335}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16624,6 +17003,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3203191843158241335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6085241739845046318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &6150290984581389396
 GameObject:
   m_ObjectHideFlags: 0
@@ -16633,6 +17025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6987197827235608260}
+  - component: {fileID: 6436605813331684171}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16655,6 +17048,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6436605813331684171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6150290984581389396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &6165974200711947048
 GameObject:
   m_ObjectHideFlags: 0
@@ -16834,6 +17240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7888059926755791074}
+  - component: {fileID: 3028397102491705147}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16856,6 +17263,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3028397102491705147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401232185940343410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7064986882534418317
 GameObject:
   m_ObjectHideFlags: 0
@@ -16865,6 +17285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6315834847189437725}
+  - component: {fileID: 2999814259509730190}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -16887,6 +17308,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2999814259509730190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064986882534418317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7149761679369371690
 GameObject:
   m_ObjectHideFlags: 0
@@ -16989,6 +17423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6224306010798621202}
+  - component: {fileID: 3256511674065423410}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17011,6 +17446,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3256511674065423410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7191288873538529410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7488561078234290210
 GameObject:
   m_ObjectHideFlags: 0
@@ -17020,6 +17468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5927032775310324402}
+  - component: {fileID: 2726529754137632927}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17042,6 +17491,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2726529754137632927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488561078234290210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7576234794440079623
 GameObject:
   m_ObjectHideFlags: 0
@@ -17305,6 +17767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6785761195982653714}
+  - component: {fileID: 8224568951903473508}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17327,6 +17790,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8224568951903473508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747994202128884610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7755997305639944480
 GameObject:
   m_ObjectHideFlags: 0
@@ -17481,6 +17957,7 @@ GameObject:
   - component: {fileID: 1011293635}
   - component: {fileID: 1011293634}
   - component: {fileID: 1338177725166116797}
+  - component: {fileID: 303041840148798580}
   m_Layer: 2
   m_Name: Fighter Parent
   m_TagString: Untagged
@@ -17602,46 +18079,46 @@ MonoBehaviour:
   projectilesNumberOnStart: 20
   capacity: 40
   rocketsCreatePoints:
-  - {fileID: 2209133989002934685}
-  - {fileID: 7052255936787299006}
-  - {fileID: 4567737905187181452}
-  - {fileID: 1060163693052601825}
-  - {fileID: 3643472913925065890}
-  - {fileID: 716087864617972204}
-  - {fileID: 5048393647100037753}
-  - {fileID: 6315834847189437725}
-  - {fileID: 619672343441718814}
-  - {fileID: 7888059926755791074}
-  - {fileID: 3616077905715214247}
-  - {fileID: 8982545511194321594}
-  - {fileID: 6620718824870732005}
-  - {fileID: 6224306010798621202}
-  - {fileID: 467096224164549992}
-  - {fileID: 4721520020559123009}
-  - {fileID: 3443859253285201914}
-  - {fileID: 8345031967042506942}
-  - {fileID: 6785761195982653714}
-  - {fileID: 7308232185182922752}
-  - {fileID: 4481594075167862748}
-  - {fileID: 281760848156498602}
-  - {fileID: 754726379300717944}
-  - {fileID: 8969124939802269299}
-  - {fileID: 7256970526918820501}
-  - {fileID: 6987197827235608260}
-  - {fileID: 2571250788515119090}
-  - {fileID: 5927032775310324402}
-  - {fileID: 5171898280236559088}
-  - {fileID: 4511456534753097619}
-  - {fileID: 2522597021858274074}
-  - {fileID: 4428455926981069217}
-  - {fileID: 8577426060687800894}
-  - {fileID: 1460119182214562817}
-  - {fileID: 2637671848825771061}
-  - {fileID: 6594403613902800088}
-  - {fileID: 1757800522668011654}
-  - {fileID: 8920020652373513952}
-  - {fileID: 4694321516088902126}
-  - {fileID: 3008401254946144321}
+  - {fileID: 8905319219460638281}
+  - {fileID: 3203191843158241335}
+  - {fileID: 6726395880611838918}
+  - {fileID: 6218523865823990260}
+  - {fileID: 6580620025377625451}
+  - {fileID: 1558099876078267683}
+  - {fileID: 5031059025979827099}
+  - {fileID: 2999814259509730190}
+  - {fileID: 2949237217045607714}
+  - {fileID: 3028397102491705147}
+  - {fileID: 6530375647132849182}
+  - {fileID: 3142065383147579230}
+  - {fileID: 5845109672658889118}
+  - {fileID: 3256511674065423410}
+  - {fileID: 191451633559794029}
+  - {fileID: 4019742850638381188}
+  - {fileID: 9168654813077403882}
+  - {fileID: 7019196933157301602}
+  - {fileID: 8224568951903473508}
+  - {fileID: 8087132841285670432}
+  - {fileID: 3330617929195377424}
+  - {fileID: 1301057516521101276}
+  - {fileID: 7718658255226197225}
+  - {fileID: 6146740308552507324}
+  - {fileID: 8298687329359011128}
+  - {fileID: 6436605813331684171}
+  - {fileID: 6032345357823829559}
+  - {fileID: 2726529754137632927}
+  - {fileID: 8260736086496896649}
+  - {fileID: 216433316343433427}
+  - {fileID: 612205354382693294}
+  - {fileID: 3562820802945911561}
+  - {fileID: 4187165663878789106}
+  - {fileID: 2850126271710676869}
+  - {fileID: 3623882156414252675}
+  - {fileID: 5350294488703998047}
+  - {fileID: 7795250436083924816}
+  - {fileID: 3707742233821626811}
+  - {fileID: 5999123997857552762}
+  - {fileID: 5795835515856898334}
   rocketPrefab: {fileID: 8894950018666185079, guid: 435e5b92fd9ef4443af2bba2b196f095, type: 3}
 --- !u!114 &1011293635
 MonoBehaviour:
@@ -17736,6 +18213,26 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &303041840148798580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7919893160873747283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &7938083978550586952
 GameObject:
   m_ObjectHideFlags: 0
@@ -17745,6 +18242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6594403613902800088}
+  - component: {fileID: 5350294488703998047}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17767,6 +18265,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5350294488703998047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7938083978550586952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &7947796465087793781
 GameObject:
   m_ObjectHideFlags: 0
@@ -17776,6 +18287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6620718824870732005}
+  - component: {fileID: 5845109672658889118}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17798,6 +18310,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5845109672658889118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947796465087793781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &8244961043176259680
 GameObject:
   m_ObjectHideFlags: 0
@@ -17807,6 +18332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5171898280236559088}
+  - component: {fileID: 8260736086496896649}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17829,6 +18355,19 @@ Transform:
   m_Father: {fileID: 4832343752929359026}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8260736086496896649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8244961043176259680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &8332439077772861673
 GameObject:
   m_ObjectHideFlags: 0
@@ -17838,6 +18377,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5048393647100037753}
+  - component: {fileID: 5031059025979827099}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17860,6 +18400,19 @@ Transform:
   m_Father: {fileID: 3333118229112853444}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5031059025979827099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332439077772861673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &8348275563909295254
 GameObject:
   m_ObjectHideFlags: 0
@@ -17962,6 +18515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4721520020559123009}
+  - component: {fileID: 4019742850638381188}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -17984,6 +18538,19 @@ Transform:
   m_Father: {fileID: 904397340608116126}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4019742850638381188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8370941590542416081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1 &8397013164854831998
 GameObject:
   m_ObjectHideFlags: 0
@@ -17993,6 +18560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4694321516088902126}
+  - component: {fileID: 5999123997857552762}
   m_Layer: 2
   m_Name: Rocket Create Point
   m_TagString: Untagged
@@ -18015,6 +18583,19 @@ Transform:
   m_Father: {fileID: 8566221526742089995}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5999123997857552762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397013164854831998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUed: 0
 --- !u!1001 &8358773066511100903
 PrefabInstance:
   m_ObjectHideFlags: 0

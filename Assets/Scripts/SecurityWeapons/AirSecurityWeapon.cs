@@ -38,17 +38,15 @@ namespace SecurityWeapons {
             }
         }
 
-        public override void Shoot(IDamageable target) {
-            Projectile projectile = Magazine.GetProjectile();
-            if (projectile == null) {
-                Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
-                return;
-            }
+        public override Projectile Shoot(IDamageable target) {
+            Projectile projectile = base.Shoot(target);
+            if (projectile == null) return null;
 
             projectile.Fire(target);
             if (useBursts) {
                 numOfRocketsShotInBurst++;
             }
+            return projectile;
         }
 
         private IEnumerator CoolDown() {

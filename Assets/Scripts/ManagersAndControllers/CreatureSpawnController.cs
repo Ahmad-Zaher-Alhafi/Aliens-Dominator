@@ -57,6 +57,10 @@ namespace ManagersAndControllers {
             }
         }
 
+        /// <summary>
+        /// Need to wait a frame until the pool finishes registering the prefabs on spawn
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator SpawnCinematicCreaturesDelayed() {
             yield return new WaitForEndOfFrame();
             SpawnCinematicCreatures();

@@ -157,7 +157,14 @@ namespace SecurityWeapons {
         }
 
         public void Shoot(Type ammoType, IDamageable target) {
-            magazines.Single(magazine => magazine.AmmoType == ammoType).GetProjectile()?.Fire(target, hasToUseRockets ? null : bulletCreatePoint);
+            Projectile projectile = magazines.Single(magazine => magazine.AmmoType == ammoType).GetProjectile();
+            if (projectile == null) {
+                Debug.Log($"Fighter plane has ran away of {ammoType}s");
+                return;
+            }
+
+            projectile.Fire(target, hasToUseRockets ? null : bulletCreatePoint);
+
             if (ammoType == typeof(Rocket) && useBursts) {
                 numOfRocketsShotInBurst++;
             }
@@ -220,7 +227,7 @@ namespace SecurityWeapons {
                 TakeOff();
             }
 
-            if (useInfiniteAmmo && magazines.Any(magazine => magazine.IsEmpty)) {
+            if (IsServer && useInfiniteAmmo && magazines.Any(magazine => magazine.IsEmpty)) {
                 foreach (Magazine magazine in magazines) {
                     magazine.Refill(20);
                 }

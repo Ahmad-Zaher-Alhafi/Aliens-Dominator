@@ -22,14 +22,15 @@ namespace Projectiles {
             meshRenderer = GetComponent<MeshRenderer>();
         }
 
-        public override void InitDefaults(Vector3 initialLocalPosition) {
-            base.InitDefaults(initialLocalPosition);
+        public override void InitDefaults(Vector3 initialPosition) {
+            base.InitDefaults(initialPosition);
             meshRenderer.enabled = true;
             wasLaunched = false;
             Collider.enabled = false;
         }
 
-        protected void Update() {
+        protected override void Update() {
+            base.Update();
             if (!wasLaunched) return;
 
             transform.position += transform.forward * speed * Time.deltaTime;
@@ -44,7 +45,7 @@ namespace Projectiles {
         public override void Fire(IDamageable target) {
             base.Fire(target);
             wasLaunched = true;
-            transform.parent = null;
+            transform.SetParent(null);
             this.target = target;
             Collider.enabled = true;
 
@@ -82,8 +83,7 @@ namespace Projectiles {
             explosionParticle.Play();
 
             meshRenderer.enabled = false;
-            StopAllCoroutines();
-            StartCoroutine(DestroyAfterTime(0));
+            DestroyAfterTime(0);
         }
     }
 }

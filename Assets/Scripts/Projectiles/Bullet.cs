@@ -9,7 +9,7 @@ namespace Projectiles {
 
         protected override void OnTriggerEnter(Collider other) {
             base.OnTriggerEnter(other);
-            ReturnToPool();
+            DestroyAfterTime(0);
         }
     }
 }

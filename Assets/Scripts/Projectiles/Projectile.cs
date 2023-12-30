@@ -1,9 +1,9 @@
 using System.Collections;
-using Pool;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Projectiles {
-    public abstract class Projectile : PooledObject, IDamager {
+    public abstract class Projectile : NetworkBehaviour, IDamager {
         [Header("Specifications")]
         [SerializeField]
         protected float speed = 5;
@@ -22,6 +22,18 @@ namespace Projectiles {
         protected Rigidbody Rig;
         private float initialSpeed;
         protected Collider Collider;
+        private Coroutine destroyAfterTimeCoroutine;
+
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (IsServer) return;
+
+            Destroy(Collider);
+            Destroy(Rig);
+        }
 
         protected virtual void Awake() {
             Rig = GetComponent<Rigidbody>();
@@ -29,10 +41,22 @@ namespace Projectiles {
             initialSpeed = speed;
         }
 
-        public virtual void InitDefaults(Vector3 initialLocalPosition) {
+        protected virtual void Update() {
+            if (IsSpawned) {
+                if (IsServer) {
+                    networkPosition.Value = transform.position;
+                    networkRotation.Value = transform.rotation;
+                } else {
+                    transform.position = networkPosition.Value;
+                    transform.rotation = networkRotation.Value;
+                }
+            }
+        }
+
+        public virtual void InitDefaults(Vector3 initialPosition) {
             transform.localScale = Vector3.one;
             transform.localEulerAngles = Vector3.zero;
-            transform.localPosition = initialLocalPosition;
+            transform.position = initialPosition;
             if (Rig != null) {
                 Rig.velocity = Vector3.zero;
             }
@@ -40,7 +64,7 @@ namespace Projectiles {
         }
 
         public virtual void Fire(IDamageable target) {
-            StartCoroutine(DestroyAfterTime(15));
+            DestroyAfterTime(15);
         }
 
         /// <param name="createPoint">Use it if the projectile has to be created in a specific place like bullet,
@@ -58,10 +82,30 @@ namespace Projectiles {
             Collider.enabled = false;
         }
 
-        // To not let the projectile flying in the air for the rest of the game if it does not hit anything
-        protected IEnumerator DestroyAfterTime(float secondsToDestroy) {
+        /// <summary>
+        /// To not let the projectile flying in the air for the rest of the game if it does not hit anything
+        /// </summary>
+        /// <param name="secondsToDestroy"></param>
+        protected void DestroyAfterTime(float secondsToDestroy) {
+            if (destroyAfterTimeCoroutine != null) {
+                StopCoroutine(destroyAfterTimeCoroutine);
+            }
+
+            if (secondsToDestroy == 0) {
+                Despawn();
+            } else {
+                destroyAfterTimeCoroutine = StartCoroutine(DestroyAfterTimeDelayed(secondsToDestroy));
+            }
+        }
+
+        private IEnumerator DestroyAfterTimeDelayed(float secondsToDestroy) {
             yield return new WaitForSeconds(secondsToDestroy);
-            ReturnToPool();
+            Despawn();
+        }
+
+        private void Despawn() {
+            gameObject.SetActive(false);
+            NetworkObject.Despawn(false);
         }
     }
 }
