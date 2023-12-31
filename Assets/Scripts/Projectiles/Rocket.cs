@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Projectiles {
@@ -49,10 +50,42 @@ namespace Projectiles {
             this.target = target;
             Collider.enabled = true;
 
+            CreateLaunchSmokeParticle();
+            CreateLaunchSmokeParticleClientRPC();
+        }
+
+        private void CreateLaunchSmokeParticle() {
             launchSmokeParticle = launchSmokeParticlePrefab.GetObject<RocketParticle>(transform);
             launchSmokeParticle.transform.position = launchSmokeParticlePoint.position;
             launchSmokeParticle.transform.rotation = launchSmokeParticlePoint.rotation;
             launchSmokeParticle.Play();
+        }
+
+        [ClientRpc]
+        private void CreateLaunchSmokeParticleClientRPC() {
+            CreateLaunchSmokeParticle();
+        }
+
+        private void CreateExplosionParticle() {
+            explosionParticle = explosionParticlePrefab.GetObject<ExplosionParticle>(transform);
+            explosionParticle.transform.position = explosionParticlePoint.position;
+            explosionParticle.transform.rotation = explosionParticlePoint.rotation;
+            explosionParticle.transform.parent = null;
+            explosionParticle.Play();
+        }
+
+        [ClientRpc]
+        private void CreateExplosionParticleClientRPC() {
+            CreateExplosionParticle();
+        }
+
+        private void ReleaseLaunchParticleFromParent() {
+            launchSmokeParticle.transform.parent = null;
+        }
+
+        [ClientRpc]
+        private void ReleaseLaunchParticleFromParentClientRPC() {
+            ReleaseLaunchParticleFromParent();
         }
 
         /// <summary>
@@ -74,15 +107,12 @@ namespace Projectiles {
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
             if (damageable == null) return;
 
-            launchSmokeParticle.transform.parent = null;
+            ReleaseLaunchParticleFromParent();
+            ReleaseLaunchParticleFromParentClientRPC();
 
-            explosionParticle = explosionParticlePrefab.GetObject<ExplosionParticle>(transform);
-            explosionParticle.transform.position = explosionParticlePoint.position;
-            explosionParticle.transform.rotation = explosionParticlePoint.rotation;
-            explosionParticle.transform.parent = null;
-            explosionParticle.Play();
+            CreateExplosionParticle();
+            CreateExplosionParticleClientRPC();
 
-            meshRenderer.enabled = false;
             DestroyAfterTime(0);
         }
     }
