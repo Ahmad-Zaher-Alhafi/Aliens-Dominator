@@ -27,7 +27,6 @@ namespace Multiplayer {
             connectedToLobby = await QuickJoinLobby() ?? await CreateLobby();
         }
 
-
         private async Task Authenticate() {
             var options = new InitializationOptions();
 
@@ -90,6 +89,10 @@ namespace Multiplayer {
                 Lobbies.Instance.SendHeartbeatPingAsync(lobbyId);
                 yield return delay;
             }
+        }
+
+        public void SetPacketParameters(int delay, int jitter, int dropRate) {
+            unityTransport.SetDebugSimulatorParameters(delay, jitter, dropRate);
         }
     }
 }
