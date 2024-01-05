@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -28,17 +27,36 @@ namespace Multiplayer {
             pingText.gameObject.SetActive(true);
             numOfPlayersText.gameObject.SetActive(true);
             playerTypeText.gameObject.SetActive(true);
-            
+
             delay.gameObject.SetActive(false);
             jitter.gameObject.SetActive(false);
             dropRate.gameObject.SetActive(false);
 
             playerTypeText.text = IsServer ? "Player is: Server" : "Player is: Client";
-            networkNumOfPlayers.Value += 1;
+
+            if (IsServer) {
+                networkNumOfPlayers.Value += 1;
+            } else {
+                OnPlayerSpawnedServerRPC();
+            }
         }
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
+            if (IsServer) {
+                networkNumOfPlayers.Value -= 1;
+            } else {
+                OnPlayerDespawnServerRPC();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void OnPlayerSpawnedServerRPC() {
+            networkNumOfPlayers.Value += 1;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void OnPlayerDespawnServerRPC() {
             networkNumOfPlayers.Value -= 1;
         }
 
@@ -65,11 +83,11 @@ namespace Multiplayer {
             if (delay.text == string.Empty) {
                 delay.text = "0";
             }
-            
+
             if (jitter.text == string.Empty) {
                 jitter.text = "0";
             }
-            
+
             if (dropRate.text == string.Empty) {
                 dropRate.text = "0";
             }

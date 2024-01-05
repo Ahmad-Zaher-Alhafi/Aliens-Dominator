@@ -21,7 +21,6 @@ namespace Multiplayer {
         private string playerId;
 
 
-
         public async void CreateOrJoinLobby() {
             await Authenticate();
             connectedToLobby = await QuickJoinLobby() ?? await CreateLobby();
