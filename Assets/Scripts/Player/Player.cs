@@ -79,8 +79,8 @@ namespace Player {
                     MoveTo();
                 }
             } else {
-                transform.rotation = networkRotation.Value;
-                transform.position = networkPosition.Value;
+                transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
             }
         }
 

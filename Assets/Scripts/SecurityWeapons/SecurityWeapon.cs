@@ -65,7 +65,7 @@ namespace SecurityWeapons {
                 if (IsServer) {
                     networkRotation.Value = transform.rotation;
                 } else {
-                    transform.rotation = networkRotation.Value;
+                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             }
 

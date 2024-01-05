@@ -79,7 +79,7 @@ namespace Arrows {
                 if (IsOwner) {
                     UpdatePositionServerRPC(transform.position);
                 } else {
-                    transform.position = networkPosition.Value;
+                    transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
                 }
             }
         }
@@ -99,13 +99,13 @@ namespace Arrows {
                 if (IsOwner) {
                     networkRotation.Value = transform.rotation;
                 } else {
-                    transform.rotation = networkRotation.Value;
+                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             } else {
                 if (IsOwner) {
                     RotateServerRPC(transform.rotation);
                 } else {
-                    transform.rotation = networkRotation.Value;
+                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             }
         }
