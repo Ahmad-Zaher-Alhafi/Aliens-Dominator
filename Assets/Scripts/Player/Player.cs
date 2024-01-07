@@ -9,6 +9,7 @@ namespace Player {
     public class Player : NetworkBehaviour {
         [SerializeField] private GameObject arrowPrefab;
 
+        [SerializeField] private float arrowsPerSecond = 5;
         [SerializeField] private float lookSpeed = 3;
         [SerializeField] private float cameraVerticalClamp = 90;
         [SerializeField] private float teleportSpeed;
@@ -39,9 +40,10 @@ namespace Player {
         private Vector3 teleportPosition;
         private readonly NetworkVariable<Vector3> networkPosition = new();
 
-
         private readonly Vector3 serverPosition = new(163, 27, 189);
         private readonly Vector3 clientPosition = new(155, 27, 175);
+
+        private float startDrawTime;
 
         public override void OnNetworkSpawn() {
             if (IsOwner) {
@@ -59,7 +61,7 @@ namespace Player {
             if (IsOwner) {
                 LookUpdate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), rotation);
 
-                if (Input.GetButtonDown("Fire1")) {
+                if (Input.GetButtonDown("Fire1") && arrow == null) {
                     if (IsServer) {
                         SpawnArrow();
                     } else {
@@ -68,11 +70,11 @@ namespace Player {
                 }
 
                 if (arrow != null) {
-                    if (Input.GetButton("Fire1")) {
-                        DrawUpdate();
-                    }
+                    DrawUpdate(Input.GetButton("Fire1"));
 
-                    ReleaseUpdate(Input.GetButtonUp("Fire1"));
+                    if (Input.GetButtonUp("Fire1")) {
+                        ReleaseUpdate();
+                    }
                 }
 
                 if (hasToTeleport) {
@@ -129,13 +131,19 @@ namespace Player {
             return arrow;
         }
 
-        private void DrawUpdate() {
-            draw = Mathf.Clamp(draw + Time.deltaTime, 0, 1);
+        private void DrawUpdate(bool isDrawing) {
+            if (isDrawing && startDrawTime == 0) {
+                startDrawTime = Time.time;
+            }
+
+            int direction = isDrawing ? 1 : -1;
+            draw = Mathf.Clamp(draw + Time.deltaTime * direction, 0, 1);
             arrow.transform.position = arrowSpawnPoint.position;
+            arrow.transform.rotation = arrowSpawnPoint.rotation;
 
             // Whenever we draw, we want the bow to move as well
             var bowLocalPosition = bow.localPosition;
-            float z = Mathf.Clamp(bowLocalPosition.z + draw, -maxBowMovement, maxBowMovement);
+            float z = Mathf.Clamp(bowLocalPosition.z + draw, 0, maxBowMovement);
             bowLocalPosition = Vector3.Lerp(bowLocalPosition, new Vector3(bowLocalPosition.x, bowLocalPosition.y, z), Time.deltaTime * 4f);
             bow.localPosition = bowLocalPosition;
 
@@ -146,15 +154,17 @@ namespace Player {
             }
         }
 
-        private void ReleaseUpdate(bool release) {
-            if (release) {
-                if (arrow == null) return;
-
-                arrow.Fire(draw);
-                arrow = null;
-                draw = 0;
-                releaseSound.Play();
+        private void ReleaseUpdate() {
+            // To prevent spamming arrows
+            if (Time.time < startDrawTime + 1 / arrowsPerSecond) {
+                startDrawTime = 0;
+                return;
             }
+
+            arrow.Fire(draw);
+            arrow = null;
+            startDrawTime = 0;
+            releaseSound.Play();
         }
 
         public void TeleportTo(Vector3 teleportPosition) {
