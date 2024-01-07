@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2431600000697442733, guid: 372b76f76ce92c242be7be91e9bd6e5b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3769713864262328406, guid: 372b76f76ce92c242be7be91e9bd6e5b, type: 3}
       propertyPath: m_Name
       value: Orange Ballon
