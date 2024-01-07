@@ -261,7 +261,8 @@ MonoBehaviour:
   speed: 100
   arrowHitSound: {fileID: 243671901626287143}
   damage: 1
-  TimeToDestroyArrow: 5
+  timeToDestroyAfterHit: 5
+  timeToDestroyAfterFire: 25
 --- !u!65 &8059447444177858186
 BoxCollider:
   m_ObjectHideFlags: 0

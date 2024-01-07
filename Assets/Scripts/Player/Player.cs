@@ -63,9 +63,9 @@ namespace Player {
 
                 if (Input.GetButtonDown("Fire1") && arrow == null) {
                     if (IsServer) {
-                        SpawnArrow();
+                        SpawnArrow(OwnerClientId);
                     } else {
-                        SpawnArrowServerRPC();
+                        SpawnArrowServerRPC(OwnerClientId);
                     }
                 }
 
@@ -110,8 +110,8 @@ namespace Player {
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SpawnArrowServerRPC() {
-            Arrow spawnedArrow = SpawnArrow();
+        private void SpawnArrowServerRPC(ulong ownerClientId) {
+            Arrow spawnedArrow = SpawnArrow(ownerClientId);
             ReturnSpawnedArrowClientRPC(new NetworkBehaviourReference(spawnedArrow.GetComponent<NetworkBehaviour>()));
         }
 
@@ -121,9 +121,9 @@ namespace Player {
             arrow = networkBehaviour as Arrow;
         }
 
-        private Arrow SpawnArrow() {
+        private Arrow SpawnArrow(ulong ownerClientId) {
             NetworkObject networkObject = NetworkObjectPool.Singleton.GetNetworkObject(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
-            networkObject.SpawnWithOwnership(OwnerClientId);
+            networkObject.SpawnWithOwnership(ownerClientId);
             networkObject.transform.SetParent(transform);
 
             arrow = networkObject.GetComponent<Arrow>();

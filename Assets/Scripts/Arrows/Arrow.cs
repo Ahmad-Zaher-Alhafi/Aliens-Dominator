@@ -17,7 +17,10 @@ namespace Arrows {
         [Range(1, 5)]
         [SerializeField] private int damage = 1;
 
-        public float TimeToDestroyArrow = 5f;
+        // Used if the arrow hit something
+        [SerializeField] float timeToDestroyAfterHit = 5f;
+        // Used if the arrow did not hit anything
+        [SerializeField] float timeToDestroyAfterFire = 25f;
 
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
@@ -137,10 +140,9 @@ namespace Arrows {
             }
 
             trailRenderer.enabled = false;
-
             arrowHitSound.Play();
 
-            StartCoroutine(Destroy());
+            StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterHit));
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -163,10 +165,12 @@ namespace Arrows {
             rig.velocity = transform.forward * speed * drawForce;
             rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rig.detectCollisions = true;
+
+            StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterFire));
         }
 
-        private IEnumerator Destroy() {
-            yield return new WaitForSeconds(TimeToDestroyArrow);
+        private IEnumerator DestroyAfterSeconds(float timeToDestroyArrow) {
+            yield return new WaitForSeconds(timeToDestroyArrow);
 
             if (IsServer) {
                 Despawn();
