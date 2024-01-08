@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ParrelSync;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
@@ -28,6 +29,12 @@ namespace Multiplayer {
 
         private async Task Authenticate() {
             var options = new InitializationOptions();
+
+#if UNITY_EDITOR
+            // To prevent the lobby from thinking that the two editors are related to same user with same id
+            // Only of the ParrelSync package testing
+            options.SetProfile(ClonesManager.IsClone() ? ClonesManager.GetArgument() : "Primary");
+#endif
 
             await UnityServices.InitializeAsync(options);
 
