@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Linq;
+using Player;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,6 +25,8 @@ namespace Multiplayer {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            //if (!IsOwner) return;
+
             joiningText.gameObject.SetActive(false);
             pingText.gameObject.SetActive(true);
             numOfPlayersText.gameObject.SetActive(true);
@@ -34,11 +38,17 @@ namespace Multiplayer {
 
             playerTypeText.text = IsServer ? "Player is: Server" : "Player is: Client";
 
+            //PlayerUI playerUI = FindObjectsOfType<PlayerUI>().Single(player => player.OwnerClientId == OwnerClientId);
+
             if (IsServer) {
                 networkNumOfPlayers.Value += 1;
+                //playerUI.SetName(new PlayerUI.SerializedString(playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}"));
             } else {
                 OnPlayerSpawnedServerRPC();
+                //playerUI.SetNameServerRPC(new PlayerUI.SerializedString(playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}"));
             }
+
+            playerNameField.gameObject.SetActive(false);
         }
 
         public override void OnNetworkDespawn() {
