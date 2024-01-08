@@ -27,8 +27,8 @@ namespace Arrows {
         private new Collider collider;
         private Player.Player playerOwner;
 
-        private readonly NetworkVariable<Quaternion> networkRotation = new();
         private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
 
         private void Awake() {
             trailRenderer = GetComponent<TrailRenderer>();
@@ -65,23 +65,19 @@ namespace Arrows {
         }
 
         private void Update() {
-            if (!collider.enabled) return;
-
             UpdatePosition();
             Rotate();
         }
 
         private void UpdatePosition() {
-            if (IsServer) {
-                if (IsOwner) {
+            if (IsOwner) {
+                if (IsServer) {
                     networkPosition.Value = transform.position;
                 } else {
-                    transform.position = networkPosition.Value;
+                    UpdatePositionServerRPC(transform.position);
                 }
             } else {
-                if (IsOwner) {
-                    UpdatePositionServerRPC(transform.position);
-                } else {
+                if (networkPosition.Value != Vector3.zero) {
                     transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
                 }
             }
@@ -98,16 +94,14 @@ namespace Arrows {
                 transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
             }
 
-            if (IsServer) {
-                if (IsOwner) {
+            if (IsOwner) {
+                if (IsServer) {
                     networkRotation.Value = transform.rotation;
                 } else {
-                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                    RotateServerRPC(transform.rotation);
                 }
             } else {
-                if (IsOwner) {
-                    RotateServerRPC(transform.rotation);
-                } else {
+                if (networkRotation.Value != Quaternion.identity) {
                     transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             }
@@ -145,17 +139,10 @@ namespace Arrows {
             StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterHit));
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void ChangeParentServerRPC() {
-            transform.SetParent(null);
-        }
-
         public void Fire(float drawForce) {
             if (IsServer) {
-                transform.SetParent(null);
                 ActivateLineRendererClientRPC();
             } else {
-                ChangeParentServerRPC();
                 ActivateLineRendererServerRPC();
             }
 

@@ -124,7 +124,6 @@ namespace Player {
         private Arrow SpawnArrow(ulong ownerClientId) {
             NetworkObject networkObject = NetworkObjectPool.Singleton.GetNetworkObject(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
             networkObject.SpawnWithOwnership(ownerClientId);
-            networkObject.transform.SetParent(transform);
 
             arrow = networkObject.GetComponent<Arrow>();
             drawSound.Play();
