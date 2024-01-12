@@ -154,6 +154,12 @@ MonoBehaviour:
     PrewarmCount: 0
   - Prefab: {fileID: 1640262395653480, guid: ef566210804ab5e40926eb5195f0954c, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 5943349952556042467, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 3734976215896899493, guid: 435e5b92fd9ef4443af2bba2b196f095, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +180,51 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!1 &1979406137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979406138}
+  - component: {fileID: 1979406139}
+  m_Layer: 0
+  m_Name: Matchmaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979406138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979406137}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 173.49893, y: 65.61002, z: 242.18504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1979406139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979406137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6d92801614477d9750f9111413ad5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unityTransport: {fileID: 0}
 --- !u!1 &3044567553695726185
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +265,7 @@ Transform:
   - {fileID: 6192327806096727282}
   - {fileID: 1220729978}
   - {fileID: 240670351010370967}
+  - {fileID: 1979406138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -236,6 +288,7 @@ MonoBehaviour:
   gameController: {fileID: 3044567554920042975}
   audioController: {fileID: 2360920366251837563}
   objectPoolController: {fileID: 9157550214256001044}
+  matchmaker: {fileID: 1979406139}
 --- !u!114 &229572972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +478,7 @@ MonoBehaviour:
   pathDrawerPrefab: {fileID: -2207219392055801605, guid: af7bc854d7a347b4c93905fc7b45c5ac, type: 3}
   pathDrawersHolder: {fileID: 0}
   fragmentationDistance: 3
-  pathCreationSpeed: 0.5
+  pathCreationSpeed: 0.03
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0

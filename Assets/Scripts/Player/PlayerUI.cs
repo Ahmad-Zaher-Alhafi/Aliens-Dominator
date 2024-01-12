@@ -1,37 +1,40 @@
-﻿using TMPro;
+﻿using System.Linq;
+using Multiplayer;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
     public class PlayerUI : NetworkBehaviour {
-        /*[SerializeField] private TextMeshProUGUI playerNameText;
+        [SerializeField] private TextMeshProUGUI playerNameText;
 
-        private readonly NetworkVariable<SerializedString> networkPlayerName = new();
+        private readonly NetworkVariable<SerializedNetworkString> networkName = new(new SerializedNetworkString(string.Empty));
 
-        public void SetName(SerializedString serializedString) {
-            networkPlayerName.Value = serializedString;
-        }
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (!IsOwner) return;
 
-        [ServerRpc(RequireOwnership = false)]
-        public void SetNameServerRPC(SerializedString serializedString) {
-            networkPlayerName.Value = serializedString;
+            string playerName = Matchmaker.ConnectedToLobby.Players.Single(player => player.Id == Matchmaker.PlayerId).Data["PlayerName"].Value;
+
+            if (IsServer) {
+                SetName(playerName);
+                networkName.Value = new SerializedNetworkString(playerName);
+            } else {
+                SetPlayerNameServerRPC(new SerializedNetworkString(playerName));
+            }
         }
 
         private void Update() {
-            playerNameText.text = networkPlayerName.Value.Name;
+            SetName(networkName.Value.Value);
         }
 
-        public struct SerializedString : INetworkSerializable {
-            public string Name => name;
-            private string name;
+        private void SetName(string name) {
+            playerNameText.text = name;
+        }
 
-            public SerializedString(string name) {
-                this.name = name;
-            }
-
-            public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-                serializer.SerializeValue(ref name);
-            }
-        }*/
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerNameServerRPC(SerializedNetworkString nameHolder) {
+            networkName.Value = nameHolder;
+        }
     }
 }

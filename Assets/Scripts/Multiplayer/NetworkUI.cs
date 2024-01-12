@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using Player;
+﻿using Context;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Multiplayer {
     public class NetworkUI : NetworkBehaviour {
-        [SerializeField] private Matchmaker matchmaker;
-
         [Header("Network stuff")]
         [SerializeField] private TextMeshProUGUI playerTypeText;
         [SerializeField] private TextMeshProUGUI pingText;
@@ -25,7 +22,7 @@ namespace Multiplayer {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            //if (!IsOwner) return;
+            if (!IsOwner) return;
 
             joiningText.gameObject.SetActive(false);
             pingText.gameObject.SetActive(true);
@@ -38,14 +35,10 @@ namespace Multiplayer {
 
             playerTypeText.text = IsServer ? "Player is: Server" : "Player is: Client";
 
-            //PlayerUI playerUI = FindObjectsOfType<PlayerUI>().Single(player => player.OwnerClientId == OwnerClientId);
-
             if (IsServer) {
                 networkNumOfPlayers.Value += 1;
-                //playerUI.SetName(new PlayerUI.SerializedString(playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}"));
             } else {
                 OnPlayerSpawnedServerRPC();
-                //playerUI.SetNameServerRPC(new PlayerUI.SerializedString(playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}"));
             }
 
             playerNameField.gameObject.SetActive(false);
@@ -81,13 +74,9 @@ namespace Multiplayer {
         public void JoinClicked() {
             joinButton.SetActive(false);
             joiningText.gameObject.SetActive(true);
-            matchmaker.CreateOrJoinLobby();
+            string playerName = playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}";
+            Ctx.Deps.Matchmaker.CreateOrJoinLobby(playerName);
         }
-
-        public void SetPlayerName() {
-            // Set the player name
-        }
-
 
         public void SetPacketParameters() {
             if (delay.text == string.Empty) {
@@ -101,10 +90,12 @@ namespace Multiplayer {
             if (dropRate.text == string.Empty) {
                 dropRate.text = "0";
             }
+
             int delayValue = int.Parse(delay.text);
             int jitterValue = int.Parse(jitter.text);
             int dropRateValue = int.Parse(dropRate.text);
-            matchmaker.SetPacketParameters(delayValue, jitterValue, dropRateValue);
+
+            Ctx.Deps.Matchmaker.SetPacketParameters(delayValue, jitterValue, dropRateValue);
         }
     }
 }

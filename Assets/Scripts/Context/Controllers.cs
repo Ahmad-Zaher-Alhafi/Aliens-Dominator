@@ -1,7 +1,7 @@
 using Creatures;
 using ManagersAndControllers;
+using Multiplayer;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Context {
     public interface IControllers {
@@ -12,6 +12,7 @@ namespace Context {
         public GameController GameController { get; }
         public AudioController AudioController { get; }
         public ObjectPoolController ObjectPoolController { get; }
+        public Matchmaker Matchmaker { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -20,7 +21,7 @@ namespace Context {
 
         [SerializeField] private CreatureSpawnController creatureSpawnController;
         public CreatureSpawnController CreatureSpawnController => creatureSpawnController;
-        
+
         [SerializeField] private WaveController waveController;
         public WaveController WaveController => waveController;
 
@@ -30,13 +31,14 @@ namespace Context {
         [SerializeField] private GameController gameController;
         public GameController GameController => gameController;
 
-        [SerializeField]
-        public AudioController audioController;
+        [SerializeField] public AudioController audioController;
         public AudioController AudioController => audioController;
 
-        [SerializeField]
-        public ObjectPoolController objectPoolController;
+        [SerializeField] public ObjectPoolController objectPoolController;
         public ObjectPoolController ObjectPoolController => objectPoolController;
+
+        [SerializeField] public Matchmaker matchmaker;
+        public Matchmaker Matchmaker => matchmaker;
 
         private void Awake() {
             Ctx.ContextChanged(this);

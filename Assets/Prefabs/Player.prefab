@@ -846,6 +846,7 @@ MonoBehaviour:
   releaseSound: {fileID: 5156337647343923180}
   drawSound: {fileID: 5156337647343923181}
   playerCamera: {fileID: 3669274390887556824}
+  playerUI: {fileID: 6512053297623319075}
 --- !u!114 &5156337647343923180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,7 +1467,7 @@ GameObject:
   - component: {fileID: 979353792105026256}
   - component: {fileID: 6512053297623319075}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

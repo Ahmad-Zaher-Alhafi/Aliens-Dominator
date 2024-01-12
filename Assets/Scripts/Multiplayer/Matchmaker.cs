@@ -10,21 +10,26 @@ using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
 using UnityEngine;
 
 namespace Multiplayer {
     public class Matchmaker : MonoBehaviour {
         [SerializeField] private UnityTransport unityTransport;
-        private Lobby connectedToLobby;
+        public static Lobby ConnectedToLobby { get; private set; }
         private QueryResponse lobbies;
         private const string JoinCodeKey = "z";
-        private string playerId;
+        public static string PlayerId { get; private set; }
 
-
-        public async void CreateOrJoinLobby() {
+        public async void CreateOrJoinLobby(string playerName) {
             await Authenticate();
-            connectedToLobby = await QuickJoinLobby() ?? await CreateLobby();
+
+            ConnectedToLobby = await GetLobbyToJoin(playerName);
+            if (ConnectedToLobby != null) {
+                NetworkManager.Singleton.StartClient();
+            } else {
+                ConnectedToLobby = await CreateLobby(playerName);
+                NetworkManager.Singleton.StartHost();
+            }
         }
 
         private async Task Authenticate() {
@@ -39,37 +44,45 @@ namespace Multiplayer {
             await UnityServices.InitializeAsync(options);
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            playerId = AuthenticationService.Instance.PlayerId;
+            PlayerId = AuthenticationService.Instance.PlayerId;
         }
 
-        private async Task<Lobby> QuickJoinLobby() {
+        private async Task<Lobby> GetLobbyToJoin(string playerName) {
             try {
-                var lobby = await Lobbies.Instance.QuickJoinLobbyAsync();
+                var player = new Unity.Services.Lobbies.Models.Player {
+                    Data = new Dictionary<string, PlayerDataObject> {
+                        { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName) }
+                    }
+                };
+                QuickJoinLobbyOptions options = new QuickJoinLobbyOptions { Player = player };
+
+                var lobby = await Lobbies.Instance.QuickJoinLobbyAsync(options);
 
                 var allocation = await RelayService.Instance.JoinAllocationAsync(lobby.Data[JoinCodeKey].Value);
 
-                SetTransformAsClient(allocation);
-
-                NetworkManager.Singleton.StartClient();
+                unityTransport.SetClientRelayData(allocation.RelayServer.IpV4, (ushort) allocation.RelayServer.Port, allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData, allocation.HostConnectionData);
                 return lobby;
             } catch (Exception e) {
                 Console.WriteLine("No lobby found!");
                 return null;
             }
-
-        }
-        private void SetTransformAsClient(JoinAllocation allocation) {
-            unityTransport.SetClientRelayData(allocation.RelayServer.IpV4, (ushort) allocation.RelayServer.Port, allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData, allocation.HostConnectionData);
         }
 
-        private async Task<Lobby> CreateLobby() {
+        private async Task<Lobby> CreateLobby(string playerName) {
             try {
                 const int maxPlayers = 100;
 
                 var allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayers);
                 var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
+                var player = new Unity.Services.Lobbies.Models.Player {
+                    Data = new Dictionary<string, PlayerDataObject> {
+                        { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName) }
+                    }
+                };
+
                 var options = new CreateLobbyOptions {
+                    Player = player,
                     Data = new Dictionary<string, DataObject> { { JoinCodeKey, new DataObject(DataObject.VisibilityOptions.Public, joinCode) } }
                 };
 
@@ -78,12 +91,9 @@ namespace Multiplayer {
                 StartCoroutine(HeartBeatLobby(lobby.Id, 15));
 
                 unityTransport.SetHostRelayData(allocation.RelayServer.IpV4, (ushort) allocation.RelayServer.Port, allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData);
-
-                NetworkManager.Singleton.StartHost();
-
                 return lobby;
             } catch (Exception e) {
-                Console.WriteLine("Could not create a lobby!");
+                Debug.LogError("Could not create a lobby!");
                 return null;
             }
         }
