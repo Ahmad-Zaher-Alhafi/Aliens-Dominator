@@ -22,7 +22,6 @@ namespace Multiplayer {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            if (!IsOwner) return;
 
             joiningText.gameObject.SetActive(false);
             pingText.gameObject.SetActive(true);
