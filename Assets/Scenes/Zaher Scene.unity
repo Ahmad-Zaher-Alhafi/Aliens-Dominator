@@ -104254,6 +104254,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 88979148883853345}
     - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: activateOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: hasToUseRockets
       value: 1
       objectReference: {fileID: 0}

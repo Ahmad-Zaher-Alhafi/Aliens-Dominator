@@ -469,11 +469,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   waves:
-  - {fileID: 11400000, guid: 4c7f70b507f8e0a4c82002b9a5d3a6c9, type: 2}
-  - {fileID: 11400000, guid: 5befd9fe9d150c046bd314f3f9b439fb, type: 2}
-  - {fileID: 11400000, guid: ddb985b27acd46e4f895553688d74fd8, type: 2}
   - {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
   - {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
+  - {fileID: 11400000, guid: 2ed18d58240908b4ab89dd75e41e6a7c, type: 2}
+  - {fileID: 11400000, guid: e4cbe1df0f4008a4c9007fb1ba0c8b5c, type: 2}
+  - {fileID: 11400000, guid: 5e4f807ad3362e1428d93cd83e615243, type: 2}
   cinematicWave: {fileID: 11400000, guid: a0780e19f2336bd49a518dad0d8cf0eb, type: 2}
   pathDrawerPrefab: {fileID: -2207219392055801605, guid: af7bc854d7a347b4c93905fc7b45c5ac, type: 3}
   pathDrawersHolder: {fileID: 0}

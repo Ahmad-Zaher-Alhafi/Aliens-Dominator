@@ -12,22 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484630a0b8474b0b98291530a08b2705, type: 3}
   m_Name: Wave 2
   m_EditorClassIdentifier: 
+  numOfSpawnPoints: 2
+  numOfGroundPaths: 2
+  numOfAirPaths: 1
   waveCreatures:
   - creaturePrefab: {fileID: 1867506747118803822, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
-    numberToSpawn: 5
+    numberToSpawn: 10
   - creaturePrefab: {fileID: -7780425046225090788, guid: 09284a9fde6abed4bb1f5a080f4778af, type: 3}
-    numberToSpawn: 5
+    numberToSpawn: 10
   - creaturePrefab: {fileID: -4609342481440302439, guid: de885bb7d42d28444b6a87c422b0efdc, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: 39428396123731887, guid: 5cad126635ef17742b4b66be012999ff, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: 5473156317307805654, guid: 5acd5a1f5df01854d9c443eb56b29a1e, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: 7160645254256017116, guid: 1d481657223f4e54ba658b3f20a1409f, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: 2549999206570881742, guid: 36924a6c532bf5f49baf7e29eaa34119, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: -993809750006227965, guid: 15b02acadabf14c45af835ffabd8dfba, type: 3}
-    numberToSpawn: 5
-  - creaturePrefab: {fileID: 2821232774589529044, guid: ef566210804ab5e40926eb5195f0954c, type: 3}
     numberToSpawn: 5
