@@ -58,6 +58,10 @@ namespace Player {
         }
 
         public void Update() {
+#if UNITY_EDITOR
+            if (Cursor.lockState != CursorLockMode.Locked) return;
+#endif
+
             if (IsOwner) {
                 LookUpdate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), rotation);
 
