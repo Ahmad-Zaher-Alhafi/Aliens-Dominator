@@ -9,8 +9,8 @@ namespace Multiplayer {
         [SerializeField] private TextMeshProUGUI playerTypeText;
         [SerializeField] private TextMeshProUGUI pingText;
         [SerializeField] private TextMeshProUGUI numOfPlayersText;
-        [SerializeField] private TextMeshProUGUI joiningText;
-        [SerializeField] private GameObject joinButton;
+        [SerializeField] private TextMeshProUGUI joinHostText;
+        [SerializeField] private GameObject mainMenu;
         [SerializeField] private TMP_InputField playerNameField;
 
         [Header("Packet parameters")]
@@ -23,7 +23,7 @@ namespace Multiplayer {
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
 
-            joiningText.gameObject.SetActive(false);
+            joinHostText.gameObject.SetActive(false);
             pingText.gameObject.SetActive(true);
             numOfPlayersText.gameObject.SetActive(true);
             playerTypeText.gameObject.SetActive(true);
@@ -45,9 +45,7 @@ namespace Multiplayer {
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
-            if (IsServer) {
-                networkNumOfPlayers.Value -= 1;
-            } else {
+            if (!IsServer) {
                 OnPlayerDespawnServerRPC();
             }
         }
@@ -70,11 +68,20 @@ namespace Multiplayer {
             }
         }
 
+        public void HostClicked() {
+            mainMenu.SetActive(false);
+            joinHostText.text = "Hosting...";
+            joinHostText.gameObject.SetActive(true);
+            string playerName = !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkNumOfPlayers.Value}";
+            Ctx.Deps.Matchmaker.HostLobby(playerName);
+        }
+
         public void JoinClicked() {
-            joinButton.SetActive(false);
-            joiningText.gameObject.SetActive(true);
-            string playerName = playerNameField.text ?? $"Player: {networkNumOfPlayers.Value}";
-            Ctx.Deps.Matchmaker.CreateOrJoinLobby(playerName);
+            mainMenu.SetActive(false);
+            joinHostText.text = "Joining...";
+            joinHostText.gameObject.SetActive(true);
+            string playerName = !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkNumOfPlayers.Value}";
+            Ctx.Deps.Matchmaker.JoinLobby(playerName);
         }
 
         public void SetPacketParameters() {

@@ -20,16 +20,18 @@ namespace Multiplayer {
         private const string JoinCodeKey = "z";
         public static string PlayerId { get; private set; }
 
-        public async void CreateOrJoinLobby(string playerName) {
+        public async void HostLobby(string playerName) {
+            await Authenticate();
+
+            ConnectedToLobby = await CreateLobby(playerName);
+            NetworkManager.Singleton.StartHost();
+        }
+
+        public async void JoinLobby(string playerName) {
             await Authenticate();
 
             ConnectedToLobby = await GetLobbyToJoin(playerName);
-            if (ConnectedToLobby != null) {
-                NetworkManager.Singleton.StartClient();
-            } else {
-                ConnectedToLobby = await CreateLobby(playerName);
-                NetworkManager.Singleton.StartHost();
-            }
+            NetworkManager.Singleton.StartClient();
         }
 
         private async Task Authenticate() {
