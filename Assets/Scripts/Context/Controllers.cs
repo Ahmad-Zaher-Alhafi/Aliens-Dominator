@@ -13,6 +13,7 @@ namespace Context {
         public AudioController AudioController { get; }
         public ObjectPoolController ObjectPoolController { get; }
         public Matchmaker Matchmaker { get; }
+        public PlaceablesController PlaceablesController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -31,14 +32,17 @@ namespace Context {
         [SerializeField] private GameController gameController;
         public GameController GameController => gameController;
 
-        [SerializeField] public AudioController audioController;
+        [SerializeField] private AudioController audioController;
         public AudioController AudioController => audioController;
 
-        [SerializeField] public ObjectPoolController objectPoolController;
+        [SerializeField] private ObjectPoolController objectPoolController;
         public ObjectPoolController ObjectPoolController => objectPoolController;
 
-        [SerializeField] public Matchmaker matchmaker;
+        [SerializeField] private Matchmaker matchmaker;
         public Matchmaker Matchmaker => matchmaker;
+
+        [SerializeField] private PlaceablesController placeablesController;
+        public PlaceablesController PlaceablesController => placeablesController;
 
         private void Awake() {
             Ctx.ContextChanged(this);

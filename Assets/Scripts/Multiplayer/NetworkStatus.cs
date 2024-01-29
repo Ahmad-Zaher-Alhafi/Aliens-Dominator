@@ -4,14 +4,12 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace Multiplayer {
-    public class NetworkUI : NetworkBehaviour {
+    public class NetworkStatus : NetworkBehaviour {
         [Header("Network stuff")]
         [SerializeField] private TextMeshProUGUI playerTypeText;
         [SerializeField] private TextMeshProUGUI pingText;
         [SerializeField] private TextMeshProUGUI numOfPlayersText;
         [SerializeField] private TextMeshProUGUI joinHostText;
-        [SerializeField] private GameObject mainMenu;
-        [SerializeField] private TMP_InputField playerNameField;
 
         [Header("Packet parameters")]
         [SerializeField] private TMP_InputField delay;
@@ -19,6 +17,7 @@ namespace Multiplayer {
         [SerializeField] private TMP_InputField dropRate;
 
         private readonly NetworkVariable<int> networkNumOfPlayers = new();
+        public int NumOfPlayers => networkNumOfPlayers.Value;
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -39,8 +38,6 @@ namespace Multiplayer {
             } else {
                 OnPlayerSpawnedServerRPC();
             }
-
-            playerNameField.gameObject.SetActive(false);
         }
 
         public override void OnNetworkDespawn() {
@@ -68,20 +65,14 @@ namespace Multiplayer {
             }
         }
 
-        public void HostClicked() {
-            mainMenu.SetActive(false);
+        public void ShowHostingStatus() {
             joinHostText.text = "Hosting...";
             joinHostText.gameObject.SetActive(true);
-            string playerName = !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkNumOfPlayers.Value}";
-            Ctx.Deps.Matchmaker.HostLobby(playerName);
         }
 
-        public void JoinClicked() {
-            mainMenu.SetActive(false);
+        public void ShowJoiningStatus() {
             joinHostText.text = "Joining...";
             joinHostText.gameObject.SetActive(true);
-            string playerName = !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkNumOfPlayers.Value}";
-            Ctx.Deps.Matchmaker.JoinLobby(playerName);
         }
 
         public void SetPacketParameters() {
