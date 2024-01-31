@@ -1,5 +1,4 @@
-﻿using Context;
-using Creatures;
+﻿using Creatures;
 using UnityEngine;
 
 namespace FiniteStateMachine.CreatureStateMachine {
@@ -22,7 +21,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
         }
 
         private void Die() {
-            Ctx.Deps.SupplyBalloonController.SpawnBalloon(AutomatedObject.transform.position, AutomatedObject.ChanceOfDroppingBalloon);
             AutomatedObject.OnDeath();
             Debug.Log($"Creature {AutomatedObject} is dead");
         }

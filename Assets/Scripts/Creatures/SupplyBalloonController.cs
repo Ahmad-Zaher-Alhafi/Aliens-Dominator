@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Collectables;
+using Multiplayer;
+using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Creatures {
-    public class SupplyBalloonController : MonoBehaviour {
-        [SerializeField] private List<SupplyBalloon> supplyBalloons;
+    public class SupplyBalloonController : NetworkBehaviour {
+        [SerializeField] private List<SupplyBalloon> supplyBalloonPrefabs;
 
         private void Awake() {
-            supplyBalloons = supplyBalloons.OrderByDescending(balloon => balloon.ChanceOfSpawning).ToList();
+            supplyBalloonPrefabs = supplyBalloonPrefabs.OrderByDescending(balloon => balloon.chanceOfSpawning).ToList();
         }
 
         public void SpawnBalloon(Vector3 spawnPosition, int chanceToDropBalloon) {
@@ -16,11 +20,21 @@ namespace Creatures {
             if (randomSpawnChance > chanceToDropBalloon) return;
 
             int randomBalloonChance = Random.Range(0, 101);
-            SupplyBalloon balloonToSpawn = supplyBalloons.FirstOrDefault(balloon => randomBalloonChance >= balloon.ChanceOfSpawning);
-            if (balloonToSpawn == null) return;
+            SupplyBalloon balloonPrefab = supplyBalloonPrefabs.FirstOrDefault(balloon => randomBalloonChance >= balloon.chanceOfSpawning);
+            if (balloonPrefab == null) return;
 
-            SupplyBalloon spawnedBalloon = balloonToSpawn.GetObject<SupplyBalloon>(null);
-            spawnedBalloon.Init(spawnPosition);
+            NetworkObject balloon = NetworkObjectPool.Singleton.GetNetworkObject(balloonPrefab.gameObject, spawnPosition, quaternion.identity);
+
+            if (IsServer) {
+                balloon.Spawn();
+            } else {
+                SpawnBalloonServerRPC(spawnPosition, chanceToDropBalloon);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SpawnBalloonServerRPC(Vector3 spawnPosition, int chanceToDropBalloon) {
+            SpawnBalloon(spawnPosition, chanceToDropBalloon);
         }
     }
 }

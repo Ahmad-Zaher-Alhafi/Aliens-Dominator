@@ -235,6 +235,7 @@ namespace Creatures {
                 bodyPart.OnDeath();
             }
 
+            Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, ChanceOfDroppingBalloon);
             Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed(SecondsToDestroyDeadBody));
         }
 

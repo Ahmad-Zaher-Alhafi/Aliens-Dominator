@@ -1,42 +1,51 @@
-using Arrows;
 using Context;
-using ManagersAndControllers;
-using Player;
-using Pool;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Collectables {
-    public class SupplyBalloon : PooledObject {
-        public float HeightLimit;
-        public float TimeLimit;
-        public float Speed = 10f;
-
+    public class SupplyBalloon : NetworkBehaviour {
+        [SerializeField] private float heightLimit = 50;
+        [SerializeField] private float speed = 3f;
         [Range(1, 100)]
-        public int ChanceOfSpawning = 50;
+        public int chanceOfSpawning = 50;
 
-        public Arrow Arrow;
         [SerializeField] private Constants.SuppliesTypes suppliesType;
 
-        public void Init(Vector3 position) {
-            transform.position = position;
-        }
+        private readonly NetworkVariable<Vector3> networkPosition = new();
 
-        // Update is called once per frame
         private void Update() {
-            if (transform.position.y >= HeightLimit) Destroy(gameObject);
-            else transform.position += Vector3.up * Speed * Time.deltaTime;
+            if (transform.position.y >= heightLimit) {
+                Destroy();
+            } else {
+                if (IsServer) {
+                    transform.position += Vector3.up * speed * Time.deltaTime;
+                    networkPosition.Value = transform.position;
+                } else {
+                    transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                }
+            }
         }
 
-        private void OnCollisionEnter(Collision collision) {
-            if (collision.collider.tag != "Arrow") return;
+        private void OnTriggerEnter(Collider other) {
+            if (!other.CompareTag("Arrow")) return;
 
-            if (!CompareTag(Constants.SuppliesCallerTag)) {
-                var rig = FindObjectOfType<Player.Player>();
+            Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType);
+            Destroy();
+        }
+
+        private void Destroy() {
+            gameObject.SetActive(false);
+
+            if (IsServer) {
+                NetworkObject.Despawn();
             } else {
-                Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType); //call the airplane to get a supplies drop
+                DespawnServerRPC();
             }
+        }
 
-            Destroy(gameObject);
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnServerRPC() {
+            NetworkObject.Despawn(false);
         }
     }
 }

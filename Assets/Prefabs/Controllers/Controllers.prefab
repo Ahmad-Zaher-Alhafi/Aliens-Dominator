@@ -160,6 +160,18 @@ MonoBehaviour:
     PrewarmCount: 0
   - Prefab: {fileID: 5140444623459532068, guid: 3eff72a02fb2c72448ae65e066b239c9, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: 50fdde8294cfef74c83593cddc6c382a, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: fb526180d7291c542b8c7d67bb57ce8e, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: 15e2cdd2f1ff38e4bb1cdb2d6b63a0e8, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: a97e62f5ed992c4439890624972f77fb, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: b81843ec0fca5114a99ce768a67343f7, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 4306732846594279632, guid: 5e633cfa4ca0a7b4fb4ced356362c3e4, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +334,7 @@ GameObject:
   - component: {fileID: 3044567554523871307}
   - component: {fileID: 3044567554523871304}
   m_Layer: 0
-  m_Name: SupplyBalloonController
+  m_Name: Supply Balloon Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2098d507f7740ff9e8d2751b988c15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  supplyBalloons:
+  supplyBalloonPrefabs:
   - {fileID: 3488090291348387587, guid: 50fdde8294cfef74c83593cddc6c382a, type: 3}
   - {fileID: 3488090291348387587, guid: fb526180d7291c542b8c7d67bb57ce8e, type: 3}
   - {fileID: 3488090291348387587, guid: 15e2cdd2f1ff38e4bb1cdb2d6b63a0e8, type: 3}
