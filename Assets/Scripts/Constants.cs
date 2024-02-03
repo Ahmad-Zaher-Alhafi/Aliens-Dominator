@@ -88,6 +88,8 @@ public static class Constants {
     public const int PROJECTILE_LAYER_ID = 8;
     public const int IGNORE_RAYCAST_LAYER_ID = 2;
     public const int Arrow_LAYER_ID = 7;
+    public const int Terrain_LAYER_ID = 3;
+    public const int Base_LAYER_ID = 9;
 
     private static readonly string[] scorpionAttackAnimations = new string[5] { "Front Legs Attack", "Tail Flick Attack", "Tail Slice Attack", "Tail Stab Attack", "Tail Swing Attack" };
 

@@ -22,9 +22,12 @@ namespace Arrows {
         // Used if the arrow did not hit anything
         [SerializeField] float timeToDestroyAfterFire = 25f;
 
+        [SerializeField] private Collider triggerCollider;
+        [Tooltip("The minimum velocity sqrMagnitude required to let the arrow bounce on hitting something")]
+        [SerializeField] protected float minVelocityToBounce = 450;
+
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
-        private new Collider collider;
         private Player.Player playerOwner;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
@@ -33,7 +36,7 @@ namespace Arrows {
         private void Awake() {
             trailRenderer = GetComponent<TrailRenderer>();
             rig = GetComponent<Rigidbody>();
-            collider = GetComponent<Collider>();
+            triggerCollider = GetComponent<Collider>();
         }
 
         public override void OnNetworkSpawn() {
@@ -47,7 +50,7 @@ namespace Arrows {
             transform.rotation = playerOwner.ArrowSpawnPoint.rotation;
 
             trailRenderer.enabled = false;
-            collider.enabled = true;
+            triggerCollider.enabled = true;
 
             if (IsOwner) {
                 if (rig == null) {
@@ -123,9 +126,16 @@ namespace Arrows {
             ActivateLineRendererClientRPC();
         }
 
-        protected void OnTriggerEnter(Collider other) {
-            collider.enabled = false;
+        private void OnCollisionEnter(Collision other) {
+            if (rig.velocity.sqrMagnitude > minVelocityToBounce) {
+                arrowHitSound.Play();
+            }
+        }
 
+        private void OnTriggerEnter(Collider other) {
+            if (rig.velocity.sqrMagnitude > minVelocityToBounce) return;
+
+            triggerCollider.enabled = false;
 
             if (rig != null) {
                 rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
