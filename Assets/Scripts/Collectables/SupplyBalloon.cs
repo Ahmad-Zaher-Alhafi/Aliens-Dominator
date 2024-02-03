@@ -14,13 +14,13 @@ namespace Collectables {
         private readonly NetworkVariable<Vector3> networkPosition = new();
 
         private void Update() {
-            if (transform.position.y >= heightLimit) {
-                Destroy();
+            if (IsServer) {
+                if (DestroyOnHeightLimitReached()) return;
+
+                transform.position += Vector3.up * speed * Time.deltaTime;
+                networkPosition.Value = transform.position;
             } else {
-                if (IsServer) {
-                    transform.position += Vector3.up * speed * Time.deltaTime;
-                    networkPosition.Value = transform.position;
-                } else {
+                if (networkPosition.Value != Vector3.zero) {
                     transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
                 }
             }
@@ -29,23 +29,35 @@ namespace Collectables {
         private void OnTriggerEnter(Collider other) {
             if (!other.CompareTag("Arrow")) return;
 
-            Ctx.Deps.EventsManager.OnCallingSupplies(suppliesType);
+            Ctx.Deps.EventsManager.TriggerSupplyBalloonCollected(suppliesType);
             Destroy();
         }
 
-        private void Destroy() {
-            gameObject.SetActive(false);
+        private bool DestroyOnHeightLimitReached() {
+            if (transform.position.y >= heightLimit) {
+                Destroy();
+                return true;
+            }
 
+            return false;
+        }
+
+        private void Destroy() {
             if (IsServer) {
-                NetworkObject.Despawn();
+                Despawn();
             } else {
                 DespawnServerRPC();
             }
         }
 
+        private void Despawn() {
+            gameObject.SetActive(false);
+            NetworkObject.Despawn(false);
+        }
+
         [ServerRpc(RequireOwnership = false)]
         private void DespawnServerRPC() {
-            NetworkObject.Despawn(false);
+            Despawn();
         }
     }
 }

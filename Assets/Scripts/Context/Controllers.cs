@@ -14,6 +14,7 @@ namespace Context {
         public ObjectPoolController ObjectPoolController { get; }
         public Matchmaker Matchmaker { get; }
         public PlaceablesController PlaceablesController { get; }
+        public SupplyPlanesController SupplyPlanesController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -43,6 +44,9 @@ namespace Context {
 
         [SerializeField] private PlaceablesController placeablesController;
         public PlaceablesController PlaceablesController => placeablesController;
+        
+        [SerializeField] private SupplyPlanesController supplyPlanesController;
+        public SupplyPlanesController SupplyPlanesController => supplyPlanesController;
 
         private void Awake() {
             Ctx.ContextChanged(this);

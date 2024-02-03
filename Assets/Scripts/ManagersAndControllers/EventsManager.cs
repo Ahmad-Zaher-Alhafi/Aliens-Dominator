@@ -29,20 +29,25 @@ namespace ManagersAndControllers {
         public void TriggerPathPointReached(Creature creature, PathPoint pathPoint) {
             PathPointReached?.Invoke(creature, pathPoint);
         }
-        
+
         public event Action<Vector3> PlayerTeleported;
         public void TriggerPlayerTeleported(Vector3 teleportPosition) {
             PlayerTeleported?.Invoke(teleportPosition);
         }
 
-        public event Action<Constants.SuppliesTypes> onCallingSupplies; //event that being shot when you takes the object that brought you supplies bu the aireplane
-        public void OnCallingSupplies(Constants.SuppliesTypes suppliesType) {
-            onCallingSupplies?.Invoke(suppliesType);
+        public event Action<Constants.SuppliesTypes> SupplyBalloonCollected;
+        public void TriggerSupplyBalloonCollected(Constants.SuppliesTypes suppliesType) {
+            SupplyBalloonCollected?.Invoke(suppliesType);
         }
 
-        public event Action onGatheringSupplies; //event that being shot when you gather a supplies object
-        public void OnGatheringSupplies() {
-            onGatheringSupplies?.Invoke();
+        public event Action<Constants.SuppliesTypes, int> AmmoSuppliesCollected;
+        public void TriggerAmmoSuppliesCollected(Constants.SuppliesTypes ammoType, int ammoNumber) {
+            AmmoSuppliesCollected?.Invoke(ammoType, ammoNumber);
+        }
+
+        public event Action UpgradesSuppliesCollected;
+        public void TriggerUpgradesSuppliesCollected() {
+            UpgradesSuppliesCollected?.Invoke();
         }
 
         public event Action<Constants.ObjectsColors> onStinkyBallHit; //event that being shot when the player get hit by a stinky ball
@@ -63,11 +68,6 @@ namespace ManagersAndControllers {
         public event Action<Creatures.Creature> onEnemyDiesInsideSecurityArea; //event that being shot when a creature dies inside the seacurity area of the seacurity weapon
         public void OnEnemyDiesInsideSecurityArea(Creatures.Creature creature) {
             onEnemyDiesInsideSecurityArea?.Invoke(creature);
-        }
-
-        public event Action<Constants.SuppliesTypes, int> onTakingAmmo; //event that being shot when the player takes a rocket ammo
-        public void OnTakingAmmo(Constants.SuppliesTypes ammoType, int ammoNumber) {
-            onTakingAmmo?.Invoke(ammoType, ammoNumber);
         }
 
         public event Action onLevelFinishs; //event that being shot when the a level finishs

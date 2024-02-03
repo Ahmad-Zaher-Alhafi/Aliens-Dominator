@@ -7,7 +7,7 @@ namespace Projectiles {
         [SerializeField] private float acceleration = 5;
 
         [Header("Particles")]
-        [SerializeField] private RocketParticle launchSmokeParticlePrefab;
+        [SerializeField] private SmokeParticles launchSmokeParticlePrefab;
         [SerializeField] private Transform launchSmokeParticlePoint;
         [SerializeField] private ExplosionParticle explosionParticlePrefab;
         [SerializeField] private Transform explosionParticlePoint;
@@ -15,7 +15,7 @@ namespace Projectiles {
         private IDamageable target;
         private MeshRenderer meshRenderer;
         private bool wasLaunched;
-        private RocketParticle launchSmokeParticle;
+        private SmokeParticles launchSmokeParticle;
         private ExplosionParticle explosionParticle;
 
         protected override void Awake() {
@@ -55,7 +55,7 @@ namespace Projectiles {
         }
 
         private void CreateLaunchSmokeParticle() {
-            launchSmokeParticle = launchSmokeParticlePrefab.GetObject<RocketParticle>(transform);
+            launchSmokeParticle = launchSmokeParticlePrefab.GetObject<SmokeParticles>(transform);
             launchSmokeParticle.transform.position = launchSmokeParticlePoint.position;
             launchSmokeParticle.transform.rotation = launchSmokeParticlePoint.rotation;
             launchSmokeParticle.Play();

@@ -172,6 +172,14 @@ MonoBehaviour:
     PrewarmCount: 0
   - Prefab: {fileID: 4306732846594279632, guid: 5e633cfa4ca0a7b4fb4ced356362c3e4, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 2867663603713210589, guid: 3d35c5e088ec50d48a16e0bfc09ec075, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 9154166605263790218, guid: ea627a7122dc56140addbd219fa0e9ff, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 730190827932104653, guid: c219e881533267049bcb9655ee8d4e83, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 2789288522396869753, guid: e311819c76a4e1a4284025259b3689b6, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +287,7 @@ Transform:
   - {fileID: 240670351010370967}
   - {fileID: 1979406138}
   - {fileID: 6693789013810108256}
+  - {fileID: 3313745327689136300}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -303,6 +312,7 @@ MonoBehaviour:
   objectPoolController: {fileID: 9157550214256001044}
   matchmaker: {fileID: 1979406139}
   placeablesController: {fileID: 1577228351297302604}
+  supplyPlanesController: {fileID: 944021468266300532}
 --- !u!114 &229572972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +429,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolPrefab: {fileID: -2368059511089722103, guid: 567d9b555e542f64dae544208ecd5323, type: 3}
+--- !u!1 &3833751294583184428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3313745327689136300}
+  - component: {fileID: 944021468266300532}
+  m_Layer: 0
+  m_Name: Supply Planes Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3313745327689136300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3833751294583184428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &944021468266300532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3833751294583184428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d4ad3e3eb24da8aaa775c130e51162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  supplyPlane: {fileID: 2867663603713210586, guid: 3d35c5e088ec50d48a16e0bfc09ec075, type: 3}
 --- !u!1 &6269936032128447115
 GameObject:
   m_ObjectHideFlags: 0

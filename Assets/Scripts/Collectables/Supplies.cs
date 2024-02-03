@@ -1,22 +1,46 @@
-using Context;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Collectables {
-    public class Supplies : MonoBehaviour {
+    public abstract class Supplies : NetworkBehaviour {
         [SerializeField] private Constants.SuppliesTypes suppliesType;
-        [Header("For Ammo supplies only")]
-        [SerializeField] private int numOfAmmoInThePack;
 
-        private void OnCollisionEnter(Collision other) {
+        private readonly NetworkVariable<Vector3> networkPosition = new();
+        private readonly NetworkVariable<Quaternion> networkRotation = new();
 
-            if (other.gameObject.tag != "Arrow") return;
-
-            if (suppliesType == Constants.SuppliesTypes.ArrowUpgrade) {
-                Ctx.Deps.EventsManager.OnGatheringSupplies();
+        private void Update() {
+            if (IsServer) {
+                networkPosition.Value = transform.position;
+                networkRotation.Value = transform.rotation;
             } else {
-                Ctx.Deps.EventsManager.OnTakingAmmo(suppliesType, numOfAmmoInThePack);
-            }
+                if (networkPosition.Value == Vector3.zero) return;
 
+                transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            if (!other.gameObject.CompareTag("Arrow")) return;
+
+            OnCollected(suppliesType);
+
+            if (IsServer) {
+                Despawn();
+            } else {
+                DespawnServerRPC();
+            }
+        }
+
+        protected abstract void OnCollected(Constants.SuppliesTypes suppliesType);
+
+        private void Despawn() {
+            gameObject.SetActive(false);
+            NetworkObject.Despawn(false);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnServerRPC() {
             Destroy(gameObject);
         }
     }
