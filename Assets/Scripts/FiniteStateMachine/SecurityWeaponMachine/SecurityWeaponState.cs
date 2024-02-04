@@ -10,6 +10,6 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
     }
 
     public abstract class SecurityWeaponState<TEnemyType> : State<SecurityWeapon<TEnemyType>, SecurityWeaponStateType> where TEnemyType : IAutomatable {
-        protected SecurityWeaponState(SecurityWeapon<TEnemyType> automatedObject) : base(automatedObject) { }
+        protected SecurityWeaponState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
     }
 }

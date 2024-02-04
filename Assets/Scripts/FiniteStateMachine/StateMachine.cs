@@ -24,6 +24,7 @@ namespace FiniteStateMachine {
         protected TAutomatable AutomatedObject;
 
         private bool isInitialized;
+        private Enum initialState;
 
         private List<Transition<TState, TAutomatable, TType>> currentStatePossibleTransitions;
 
@@ -38,6 +39,7 @@ namespace FiniteStateMachine {
                 AssignInterruptStates();
             }
 
+            this.initialState = initialState;
             PrimaryState = States[initialState];
             PrimaryState.Activate();
         }
@@ -60,6 +62,8 @@ namespace FiniteStateMachine {
             if (AutomatedObject.IsDestroyed) return;
 
             foreach (TState state in States.Values) {
+                if (!IsStateAutomationAllowed(state)) continue;
+
                 if (state.IsActive) {
                     state.Tick();
                 }
@@ -69,6 +73,8 @@ namespace FiniteStateMachine {
 
             // Find any transitions that can interrupt the PrimaryState
             foreach (var transition in currentStatePossibleTransitions.Where(transition => transition.DestinationState.CanInterruptState(PrimaryState))) {
+                if (!IsStateAutomationAllowed(transition.DestinationState)) continue;
+
                 // If already active as a secondary state then mark it as primary state instead
                 if (transition.DestinationState.IsActiveAsSecondaryState) {
                     PrimaryState = transition.DestinationState;
@@ -81,6 +87,7 @@ namespace FiniteStateMachine {
 
             // Find all states that can be synced with the PrimaryState
             foreach (TState state in States.Values) {
+                if (!IsStateAutomationAllowed(state)) continue;
                 if (state.IsActive) continue;
                 if (!state.CanBeSyncedWith(PrimaryState)) continue;
                 ActivateAsSecondaryState(state);
@@ -89,6 +96,8 @@ namespace FiniteStateMachine {
             if (PrimaryState.IsActive) return;
             // Find the next primary state when the current PrimaryState is not active anymore
             foreach (var transition in currentStatePossibleTransitions) {
+                if (!IsStateAutomationAllowed(transition.DestinationState)) continue;
+
                 ActivateDestinationState(transition);
                 return;
             }
@@ -114,6 +123,14 @@ namespace FiniteStateMachine {
         private void ActivateAsSecondaryState(TState secondaryState) {
             if (!secondaryState.CanBeActivated()) return;
             secondaryState.Activate(true);
+        }
+
+        /// <summary>
+        /// True if the automation is activated or the state is checked even when the automation is disabled
+        /// </summary>
+        /// <returns></returns>
+        private bool IsStateAutomationAllowed(TState state) {
+            return AutomatedObject.IsAutomatingEnabled || state.CheckWhenAutomatingDisabled;
         }
 
         public T GetState<T>() where T : TState {
@@ -156,6 +173,15 @@ namespace FiniteStateMachine {
             }
         }
 
+        public virtual void OnAutomationStatusChanged() {
+            if (AutomatedObject.IsAutomatingEnabled) {
+                primaryState.Fulfil();
+                Init(AutomatedObject, initialState);
+            } else {
+                primaryState.Interrupt();
+            }
+        }
+
         private void OnDestroy() {
             foreach (TState state in States.Values) {
                 state.Clear();
@@ -173,7 +199,6 @@ namespace FiniteStateMachine {
         private void ActivateSecondaryState(TType creatureStateType) {
             States[creatureStateType].Activate(true);
         }
-
 
         [CustomEditor(typeof(StateMachine<,,>))]
         public class StateMachineEditor<T> : Editor where T : TType {

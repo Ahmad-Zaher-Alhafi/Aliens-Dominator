@@ -15,6 +15,8 @@ namespace ScriptableObjects {
             public TType statesSyncedWithMask;
             [EnumFlags]
             public TType interruptStatesMask;
+            [Tooltip("Set to true if you want this state to be checked even when the automation disabled")]
+            public bool checkedWhenAutomationDisabled;
 
             [Serializable]
             public class TransitionData {

@@ -10,7 +10,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         private float FireRate => 1f / (AutomatedObject.HasToUseRockets ? AutomatedObject.RocketsPerSecond : AutomatedObject.BulletsPerSecond);
         private float lastTimeShot;
 
-        public ShootingState(FighterPlane fighterPlane) : base(fighterPlane) { }
+        public ShootingState(FighterPlane fighterPlane, bool checkWhenAutomatingDisabled) : base(fighterPlane, checkWhenAutomatingDisabled) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);

@@ -14,7 +14,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         private int damageWeight;
         private IDamager damager;
 
-        public GettingHitState(Creature objectToState) : base(objectToState) { }
+        public GettingHitState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);

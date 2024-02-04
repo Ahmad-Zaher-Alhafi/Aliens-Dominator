@@ -10,7 +10,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         private bool isBusy;
         private Quaternion targetRotation;
 
-        public GuardingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
+        public GuardingState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
 
         public override void Tick() {
             base.Tick();

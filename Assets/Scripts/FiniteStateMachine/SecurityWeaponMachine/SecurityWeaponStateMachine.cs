@@ -14,11 +14,11 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         protected override void CreateStates() {
             foreach (SecurityWeaponStateMachineData.StateData stateData in StateMachineData.statesData) {
                 SecurityWeaponState<TEnemyType> state = stateData.originStateType switch {
-                    SecurityWeaponStateType.Shutdown => new ShutdownState<TEnemyType>(AutomatedObject),
-                    SecurityWeaponStateType.Guarding => new GuardingState<TEnemyType>(AutomatedObject),
-                    SecurityWeaponStateType.Aiming => new AimingState<TEnemyType>(AutomatedObject),
-                    SecurityWeaponStateType.Shooting => new ShootingState<TEnemyType>(AutomatedObject),
-                    SecurityWeaponStateType.Destroyed => new DestroyedState<TEnemyType>(AutomatedObject),
+                    SecurityWeaponStateType.Shutdown => new ShutdownState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.Guarding => new GuardingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.Aiming => new AimingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.Shooting => new ShootingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.Destroyed => new DestroyedState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     _ => throw new ArgumentOutOfRangeException()
                 };
 

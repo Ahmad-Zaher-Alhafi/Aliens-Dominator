@@ -14,18 +14,27 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         protected override void CreateStates() {
             foreach (FighterPlaneStateMachineData.StateData stateData in StateMachineData.statesData) {
                 FighterPlaneState state = stateData.originStateType switch {
-                    FighterPlaneStateType.Deactivated => new DeactivatedState(AutomatedObject),
-                    FighterPlaneStateType.TakingOff => new TakingOffState(AutomatedObject),
-                    FighterPlaneStateType.Patrolling => new PatrollingState(AutomatedObject),
-                    FighterPlaneStateType.Aiming => new AimingState(AutomatedObject),
-                    FighterPlaneStateType.Shooting => new ShootingState(AutomatedObject),
-                    FighterPlaneStateType.GoingBackToBase => new GoingBackToBaseState(AutomatedObject),
-                    FighterPlaneStateType.Destroyed => new DestroyedState(AutomatedObject),
+                    FighterPlaneStateType.Deactivated => new DeactivatedState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.TakingOff => new TakingOffState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.Patrolling => new PatrollingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.Aiming => new AimingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.Shooting => new ShootingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.GoingBackToBase => new GoingBackToBaseState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.Destroyed => new DestroyedState(AutomatedObject, true),
                     _ => throw new ArgumentOutOfRangeException()
                 };
 
                 StatesTransitions.Add(state, new List<Transition<FighterPlaneState, FighterPlane, FighterPlaneStateType>>());
                 States.Add(state.Type, state);
+            }
+        }
+
+        public override void OnAutomationStatusChanged() {
+            base.OnAutomationStatusChanged();
+            if (AutomatedObject.IsAutomatingEnabled) {
+                AutomatedObject.TakeOff();
+            } else {
+                AutomatedObject.GetBackToBase();
             }
         }
 

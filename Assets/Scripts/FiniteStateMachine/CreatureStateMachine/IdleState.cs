@@ -9,7 +9,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => true;
 
-        public IdleState(Creature creature) : base(creature) { }
+        public IdleState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);

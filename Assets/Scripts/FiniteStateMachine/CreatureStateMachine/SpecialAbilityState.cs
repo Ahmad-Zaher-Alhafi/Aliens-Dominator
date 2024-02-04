@@ -22,7 +22,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         /// </summary>
         private bool newPathPointReached;
 
-        public SpecialAbilityState(Creature creature) : base(creature) {
+        public SpecialAbilityState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled){
             Ctx.Deps.EventsManager.PathPointReached += OnPathPointReached;
         }
         private void OnPathPointReached(Creature creature, PathPoint pathPoint) {

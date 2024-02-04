@@ -5,6 +5,6 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Shutdown;
         public override bool CanBeActivated() => true;
 
-        public ShutdownState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
+        public ShutdownState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
     }
 }

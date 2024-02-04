@@ -9,7 +9,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
 
         private Transform randomPatrolPoint;
 
-        public PatrollingState(FighterPlane fighterPlane) : base(fighterPlane) { }
+        public PatrollingState(FighterPlane fighterPlane, bool checkWhenAutomatingDisabled) : base(fighterPlane, checkWhenAutomatingDisabled) { }
 
         public override void Tick() {
             base.Tick();

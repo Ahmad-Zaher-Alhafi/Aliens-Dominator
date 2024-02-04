@@ -6,7 +6,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override FighterPlaneStateType Type => FighterPlaneStateType.TakingOff;
         public override bool CanBeActivated() => AutomatedObject.HasToTakeOff;
 
-        public TakingOffState(FighterPlane fighterPlane) : base(fighterPlane) { }
+        public TakingOffState(FighterPlane fighterPlane, bool checkWhenAutomatingDisabled) : base(fighterPlane, checkWhenAutomatingDisabled) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);

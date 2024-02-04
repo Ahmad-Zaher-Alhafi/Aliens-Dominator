@@ -8,6 +8,6 @@ namespace FiniteStateMachine.CreatureStateMachine {
         protected override bool WaitForMoverToFulfill => false;
         protected override bool WaitForAnimatorToFulfill => false;
 
-        public NoneState(Creature creature) : base(creature) { }
+        public NoneState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled) { }
     }
 }

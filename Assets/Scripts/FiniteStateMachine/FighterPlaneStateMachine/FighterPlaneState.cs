@@ -12,6 +12,6 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
     }
 
     public abstract class FighterPlaneState : State<FighterPlane, FighterPlaneStateType> {
-        protected FighterPlaneState(FighterPlane fighterPlane) : base(fighterPlane) { }
+        protected FighterPlaneState(FighterPlane fighterPlane, bool checkWhenAutomatingDisabled) : base(fighterPlane, checkWhenAutomatingDisabled) { }
     }
 }

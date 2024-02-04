@@ -7,23 +7,15 @@ using UnityEditor;
 using UnityEngine;
 
 namespace SecurityWeapons {
-    public abstract class SecurityWeapon<TEnemyType> : NetworkBehaviour, IWeaponSpecification, IAutomatable where TEnemyType : IAutomatable {
-        public GameObject GameObject => gameObject;
-        public Transform Transform => transform;
+    public abstract class SecurityWeapon<TEnemyType> : DefenceWeapon where TEnemyType : IAutomatable {
         public Vector3 InitialEulerAngels { get; private set; }
         public SecurityWeaponStateType CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
-        public bool IsDestroyed => weaponHealth <= 0;
+        public override bool IsDestroyed => weaponHealth <= 0;
 
         [SerializeField] private WeaponSensor<TEnemyType> weaponSensor;
         public WeaponSensor<TEnemyType> WeaponSensor => weaponSensor;
 
-        [Header("Specifications")]
-        [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
-        [SerializeField] private Vector2 rotateOnYAxisRange;
-        [Tooltip("Min/Max angel that the weapon can rotate around x axis")]
-        [SerializeField] private Vector2 rotateOnXAxisRange;
-        public Vector3 RotateOnYAxisRange => rotateOnYAxisRange;
-        public Vector3 RotateOnXAxisRange => rotateOnXAxisRange;
+
         [SerializeField] private float weaponHealth = 200;
 
         [Header("Speeds")]
@@ -38,6 +30,15 @@ namespace SecurityWeapons {
         public virtual float ProjectilesPerSecond => projectilesPerSecond;
 
         public virtual float CoolDownTime => 0;
+        public override bool IsAutomatingEnabled {
+            get => isAutomatingEnabled;
+            set {
+                isAutomatingEnabled = value;
+                securityWeaponStateMachine.OnAutomationStatusChanged();
+            }
+        }
+        private bool isAutomatingEnabled = true;
+        
 
         protected Magazine Magazine;
         private SecurityWeaponStateMachine<TEnemyType> securityWeaponStateMachine;
@@ -53,7 +54,8 @@ namespace SecurityWeapons {
             Destroy(Magazine);
         }
 
-        protected virtual void Awake() {
+        protected override void Awake() {
+            base.Awake();
             InitialEulerAngels = transform.eulerAngles;
             Magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();

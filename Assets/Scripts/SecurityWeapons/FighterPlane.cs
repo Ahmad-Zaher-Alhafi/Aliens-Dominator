@@ -5,7 +5,6 @@ using System.Linq;
 using AmmoMagazines;
 using Context;
 using Creatures;
-using FiniteStateMachine;
 using FiniteStateMachine.FighterPlaneStateMachine;
 using FMODUnity;
 using Projectiles;
@@ -14,21 +13,19 @@ using UnityEditor;
 using UnityEngine;
 
 namespace SecurityWeapons {
-    public class FighterPlane : NetworkBehaviour, IAutomatable, IWeaponSpecification {
+    public class FighterPlane : DefenceWeapon {
         public FighterPlaneStateType CurrentStateType => fighterPlaneStateMachine.PrimaryState.Type;
-        public GameObject GameObject => gameObject;
-        public Transform Transform => transform;
-        public bool IsDestroyed => false;
         public bool HasToTakeOff { get; set; }
         public bool HasToGoBackToBase { get; set; }
         public bool HasLanded { get; set; }
-
-
-        [Header("Specifications")]
-        [SerializeField] private Vector2 rotateOnYAxisRange;
-        [SerializeField] private Vector2 rotateOnXAxisRange;
-        public Vector3 RotateOnYAxisRange => rotateOnYAxisRange;
-        public Vector3 RotateOnXAxisRange => rotateOnXAxisRange;
+        public override bool IsAutomatingEnabled {
+            get => isAutomatingEnabled;
+            set {
+                isAutomatingEnabled = value;
+                fighterPlaneStateMachine.OnAutomationStatusChanged();
+            }
+        }
+        private bool isAutomatingEnabled;
 
         [Header("Speeds")]
         [SerializeField] private float patrollingSpeed;
@@ -86,7 +83,7 @@ namespace SecurityWeapons {
 
         [SerializeField] private WeaponSensor<Creature> weaponSensor;
         public WeaponSensor<Creature> WeaponSensor => weaponSensor;
-
+        public Quaternion InitialRotation { get; private set; }
 
         private int currentBulletsNumber;
 
@@ -134,10 +131,12 @@ namespace SecurityWeapons {
             }
         }
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
+            InitialRotation = transform.rotation;
         }
 
         private void Update() {

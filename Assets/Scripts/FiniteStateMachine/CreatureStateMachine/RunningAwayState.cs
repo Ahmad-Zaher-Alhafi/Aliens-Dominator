@@ -14,7 +14,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         private bool waveStarted;
 
-        public RunningAwayState(Creature creature) : base(creature) {
+        public RunningAwayState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled) { 
             Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
         }
 

@@ -6,7 +6,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override FighterPlaneStateType Type => FighterPlaneStateType.Aiming;
         public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null;
 
-        public AimingState(FighterPlane fighterPlane) : base(fighterPlane) { }
+        public AimingState(FighterPlane fighterPlane, bool checkWhenAutomatingDisabled) : base(fighterPlane, checkWhenAutomatingDisabled) { }
 
         public override void Tick() {
             base.Tick();

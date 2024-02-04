@@ -8,7 +8,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         protected override bool WaitForMoverToFulfill => true;
         protected override bool WaitForAnimatorToFulfill => false;
 
-        public FollowingPathState(Creature creature) : base(creature) { }
+        public FollowingPathState(Creature creature, bool checkWhenAutomatingDisabled) : base(creature, checkWhenAutomatingDisabled) { }
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);

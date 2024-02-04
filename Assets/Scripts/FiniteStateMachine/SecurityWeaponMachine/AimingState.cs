@@ -6,7 +6,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.Aiming;
         public override bool CanBeActivated() => AutomatedObject.WeaponSensor.TargetToAimAt != null;
 
-        public AimingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
+        public AimingState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
 
         public override void Tick() {
             base.Tick();

@@ -9,7 +9,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         private float FireRate => 1f / AutomatedObject.ProjectilesPerSecond;
         private float lastTimeShot;
 
-        public ShootingState(SecurityWeapon<TEnemyType> securityWeapon) : base(securityWeapon) { }
+        public ShootingState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
 
 
         public override void Activate(bool isSecondaryState = false) {

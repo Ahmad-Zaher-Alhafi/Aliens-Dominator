@@ -13,6 +13,8 @@ using UnityEngine;
 namespace Creatures {
     public abstract class Creature : NetworkBehaviour, IDamager, IDamageable, IAutomatable {
         public bool IsDestroyed => IsDead;
+        public bool IsAutomatingEnabled { get; set; } = true;
+
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;

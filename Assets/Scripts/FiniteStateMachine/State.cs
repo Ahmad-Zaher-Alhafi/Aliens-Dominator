@@ -10,13 +10,20 @@ namespace FiniteStateMachine {
         public bool IsActiveAsSecondaryState => IsActive && isSecondaryState;
 
         protected readonly TAutomatable AutomatedObject;
+        public bool CheckWhenAutomatingDisabled { get; }
 
         private List<State<TAutomatable, TType>> statesSyncedWith = new();
         private List<State<TAutomatable, TType>> interruptStates = new();
         private bool isSecondaryState;
 
-        protected State(TAutomatable automatedObject) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="automatedObject"></param>
+        /// <param name="checkWhenAutomatingDisabled">Set to ture to be checked in the state machine even if the automation was disabled</param>
+        protected State(TAutomatable automatedObject, bool checkWhenAutomatingDisabled = false) {
             AutomatedObject = automatedObject;
+            CheckWhenAutomatingDisabled = checkWhenAutomatingDisabled;
         }
 
         public virtual void Activate(bool isSecondaryState = false) {

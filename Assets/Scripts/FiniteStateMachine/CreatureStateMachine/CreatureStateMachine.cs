@@ -17,17 +17,17 @@ namespace FiniteStateMachine.CreatureStateMachine {
         protected override void CreateStates() {
             foreach (CreatureStateMachineData.StateData stateData in StateMachineData.statesData) {
                 CreatureState state = stateData.originStateType switch {
-                    CreatureStateType.None => new NoneState(AutomatedObject),
-                    CreatureStateType.Idle => new IdleState(AutomatedObject),
-                    CreatureStateType.Patrolling => new PatrollingState(AutomatedObject),
-                    CreatureStateType.FollowingPath => new FollowingPathState(AutomatedObject),
-                    CreatureStateType.ChasingTarget => new ChasingTargetState(AutomatedObject),
-                    CreatureStateType.GettingHit => new GettingHitState(AutomatedObject),
-                    CreatureStateType.Attacking => new AttackingState(AutomatedObject),
-                    CreatureStateType.RunningAway => new RunningAwayState(AutomatedObject),
-                    CreatureStateType.Dead => new DeadState(AutomatedObject),
-                    CreatureStateType.SpecialAbility => new SpecialAbilityState(AutomatedObject),
-                    CreatureStateType.Spawning => new SpawningState(AutomatedObject),
+                    CreatureStateType.None => new NoneState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.Idle => new IdleState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.Patrolling => new PatrollingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.FollowingPath => new FollowingPathState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.ChasingTarget => new ChasingTargetState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.GettingHit => new GettingHitState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.Attacking => new AttackingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.RunningAway => new RunningAwayState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.Dead => new DeadState(AutomatedObject, true),
+                    CreatureStateType.SpecialAbility => new SpecialAbilityState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    CreatureStateType.Spawning => new SpawningState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     _ => throw new ArgumentOutOfRangeException()
                 };
 
