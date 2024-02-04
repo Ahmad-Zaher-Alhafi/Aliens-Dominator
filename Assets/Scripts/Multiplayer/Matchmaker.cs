@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+#if UNITY_EDITOR
 using ParrelSync;
+#endif
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
