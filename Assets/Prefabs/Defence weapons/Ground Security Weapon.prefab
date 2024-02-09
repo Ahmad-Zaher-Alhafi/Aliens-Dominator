@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55883c1450941d6b97cda7f6677ad18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesNumberOnStart: 300
+  projectilesNumberOnStart: 150
   capacity: 150
   bulletPrefab: {fileID: -162898778088909944, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
 --- !u!114 &5077425415438415300
@@ -1880,6 +1880,10 @@ PrefabInstance:
     - target: {fileID: 3121399397648503203, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
       propertyPath: m_Name
       value: Automation Comander
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259227856492062339, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
