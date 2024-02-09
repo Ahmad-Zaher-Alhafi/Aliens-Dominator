@@ -127,12 +127,16 @@ namespace Arrows {
         }
 
         private void OnCollisionEnter(Collision other) {
+            if (rig == null) return;
+
             if (rig.velocity.sqrMagnitude > minVelocityToBounce) {
                 arrowHitSound.Play();
             }
         }
 
         private void OnTriggerEnter(Collider other) {
+            if (rig == null) return;
+
             if (rig.velocity.sqrMagnitude > minVelocityToBounce) return;
 
             triggerCollider.enabled = false;
