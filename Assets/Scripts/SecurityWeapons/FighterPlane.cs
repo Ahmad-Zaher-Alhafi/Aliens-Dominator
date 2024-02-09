@@ -17,7 +17,17 @@ namespace SecurityWeapons {
         public FighterPlaneStateType CurrentStateType => fighterPlaneStateMachine.PrimaryState.Type;
         public bool HasToTakeOff { get; set; }
         public bool HasToGoBackToBase { get; set; }
-        public bool HasLanded { get; set; }
+        public bool HasLanded {
+            get => hasLanded;
+            set {
+                hasLanded = value;
+                if (hasLanded) {
+                    StopSmokeParticlesClientRPC();
+                    PlayLandSoundClientRPC();
+                }
+            }
+        }
+        private bool hasLanded;
         public override bool IsAutomatingEnabled {
             get => isAutomatingEnabled;
             set {
@@ -182,27 +192,38 @@ namespace SecurityWeapons {
             if (IsDestroyed) return;
             HasToTakeOff = true;
 
-            PlayTakeOffSound();
-            foreach (var particles in smokeParticles) {
-                particles.Play();
-            }
+            PlayTakeOffSoundClientRPC();
+            PlaySmokeParticlesClientRPC();
         }
 
         public void GetBackToBase() {
             if (IsDestroyed) return;
             HasToGoBackToBase = true;
+        }
 
-            PlayLandSound();
+        [ClientRpc]
+        private void PlaySmokeParticlesClientRPC() {
+            foreach (var particles in smokeParticles) {
+                particles.Play();
+            }
+        }
+
+        [ClientRpc]
+        private void StopSmokeParticlesClientRPC() {
             foreach (var particles in smokeParticles) {
                 particles.Stop();
             }
         }
 
-        private void PlayTakeOffSound() {
+        [ClientRpc]
+        private void PlayTakeOffSoundClientRPC() {
+            landSound.Stop();
             takeOffSound.Play();
         }
 
-        private void PlayLandSound() {
+        [ClientRpc]
+        private void PlayLandSoundClientRPC() {
+            takeOffSound.Stop();
             landSound.Play();
         }
 
