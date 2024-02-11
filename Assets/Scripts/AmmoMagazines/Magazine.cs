@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Projectiles;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace AmmoMagazines {
     public abstract class Magazine : NetworkBehaviour {
-        public abstract Type AmmoType { get; }
+        public enum AmmoType {
+            Bullet,
+            Rocket
+        }
+       
+        public abstract AmmoType TypeOfAmmo { get; }
         public bool IsEmpty => CurrentProjectilesNumber == 0;
 
         [SerializeField] protected int projectilesNumberOnStart;

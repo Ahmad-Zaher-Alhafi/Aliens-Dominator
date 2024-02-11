@@ -31310,7 +31310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7935034431726217735, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7935034431726217735, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67824,8 +67824,8 @@ Transform:
   - {fileID: 1887790935}
   - {fileID: 8935018061276611301}
   - {fileID: 1108429009}
-  - {fileID: 8358773067222363054}
   - {fileID: 959728218}
+  - {fileID: 8358773067222363054}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102845,6 +102845,14 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3025486167
       objectReference: {fileID: 0}
+    - target: {fileID: 1011293635, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011293635, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: OverrideMinDistance
+      value: 0.90000004
+      objectReference: {fileID: 0}
     - target: {fileID: 1536504170, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: projectilesNumberOnStart
       value: 40
@@ -102852,6 +102860,10 @@ PrefabInstance:
     - target: {fileID: 303041840148798580, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1386195261
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: useBursts
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: landingPoint
@@ -102915,7 +102927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6771601484532986675, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6771601484532986675, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: m_LocalPosition.x

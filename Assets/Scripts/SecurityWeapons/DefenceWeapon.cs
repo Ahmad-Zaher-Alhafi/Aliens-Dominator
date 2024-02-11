@@ -1,3 +1,5 @@
+using AmmoMagazines;
+using Context;
 using FiniteStateMachine;
 using Unity.Netcode;
 using UnityEngine;
@@ -21,6 +23,14 @@ namespace SecurityWeapons {
 
         protected virtual void Awake() {
             automationCommander.Init(this);
+            Ctx.Deps.EventsManager.AmmoSuppliesCollected += OnAmmoSuppliesCollected;
+        }
+
+        protected abstract void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber);
+        
+        public override void OnDestroy() {
+            base.OnDestroy();
+            Ctx.Deps.EventsManager.AmmoSuppliesCollected -= OnAmmoSuppliesCollected;
         }
     }
 }

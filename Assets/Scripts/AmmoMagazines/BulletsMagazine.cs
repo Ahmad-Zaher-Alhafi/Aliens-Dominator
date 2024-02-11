@@ -1,12 +1,11 @@
-﻿using System;
-using Multiplayer;
+﻿using Multiplayer;
 using Projectiles;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace AmmoMagazines {
     public class BulletsMagazine : Magazine {
-        public override Type AmmoType => typeof(Bullet);
+        public override AmmoType TypeOfAmmo => AmmoType.Bullet;
 
         [SerializeField] protected Bullet bulletPrefab;
 

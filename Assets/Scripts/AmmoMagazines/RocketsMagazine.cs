@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Multiplayer;
 using Projectiles;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace AmmoMagazines {
     public class RocketsMagazine : Magazine {
-        public override Type AmmoType => typeof(Rocket);
+        public override AmmoType TypeOfAmmo => AmmoType.Rocket;
 
         [SerializeField] private List<RocketReloadPoint> rocketsCreatePoints;
         [SerializeField] protected Rocket rocketPrefab;
@@ -40,7 +39,7 @@ namespace AmmoMagazines {
 
                 rocketsReloadPoint.IsUed = false;
 
-                Rocket rocket = NetworkObjectPool.Singleton.GetNetworkObject(rocketPrefab.gameObject, default, Quaternion.identity).GetComponent<Rocket>();
+                Rocket rocket = NetworkObjectPool.Singleton.GetNetworkObject(rocketPrefab.gameObject, rocketsReloadPoint.transform.position, Quaternion.identity).GetComponent<Rocket>();
                 rocket.GetComponent<NetworkObject>().Spawn();
                 rocket.transform.SetParent(transform);
                 rocket.InitDefaults(rocketsReloadPoint.transform.position);

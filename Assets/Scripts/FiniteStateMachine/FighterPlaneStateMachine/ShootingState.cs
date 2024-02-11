@@ -1,4 +1,4 @@
-﻿using Projectiles;
+﻿using AmmoMagazines;
 using SecurityWeapons;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
             lastTimeShot = Time.time;
-            AutomatedObject.Shoot(AutomatedObject.HasToUseRockets ? typeof(Rocket) : typeof(Bullet), AutomatedObject.WeaponSensor.TargetToAimAt);
+            AutomatedObject.Shoot(AutomatedObject.HasToUseRockets ? Magazine.AmmoType.Rocket : Magazine.AmmoType.Bullet, AutomatedObject.WeaponSensor.TargetToAimAt);
             Fulfil();
         }
     }

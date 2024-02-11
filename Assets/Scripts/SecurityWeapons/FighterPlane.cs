@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -148,6 +147,9 @@ namespace SecurityWeapons {
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
             InitialRotation = transform.rotation;
         }
+        protected override void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
+            Reload(ammoType, ammoNumber);
+        }
 
         private void Update() {
             if (IsSpawned) {
@@ -165,8 +167,8 @@ namespace SecurityWeapons {
 #endif
         }
 
-        public void Shoot(Type ammoType, IDamageable target) {
-            Projectile projectile = magazines.Single(magazine => magazine.AmmoType == ammoType).GetProjectile();
+        public void Shoot(Magazine.AmmoType ammoType, IDamageable target) {
+            Projectile projectile = magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).GetProjectile();
             if (projectile == null) {
                 Debug.Log($"Fighter plane has ran away of {ammoType}s");
                 return;
@@ -174,17 +176,17 @@ namespace SecurityWeapons {
 
             projectile.Fire(target, hasToUseRockets ? null : bulletCreatePoint);
 
-            if (ammoType == typeof(Rocket) && useBursts) {
+            if (ammoType == Magazine.AmmoType.Rocket && useBursts) {
                 numOfRocketsShotInBurst++;
             }
 
-            if (ammoType == typeof(Bullet)) {
+            if (ammoType == Magazine.AmmoType.Bullet) {
                 bulletSound.Play();
             }
         }
 
-        private void Reload(Type ammoType, int ammoNumberToAdd) {
-            magazines.Single(magazine => magazine.AmmoType == ammoType).Refill(ammoNumberToAdd);
+        private void Reload(Magazine.AmmoType ammoType, int ammoNumberToAdd) {
+            magazines.FirstOrDefault(magazine => magazine.TypeOfAmmo == ammoType)?.Refill(ammoNumberToAdd);
         }
 
         public void TakeOff() {

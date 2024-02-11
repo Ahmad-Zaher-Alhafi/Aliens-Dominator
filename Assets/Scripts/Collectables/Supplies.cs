@@ -23,16 +23,21 @@ namespace Collectables {
         private void OnTriggerEnter(Collider other) {
             if (!other.gameObject.CompareTag("Arrow")) return;
 
-            OnCollected(suppliesType);
-
             if (IsServer) {
+                OnCollected(suppliesType);
                 Despawn();
             } else {
+                CollectServerRPC(suppliesType);
                 DespawnServerRPC();
             }
         }
 
         protected abstract void OnCollected(Constants.SuppliesTypes suppliesType);
+
+        [ServerRpc(RequireOwnership = false)]
+        private void CollectServerRPC(Constants.SuppliesTypes suppliesTypes) {
+            OnCollected(suppliesType);
+        }
 
         private void Despawn() {
             gameObject.SetActive(false);
@@ -41,7 +46,7 @@ namespace Collectables {
 
         [ServerRpc(RequireOwnership = false)]
         private void DespawnServerRPC() {
-            Destroy(gameObject);
+            Despawn();
         }
     }
 }

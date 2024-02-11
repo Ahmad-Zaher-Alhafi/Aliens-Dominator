@@ -26,6 +26,7 @@ namespace Projectiles {
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
+        private readonly NetworkVariable<Vector3> networkScale = new();
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -46,9 +47,13 @@ namespace Projectiles {
                 if (IsServer) {
                     networkPosition.Value = transform.position;
                     networkRotation.Value = transform.rotation;
+                    networkScale.Value = transform.localScale;
                 } else {
-                    transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
-                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                    if (networkPosition.Value != Vector3.zero) {
+                        transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                        transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                        transform.localScale = networkScale.Value;
+                    }
                 }
             }
         }

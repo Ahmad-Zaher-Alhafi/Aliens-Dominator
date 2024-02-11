@@ -38,9 +38,9 @@ namespace SecurityWeapons {
             }
         }
         private bool isAutomatingEnabled = true;
-        
 
-        protected Magazine Magazine;
+
+        private Magazine magazine;
         private SecurityWeaponStateMachine<TEnemyType> securityWeaponStateMachine;
 
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -51,13 +51,13 @@ namespace SecurityWeapons {
             if (IsServer) return;
 
             Destroy(securityWeaponStateMachine);
-            Destroy(Magazine);
+            Destroy(magazine);
         }
 
         protected override void Awake() {
             base.Awake();
             InitialEulerAngels = transform.eulerAngles;
-            Magazine = GetComponent<Magazine>();
+            magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
         }
@@ -77,7 +77,7 @@ namespace SecurityWeapons {
         }
 
         public virtual Projectile Shoot(IDamageable target) {
-            Projectile projectile = Magazine.GetProjectile();
+            Projectile projectile = magazine.GetProjectile();
             if (projectile == null) {
                 Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
                 return null;
@@ -87,7 +87,13 @@ namespace SecurityWeapons {
         }
 
         private void Reload(int ammoNumberToAdd) {
-            Magazine.Refill(ammoNumberToAdd);
+            magazine.Refill(ammoNumberToAdd);
+        }
+
+        protected override void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
+            if (magazine.TypeOfAmmo == ammoType) {
+                Reload(ammoNumber);
+            }
         }
 
 
@@ -95,7 +101,7 @@ namespace SecurityWeapons {
         [Header("Editor stuff")]
         [SerializeField, HideInInspector] private bool useInfiniteAmmo;
         private void EditorUpdate() {
-            if (IsServer && useInfiniteAmmo && Magazine.IsEmpty) {
+            if (IsServer && useInfiniteAmmo && magazine.IsEmpty) {
                 Reload(16);
             }
         }

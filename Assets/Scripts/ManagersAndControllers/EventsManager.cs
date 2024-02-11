@@ -1,4 +1,5 @@
 using System;
+using AmmoMagazines;
 using Creatures;
 using ScriptableObjects;
 using UnityEngine;
@@ -40,8 +41,8 @@ namespace ManagersAndControllers {
             SupplyBalloonCollected?.Invoke(suppliesType);
         }
 
-        public event Action<Constants.SuppliesTypes, int> AmmoSuppliesCollected;
-        public void TriggerAmmoSuppliesCollected(Constants.SuppliesTypes ammoType, int ammoNumber) {
+        public event Action<Magazine.AmmoType, int> AmmoSuppliesCollected;
+        public void TriggerAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
             AmmoSuppliesCollected?.Invoke(ammoType, ammoNumber);
         }
 

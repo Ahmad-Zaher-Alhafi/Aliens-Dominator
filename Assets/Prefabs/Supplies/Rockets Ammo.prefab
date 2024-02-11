@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suppliesType: 1
   numOfAmmoInThePack: 10
+  ammoType: 1
 --- !u!114 &6668838702830731158
 MonoBehaviour:
   m_ObjectHideFlags: 0
