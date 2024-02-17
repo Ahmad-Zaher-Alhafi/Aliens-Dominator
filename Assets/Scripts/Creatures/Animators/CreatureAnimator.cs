@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
 
 namespace Creatures.Animators {
-    public abstract class CreatureAnimator : MonoBehaviour {
+    public abstract class CreatureAnimator : NetworkBehaviour {
         [SerializeField] protected List<AnimationClip> PhysicalAttackAnimationClips;
         [FormerlySerializedAs("IdleAnimationClips")]
         [SerializeField] protected AnimationClip IdleAnimationClip;
@@ -29,10 +30,16 @@ namespace Creatures.Animators {
         }
 
         public void Init() {
+            InitClientRPC();
+        }
+
+        [ClientRpc]
+        private void InitClientRPC() {
             animator.enabled = true;
         }
 
         protected virtual void Update() {
+            if (!IsServer) return;
             animator.speed = Mathf.Clamp(Creature.CurrentSpeed / Creature.PatrolSpeed, 1, 1.5f);
             InterpolateFloatParameter(currentSpeedParameter, Creature.CurrentSpeed, ANIMATION_SWITCH_TIME);
         }
@@ -110,6 +117,11 @@ namespace Creatures.Animators {
         }
 
         public void OnDeath() {
+            OnDeathClientRPC();
+        }
+        
+        [ClientRpc]
+        private void OnDeathClientRPC() {
             animator.enabled = false;
         }
     }

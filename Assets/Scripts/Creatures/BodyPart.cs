@@ -61,6 +61,8 @@ namespace Creatures {
         }
 
         private void Update() {
+            if (!creature.IsDead) return;
+
             if (IsServer) {
                 networkPosition.Value = transform.position;
                 networkRotation.Value = transform.rotation;

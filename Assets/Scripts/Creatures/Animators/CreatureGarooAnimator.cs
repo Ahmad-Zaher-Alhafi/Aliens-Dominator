@@ -13,6 +13,7 @@ namespace Creatures.Animators {
         private int idleAnimationIndex;
 
         protected override void Update() {
+            if (!IsServer) return;
             base.Update();
             if (Creature.IsStateActive<IdleState>()) {
                 InterpolateFloatParameter(idleIndexParameter, idleAnimationIndex, ANIMATION_SWITCH_TIME);

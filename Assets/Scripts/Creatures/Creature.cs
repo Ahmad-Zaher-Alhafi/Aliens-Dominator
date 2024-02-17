@@ -87,7 +87,7 @@ namespace Creatures {
         public bool IsPoisoned { get; private set; }
         public bool TargetReached { get; set; }
 
-        public bool IsDead => IsStateActive<DeadState>();
+        public bool IsDead => IsServer ? IsStateActive<DeadState>() : isDeadOnServer;
         public bool IsIdle => IsStateActive<IdleState>();
         public bool IsAttacking => IsStateActive<AttackingState>();
         public bool IsFollowingPath => IsStateActive<FollowingPathState>();
@@ -114,6 +114,7 @@ namespace Creatures {
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
+        private bool isDeadOnServer;
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -137,7 +138,6 @@ namespace Creatures {
             Destroy(creatureStateMachine);
             Destroy(Rig);
             Destroy(Mover);
-            Destroy(Animator);
         }
 
         public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
@@ -158,9 +158,8 @@ namespace Creatures {
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
             PathToFollow = pathToFollow;
 
-            Animator.Init();
             Mover.Init(pathToFollow);
-
+            Animator.Init();
             gameObject.SetActive(true);
 
             foreach (BodyPart bodyPart in BodyParts) {
@@ -241,6 +240,13 @@ namespace Creatures {
 
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, ChanceOfDroppingBalloon);
             Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed(SecondsToDestroyDeadBody));
+            
+            OnDeathClientRPC();
+        }
+
+        [ClientRpc]
+        private void OnDeathClientRPC() {
+            isDeadOnServer = true;
         }
 
         private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
