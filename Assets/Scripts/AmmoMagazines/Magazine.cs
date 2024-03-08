@@ -32,7 +32,7 @@ namespace AmmoMagazines {
             Refill(projectilesNumberOnStart);
         }
 
-        public abstract Projectile GetProjectile();
+        public abstract Projectile GetProjectile(Transform spawnPoint = null);
 
         public abstract void Refill(int projectilesNumberToAdd);
     }

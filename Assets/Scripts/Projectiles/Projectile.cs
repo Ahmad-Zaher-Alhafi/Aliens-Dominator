@@ -58,10 +58,9 @@ namespace Projectiles {
             }
         }
 
-        public virtual void InitDefaults(Vector3 initialPosition) {
+        public virtual void InitDefaults() {
             transform.localScale = Vector3.one;
-            transform.localEulerAngles = Vector3.zero;
-            transform.position = initialPosition;
+
             if (Rig != null) {
                 Rig.velocity = Vector3.zero;
             }
@@ -70,17 +69,6 @@ namespace Projectiles {
 
         public virtual void Fire(IDamageable target) {
             DestroyAfterTime(15);
-        }
-
-        /// <param name="createPoint">Use it if the projectile has to be created in a specific place like bullet,
-        /// On the other hand, Rockets do not need it as they have their own create points</param>
-        public void Fire(IDamageable target, Transform createPoint) {
-            if (createPoint != null) {
-                transform.position = createPoint.position;
-                transform.rotation = createPoint.rotation;
-            }
-
-            Fire(target);
         }
 
         protected virtual void OnTriggerEnter(Collider other) {

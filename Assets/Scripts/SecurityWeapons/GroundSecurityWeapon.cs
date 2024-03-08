@@ -11,11 +11,11 @@ namespace SecurityWeapons {
         [Header("Audio files")]
         [SerializeField] private StudioEventEmitter bulletSound;
 
-        public override Projectile Shoot(IDamageable target) {
-            Projectile projectile = base.Shoot(target);
+        public override Projectile Shoot(IDamageable target, Transform spawnPoint = null) {
+            Projectile projectile = base.Shoot(target, projectileCreatePoint);
             if (projectile == null) return null;
 
-            projectile.Fire(target, projectileCreatePoint);
+            projectile.Fire(target);
             bulletSound.Play();
             return projectile;
         }

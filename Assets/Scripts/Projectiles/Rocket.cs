@@ -23,8 +23,8 @@ namespace Projectiles {
             meshRenderer = GetComponent<MeshRenderer>();
         }
 
-        public override void InitDefaults(Vector3 initialPosition) {
-            base.InitDefaults(initialPosition);
+        public override void InitDefaults() {
+            base.InitDefaults();
             meshRenderer.enabled = true;
             wasLaunched = false;
             Collider.enabled = false;

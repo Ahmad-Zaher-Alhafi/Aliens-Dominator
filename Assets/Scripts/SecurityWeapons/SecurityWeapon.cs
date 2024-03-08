@@ -76,8 +76,8 @@ namespace SecurityWeapons {
 #endif
         }
 
-        public virtual Projectile Shoot(IDamageable target) {
-            Projectile projectile = magazine.GetProjectile();
+        public virtual Projectile Shoot(IDamageable target, Transform spawnPoint = null) {
+            Projectile projectile = magazine.GetProjectile(spawnPoint);
             if (projectile == null) {
                 Debug.Log($"Weapon {gameObject.name} ran out of ammo!", gameObject);
                 return null;

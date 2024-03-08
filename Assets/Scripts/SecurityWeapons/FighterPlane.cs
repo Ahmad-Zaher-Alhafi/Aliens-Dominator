@@ -168,13 +168,13 @@ namespace SecurityWeapons {
         }
 
         public void Shoot(Magazine.AmmoType ammoType, IDamageable target) {
-            Projectile projectile = magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).GetProjectile();
+            Projectile projectile = magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).GetProjectile(hasToUseRockets ? null : bulletCreatePoint);
             if (projectile == null) {
                 Debug.Log($"Fighter plane has ran away of {ammoType}s");
                 return;
             }
 
-            projectile.Fire(target, hasToUseRockets ? null : bulletCreatePoint);
+            projectile.Fire(target);
 
             if (ammoType == Magazine.AmmoType.Rocket && useBursts) {
                 numOfRocketsShotInBurst++;

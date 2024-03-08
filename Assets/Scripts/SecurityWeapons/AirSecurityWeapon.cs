@@ -38,8 +38,8 @@ namespace SecurityWeapons {
             }
         }
 
-        public override Projectile Shoot(IDamageable target) {
-            Projectile projectile = base.Shoot(target);
+        public override Projectile Shoot(IDamageable target, Transform spawnPoint = null) {
+            Projectile projectile = base.Shoot(target, spawnPoint);
             if (projectile == null) return null;
 
             projectile.Fire(target);

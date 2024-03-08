@@ -9,12 +9,12 @@ namespace AmmoMagazines {
 
         [SerializeField] protected Bullet bulletPrefab;
 
-        public override Projectile GetProjectile() {
+        public override Projectile GetProjectile(Transform spawnPoint = null) {
             if (CurrentProjectilesNumber == 0) return null;
 
-            Bullet bullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab.gameObject, default, Quaternion.identity).GetComponent<Bullet>();
+            Bullet bullet = NetworkObjectPool.Singleton.GetNetworkObject(bulletPrefab.gameObject, spawnPoint.position, spawnPoint.rotation).GetComponent<Bullet>();
             bullet.GetComponent<NetworkObject>().Spawn();
-            bullet.InitDefaults(default);
+            bullet.InitDefaults();
             CurrentProjectilesNumber--;
             return bullet;
         }

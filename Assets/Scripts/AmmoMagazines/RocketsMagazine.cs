@@ -21,7 +21,7 @@ namespace AmmoMagazines {
             }
         }
 
-        public override Projectile GetProjectile() {
+        public override Projectile GetProjectile(Transform spawnPoint = null) {
             KeyValuePair<RocketReloadPoint, Rocket> rocket = rockets.FirstOrDefault(pair => !pair.Key.IsUed);
             if (rocket.Value == null) return null;
             rocket.Key.IsUed = true;
@@ -39,10 +39,10 @@ namespace AmmoMagazines {
 
                 rocketsReloadPoint.IsUed = false;
 
-                Rocket rocket = NetworkObjectPool.Singleton.GetNetworkObject(rocketPrefab.gameObject, rocketsReloadPoint.transform.position, Quaternion.identity).GetComponent<Rocket>();
+                Rocket rocket = NetworkObjectPool.Singleton.GetNetworkObject(rocketPrefab.gameObject, rocketsReloadPoint.transform.position, rocketsReloadPoint.transform.rotation).GetComponent<Rocket>();
                 rocket.GetComponent<NetworkObject>().Spawn();
                 rocket.transform.SetParent(transform);
-                rocket.InitDefaults(rocketsReloadPoint.transform.position);
+                rocket.InitDefaults();
                 rockets[rocketsReloadPoint] = rocket;
             }
         }
