@@ -75,6 +75,8 @@ namespace Creatures {
         }
 
         private void OnTriggerEnter(Collider other) {
+            if (!IsServer) return;
+            if (creature.IsDead) return;
             IDamager damager = other.gameObject.GetComponent<IDamager>();
             if (damager == null) return;
             TakeDamage(damager, damageWeight);
