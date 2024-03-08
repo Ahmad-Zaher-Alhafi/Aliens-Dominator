@@ -137,6 +137,12 @@ namespace Arrows {
         private void OnTriggerEnter(Collider other) {
             if (rig == null) return;
 
+            // We do not want the arrow to hit anything else if it hit the teleport object
+            if (other.CompareTag(Constants.TeleportObject)) {
+                DestroyInstantly();
+                return;
+            }
+
             if (rig.velocity.sqrMagnitude > minVelocityToBounce) return;
 
             triggerCollider.enabled = false;
@@ -172,7 +178,10 @@ namespace Arrows {
 
         private IEnumerator DestroyAfterSeconds(float timeToDestroyArrow) {
             yield return new WaitForSeconds(timeToDestroyArrow);
+            DestroyInstantly();
+        }
 
+        private void DestroyInstantly() {
             if (IsServer) {
                 Despawn();
             } else {

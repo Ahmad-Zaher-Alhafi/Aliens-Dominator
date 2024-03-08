@@ -32,6 +32,7 @@ TagManager:
   - ArrowBallon
   - CreatureStateMachine
   - TestCreature
+  - Teleport Object
   layers:
   - Default
   - TransparentFX

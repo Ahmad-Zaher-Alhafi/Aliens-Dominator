@@ -52,6 +52,7 @@ public static class Constants {
     public const string PlayerLookAtPoint = "PlayerLookAtPoint"; //tag of the point where the air creatures are gonna lookat the player
     public const string PlayerShootAtPoint = "PlayerShootAtPoint"; //tag of the point where the creatures who has guns shoot at
     public const string OnStartWaves = "OnStartWaves"; //tag of the cinimatec creatures(start creatures)
+    public const string TeleportObject = "Teleport Object";
     public const string SecurityWeapon = "SecurityWeapon"; //tag of the Security Weapon
     public const string SecuritySensor = "SecuritySensor"; //tag of the Security Sensor of the Security weapon
     public const string Arrow = "Arrow"; //tag of the Arrow
