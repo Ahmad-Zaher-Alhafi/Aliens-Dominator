@@ -66,6 +66,8 @@ namespace Player {
                 LookUpdate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), rotation);
 
                 if (Input.GetButtonDown("Fire1") && arrow == null) {
+                    drawSound.Play();
+
                     if (IsServer) {
                         SpawnArrow(OwnerClientId);
                     } else {
