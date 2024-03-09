@@ -229,7 +229,6 @@ namespace Creatures {
         }
 
         public virtual void OnDeath() {
-            deathSound.Play();
             Mover.OnDeath();
             Animator.OnDeath();
             Rig.isKinematic = true;
@@ -246,6 +245,7 @@ namespace Creatures {
 
         [ClientRpc]
         private void OnDeathClientRPC() {
+            deathSound.Play();
             isDeadOnServer = true;
         }
 
