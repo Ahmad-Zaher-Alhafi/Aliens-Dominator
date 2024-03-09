@@ -38,10 +38,15 @@ public class SupplyPlane : NetworkBehaviour {
     /// To let the plane move to the area where to drop the supplies
     /// </summary>
     public void MoveToDropArea(Constants.SuppliesTypes suppliesType) {
-        airplaneSound.Play();
+        PlayAirplaneSoundClientRPC();
         CreateLaunchSmokeParticleClientRPC();
         StartCoroutine(DropSupplies(suppliesType));
         StartCoroutine(DestroyDelayed());
+    }
+
+    [ClientRpc]
+    private void PlayAirplaneSoundClientRPC() {
+        airplaneSound.Play();
     }
 
     /// <summary>
