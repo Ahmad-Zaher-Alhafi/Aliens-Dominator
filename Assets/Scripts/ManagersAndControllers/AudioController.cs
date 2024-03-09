@@ -2,12 +2,11 @@ using System.Collections;
 using Context;
 using FMODUnity;
 using ScriptableObjects;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ManagersAndControllers {
-    public class AudioController : MonoBehaviour {
-        private static AudioController instance;
-
+    public class AudioController : NetworkBehaviour {
         [SerializeField] private StudioEventEmitter screamSound;
         [SerializeField] private StudioEventEmitter warningSound;
         [SerializeField] private StudioEventEmitter mainMusic;
@@ -18,15 +17,13 @@ namespace ManagersAndControllers {
         private void Awake() {
             PlayBackgroundMusic();
             wasScreamSoundPlayed = false;
-            Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
-        }
-
-        private void OnEnable() {
-            if (instance == null) instance = this;
+            if (IsServer) {
+                Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
+            }
         }
 
         private void OnWaveStarted(Wave wave) {
-            PlayScreamSound();
+            PlayScreamSoundClientRPC();
         }
 
         private void PlayMainMusic() {
@@ -38,7 +35,8 @@ namespace ManagersAndControllers {
             bgMusic.Play();
         }
 
-        private void PlayScreamSound() {
+        [ClientRpc]
+        private void PlayScreamSoundClientRPC() {
             if (!wasScreamSoundPlayed) {
                 wasScreamSoundPlayed = true;
                 screamSound.Play();
@@ -54,8 +52,11 @@ namespace ManagersAndControllers {
             warningSound.Stop();
         }
 
-        private void OnDestroy() {
-            Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
+        public override void OnDestroy() {
+            base.OnDestroy();
+            if (IsServer) {
+                Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
+            }
         }
     }
 }
