@@ -127,15 +127,15 @@ namespace Arrows {
         }
 
         private void OnCollisionEnter(Collision other) {
-            if (rig == null) return;
+            if (!IsOwner) return;
 
             if (rig.velocity.sqrMagnitude > minVelocityToBounce) {
-                arrowHitSound.Play();
+                PlayArrowHitSound();
             }
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (rig == null) return;
+            if (!IsOwner) return;
 
             // We do not want the arrow to hit anything else if it hit the teleport object
             if (other.CompareTag(Constants.TeleportObject)) {
@@ -147,14 +147,12 @@ namespace Arrows {
 
             triggerCollider.enabled = false;
 
-            if (rig != null) {
-                rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
-                rig.isKinematic = true;
-                rig.useGravity = false;
-            }
+            rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rig.isKinematic = true;
+            rig.useGravity = false;
 
             trailRenderer.enabled = false;
-            arrowHitSound.Play();
+            PlayArrowHitSound();
 
             StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterHit));
         }
@@ -174,6 +172,24 @@ namespace Arrows {
             rig.detectCollisions = true;
 
             StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterFire));
+        }
+
+        private void PlayArrowHitSound() {
+            if (IsServer) {
+                PlayArrowHitSoundClientRPC();
+            } else {
+                PlayArrowHitSoundServerRPC();
+            }
+        }
+
+        [ClientRpc]
+        private void PlayArrowHitSoundClientRPC() {
+            arrowHitSound.Play();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayArrowHitSoundServerRPC() {
+            PlayArrowHitSoundClientRPC();
         }
 
         private IEnumerator DestroyAfterSeconds(float timeToDestroyArrow) {
