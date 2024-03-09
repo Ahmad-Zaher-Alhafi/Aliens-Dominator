@@ -1,6 +1,7 @@
 using Creatures;
 using FMODUnity;
 using Projectiles;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,8 +17,13 @@ namespace SecurityWeapons {
             if (projectile == null) return null;
 
             projectile.Fire(target);
-            bulletSound.Play();
+            PlayBulletSoundClientRPC();
             return projectile;
+        }
+
+        [ClientRpc]
+        private void PlayBulletSoundClientRPC() {
+            bulletSound.Play();
         }
 
 

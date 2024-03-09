@@ -181,8 +181,13 @@ namespace SecurityWeapons {
             }
 
             if (ammoType == Magazine.AmmoType.Bullet) {
-                bulletSound.Play();
+                PlayBulletSoundClientRPC();
             }
+        }
+        
+        [ClientRpc]
+        private void PlayBulletSoundClientRPC() {
+            bulletSound.Play();
         }
 
         private void Reload(Magazine.AmmoType ammoType, int ammoNumberToAdd) {
