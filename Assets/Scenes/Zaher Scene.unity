@@ -78332,10 +78332,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1172071717}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: testTargetPoint
-      value: 
-      objectReference: {fileID: 3352673462743144901}
-    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
       value: 
       objectReference: {fileID: 820683728}

@@ -27,7 +27,7 @@ namespace UI {
 
             // Create the rest
             for (int i = 0; i < availableLobbies.Count - counter; i++) {
-                Ctx.Deps.PlaceablesController.Place(new LobbyItemPlaceable(availableLobbies[i]), lobbiesHolder);
+                Ctx.Deps.PlaceablesController.Place<MonoPlaceableObject>(new LobbyItemPlaceable(availableLobbies[i]), lobbiesHolder);
             }
 
             enumerator.Dispose();

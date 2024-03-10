@@ -39,7 +39,11 @@ namespace Placeables {
         }
 
         public void Destroy() {
-            Object.Destroy(GameObject);
+            if (GameObject.TryGetComponent(out NetworkPlaceableObject networkPlaceableObject)) {
+                networkPlaceableObject.NetworkObject.Despawn();
+            } else {
+                Object.Destroy(GameObject);
+            }
             GameObject = null;
             Ctx.Deps.PlaceablesController.PlaceableDestroyed(this);
         }

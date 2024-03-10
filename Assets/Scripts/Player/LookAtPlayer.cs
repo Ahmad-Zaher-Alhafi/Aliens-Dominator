@@ -12,7 +12,7 @@ namespace Player {
             if (player == null) return;
 
             transform.LookAt(player.transform);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
         }
     }
 }

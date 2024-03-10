@@ -4,7 +4,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 namespace UI {
-    public class LobbyItemView : PlaceableObject {
+    public class LobbyItemView : MonoPlaceableObject {
         [SerializeField] private TextMeshProUGUI lobbyNameText;
         [SerializeField] private TextMeshProUGUI playersNumberText;
         [SerializeField] private TextMeshProUGUI lobbyCapacityText;
