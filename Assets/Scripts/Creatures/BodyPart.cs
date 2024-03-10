@@ -14,6 +14,7 @@ namespace Creatures {
 
         public GameObject GameObject => gameObject;
         public bool IsDestroyed => creature.IsDead;
+        public int Health => creature.Health;
 
         [Range(1f, 5f)]
         [SerializeField] private int damageWeight = 1;

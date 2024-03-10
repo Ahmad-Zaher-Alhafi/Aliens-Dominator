@@ -3,8 +3,8 @@
 namespace Base {
     public class BaseGate : MonoBehaviour, IDamageable {
         [SerializeField] private int health;
+        public int Health => health;
         public GameObject GameObject => gameObject;
-
         public bool IsDestroyed => health <= 0;
 
         public void TakeDamage(IDamager damager, int damageWeight) {

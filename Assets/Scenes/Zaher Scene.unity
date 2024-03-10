@@ -42998,15 +42998,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710382786043701518, guid: 7e541cf991b0f6c4390876b212bcd897, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -86.87166
+      value: 158.08
       objectReference: {fileID: 0}
     - target: {fileID: 1710382786043701518, guid: 7e541cf991b0f6c4390876b212bcd897, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.86287
+      value: 4.3409595
       objectReference: {fileID: 0}
     - target: {fileID: 1710382786043701518, guid: 7e541cf991b0f6c4390876b212bcd897, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 234.17184
+      value: 181.59
       objectReference: {fileID: 0}
     - target: {fileID: 1710382786043701518, guid: 7e541cf991b0f6c4390876b212bcd897, type: 3}
       propertyPath: m_LocalRotation.w
@@ -78260,26 +78260,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1749711547}
     - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: waves.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e4f807ad3362e1428d93cd83e615243, type: 2}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: waves.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: e4cbe1df0f4008a4c9007fb1ba0c8b5c, type: 2}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: waves.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ed18d58240908b4ab89dd75e41e6a7c, type: 2}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: waves.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: waves.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 820683729}
@@ -78352,9 +78332,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1172071717}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: spawnCinematicCreatures
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: testTargetPoint
+      value: 
+      objectReference: {fileID: 3352673462743144901}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
       value: 

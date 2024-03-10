@@ -14,6 +14,18 @@ namespace ManagersAndControllers {
             placeableObject.GetComponent<PlaceableObject>().SetPlaceable(placeable);
         }
 
+        public async void Place(AddressablePlaceable placeable, Transform parent, Transform createRectPoint) {
+            placeables.Add(placeable);
+            GameObject placeableObject = await placeable.GetGameObjectAsync(parent);
+
+            if (createRectPoint != null) {
+                placeableObject.transform.position = createRectPoint.position;
+                placeableObject.transform.rotation = transform.rotation;
+            }
+
+            placeableObject.GetComponent<PlaceableObject>().SetPlaceable(placeable);
+        }
+
         public void PlaceableDestroyed(AddressablePlaceable placeable) {
             placeables.Remove(placeable);
         }

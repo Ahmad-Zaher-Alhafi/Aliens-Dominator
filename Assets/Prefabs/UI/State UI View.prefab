@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8799093377970892206
 RectTransform:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 3728144925096594719}
   - component: {fileID: 3728144925096594716}
   m_Layer: 5
-  m_Name: WeaponHealthbar
+  m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,8 +435,9 @@ GameObject:
   - component: {fileID: 3728144926634794969}
   - component: {fileID: 3728144926634794982}
   - component: {fileID: 3728144926634794983}
+  - component: {fileID: 5336704955361577455}
   m_Layer: 9
-  m_Name: Creature State Canves
+  m_Name: State UI View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -525,3 +526,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5336704955361577455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728144926634794980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e732c7067d648909e20bee199390570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 3728144925096594716}

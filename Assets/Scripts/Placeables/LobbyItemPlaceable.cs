@@ -1,8 +1,7 @@
 ﻿using Context;
-using Placeables;
 using Unity.Services.Lobbies.Models;
 
-namespace UI {
+namespace Placeables {
     public class LobbyItemPlaceable : AddressablePlaceable {
         public string LobbyName => lobby.Name;
         public int PlayersNumber => lobby.Players.Count;

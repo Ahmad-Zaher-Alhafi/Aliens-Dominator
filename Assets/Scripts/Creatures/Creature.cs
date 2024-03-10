@@ -7,6 +7,7 @@ using Creatures.Animators;
 using FiniteStateMachine;
 using FiniteStateMachine.CreatureStateMachine;
 using FMODUnity;
+using Placeables;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace Creatures {
         public IDamager ObjectDamagedWith { get; private set; }
         public virtual bool HasSpawningAnimation => false;
 
+        [SerializeField] private Transform stateUICreatePoint;
         [SerializeField] private BloodParticle bloodParticlesPrefab;
         [SerializeField] private Transform bloodEffectCreatePoint;
         [SerializeField] private Color bloodColor;
@@ -115,6 +117,7 @@ namespace Creatures {
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
         private bool isDeadOnServer;
+        private StateUIPlaceable stateUIPlaceable;
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -160,6 +163,10 @@ namespace Creatures {
 
             Mover.Init(pathToFollow);
             Animator.Init();
+            if (stateUIPlaceable == null) {
+                stateUIPlaceable = new StateUIPlaceable(this, initialHealth);
+                Ctx.Deps.PlaceablesController.Place(stateUIPlaceable, transform, stateUICreatePoint);
+            }
             gameObject.SetActive(true);
 
             foreach (BodyPart bodyPart in BodyParts) {
@@ -239,7 +246,7 @@ namespace Creatures {
 
             Ctx.Deps.SupplyBalloonController.SpawnBalloon(transform.position, ChanceOfDroppingBalloon);
             Ctx.Deps.GameController.StartCoroutine(DestroyObjectDelayed(SecondsToDestroyDeadBody));
-            
+
             OnDeathClientRPC();
         }
 
