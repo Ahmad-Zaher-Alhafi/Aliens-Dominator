@@ -97,8 +97,7 @@ namespace Projectiles {
         }
 
         private void Despawn() {
-            gameObject.SetActive(false);
-            NetworkObject.Despawn(false);
+            NetworkObject.Despawn();
         }
     }
 }

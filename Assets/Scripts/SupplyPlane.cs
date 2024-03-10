@@ -90,7 +90,6 @@ public class SupplyPlane : NetworkBehaviour {
         yield return new WaitForSeconds(secondsToDespawn);
         ReleaseSmokeParticleFromParentClientRPC();
         airplaneSound.Stop();
-        gameObject.SetActive(false);
-        NetworkObject.Despawn(false);
+        NetworkObject.Despawn();
     }
 }
