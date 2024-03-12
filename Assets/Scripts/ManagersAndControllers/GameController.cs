@@ -78,7 +78,11 @@ namespace ManagersAndControllers {
             Debug.Log($"Wave {Ctx.Deps.WaveController.CurrentWaveIndex} has been started");
         }
 
-        private void OnDestroy() {
+        public void ShowGameOver() {
+            Debug.LogWarning("Game Over !");
+        }
+
+        public override void OnDestroy() {
             Ctx.Deps.EventsManager.EnemyDied -= OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished -= OnWaveFinished;
         }

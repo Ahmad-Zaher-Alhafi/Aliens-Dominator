@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 public class TargetPoint : MonoBehaviour {
-    [SerializeField] private GameObject targetObject;
-    public GameObject TargetObject => targetObject;
+    [SerializeField] private DamageableObject targetObject;
+    public DamageableObject TargetObject => targetObject;
 
     [SerializeField] private Color color;
     [SerializeField] private Vector3 size = Vector3.one;

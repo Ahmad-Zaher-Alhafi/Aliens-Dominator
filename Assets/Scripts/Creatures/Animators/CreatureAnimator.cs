@@ -54,7 +54,7 @@ namespace Creatures.Animators {
             PlayAnimationClip(randomAttackAnimationClip, informAnimationFinishedCallBack);
             StartCoroutine(InformToApplyDamageAfter(currentActiveAnimationClip.length, informToAttack));
         }
-        
+
         public void PlaySpawnAnimation(Action<bool> informAnimationFinishedCallBack) {
             PlayAnimationClip(SpawnAnimationClip, informAnimationFinishedCallBack);
         }
@@ -93,12 +93,10 @@ namespace Creatures.Animators {
             }
         }
 
-        private IEnumerator InformToApplyDamageAfter(float length, Action informToApplyDamage) {
-            yield return new WaitForSeconds(length / 2);
-            // Inform to attack only if the attack animation still playing as it could get interrupted by another animation during the wait time
-            if (animator.GetCurrentAnimatorClipInfo(0).GetHashCode() != currentActiveAnimationClip.GetHashCode()) yield break;
+        private IEnumerator InformToApplyDamageAfter(float clipLength, Action informToApplyDamage) {
+            yield return new WaitForSeconds(clipLength / 2);
             informToApplyDamage.Invoke();
-            yield return new WaitForSeconds(length / 2);
+            yield return new WaitForSeconds(clipLength / 2);
         }
 
         private IEnumerator FulfilCurrentOrderOnceFinished(float length) {
@@ -119,7 +117,7 @@ namespace Creatures.Animators {
         public void OnDeath() {
             OnDeathClientRPC();
         }
-        
+
         [ClientRpc]
         private void OnDeathClientRPC() {
             animator.enabled = false;

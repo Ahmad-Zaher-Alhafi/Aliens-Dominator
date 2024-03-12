@@ -53,7 +53,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 5339297750993873440}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -100,7 +100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 4
+      value: East Gate Target Point 4
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -111,11 +111,6 @@ PrefabInstance:
 --- !u!4 &5081902922875886229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 816716544246380028}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5339297750993873440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
   m_PrefabInstance: {fileID: 816716544246380028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2531539372772623115
@@ -132,7 +127,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 7092226028691676375}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -179,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 5
+      value: West Gate Target Point 1
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -187,11 +182,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
---- !u!1 &7092226028691676375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 2531539372772623115}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7994682308495092834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
@@ -211,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 8143143501190723315}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -258,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 8
+      value: West Gate Target Point 4
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,11 +260,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
---- !u!1 &8143143501190723315 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 3481055480329382191}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9051167703548659270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
@@ -294,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 9205973712001490798}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -341,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 6
+      value: West Gate Target Point 2
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -352,11 +337,6 @@ PrefabInstance:
 --- !u!4 &8312594450374176731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 4507892165738463410}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &9205973712001490798 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
   m_PrefabInstance: {fileID: 4507892165738463410}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5389939398445891055
@@ -373,7 +353,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 829112073816023603}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -420,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 1
+      value: East Gate Target Point 1
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -431,11 +411,6 @@ PrefabInstance:
 --- !u!4 &513390314213069446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 5389939398445891055}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &829112073816023603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
   m_PrefabInstance: {fileID: 5389939398445891055}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6141501391375740942
@@ -452,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 1474804235319242706}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -499,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 7
+      value: West Gate Target Point 3
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -507,11 +482,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
---- !u!1 &1474804235319242706 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 6141501391375740942}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1795241284830535527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
@@ -531,7 +501,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 1758549394079953240}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -578,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 3
+      value: East Gate Target Point 3
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -589,11 +559,6 @@ PrefabInstance:
 --- !u!4 &1511498187240391149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 6425210610164199044}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1758549394079953240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
   m_PrefabInstance: {fileID: 6425210610164199044}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6504606708351311165
@@ -610,7 +575,7 @@ PrefabInstance:
     - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 1947931136081674977}
+      objectReference: {fileID: 0}
     - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -657,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_Name
-      value: Ground attack point 2
+      value: East Gate Target Point 2
       objectReference: {fileID: 0}
     - target: {fileID: 8795346633094921911, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -668,10 +633,5 @@ PrefabInstance:
 --- !u!4 &1699552234625512020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
-  m_PrefabInstance: {fileID: 6504606708351311165}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1947931136081674977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705540720406388700, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
   m_PrefabInstance: {fileID: 6504606708351311165}
   m_PrefabAsset: {fileID: 0}

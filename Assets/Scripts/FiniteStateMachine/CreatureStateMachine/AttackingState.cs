@@ -18,7 +18,10 @@ namespace FiniteStateMachine.CreatureStateMachine {
         }
 
         private void ApplyDamage() {
-            Debug.Log($"Creature {AutomatedObject} applies damage!");
+            if (AutomatedObject.ObjectToAttack == null) return;
+
+            AutomatedObject.ObjectToAttack.TakeDamage(AutomatedObject, 1);
+            Debug.Log($"Creature {AutomatedObject} applied damage to {AutomatedObject.ObjectToAttack}!");
         }
     }
 }

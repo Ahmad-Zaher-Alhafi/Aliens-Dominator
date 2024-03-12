@@ -22,7 +22,7 @@ namespace Creatures {
         public float PushingForce => 0;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
-        public GameObject ObjectToAttack { get; private set; }
+        public DamageableObject ObjectToAttack { get; private set; }
         public TargetPoint TargetPoint { get; private set; }
         public bool HasToDisappear { get; set; }
         public IDamager ObjectDamagedWith { get; private set; }
