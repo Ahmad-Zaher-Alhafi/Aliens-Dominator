@@ -783,12 +783,12 @@ MonoBehaviour:
   m_DefaultArea: 3
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
+  m_OverrideTileSize: 1
+  m_TileSize: 1024
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 88626d4fe4bb5b24b890ae6c087dba0e, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b258b304e3fe817419841821ff7ecd7e, type: 2}
 --- !u!1 &4763563490415308678
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,12 +896,12 @@ MonoBehaviour:
   m_DefaultArea: 3
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
+  m_OverrideTileSize: 1
+  m_TileSize: 1024
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 989e65fb1d6e68940ad3b894052db9e3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 132b2db0768f63a41bd8932e90a5c1de, type: 2}
 --- !u!1 &4763563490519489964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,12 +1388,12 @@ MonoBehaviour:
   m_DefaultArea: 3
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
+  m_OverrideTileSize: 1
+  m_TileSize: 1024
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: db8a396d33f0afa4dba60cd0952c2312, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 462379b40e64e3a4e9120e81c70f0993, type: 2}
 --- !u!1 &4763563491742290448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,12 +1449,12 @@ MonoBehaviour:
   m_DefaultArea: 3
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
+  m_OverrideTileSize: 1
+  m_TileSize: 1024
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 099a6e6704163f248b2043e9928afdd7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 188796f43b5f5834d9fb9fa91eb61f0a, type: 2}
 --- !u!1 &4763563491788564577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,12 +1510,12 @@ MonoBehaviour:
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
+  m_OverrideTileSize: 1
   m_TileSize: 256
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 5d2330e3096894b4c9bab1c418e5ef91, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e9b777a4104b5ba45b6c780d42313469, type: 2}
 --- !u!1 &4763563491937561694
 GameObject:
   m_ObjectHideFlags: 0
