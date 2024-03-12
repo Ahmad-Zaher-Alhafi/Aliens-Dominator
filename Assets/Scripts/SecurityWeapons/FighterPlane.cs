@@ -146,6 +146,7 @@ namespace SecurityWeapons {
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
             InitialRotation = transform.rotation;
+            AutomationCommander.Init(this, ActiveOnStart);
         }
         protected override void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
             Reload(ammoType, ammoNumber);

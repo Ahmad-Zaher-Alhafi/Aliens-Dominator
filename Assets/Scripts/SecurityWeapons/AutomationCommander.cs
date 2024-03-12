@@ -12,8 +12,9 @@ namespace SecurityWeapons {
         private GameObject lastArrowHitWith;
         private readonly NetworkVariable<SerializedNetworkString> status = new(new SerializedNetworkString(""));
 
-        public void Init(IAutomatable automatableToCommand) {
+        public void Init(IAutomatable automatableToCommand, bool activateOnStart) {
             this.automatableToCommand = automatableToCommand;
+            automatableToCommand.IsAutomatingEnabled = activateOnStart;
         }
 
         private void Update() {

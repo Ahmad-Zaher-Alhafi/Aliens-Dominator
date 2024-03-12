@@ -60,6 +60,7 @@ namespace SecurityWeapons {
             magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
+            AutomationCommander.Init(this, ActiveOnStart);
         }
 
         private void Update() {
