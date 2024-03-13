@@ -40,6 +40,8 @@ public class Bow : NetworkBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        if (Cursor.lockState != CursorLockMode.Locked) return;
+
         if (!IsOwner) return;
 
         if (shootRoutine) return;

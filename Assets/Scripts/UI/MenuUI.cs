@@ -5,6 +5,7 @@ using Placeables;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utils.Extensions;
 
@@ -13,6 +14,7 @@ namespace UI {
         [SerializeField] private TMP_InputField playerNameField;
 
         [Space]
+        [SerializeField] private GameObject menuHolder;
         [SerializeField] private GameObject mainMenu;
         [SerializeField] private GameObject lobbyMenu;
         [SerializeField] private GameObject mainMenuBottomButtons;
@@ -27,16 +29,33 @@ namespace UI {
 
         private string PlayerName => !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkStatus.NumOfPlayers}";
 
-
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            gameObject.SetActive(false);
+            menuHolder.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update() {
+#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0) && !menuHolder.activeSelf && EventSystem.current.gameObject != null && IsSpawned) {
+                Cursor.lockState = CursorLockMode.Locked;
+            } else if (Input.GetMouseButtonDown(1)) {
+                Cursor.lockState = CursorLockMode.None;
+            }
+#endif
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                MenuButtonClicked();
+            }
+
             hostButton.interactable = Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.None;
             joinButton.interactable = Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.None &&
                                       Ctx.Deps.PlaceablesController.GetPlaceablesOfType<LobbyItemPlaceable>().Any(placeable => placeable.IsSelected);
+        }
+
+        public void MenuButtonClicked() {
+            menuHolder.SetActive(!menuHolder.activeSelf);
+            Cursor.lockState = menuHolder.activeSelf || !IsSpawned ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         public void ShowMainMenuClicked() {

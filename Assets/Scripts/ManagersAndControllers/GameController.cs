@@ -7,22 +7,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
-using UnityEngine.EventSystems;
 
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
-
-        public override void OnNetworkSpawn() {
-            base.OnNetworkSpawn();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        public override void OnNetworkDespawn() {
-            base.OnNetworkDespawn();
-            Cursor.lockState = CursorLockMode.None;
-        }
 
         private void Awake() {
             foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
@@ -31,18 +20,6 @@ namespace ManagersAndControllers {
 
             Ctx.Deps.EventsManager.EnemyGotHit += OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
-        }
-
-        private void Update() {
-#if UNITY_EDITOR
-            if (EventSystem.current.currentSelectedGameObject != null) return;
-
-            if (Input.GetMouseButtonDown(1)) {
-                Cursor.lockState = CursorLockMode.None;
-            } else if (Input.GetMouseButtonDown(0)) {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-#endif
         }
 
         private void OnEnemyGotHit(Creature creature) {
