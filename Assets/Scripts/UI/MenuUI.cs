@@ -1,27 +1,34 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Context;
 using Multiplayer;
 using Placeables;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utils.Extensions;
 
 namespace UI {
-    public class MenuUI : NetworkBehaviour {
+    public class MenuUI : MonoBehaviour {
+        [SerializeField] private GameObject playerNameFieldHolder;
         [SerializeField] private TMP_InputField playerNameField;
 
         [Space]
         [SerializeField] private GameObject menuHolder;
         [SerializeField] private GameObject mainMenu;
         [SerializeField] private GameObject lobbyMenu;
+
+        [Header("Main menu buttons")]
         [SerializeField] private GameObject mainMenuBottomButtons;
+        [SerializeField] private Button hostButton;
+        [SerializeField] private Button findMatchButton;
+        [SerializeField] private Button quitMatchButton;
+
+        [Space]
         [SerializeField] private GameObject lobbyMenuBottomButtons;
 
         [Space]
-        [SerializeField] private Button hostButton;
         [SerializeField] private Button joinButton;
 
         [Space]
@@ -29,15 +36,19 @@ namespace UI {
 
         private string PlayerName => !string.IsNullOrEmpty(playerNameField.text) ? playerNameField.text : $"Player: {networkStatus.NumOfPlayers}";
 
-        public override void OnNetworkSpawn() {
-            base.OnNetworkSpawn();
+        private void Awake() {
+            UpdateManuVisibilityState(true);
+            Ctx.Deps.EventsManager.SpawnedOnNetwork += OnSpawnedOnNetwork;
+        }
+
+        private void OnSpawnedOnNetwork() {
             menuHolder.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update() {
 #if UNITY_EDITOR
-            if (Input.GetMouseButtonDown(0) && !menuHolder.activeSelf && EventSystem.current.gameObject != null && IsSpawned) {
+            if (Input.GetMouseButtonDown(0) && !menuHolder.activeSelf && EventSystem.current.currentSelectedGameObject == null && Ctx.Deps.GameController.IsSpawned) {
                 Cursor.lockState = CursorLockMode.Locked;
             } else if (Input.GetMouseButtonDown(1)) {
                 Cursor.lockState = CursorLockMode.None;
@@ -53,9 +64,14 @@ namespace UI {
                                       Ctx.Deps.PlaceablesController.GetPlaceablesOfType<LobbyItemPlaceable>().Any(placeable => placeable.IsSelected);
         }
 
-        public void MenuButtonClicked() {
-            menuHolder.SetActive(!menuHolder.activeSelf);
-            Cursor.lockState = menuHolder.activeSelf || !IsSpawned ? CursorLockMode.None : CursorLockMode.Locked;
+        public void MenuButtonClicked() => UpdateManuVisibilityState(!menuHolder.activeSelf);
+
+        private void UpdateManuVisibilityState(bool showMenu) {
+            menuHolder.SetActive(showMenu);
+            Cursor.lockState = showMenu || !Ctx.Deps.GameController.IsSpawned ? CursorLockMode.None : CursorLockMode.Locked;
+            if (showMenu) {
+                ShowMainMenuClicked();
+            }
         }
 
         public void ShowMainMenuClicked() {
@@ -63,6 +79,10 @@ namespace UI {
             mainMenu.SetActive(true);
             lobbyMenuBottomButtons.SetActive(false);
             mainMenuBottomButtons.SetActive(true);
+            playerNameFieldHolder.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
+            hostButton.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
+            findMatchButton.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
+            quitMatchButton.gameObject.SetActive(Ctx.Deps.GameController.IsSpawned);
         }
 
         public void ShowLobbyMenuClicked() {
@@ -91,6 +111,20 @@ namespace UI {
 
             networkStatus.ShowJoiningStatus();
             await Ctx.Deps.Matchmaker.JoinLobby(lobbyId, PlayerName);
+        }
+
+        public void QuitMatchClicked() {
+            Ctx.Deps.Matchmaker.QuitMatch();
+            StartCoroutine(ShowMainMenuDelayed());
+        }
+
+        private IEnumerator ShowMainMenuDelayed() {
+            yield return new WaitForEndOfFrame();
+            ShowMainMenuClicked();
+        }
+
+        private void OnDestroy() {
+            Ctx.Deps.EventsManager.SpawnedOnNetwork -= OnSpawnedOnNetwork;
         }
     }
 }

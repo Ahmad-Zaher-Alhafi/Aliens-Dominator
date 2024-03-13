@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Context;
 #if UNITY_EDITOR
 using ParrelSync;
 #endif
@@ -128,6 +130,14 @@ namespace Multiplayer {
 
             QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
             return queryResponse.Results;
+        }
+
+        public async void QuitMatch() {
+            if (!NetworkManager.Singleton.IsConnectedClient) return;
+
+            NetworkManager.Singleton.Shutdown();
+            await Lobbies.Instance.RemovePlayerAsync(ConnectedToLobby.Id, PlayerId);
+            Status = LobbyStatus.None;
         }
     }
 }

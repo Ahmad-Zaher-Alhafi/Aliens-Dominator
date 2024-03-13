@@ -27,6 +27,11 @@ public class Bow : NetworkBehaviour {
     private Vector3 maxArrowPosition;
     private readonly bool shootRoutine = false;
 
+    public override void OnNetworkDespawn() {
+        base.OnNetworkDespawn();
+        Destroy(gameObject);
+    }
+
     private void Start() {
         arrowPosition = arrowParent.localPosition;
         maxArrowPosition = arrowParent.localPosition + Vector3.back * maxZPos;

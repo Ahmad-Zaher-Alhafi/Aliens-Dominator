@@ -22,6 +22,11 @@ namespace ManagersAndControllers {
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
         }
 
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            Ctx.Deps.EventsManager.TriggerSpawnedOnNetwork();
+        }
+
         private void OnEnemyGotHit(Creature creature) {
             if (Ctx.Deps.WaveController.HasWaveStarted) return;
             StartNextWave();

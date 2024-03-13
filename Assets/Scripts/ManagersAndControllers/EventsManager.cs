@@ -51,9 +51,9 @@ namespace ManagersAndControllers {
             UpgradesSuppliesCollected?.Invoke();
         }
 
-        public event Action<Constants.ObjectsColors> onStinkyBallHit; //event that being shot when the player get hit by a stinky ball
-        public void OnStinkyBallHit(Constants.ObjectsColors stinkyBallColor) {
-            onStinkyBallHit?.Invoke(stinkyBallColor);
+        public event Action SpawnedOnNetwork;
+        public void TriggerSpawnedOnNetwork() {
+            SpawnedOnNetwork?.Invoke();
         }
 
         public event Action<Transform> onAirLeaderPatrolling; //event that being shot when the leader of the air creatures group reachs the last point and start to patrol around

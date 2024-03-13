@@ -35,7 +35,7 @@ namespace Projectiles {
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag(Constants.PlayerLookAtPoint)) //if it hit the player
             {
-                Ctx.Deps.EventsManager.OnStinkyBallHit(stinkyBallColor); //call the event to play the block vision particles
+                //Ctx.Deps.EventsManager.TriggerSpawnedOnNetwork(stinkyBallColor); //call the event to play the block vision particles
                 DestroyParticles();
                 Destroy(gameObject);
             } else if (other.CompareTag(Constants.SecurityWeapon)) {
