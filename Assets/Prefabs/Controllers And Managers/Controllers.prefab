@@ -290,6 +290,7 @@ Transform:
   - {fileID: 1979406138}
   - {fileID: 6693789013810108256}
   - {fileID: 3313745327689136300}
+  - {fileID: 1477202090832543120}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,6 +316,7 @@ MonoBehaviour:
   matchmaker: {fileID: 1979406139}
   placeablesController: {fileID: 1577228351297302604}
   supplyPlanesController: {fileID: 944021468266300532}
+  cameraController: {fileID: 3016270817342184751}
 --- !u!114 &229572972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +594,51 @@ MonoBehaviour:
   cinematicWave: {fileID: 11400000, guid: a0780e19f2336bd49a518dad0d8cf0eb, type: 2}
   pathDrawerPrefab: {fileID: -2207219392055801605, guid: af7bc854d7a347b4c93905fc7b45c5ac, type: 3}
   pathDrawersHolder: {fileID: 0}
+--- !u!1 &7076466972548100234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1477202090832543120}
+  - component: {fileID: 3016270817342184751}
+  m_Layer: 0
+  m_Name: Camera Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1477202090832543120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076466972548100234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3016270817342184751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076466972548100234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5ece3012254b1ab5c3cd032fa41869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generalCamera: {fileID: 0}
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0

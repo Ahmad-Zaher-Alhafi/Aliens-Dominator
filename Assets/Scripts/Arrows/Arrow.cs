@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Linq;
+using Context;
 using FMODUnity;
 using Unity.Netcode;
 using UnityEngine;
@@ -28,7 +28,6 @@ namespace Arrows {
 
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
-        private Player.Player playerOwner;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -41,13 +40,12 @@ namespace Arrows {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            playerOwner = FindObjectsOfType<Player.Player>().Single(o => o.GetComponent<NetworkObject>().OwnerClientId == NetworkObject.OwnerClientId);
             Init();
         }
 
         private void Init() {
-            transform.position = playerOwner.ArrowSpawnPoint.position;
-            transform.rotation = playerOwner.ArrowSpawnPoint.rotation;
+            transform.position = Ctx.Deps.GameController.Player.ArrowSpawnPoint.position;
+            transform.rotation = Ctx.Deps.GameController.Player.ArrowSpawnPoint.rotation;
 
             trailRenderer.enabled = false;
             triggerCollider.enabled = true;

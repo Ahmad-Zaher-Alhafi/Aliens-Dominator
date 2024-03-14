@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Context;
 using Creatures;
 using Unity.Netcode;
@@ -16,6 +17,8 @@ namespace ManagersAndControllers {
         [SerializeField] private List<ParticleSystem> winParticles;
         [SerializeField] private float winParticlesRepeatTime;
 
+        public Player.Player Player { get; private set; }
+
         private void Awake() {
             foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
                 navMeshSurface.BuildNavMesh();
@@ -27,6 +30,7 @@ namespace ManagersAndControllers {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            Player = FindObjectsOfType<Player.Player>().Single(o => o.GetComponent<NetworkObject>().OwnerClientId == NetworkObject.OwnerClientId);
             Ctx.Deps.EventsManager.TriggerSpawnedOnNetwork();
         }
 
@@ -80,6 +84,12 @@ namespace ManagersAndControllers {
 
                 yield return new WaitForSeconds(winParticlesRepeatTime);
             }
+        }
+
+        public void QuitMatch() {
+            StopAllCoroutines();
+            Ctx.Deps.CameraController.SwitchToGeneralCamera();
+            Ctx.Deps.Matchmaker.QuitMatch();
         }
 
         public override void OnDestroy() {

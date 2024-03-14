@@ -114,7 +114,7 @@ namespace UI {
         }
 
         public void QuitMatchClicked() {
-            Ctx.Deps.Matchmaker.QuitMatch();
+            Ctx.Deps.GameController.QuitMatch();
             StartCoroutine(ShowMainMenuDelayed());
         }
 

@@ -1,4 +1,5 @@
 using Arrows;
+using Cinemachine;
 using Context;
 using FMODUnity;
 using Multiplayer;
@@ -26,7 +27,8 @@ namespace Player {
         [SerializeField] private StudioEventEmitter releaseSound;
         [SerializeField] private StudioEventEmitter drawSound;
 
-        [SerializeField] private Camera playerCamera;
+        [SerializeField] private CinemachineVirtualCamera playerCamera;
+        public CinemachineVirtualCamera PlayerCamera => playerCamera;
 
         private Arrow arrow;
         private float draw;
@@ -58,6 +60,8 @@ namespace Player {
         }
 
         public void Update() {
+            if (Ctx.Deps.CameraController.IsBlending) return;
+
 #if UNITY_EDITOR
             if (Cursor.lockState != CursorLockMode.Locked) return;
 #endif
