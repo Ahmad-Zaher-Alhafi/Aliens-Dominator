@@ -1348,6 +1348,14 @@ PrefabInstance:
       value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: winParticlesLoopCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: winParticlesRepeatTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: airplanes.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -1363,6 +1371,10 @@ PrefabInstance:
       propertyPath: creatureSpawnController
       value: 
       objectReference: {fileID: 8373024146854449137}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: winParticles.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: SpecialArrows.Array.size
       value: 6

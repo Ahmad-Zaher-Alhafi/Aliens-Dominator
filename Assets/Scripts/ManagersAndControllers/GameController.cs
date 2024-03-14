@@ -12,6 +12,9 @@ namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
+        [SerializeField] private int winParticlesLoopCount;
+        [SerializeField] private List<ParticleSystem> winParticles;
+        [SerializeField] private float winParticlesRepeatTime;
 
         private void Awake() {
             foreach (NavMeshSurface navMeshSurface in navMeshSurfaces) {
@@ -44,11 +47,20 @@ namespace ManagersAndControllers {
             Debug.Log($"Wave {Ctx.Deps.WaveController.CurrentWaveIndex} has been finished");
 
             if (Ctx.Deps.WaveController.NextWaveIndex >= Ctx.Deps.WaveController.WavesCount) {
-                Debug.Log("Game over, You win");
+                GameOver(true);
                 return;
             }
 
             StartNextWave();
+        }
+
+        public void GameOver(bool hasWon) {
+            if (hasWon) {
+                Debug.Log("Game over, you win !");
+                StartCoroutine(PlayWinParticlesDelayed(winParticlesLoopCount));
+            } else {
+                Debug.LogWarning("Game Over, you lose !");
+            }
         }
 
         private IEnumerator StartNextWaveDelayed() {
@@ -60,8 +72,14 @@ namespace ManagersAndControllers {
             Debug.Log($"Wave {Ctx.Deps.WaveController.CurrentWaveIndex} has been started");
         }
 
-        public void ShowGameOver() {
-            Debug.LogWarning("Game Over !");
+        private IEnumerator PlayWinParticlesDelayed(int loopsCount) {
+            for (int i = 0; i < loopsCount; i++) {
+                foreach (ParticleSystem winParticle in winParticles) {
+                    winParticle.Play();
+                }
+
+                yield return new WaitForSeconds(winParticlesRepeatTime);
+            }
         }
 
         public override void OnDestroy() {
@@ -76,14 +94,21 @@ namespace ManagersAndControllers {
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
 
+                GameController gameController = (GameController) target;
+
                 if (!Application.isPlaying) {
                     EditorGUILayout.HelpBox("Editor content is shown only in play mode", MessageType.Info);
                     return;
                 }
 
-                GUI.backgroundColor = Color.green;
+                GUI.backgroundColor = Color.cyan;
                 if (GUILayout.Button("Start waves")) {
                     Ctx.Deps.EventsManager.TriggerWaveFinished();
+                }
+
+                GUI.backgroundColor = Color.green;
+                if (GUILayout.Button("Win the game")) {
+                    gameController.GameOver(true);
                 }
             }
         }
