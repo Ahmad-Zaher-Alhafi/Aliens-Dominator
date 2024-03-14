@@ -8,6 +8,11 @@ namespace Collectables {
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
 
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            Destroy(gameObject);
+        }
+
         private void Update() {
             if (IsServer) {
                 networkPosition.Value = transform.position;
@@ -41,6 +46,7 @@ namespace Collectables {
 
         private void Despawn() {
             NetworkObject.Despawn();
+            Destroy(gameObject);
         }
 
         [ServerRpc(RequireOwnership = false)]
