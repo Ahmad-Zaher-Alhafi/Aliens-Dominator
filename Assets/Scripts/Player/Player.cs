@@ -1,3 +1,4 @@
+using System.Collections;
 using Arrows;
 using Cinemachine;
 using Context;
@@ -49,8 +50,21 @@ namespace Player {
 
         public override void OnNetworkSpawn() {
             if (IsOwner) {
+                StartCoroutine(TriggerDelayed());
                 MoveToInstantly();
             }
+        }
+
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsOwner) {
+                Ctx.Deps.EventsManager.TriggerOwnerPlayerDespawnedFromNetwork(this);
+            }
+        }
+
+        private IEnumerator TriggerDelayed() {
+            yield return new WaitForEndOfFrame();
+            Ctx.Deps.EventsManager.TriggerOwnerPlayerSpawnedOnNetwork(this);
         }
 
         private void Start() {

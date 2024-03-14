@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Context;
 using Creatures;
 using Unity.Netcode;
@@ -26,12 +25,16 @@ namespace ManagersAndControllers {
 
             Ctx.Deps.EventsManager.EnemyGotHit += OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
+            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork += OnOwnerPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.OwnerPlayerDespawnedFromNetwork += OnOwnerPlayerDespawnedFromNetwork;
         }
 
-        public override void OnNetworkSpawn() {
-            base.OnNetworkSpawn();
-            Player = FindObjectsOfType<Player.Player>().Single(o => o.GetComponent<NetworkObject>().OwnerClientId == NetworkObject.OwnerClientId);
-            Ctx.Deps.EventsManager.TriggerSpawnedOnNetwork();
+        private void OnOwnerPlayerSpawnedOnNetwork(Player.Player player) {
+            Player = player;
+        }
+
+        private void OnOwnerPlayerDespawnedFromNetwork(Player.Player player) {
+            Player = null;
         }
 
         private void OnEnemyGotHit(Creature creature) {
@@ -92,9 +95,11 @@ namespace ManagersAndControllers {
             Ctx.Deps.Matchmaker.QuitMatch();
         }
 
-        public override void OnDestroy() {
+        private void OnDestroy() {
             Ctx.Deps.EventsManager.EnemyDied -= OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished -= OnWaveFinished;
+            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork -= OnOwnerPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.OwnerPlayerDespawnedFromNetwork -= OnOwnerPlayerDespawnedFromNetwork;
         }
 
 
