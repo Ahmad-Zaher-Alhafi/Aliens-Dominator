@@ -22,7 +22,6 @@ namespace Creatures {
         public float PushingForce => 0;
         public bool IsSlowedDown { get; private set; }
         public CreatureMover Mover { get; private set; }
-        public DamageableObject ObjectToAttack { get; private set; }
         public TargetPoint TargetPoint { get; private set; }
         public bool HasToDisappear { get; set; }
         public IDamager ObjectDamagedWith { get; private set; }
@@ -153,10 +152,7 @@ namespace Creatures {
             Health = initialHealth;
             ObjectDamagedWith = null;
 
-            if (targetPoint is not null) {
-                TargetPoint = targetPoint;
-                ObjectToAttack = TargetPoint.TargetObject;
-            }
+            TargetPoint = targetPoint;
 
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
             PathToFollow = pathToFollow;

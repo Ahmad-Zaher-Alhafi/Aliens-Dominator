@@ -16,6 +16,9 @@ namespace ManagersAndControllers {
         [Header("Waves Setup")]
         [SerializeField] private List<Wave> waves;
 
+        [SerializeField] private Wave testWave;
+        public Wave TestWave => testWave;
+
         [SerializeField] private Wave cinematicWave;
         public Wave CinematicWave => cinematicWave;
 
@@ -33,6 +36,11 @@ namespace ManagersAndControllers {
         public bool HasWaveStarted { get; private set; }
 
         private readonly List<List<Vector3>> pathsToDraw = new();
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            InitWave(testWave);
+        }
 
         public void StartNextWave() {
             currentWaveIndex = NextWaveIndex;
@@ -52,7 +60,7 @@ namespace ManagersAndControllers {
                 for (int j = 0; j < wave.NumOfGroundPaths; j++) {
                     pathToFollow = MathUtils.GetRandomObjectFromList(randomSpawnPoint.GroundPaths);
                     targetPoint = MathUtils.GetRandomObjectFromList(attackPoints);
-                    // Do not draw it if already exists
+                    // Do not add it if already exists
                     if (wave.AddWavePath(randomSpawnPoint, pathToFollow, true, targetPoint)) continue;
                     AddPathToDraw(randomSpawnPoint.transform.position, pathToFollow.PathPoints.Select(point => point.transform.position).ToList(), targetPoint.transform.position);
                 }

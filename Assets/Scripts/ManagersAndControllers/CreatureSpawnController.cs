@@ -79,11 +79,13 @@ namespace ManagersAndControllers {
             List<Creature> waveCreaturesPrefabs = creaturesData.Keys.ToList();
 
             while (waveCreaturesPrefabs.Count > 0) {
-                // This is a deconstruct statement, do not be confused, it just gives you better reading for the variables of the tuple instead of item1, item2...etc
-                (SpawnPoint randomPointToSpawnAt, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(wave.WavePaths);
-
                 int randomCreaturePrefabIndex = Random.Range(0, waveCreaturesPrefabs.Count);
                 Creature randomCreaturePrefab = waveCreaturesPrefabs[randomCreaturePrefabIndex];
+
+                SpawnPointPath.PointPathType pathType = randomCreaturePrefab is GroundCreature ? SpawnPointPath.PointPathType.GroundPath : SpawnPointPath.PointPathType.AirPath;
+
+                // This is a deconstruct statement, do not be confused, it just gives you better reading for the variables of the tuple instead of item1, item2...etc
+                (SpawnPoint randomPointToSpawnAt, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(wave.GetPathsOfType(pathType));
 
                 SpawnPointPath pathToFollow = MathUtils.GetRandomObjectFromList(randomCreaturePrefab is FlyingCreature
                     ? wave.WavePaths.Where(tuple => tuple.Item1 == randomPointToSpawnAt && !tuple.Item3).Select(tuple => tuple.Item2).ToList()
@@ -180,9 +182,9 @@ namespace ManagersAndControllers {
                             ? creatureSpawnController.testSpawnPoint.AirPath
                             : MathUtils.GetRandomObjectFromList(creatureSpawnController.testSpawnPoint.GroundPaths);
 
-                        (_, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(Ctx.Deps.WaveController.CurrentWave.WavePaths);
+                        (_, _, _, TargetPoint targetPoint) = MathUtils.GetRandomObjectFromList(Ctx.Deps.WaveController.TestWave.GetPathsOfType(SpawnPointPath.PointPathType.AirPath));
 
-                        Creature creature = creatureSpawnController.SpawnCreature((GameObject) testCreaturePrefab.objectReferenceValue, creatureSpawnController.testSpawnPoint.transform.position, targetPoint,
+                        Creature creature = creatureSpawnController.SpawnCreature(((Creature) testCreaturePrefab.objectReferenceValue).gameObject, creatureSpawnController.testSpawnPoint.transform.position, targetPoint,
                             pathToFollow, initialCreatureState: CreatureStateType.FollowingPath);
                         creature.tag = "TestCreature";
                         creature.name = "Test Creature";

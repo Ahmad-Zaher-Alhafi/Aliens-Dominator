@@ -1117,6 +1117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8398110243452901287}
   - component: {fileID: 9176926500301972966}
+  - component: {fileID: 1884234077326139366}
   m_Layer: 0
   m_Name: Enemy Target Point
   m_TagString: Untagged
@@ -1151,9 +1152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c20d44fc3340c3936efc1f69ef317f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 7245519488657537821}
+  targetObject: {fileID: 1884234077326139366}
   color: {r: 0, g: 0.12058091, b: 1, a: 1}
   size: {x: 1, y: 1, z: 1}
+--- !u!114 &1884234077326139366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245519488657537821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9c2b5f0d744d1cb3d334cbdda2fca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
 --- !u!1 &7722510171661397689
 GameObject:
   m_ObjectHideFlags: 0

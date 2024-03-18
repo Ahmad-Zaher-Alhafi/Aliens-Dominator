@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Creatures;
 using UnityEngine;
 
@@ -28,6 +29,10 @@ namespace ScriptableObjects {
         public List<WaveCreature> WaveCreatures => waveCreatures;
 
         public List<Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>> WavePaths { get; } = new();
+
+        public List<Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>> GetPathsOfType(SpawnPointPath.PointPathType pathType) {
+            return WavePaths.Where(tuple => tuple.Item2.PointPath == pathType).ToList();
+        }
 
         public bool AddWavePath(SpawnPoint spawnPoint, SpawnPointPath wavePath, bool isGroundPath, TargetPoint targetPoint) {
             Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint> tuple = new Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>(spawnPoint, wavePath, isGroundPath, targetPoint);

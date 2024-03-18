@@ -4,8 +4,8 @@ using UnityEngine;
 namespace FiniteStateMachine.CreatureStateMachine {
     public class ChasingTargetState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.ChasingTarget;
-        public override bool CanBeActivated() => (AutomatedObject.IsPoisoned || !AutomatedObject.HasToFollowPath) && AutomatedObject.ObjectToAttack != null;
-        public override float? Speed => Vector3.Distance(AutomatedObject.transform.position, AutomatedObject.ObjectToAttack.transform.position) > 1
+        public override bool CanBeActivated() => (AutomatedObject.IsPoisoned || !AutomatedObject.HasToFollowPath) && AutomatedObject.TargetPoint != null;
+        public override float? Speed => Vector3.Distance(AutomatedObject.transform.position, AutomatedObject.TargetPoint.TargetObject.transform.position) > 1
             ? AutomatedObject.RunSpeed
             : 0;
         protected override bool WaitForMoverToFulfill => true;
@@ -15,7 +15,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
-            AutomatedObject.Mover.ChaseTarget(OnMoverOrderFulfilled, AutomatedObject.ObjectToAttack.transform);
+            AutomatedObject.Mover.ChaseTarget(OnMoverOrderFulfilled, AutomatedObject.TargetPoint.transform);
         }
 
         public override void Fulfil() {
