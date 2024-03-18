@@ -125,6 +125,16 @@ namespace ManagersAndControllers {
                 if (GUILayout.Button("Win the game")) {
                     gameController.GameOver(true);
                 }
+                
+                GUI.backgroundColor = Color.magenta;
+                if (GUILayout.Button("Set time scale to 5")) {
+                    Time.timeScale = 5;
+                }
+                
+                GUI.backgroundColor = Color.gray;
+                if (GUILayout.Button("Set time scale to 1")) {
+                    Time.timeScale = 1;
+                }
             }
         }
 #endif
