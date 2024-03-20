@@ -62,6 +62,10 @@ namespace UI {
             hostButton.interactable = Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.None;
             joinButton.interactable = Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.None &&
                                       Ctx.Deps.PlaceablesController.GetPlaceablesOfType<LobbyItemPlaceable>().Any(placeable => placeable.IsSelected);
+
+            hostButton.gameObject.SetActiveWithCheck(Ctx.Deps.Matchmaker.Status != Matchmaker.LobbyStatus.InGame);
+            findMatchButton.gameObject.SetActiveWithCheck(Ctx.Deps.Matchmaker.Status != Matchmaker.LobbyStatus.InGame);
+            quitMatchButton.gameObject.SetActiveWithCheck(Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.InGame);
         }
 
         public void MenuButtonClicked() => UpdateManuVisibilityState(!menuHolder.activeSelf);
@@ -80,9 +84,6 @@ namespace UI {
             lobbyMenuBottomButtons.SetActive(false);
             mainMenuBottomButtons.SetActive(true);
             playerNameFieldHolder.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
-            hostButton.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
-            findMatchButton.gameObject.SetActive(!Ctx.Deps.GameController.IsSpawned);
-            quitMatchButton.gameObject.SetActive(Ctx.Deps.GameController.IsSpawned);
         }
 
         public void ShowLobbyMenuClicked() {
