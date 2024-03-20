@@ -29,6 +29,11 @@ namespace ManagersAndControllers {
             Ctx.Deps.EventsManager.OwnerPlayerDespawnedFromNetwork += OnOwnerPlayerDespawnedFromNetwork;
         }
 
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            QuitMatch();
+        }
+
         private void OnOwnerPlayerSpawnedOnNetwork(Player.Player player) {
             Player = player;
         }
@@ -95,7 +100,7 @@ namespace ManagersAndControllers {
             Ctx.Deps.Matchmaker.QuitMatch();
         }
 
-        private void OnDestroy() {
+        public override void OnDestroy() {
             Ctx.Deps.EventsManager.EnemyDied -= OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished -= OnWaveFinished;
             Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork -= OnOwnerPlayerSpawnedOnNetwork;
@@ -125,12 +130,12 @@ namespace ManagersAndControllers {
                 if (GUILayout.Button("Win the game")) {
                     gameController.GameOver(true);
                 }
-                
+
                 GUI.backgroundColor = Color.magenta;
                 if (GUILayout.Button("Set time scale to 5")) {
                     Time.timeScale = 5;
                 }
-                
+
                 GUI.backgroundColor = Color.gray;
                 if (GUILayout.Button("Set time scale to 1")) {
                     Time.timeScale = 1;
