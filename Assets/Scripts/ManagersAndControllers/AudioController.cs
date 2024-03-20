@@ -17,8 +17,19 @@ namespace ManagersAndControllers {
         private void Awake() {
             PlayBackgroundMusic();
             wasScreamSoundPlayed = false;
+        }
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
             if (IsServer) {
                 Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
+            }
+        }
+
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsServer) {
+                Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
             }
         }
 
@@ -50,13 +61,6 @@ namespace ManagersAndControllers {
             yield return new WaitForSeconds(5);
             PlayMainMusic();
             warningSound.Stop();
-        }
-
-        public override void OnDestroy() {
-            base.OnDestroy();
-            if (IsServer) {
-                Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
-            }
         }
     }
 }
