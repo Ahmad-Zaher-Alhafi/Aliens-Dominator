@@ -15,11 +15,17 @@ namespace UI {
 
         private async void CreateLobbyViews() {
             List<Lobby> availableLobbies = await Ctx.Deps.Matchmaker.GetAvailableLobbies();
+
             IEnumerator<LobbyItemView> enumerator = lobbiesHolder.GetComponentsInChildren<LobbyItemView>().ToList().GetEnumerator();
 
             int counter = 0;
             // Reuse the current created views
             while (enumerator.MoveNext()) {
+                if (counter >= availableLobbies.Count) {
+                    enumerator.Current.gameObject.SetActive(false);
+                    continue;
+                }
+
                 Lobby lobby = availableLobbies[counter];
                 enumerator.Current.SetLobby(lobby);
                 counter++;
