@@ -39,13 +39,17 @@ namespace ManagersAndControllers {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            InitWave(testWave);
+            if (IsServer) {
+                InitWave(testWave);
+            }
         }
 
         public void StartNextWave() {
             currentWaveIndex = NextWaveIndex;
             Wave wave = waves[currentWaveIndex];
-            InitWave(wave);
+            if (IsServer) {
+                InitWave(wave);
+            }
             DrawWavePaths();
             HasWaveStarted = true;
             Ctx.Deps.EventsManager.TriggerWaveStarted(wave);
