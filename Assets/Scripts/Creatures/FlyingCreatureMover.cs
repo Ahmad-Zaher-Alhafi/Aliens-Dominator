@@ -18,7 +18,7 @@ namespace Creatures {
 
         protected override void FixedUpdate() {
             base.FixedUpdate();
-            if (HasMovingOrder) {
+            if (HasMovingOrder && pointToMoveTo != null) {
                 MoveTo(pointToMoveTo.position);
                 RotateToTheWantedAngle(pointToMoveTo.position);
             }

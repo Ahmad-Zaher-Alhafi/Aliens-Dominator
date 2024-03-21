@@ -38,7 +38,7 @@ namespace Creatures {
         protected virtual void FixedUpdate() {
             if (Creature.IsDead) return;
 
-            if (Creature.IsAttacking) {
+            if (Creature.IsAttacking && Creature.TargetPoint != null) {
                 RotateToTheWantedAngle(Creature.TargetPoint.TargetObject.transform.position);
             }
         }

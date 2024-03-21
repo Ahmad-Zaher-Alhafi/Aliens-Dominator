@@ -49,6 +49,8 @@ namespace Player {
         private float startDrawTime;
 
         public override void OnNetworkSpawn() {
+            Ctx.Deps.EventsManager.TriggerPlayerSpawnedOnNetwork(this);
+
             if (IsOwner) {
                 StartCoroutine(TriggerOwnerPlayerSpawnedDelayed());
                 MoveToInstantly();

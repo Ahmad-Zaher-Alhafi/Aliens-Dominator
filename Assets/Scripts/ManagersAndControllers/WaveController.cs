@@ -27,7 +27,7 @@ namespace ManagersAndControllers {
         [SerializeField] private Transform pathDrawersHolder;
 
         public int WavesCount => waves.Count;
-        public Wave CurrentWave => waves[CurrentWaveIndex];
+        public Wave CurrentWave => CurrentWaveIndex < 0 ? null : waves[CurrentWaveIndex];
 
         public int CurrentWaveIndex => currentWaveIndex;
         private int currentWaveIndex = -1;
@@ -36,6 +36,10 @@ namespace ManagersAndControllers {
         public bool HasWaveStarted { get; private set; }
 
         private readonly List<List<Vector3>> pathsToDraw = new();
+
+        private void Awake() {
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += UpdateWavesAirPathsTargetPoints;
+        }
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -110,6 +114,20 @@ namespace ManagersAndControllers {
             foreach (SerializedNetworkVector3List pathPoints in pathsPoints) {
                 DrawPath(pathPoints.Objects.ToList());
             }
+        }
+
+        /// <summary>
+        /// New joined player should be considered as a target point by air creatures
+        /// </summary>
+        private void UpdateWavesAirPathsTargetPoints(Player.Player player) {
+            foreach (Wave wave in waves) {
+                wave.ReassignAirTargetPoints();
+            }
+        }
+
+        public override void OnDestroy() {
+            base.OnDestroy();
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= UpdateWavesAirPathsTargetPoints;
         }
     }
 }

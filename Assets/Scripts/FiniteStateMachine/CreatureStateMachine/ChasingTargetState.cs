@@ -5,7 +5,8 @@ namespace FiniteStateMachine.CreatureStateMachine {
     public class ChasingTargetState : CreatureState {
         public override CreatureStateType Type => CreatureStateType.ChasingTarget;
         public override bool CanBeActivated() => (AutomatedObject.IsPoisoned || !AutomatedObject.HasToFollowPath) && AutomatedObject.TargetPoint != null;
-        public override float? Speed => Vector3.Distance(AutomatedObject.transform.position, AutomatedObject.TargetPoint.TargetObject.transform.position) > 1
+        public override float? Speed => AutomatedObject.TargetPoint != null &&
+                                        Vector3.Distance(AutomatedObject.transform.position, AutomatedObject.TargetPoint.TargetObject.transform.position) > 1
             ? AutomatedObject.RunSpeed
             : 0;
         protected override bool WaitForMoverToFulfill => true;

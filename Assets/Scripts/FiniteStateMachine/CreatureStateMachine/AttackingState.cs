@@ -18,7 +18,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         }
 
         private void ApplyDamage() {
-            if (AutomatedObject.TargetPoint.TargetObject == null) return;
+            if (AutomatedObject.TargetPoint?.TargetObject == null) return;
 
             AutomatedObject.TargetPoint.TargetObject.TakeDamage(AutomatedObject, 1);
             Debug.Log($"Creature {AutomatedObject} applied damage to {AutomatedObject.TargetPoint.TargetObject}!");

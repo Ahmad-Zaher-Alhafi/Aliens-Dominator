@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpawnPointPath : MonoBehaviour {
-    [SerializeField] private PointPathType pointPath;
-    public PointPathType PointPath => pointPath;
+    [FormerlySerializedAs("pointPath")]
+    [SerializeField] private PointPathType pathType;
+    public PointPathType PathType => pathType;
 
     [SerializeField] private List<PathPoint> pathPoints;
     public List<PathPoint> PathPoints => pathPoints;

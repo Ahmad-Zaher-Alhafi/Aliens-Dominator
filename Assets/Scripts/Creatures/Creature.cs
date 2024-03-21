@@ -185,6 +185,14 @@ namespace Creatures {
                     transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             }
+
+            if (TargetPoint == null) {
+                TargetPoint = FindNewTargetPoint();
+            }
+        }
+
+        private TargetPoint FindNewTargetPoint() {
+            return !IsServer ? null : Ctx.Deps.CreatureSpawnController.GetNewTargetPoint(this);
         }
 
         public void OnMoverOrderFulfilled() {

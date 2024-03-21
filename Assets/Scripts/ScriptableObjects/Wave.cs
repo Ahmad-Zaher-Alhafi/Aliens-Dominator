@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Creatures;
+using Unity.Netcode;
 using UnityEngine;
+using Utils;
 
 namespace ScriptableObjects {
     [CreateAssetMenu(menuName = "ScriptableObjects/Wave", fileName = "Wave")]
@@ -31,7 +33,7 @@ namespace ScriptableObjects {
         public List<Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>> WavePaths { get; } = new();
 
         public List<Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>> GetPathsOfType(SpawnPointPath.PointPathType pathType) {
-            return WavePaths.Where(tuple => tuple.Item2.PointPath == pathType).ToList();
+            return WavePaths.Where(tuple => tuple.Item2.PathType == pathType).ToList();
         }
 
         public bool AddWavePath(SpawnPoint spawnPoint, SpawnPointPath wavePath, bool isGroundPath, TargetPoint targetPoint) {
@@ -40,6 +42,13 @@ namespace ScriptableObjects {
             if (WavePaths.Contains(tuple)) return true;
             WavePaths.Add(tuple);
             return false;
+        }
+
+        public void ReassignAirTargetPoints() {
+            for (int i = 0; i < WavePaths.Count(tuple => tuple.Item2.PathType == SpawnPointPath.PointPathType.AirPath); i++) {
+                TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(NetworkManager.Singleton.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint;
+                WavePaths[i] = new Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>(WavePaths[i].Item1, WavePaths[i].Item2, WavePaths[i].Item3, targetPoint);
+            }
         }
     }
 }

@@ -55,6 +55,11 @@ namespace ManagersAndControllers {
         public void TriggerOwnerPlayerSpawnedOnNetwork(Player.Player player) {
             OwnerPlayerSpawnedOnNetwork?.Invoke(player);
         }
+        
+        public event Action<Player.Player> PlayerSpawnedOnNetwork;
+        public void TriggerPlayerSpawnedOnNetwork(Player.Player player) {
+            PlayerSpawnedOnNetwork?.Invoke(player);
+        }
 
         public event Action<Player.Player> OwnerPlayerDespawnedFromNetwork;
         public void TriggerOwnerPlayerDespawnedFromNetwork(Player.Player player) {
