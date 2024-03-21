@@ -40,6 +40,15 @@ namespace Arrows {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            StartCoroutine(InitDelayed());
+        }
+
+        /// <summary>
+        /// Init delayed to give time for the Game controller to find the player OnNetworkSpawn
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator InitDelayed() {
+            yield return new WaitForEndOfFrame();
             Init();
         }
 
