@@ -131,11 +131,12 @@ namespace Multiplayer {
         }
 
         public async void QuitMatch() {
-            if (!NetworkManager.Singleton.IsConnectedClient) return;
+            if (Status == LobbyStatus.None) return;
 
+            Status = LobbyStatus.None;
+            StopAllCoroutines();
             NetworkManager.Singleton.Shutdown();
             await Lobbies.Instance.RemovePlayerAsync(ConnectedToLobby.Id, PlayerId);
-            Status = LobbyStatus.None;
         }
     }
 }
