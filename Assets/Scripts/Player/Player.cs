@@ -50,7 +50,7 @@ namespace Player {
 
         public override void OnNetworkSpawn() {
             if (IsOwner) {
-                StartCoroutine(TriggerDelayed());
+                StartCoroutine(TriggerOwnerPlayerSpawnedDelayed());
                 MoveToInstantly();
             }
         }
@@ -62,7 +62,7 @@ namespace Player {
             }
         }
 
-        private IEnumerator TriggerDelayed() {
+        private IEnumerator TriggerOwnerPlayerSpawnedDelayed() {
             yield return new WaitForEndOfFrame();
             Ctx.Deps.EventsManager.TriggerOwnerPlayerSpawnedOnNetwork(this);
         }
