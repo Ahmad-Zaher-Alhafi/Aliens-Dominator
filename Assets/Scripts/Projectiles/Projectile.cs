@@ -97,6 +97,15 @@ namespace Projectiles {
         }
 
         private void Despawn() {
+            if (IsServer) {
+                NetworkObject.Despawn();
+            } else {
+                DespawnServerRPC();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnServerRPC() {
             NetworkObject.Despawn();
         }
     }
