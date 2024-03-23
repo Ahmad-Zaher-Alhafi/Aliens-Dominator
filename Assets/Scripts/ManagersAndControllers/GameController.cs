@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Context;
 using Creatures;
+using SecurityWeapons;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
@@ -121,10 +122,42 @@ namespace ManagersAndControllers {
 
 
 #if UNITY_EDITOR
+        [Space, Header("Editor Stuff")]
+        [SerializeField, HideInInspector] private bool activateAllWeaponsOnStart;
+
         [CustomEditor(typeof(GameController))]
         public class GameControllerEditor : Editor {
+            private SerializedProperty activateAllWeaponsOnStart;
+
+            private void OnEnable() {
+                activateAllWeaponsOnStart = serializedObject.FindProperty("activateAllWeaponsOnStart");
+                Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += PlayerSpawnedOnNetwork;
+            }
+
+            private void OnDisable() {
+                Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= PlayerSpawnedOnNetwork;
+            }
+
+            private void PlayerSpawnedOnNetwork(Player.Player player) {
+                Ctx.Deps.GameController.StartCoroutine(UpdateWeaponCommandersActivationDelayed());
+            }
+
+            private IEnumerator UpdateWeaponCommandersActivationDelayed() {
+                yield return new WaitForEndOfFrame();
+                GameController gameController = (GameController) target;
+                if (!gameController.IsServer) yield return null;
+
+                foreach (AutomationCommander automationCommander in FindObjectsOfType<AutomationCommander>()) {
+                    automationCommander.ChangeAutomationStatusServerRPC(activateAllWeaponsOnStart.boolValue);
+                }
+            }
+
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
+                serializedObject.Update();
+
+                EditorGUILayout.PropertyField(activateAllWeaponsOnStart, new GUIContent("Activate All Weapons On Start"));
+                serializedObject.ApplyModifiedProperties();
 
                 GameController gameController = (GameController) target;
 

@@ -28,13 +28,13 @@ namespace SecurityWeapons {
             if (IsServer) {
                 automatableToCommand.IsAutomatingEnabled = !automatableToCommand.IsAutomatingEnabled;
             } else {
-                ChangeAutomationStatusServerRPC();
+                ChangeAutomationStatusServerRPC(!automatableToCommand.IsAutomatingEnabled);
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void ChangeAutomationStatusServerRPC() {
-            automatableToCommand.IsAutomatingEnabled = !automatableToCommand.IsAutomatingEnabled;
+        public void ChangeAutomationStatusServerRPC(bool hasToActivate) {
+            automatableToCommand.IsAutomatingEnabled = hasToActivate;
         }
 
         private void SetActivationStateText() {
