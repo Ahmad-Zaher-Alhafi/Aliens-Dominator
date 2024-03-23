@@ -130,11 +130,15 @@ namespace ManagersAndControllers {
             private SerializedProperty activateAllWeaponsOnStart;
 
             private void OnEnable() {
+                if (!Application.isPlaying) return;
+
                 activateAllWeaponsOnStart = serializedObject.FindProperty("activateAllWeaponsOnStart");
                 Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += PlayerSpawnedOnNetwork;
             }
 
             private void OnDisable() {
+                if (!Application.isPlaying) return;
+
                 Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= PlayerSpawnedOnNetwork;
             }
 
@@ -154,6 +158,12 @@ namespace ManagersAndControllers {
 
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
+
+                if (!Application.isPlaying) {
+                    EditorGUILayout.HelpBox("Editor content is shown only in play mode", MessageType.Info);
+                    return;
+                }
+
                 serializedObject.Update();
 
                 EditorGUILayout.PropertyField(activateAllWeaponsOnStart, new GUIContent("Activate All Weapons On Start"));
@@ -161,10 +171,6 @@ namespace ManagersAndControllers {
 
                 GameController gameController = (GameController) target;
 
-                if (!Application.isPlaying) {
-                    EditorGUILayout.HelpBox("Editor content is shown only in play mode", MessageType.Info);
-                    return;
-                }
 
                 GUI.backgroundColor = Color.cyan;
                 if (GUILayout.Button("Start waves")) {
