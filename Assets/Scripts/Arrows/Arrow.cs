@@ -129,7 +129,6 @@ namespace Arrows {
 
         [ServerRpc]
         private void ActivateLineRendererServerRPC() {
-            trailRenderer.enabled = true;
             ActivateLineRendererClientRPC();
         }
 
