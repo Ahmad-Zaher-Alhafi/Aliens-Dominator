@@ -99,7 +99,7 @@ namespace Arrows {
         }
 
         private void Rotate() {
-            if (IsOwner) {
+            if (IsOwner && rig != null) {
                 // Rotate towards the velocity direction
                 transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
             }
