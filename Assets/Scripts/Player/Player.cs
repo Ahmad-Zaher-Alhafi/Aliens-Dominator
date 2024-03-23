@@ -49,22 +49,18 @@ namespace Player {
         private float startDrawTime;
 
         public override void OnNetworkSpawn() {
-            Ctx.Deps.EventsManager.TriggerPlayerSpawnedOnNetwork(this);
+            base.OnNetworkSpawn();
 
             if (IsOwner) {
-                StartCoroutine(TriggerOwnerPlayerSpawnedDelayed());
                 MoveToInstantly();
             }
+
+            Ctx.Deps.EventsManager.TriggerPlayerSpawnedOnNetwork(this);
         }
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
             Ctx.Deps.EventsManager.TriggerPlayerDespawnedFromNetwork(this);
-        }
-
-        private IEnumerator TriggerOwnerPlayerSpawnedDelayed() {
-            yield return new WaitForEndOfFrame();
-            Ctx.Deps.EventsManager.TriggerPlayerSpawnedOnNetwork(this);
         }
 
         private void Start() {
@@ -147,7 +143,8 @@ namespace Player {
         }
 
         private Arrow SpawnArrow(ulong ownerClientId) {
-            NetworkObject networkObject = NetworkObjectPool.Singleton.GetNetworkObject(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+            Player ownerPlayer = Ctx.Deps.GameController.GetPlayerOfClientId(ownerClientId);
+            NetworkObject networkObject = NetworkObjectPool.Singleton.GetNetworkObject(arrowPrefab, ownerPlayer.ArrowSpawnPoint.position, ownerPlayer.ArrowSpawnPoint.rotation);
             networkObject.SpawnWithOwnership(ownerClientId);
 
             arrow = networkObject.GetComponent<Arrow>();

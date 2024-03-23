@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Context;
 using Creatures;
 using Unity.Netcode;
@@ -47,6 +48,10 @@ namespace ManagersAndControllers {
                 Player = null;
             }
             players.Remove(player);
+        }
+
+        public Player.Player GetPlayerOfClientId(ulong playerClientId) {
+            return players.Single(player => player.OwnerClientId == playerClientId);
         }
 
         private void OnEnemyGotHit(Creature creature) {

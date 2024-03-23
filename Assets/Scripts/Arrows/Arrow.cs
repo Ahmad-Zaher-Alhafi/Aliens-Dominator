@@ -44,18 +44,18 @@ namespace Arrows {
         }
 
         /// <summary>
-        /// Init delayed to give time for the Game controller to find the player OnNetworkSpawn
+        /// Init delayed to give time for the Game controller to add the player OnNetworkSpawn
         /// </summary>
         /// <returns></returns>
         private IEnumerator InitDelayed() {
-            yield return new WaitForEndOfFrame();
             Init();
+            yield return new WaitForEndOfFrame();
+            Player.Player ownerPlayer = Ctx.Deps.GameController.GetPlayerOfClientId(OwnerClientId);
+            transform.position = ownerPlayer.ArrowSpawnPoint.position;
+            transform.rotation = ownerPlayer.ArrowSpawnPoint.rotation;
         }
 
         private void Init() {
-            transform.position = Ctx.Deps.GameController.Player.ArrowSpawnPoint.position;
-            transform.rotation = Ctx.Deps.GameController.Player.ArrowSpawnPoint.rotation;
-
             trailRenderer.enabled = false;
             triggerCollider.enabled = true;
 
