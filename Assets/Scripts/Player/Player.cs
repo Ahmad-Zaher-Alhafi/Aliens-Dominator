@@ -59,14 +59,12 @@ namespace Player {
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
-            if (IsOwner) {
-                Ctx.Deps.EventsManager.TriggerOwnerPlayerDespawnedFromNetwork(this);
-            }
+            Ctx.Deps.EventsManager.TriggerPlayerDespawnedFromNetwork(this);
         }
 
         private IEnumerator TriggerOwnerPlayerSpawnedDelayed() {
             yield return new WaitForEndOfFrame();
-            Ctx.Deps.EventsManager.TriggerOwnerPlayerSpawnedOnNetwork(this);
+            Ctx.Deps.EventsManager.TriggerPlayerSpawnedOnNetwork(this);
         }
 
         private void Start() {

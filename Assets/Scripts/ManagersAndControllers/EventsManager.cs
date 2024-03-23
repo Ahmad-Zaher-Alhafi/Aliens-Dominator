@@ -51,19 +51,14 @@ namespace ManagersAndControllers {
             UpgradesSuppliesCollected?.Invoke();
         }
 
-        public event Action<Player.Player> OwnerPlayerSpawnedOnNetwork;
-        public void TriggerOwnerPlayerSpawnedOnNetwork(Player.Player player) {
-            OwnerPlayerSpawnedOnNetwork?.Invoke(player);
-        }
-        
         public event Action<Player.Player> PlayerSpawnedOnNetwork;
         public void TriggerPlayerSpawnedOnNetwork(Player.Player player) {
             PlayerSpawnedOnNetwork?.Invoke(player);
         }
 
-        public event Action<Player.Player> OwnerPlayerDespawnedFromNetwork;
-        public void TriggerOwnerPlayerDespawnedFromNetwork(Player.Player player) {
-            OwnerPlayerDespawnedFromNetwork?.Invoke(player);
+        public event Action<Player.Player> PlayerDespawnedFromNetwork;
+        public void TriggerPlayerDespawnedFromNetwork(Player.Player player) {
+            PlayerDespawnedFromNetwork?.Invoke(player);
         }
 
         public event Action<Transform> onAirLeaderPatrolling; //event that being shot when the leader of the air creatures group reachs the last point and start to patrol around

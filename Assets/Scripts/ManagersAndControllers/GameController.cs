@@ -16,6 +16,8 @@ namespace ManagersAndControllers {
         [SerializeField] private List<ParticleSystem> winParticles;
         [SerializeField] private float winParticlesRepeatTime;
 
+        private readonly List<Player.Player> players = new();
+
         public Player.Player Player { get; private set; }
 
         private void Awake() {
@@ -25,8 +27,8 @@ namespace ManagersAndControllers {
 
             Ctx.Deps.EventsManager.EnemyGotHit += OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
-            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork += OnOwnerPlayerSpawnedOnNetwork;
-            Ctx.Deps.EventsManager.OwnerPlayerDespawnedFromNetwork += OnOwnerPlayerDespawnedFromNetwork;
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedFromNetwork;
         }
 
         public override void OnNetworkDespawn() {
@@ -34,12 +36,17 @@ namespace ManagersAndControllers {
             QuitMatch();
         }
 
-        private void OnOwnerPlayerSpawnedOnNetwork(Player.Player player) {
-            Player = player;
+        private void OnPlayerSpawnedOnNetwork(Player.Player player) {
+            if (player.IsOwner) {
+                Player = player;
+            }
+            players.Add(player);
         }
-
-        private void OnOwnerPlayerDespawnedFromNetwork(Player.Player player) {
-            Player = null;
+        private void OnPlayerDespawnedFromNetwork(Player.Player player) {
+            if (player.IsOwner) {
+                Player = null;
+            }
+            players.Remove(player);
         }
 
         private void OnEnemyGotHit(Creature creature) {
@@ -103,8 +110,8 @@ namespace ManagersAndControllers {
         public override void OnDestroy() {
             Ctx.Deps.EventsManager.EnemyDied -= OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished -= OnWaveFinished;
-            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork -= OnOwnerPlayerSpawnedOnNetwork;
-            Ctx.Deps.EventsManager.OwnerPlayerDespawnedFromNetwork -= OnOwnerPlayerDespawnedFromNetwork;
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork -= OnPlayerDespawnedFromNetwork;
         }
 
 

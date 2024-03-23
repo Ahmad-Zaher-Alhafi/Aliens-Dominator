@@ -38,10 +38,12 @@ namespace UI {
 
         private void Awake() {
             UpdateManuVisibilityState(true);
-            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork += OnOwnerPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
         }
 
-        private void OnOwnerPlayerSpawnedOnNetwork(Player.Player player) {
+        private void OnPlayerSpawnedOnNetwork(Player.Player player) {
+            if (!player.IsOwner) return;
+
             menuHolder.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -125,7 +127,7 @@ namespace UI {
         }
 
         private void OnDestroy() {
-            Ctx.Deps.EventsManager.OwnerPlayerSpawnedOnNetwork -= OnOwnerPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
         }
     }
 }
