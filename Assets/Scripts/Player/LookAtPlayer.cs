@@ -1,18 +1,17 @@
-﻿using System.Linq;
-using Unity.Netcode;
+﻿using Context;
+using ManagersAndControllers;
 using UnityEngine;
 
 namespace Player {
-    public class LookAtPlayer : NetworkBehaviour {
+    public class LookAtPlayer : MonoBehaviour {
         private Player player;
 
         private void Update() {
-            if (!IsSpawned) return;
-            player ??= FindObjectsOfType<Player>().SingleOrDefault(p => p.OwnerClientId == NetworkManager.LocalClientId);
+            player = Ctx.Deps.GameController.GetPlayerOfClientId(GameController.OwnerClientID);
             if (player == null) return;
 
-            transform.LookAt(player.transform);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+            Transform playerTransform = player.transform;
+            transform.eulerAngles = Quaternion.LookRotation(transform.position - playerTransform.position).eulerAngles;
         }
     }
 }
