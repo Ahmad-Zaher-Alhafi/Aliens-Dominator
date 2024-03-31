@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace Pool {
-    public class ObjectPool : NetworkBehaviour {
+    public class ObjectPool : MonoBehaviour {
         private PooledObject objectPrefab;
         private readonly List<PooledObject> pooledObjects = new();
 
