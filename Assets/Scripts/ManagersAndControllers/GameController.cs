@@ -4,6 +4,7 @@ using System.Linq;
 using Context;
 using Creatures;
 using SecurityWeapons;
+using UI;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
@@ -12,11 +13,14 @@ using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
+        public static ulong OwnerClientID { get; private set; }
+            
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
         [SerializeField] private int winParticlesLoopCount;
         [SerializeField] private List<ParticleSystem> winParticles;
         [SerializeField] private float winParticlesRepeatTime;
+        [SerializeField] private AnimatedText animatedTextPrefab;
 
         private readonly List<Player.Player> players = new();
 
@@ -31,6 +35,12 @@ namespace ManagersAndControllers {
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
             Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
             Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedFromNetwork;
+        }
+
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            OwnerClientID = OwnerClientId;
         }
 
         public override void OnNetworkDespawn() {
@@ -52,12 +62,16 @@ namespace ManagersAndControllers {
         }
 
         public Player.Player GetPlayerOfClientId(ulong playerClientId) {
-            return players.Single(player => player.OwnerClientId == playerClientId);
+            return players.SingleOrDefault(player => player.OwnerClientId == playerClientId);
         }
 
         private void OnEnemyGotHit(Creature creature) {
             if (Ctx.Deps.WaveController.HasWaveStarted) return;
             StartNextWave();
+        }
+
+        public void ShowAnimatedText(string text, Vector3 createPosition, Color color) {
+            animatedTextPrefab.GetObject<AnimatedText>(null).ShowText(text, createPosition, color);
         }
 
         public new Coroutine StartCoroutine(IEnumerator routine) {
@@ -132,13 +146,11 @@ namespace ManagersAndControllers {
             private void OnEnable() {
                 if (!Application.isPlaying) return;
 
-                activateAllWeaponsOnStart = serializedObject.FindProperty("activateAllWeaponsOnStart");
                 Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += PlayerSpawnedOnNetwork;
             }
 
             private void OnDisable() {
                 if (!Application.isPlaying) return;
-
                 Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= PlayerSpawnedOnNetwork;
             }
 
@@ -164,13 +176,7 @@ namespace ManagersAndControllers {
                     return;
                 }
 
-                serializedObject.Update();
-
-                EditorGUILayout.PropertyField(activateAllWeaponsOnStart, new GUIContent("Activate All Weapons On Start"));
-                serializedObject.ApplyModifiedProperties();
-
                 GameController gameController = (GameController) target;
-
 
                 GUI.backgroundColor = Color.cyan;
                 if (GUILayout.Button("Start waves")) {

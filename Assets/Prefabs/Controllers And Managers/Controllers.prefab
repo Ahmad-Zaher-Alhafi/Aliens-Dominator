@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3044567553695726191}
   - component: {fileID: 3044567553695726190}
+  - component: {fileID: 1051280023}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -270,7 +271,26 @@ MonoBehaviour:
   placeablesController: {fileID: 1577228351297302604}
   supplyPlanesController: {fileID: 944021468266300532}
   cameraController: {fileID: 3016270817342184751}
-  networkController: {fileID: 0}
+--- !u!114 &1051280023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044567553695726185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3044567554523871306
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +545,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ed18d58240908b4ab89dd75e41e6a7c, type: 2}
   - {fileID: 11400000, guid: 9bb5c37f8b6cf0241a94812e056b8054, type: 2}
   - {fileID: 11400000, guid: 8a4d3089d7d6dd74198be90c0021fdc1, type: 2}
+  testWave: {fileID: 11400000, guid: a69741fb588f2774ea11025de25182f8, type: 2}
   cinematicWave: {fileID: 11400000, guid: a0780e19f2336bd49a518dad0d8cf0eb, type: 2}
   pathDrawerPrefab: {fileID: -2207219392055801605, guid: af7bc854d7a347b4c93905fc7b45c5ac, type: 3}
   pathDrawersHolder: {fileID: 0}
@@ -1253,6 +1274,10 @@ PrefabInstance:
       value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: animatedTextPrefab
+      value: 
+      objectReference: {fileID: -2160978060339036911, guid: 1c50c48df87616640aa489ffb4922f5c, type: 3}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: winParticlesLoopCount
       value: 3
       objectReference: {fileID: 0}
@@ -1283,6 +1308,10 @@ PrefabInstance:
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: SpecialArrows.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
+      propertyPath: activateAllWeaponsOnStart
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5996011780452104926, guid: c1d67fa07111ba14d96af74991c502f4, type: 3}
       propertyPath: arrowUpdateParticlesPhase1

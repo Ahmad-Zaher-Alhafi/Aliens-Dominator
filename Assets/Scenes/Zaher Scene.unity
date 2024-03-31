@@ -36547,31 +36547,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4801898912896380, guid: 9c14a2b6d04c71f4586c455b0c3a7473, type: 3}
   m_PrefabInstance: {fileID: 5123427157303242278}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1051280019 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3044567553695726185, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-  m_PrefabInstance: {fileID: 3044567552970725674}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1051280023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051280019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1311074999
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &1051911993 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8554029332989798329, guid: 2ae5ef54ce825d1438d6cce011345145, type: 3}
@@ -76895,6 +76870,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1051280023, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 270994185
+      objectReference: {fileID: 0}
     - target: {fileID: 1220729976, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 623551972
@@ -76919,10 +76898,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Controllers
       objectReference: {fileID: 0}
-    - target: {fileID: 3044567553695726190, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: networkController
-      value: 
-      objectReference: {fileID: 1429252894}
     - target: {fileID: 3044567553695726191, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -76966,6 +76941,10 @@ PrefabInstance:
     - target: {fileID: 3044567553695726191, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044567554920042975, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: activateAllWeaponsOnStart
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3044567554920042975, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: winParticles.Array.data[0]
@@ -77027,10 +77006,6 @@ PrefabInstance:
       propertyPath: navMeshSurfaces.Array.data[4]
       value: 
       objectReference: {fileID: 225555627}
-    - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: testWave
-      value: 
-      objectReference: {fileID: 11400000, guid: a69741fb588f2774ea11025de25182f8, type: 2}
     - target: {fileID: 3637963087272948927, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: pathDrawersHolder
       value: 
@@ -77107,10 +77082,6 @@ PrefabInstance:
       propertyPath: testSpawnPoint
       value: 
       objectReference: {fileID: 1172071717}
-    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: spawnCinematicCreatures
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
       value: 
@@ -101975,6 +101946,10 @@ PrefabInstance:
     - target: {fileID: 303041840148798580, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1386195261
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703107896919681304, guid: df57a70065a818245890639027a7226f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3410221037
       objectReference: {fileID: 0}
     - target: {fileID: 5743793896088468407, guid: df57a70065a818245890639027a7226f, type: 3}
       propertyPath: useBursts

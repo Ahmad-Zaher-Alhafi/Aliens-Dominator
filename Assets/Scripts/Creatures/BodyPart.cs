@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -80,7 +81,7 @@ namespace Creatures {
             if (creature.IsDead) return;
             IDamager damager = other.gameObject.GetComponent<IDamager>();
             if (damager == null) return;
-            TakeDamage(damager, damageWeight);
+            TakeDamage(damager, damageWeight, type);
         }
 
         public void OnDeath() {
@@ -95,8 +96,8 @@ namespace Creatures {
             }
         }
 
-        public void TakeDamage(IDamager damager, int damageWeight) {
-            creature.TakeDamage(damager, damageWeight);
+        public void TakeDamage(IDamager damager, int damageWeight, Enum creatureBodyPart) {
+            creature.TakeDamage(damager, damageWeight, (CreatureBodyPart) creatureBodyPart);
         }
     }
 }

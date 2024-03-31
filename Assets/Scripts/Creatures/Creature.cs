@@ -201,9 +201,9 @@ namespace Creatures {
             }
         }
 
-        public void TakeDamage(IDamager damager, int damageWeight) {
+        public void TakeDamage(IDamager damager, int damageWeight, Enum damagedBodyPart) {
             ObjectDamagedWith = damager;
-            creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight);
+            creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight, (BodyPart.CreatureBodyPart) damagedBodyPart);
 
             if (IsServer) {
                 PlayBloodParticles();
@@ -211,6 +211,27 @@ namespace Creatures {
             } else {
                 PlayBloodParticlesServerRPC();
             }
+        }
+
+        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart) {
+            Color color;
+            switch (damagedBodyPart) {
+                case BodyPart.CreatureBodyPart.Head:
+                    color = Color.red;
+                    break;
+                case BodyPart.CreatureBodyPart.Body:
+                    color = Color.yellow;
+                    break;
+                case BodyPart.CreatureBodyPart.Leg:
+                case BodyPart.CreatureBodyPart.Arm:
+                case BodyPart.CreatureBodyPart.Foot:
+                case BodyPart.CreatureBodyPart.Tail:
+                    color = Color.white;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            Ctx.Deps.GameController.ShowAnimatedText(totalDamage.ToString(), stateUICreatePoint.position, color);
         }
 
         private void PlayBloodParticles() {

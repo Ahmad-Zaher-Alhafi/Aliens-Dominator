@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 public interface IDamageable {
     GameObject GameObject { get; }
-    void TakeDamage(IDamager damager, int damageWeight);
+    void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart);
     bool IsDestroyed { get; }
     int Health { get; }
 }
