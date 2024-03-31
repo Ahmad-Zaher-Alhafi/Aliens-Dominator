@@ -144,6 +144,7 @@ namespace ManagersAndControllers {
             private SerializedProperty activateAllWeaponsOnStart;
 
             private void OnEnable() {
+                activateAllWeaponsOnStart = serializedObject.FindProperty("activateAllWeaponsOnStart");
                 if (!Application.isPlaying) return;
 
                 Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += PlayerSpawnedOnNetwork;
@@ -170,6 +171,11 @@ namespace ManagersAndControllers {
 
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
+
+                serializedObject.Update();
+
+                EditorGUILayout.PropertyField(activateAllWeaponsOnStart, new GUIContent("Activate All Weapons On Start"));
+                serializedObject.ApplyModifiedProperties();
 
                 if (!Application.isPlaying) {
                     EditorGUILayout.HelpBox("Editor content is shown only in play mode", MessageType.Info);
