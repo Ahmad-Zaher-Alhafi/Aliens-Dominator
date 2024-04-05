@@ -26,14 +26,23 @@ namespace SecurityWeapons {
             lastArrowHitWith = other.gameObject;
 
             if (IsServer) {
-                automatableToCommand.IsAutomatingEnabled = !automatableToCommand.IsAutomatingEnabled;
+                SetAutomationStatus(!automatableToCommand.IsAutomatingEnabled);
             } else {
-                ChangeAutomationStatusServerRPC(!automatableToCommand.IsAutomatingEnabled);
+                ReverseAutomationStatusServerRPC();
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void ChangeAutomationStatusServerRPC(bool hasToActivate) {
+        public void SetAutomationStatusServerRPC(bool hasToActivate) {
+            SetAutomationStatus(hasToActivate);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ReverseAutomationStatusServerRPC() {
+            SetAutomationStatus(!automatableToCommand.IsAutomatingEnabled);
+        }
+
+        private void SetAutomationStatus(bool hasToActivate) {
             automatableToCommand.IsAutomatingEnabled = hasToActivate;
         }
 

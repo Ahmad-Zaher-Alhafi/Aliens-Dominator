@@ -165,7 +165,7 @@ namespace ManagersAndControllers {
                 if (!gameController.IsServer) yield return null;
 
                 foreach (AutomationCommander automationCommander in FindObjectsOfType<AutomationCommander>()) {
-                    automationCommander.ChangeAutomationStatusServerRPC(activateAllWeaponsOnStart.boolValue);
+                    automationCommander.SetAutomationStatusServerRPC(activateAllWeaponsOnStart.boolValue);
                 }
             }
 
