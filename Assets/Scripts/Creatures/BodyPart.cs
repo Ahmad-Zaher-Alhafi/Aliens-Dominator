@@ -48,7 +48,6 @@ namespace Creatures {
                     Destroy(characterJoint);
                 }
                 Destroy(Rig);
-                Destroy(collider);
             }
         }
 
@@ -77,11 +76,14 @@ namespace Creatures {
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (!IsServer) return;
-            if (creature.IsDead) return;
             IDamager damager = other.gameObject.GetComponent<IDamager>();
             if (damager == null) return;
-            TakeDamage(damager, damageWeight, type);
+
+            if (IsServer) {
+                TakeDamage(damager, damageWeight, type);
+            } else {
+                TakeDamageServerRPC(new NetworkBehaviourReference(damager.GameObject.GetComponent<NetworkBehaviour>()));
+            }
         }
 
         public void OnDeath() {
@@ -97,7 +99,15 @@ namespace Creatures {
         }
 
         public void TakeDamage(IDamager damager, int damageWeight, Enum creatureBodyPart) {
+            if (creature.IsDead) return;
             creature.TakeDamage(damager, damageWeight, (CreatureBodyPart) creatureBodyPart);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void TakeDamageServerRPC(NetworkBehaviourReference damagerReference) {
+            NetworkBehaviour networkBehaviour = damagerReference;
+            IDamager damager = networkBehaviour as IDamager;
+            TakeDamage(damager, damageWeight, type);
         }
     }
 }
