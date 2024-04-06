@@ -16,6 +16,7 @@ MonoBehaviour:
   - originStateType: 0
     transitionsData:
     - destinationStateType: 1
+    - destinationStateType: 5
     - destinationStateType: 6
     statesSyncedWithMask: 0
     interruptStatesMask: 0
