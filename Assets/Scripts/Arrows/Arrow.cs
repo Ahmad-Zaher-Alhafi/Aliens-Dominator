@@ -23,8 +23,6 @@ namespace Arrows {
         [SerializeField] float timeToDestroyAfterFire = 25f;
 
         [SerializeField] private Collider triggerCollider;
-        [Tooltip("The minimum velocity sqrMagnitude required to let the arrow bounce on hitting something")]
-        [SerializeField] protected float minVelocityToBounce = 450;
 
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
@@ -132,14 +130,6 @@ namespace Arrows {
             ActivateLineRendererClientRPC();
         }
 
-        private void OnCollisionEnter(Collision other) {
-            if (!IsOwner) return;
-
-            if (rig.velocity.sqrMagnitude > minVelocityToBounce) {
-                PlayArrowHitSound();
-            }
-        }
-
         private void OnTriggerEnter(Collider other) {
             if (!IsOwner) return;
 
@@ -149,10 +139,9 @@ namespace Arrows {
                 return;
             }
 
-            if (rig.velocity.sqrMagnitude > minVelocityToBounce) return;
-
             triggerCollider.enabled = false;
 
+            rig.velocity = Vector3.zero;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
             rig.isKinematic = true;
             rig.useGravity = false;
