@@ -8,11 +8,6 @@ namespace Collectables {
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
 
-        public override void OnNetworkDespawn() {
-            base.OnNetworkDespawn();
-            Destroy(gameObject);
-        }
-
         private void Update() {
             if (IsServer) {
                 networkPosition.Value = transform.position;
@@ -30,14 +25,18 @@ namespace Collectables {
 
             if (IsServer) {
                 OnCollected(suppliesType);
-                Despawn();
             } else {
                 CollectServerRPC(suppliesType);
-                DespawnServerRPC();
             }
         }
 
-        protected abstract void OnCollected(Constants.SuppliesTypes suppliesType);
+        protected virtual void OnCollected(Constants.SuppliesTypes suppliesType) {
+            if (IsServer) {
+                Despawn();
+            } else {
+                DespawnServerRPC();
+            }
+        }
 
         [ServerRpc(RequireOwnership = false)]
         private void CollectServerRPC(Constants.SuppliesTypes suppliesTypes) {
@@ -46,7 +45,6 @@ namespace Collectables {
 
         private void Despawn() {
             NetworkObject.Despawn();
-            Destroy(gameObject);
         }
 
         [ServerRpc(RequireOwnership = false)]

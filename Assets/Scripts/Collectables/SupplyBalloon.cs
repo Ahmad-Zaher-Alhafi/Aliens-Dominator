@@ -13,11 +13,6 @@ namespace Collectables {
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
 
-        public override void OnNetworkDespawn() {
-            base.OnNetworkDespawn();
-            Destroy(gameObject);
-        }
-
         private void Update() {
             if (IsServer) {
                 if (DestroyOnHeightLimitReached()) return;
@@ -57,7 +52,6 @@ namespace Collectables {
 
         private void Despawn() {
             NetworkObject.Despawn();
-            Destroy(gameObject);
         }
 
         [ServerRpc(RequireOwnership = false)]
