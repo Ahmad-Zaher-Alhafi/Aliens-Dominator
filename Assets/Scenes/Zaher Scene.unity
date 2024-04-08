@@ -76943,10 +76943,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3044567554920042975, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
-      propertyPath: activateAllWeaponsOnStart
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3044567554920042975, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: winParticles.Array.data[0]
       value: 
       objectReference: {fileID: 3794051577671331912}
