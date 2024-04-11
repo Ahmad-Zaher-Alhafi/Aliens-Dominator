@@ -13,8 +13,6 @@ using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
-        public static ulong OwnerClientID { get; private set; }
-            
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
         [SerializeField] private int winParticlesLoopCount;
@@ -35,12 +33,6 @@ namespace ManagersAndControllers {
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
             Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
             Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedFromNetwork;
-        }
-
-
-        public override void OnNetworkSpawn() {
-            base.OnNetworkSpawn();
-            OwnerClientID = OwnerClientId;
         }
 
         public override void OnNetworkDespawn() {

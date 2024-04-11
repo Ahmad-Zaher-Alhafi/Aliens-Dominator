@@ -212,7 +212,17 @@ namespace Creatures {
             }
         }
 
-        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart) {
+        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, IDamager objectDamagedWith) {
+            NetworkBehaviour networkBehaviour = objectDamagedWith.GameObject.GetComponent<NetworkBehaviour>();
+
+            if (networkBehaviour.OwnerClientId == OwnerClientId) {
+                ShowDamageText(totalDamage, damagedBodyPart);
+            } else {
+                ShowDamageTextClientRPC(totalDamage, damagedBodyPart, networkBehaviour.OwnerClientId);
+            }
+        }
+
+        private void ShowDamageText(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart) {
             Color color;
             switch (damagedBodyPart) {
                 case BodyPart.CreatureBodyPart.Head:
@@ -231,6 +241,12 @@ namespace Creatures {
                     throw new ArgumentOutOfRangeException();
             }
             Ctx.Deps.GameController.ShowAnimatedText(totalDamage.ToString(), stateUICreatePoint.position, color);
+        }
+
+        [ClientRpc]
+        private void ShowDamageTextClientRPC(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, ulong damagerClientID) {
+            if (Ctx.Deps.GameController.Player.OwnerClientId != damagerClientID) return;
+            ShowDamageText(totalDamage, damagedBodyPart);
         }
 
         private void PlayBloodParticles() {

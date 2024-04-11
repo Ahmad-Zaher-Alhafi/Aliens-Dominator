@@ -22,7 +22,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
 
             int totalDamage = damager.Damage * damageWeight;
             AutomatedObject.Health -= totalDamage;
-            AutomatedObject.OnDamageTaken(totalDamage, damagedBodyPart);
+            AutomatedObject.OnDamageTaken(totalDamage, damagedBodyPart, damager);
             Debug.Log($"Creature {AutomatedObject} took damage = {totalDamage} and current health = {AutomatedObject.Health}");
 
             AutomatedObject.Animator.PlayGettingHitAnimation(OnAnimationFinished);

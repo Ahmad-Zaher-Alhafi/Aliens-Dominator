@@ -1,5 +1,4 @@
 ﻿using Context;
-using ManagersAndControllers;
 using UnityEngine;
 
 namespace Player {
@@ -7,10 +6,9 @@ namespace Player {
         private Player player;
 
         private void Update() {
-            player = Ctx.Deps.GameController.GetPlayerOfClientId(GameController.OwnerClientID);
-            if (player == null) return;
+            if (Ctx.Deps.GameController.Player == null) return;
 
-            Transform playerTransform = player.transform;
+            Transform playerTransform = Ctx.Deps.GameController.Player.transform;
             transform.eulerAngles = Quaternion.LookRotation(transform.position - playerTransform.position).eulerAngles;
         }
     }
