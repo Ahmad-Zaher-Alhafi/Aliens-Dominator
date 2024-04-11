@@ -206,7 +206,6 @@ namespace Creatures {
             creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight, (BodyPart.CreatureBodyPart) damagedBodyPart);
 
             if (IsServer) {
-                PlayBloodParticles();
                 PlayBloodParticlesClientRPC();
             } else {
                 PlayBloodParticlesServerRPC();
@@ -243,7 +242,6 @@ namespace Creatures {
 
         [ServerRpc(RequireOwnership = false)]
         private void PlayBloodParticlesServerRPC() {
-            PlayBloodParticles();
             PlayBloodParticlesClientRPC();
         }
 
