@@ -132,12 +132,6 @@ namespace Arrows {
         private void OnTriggerEnter(Collider other) {
             if (!IsOwner) return;
 
-            // We do not want the arrow to hit anything else if it hit the teleport object
-            if (other.CompareTag(Constants.TeleportObject)) {
-                DestroyInstantly();
-                return;
-            }
-
             triggerCollider.enabled = false;
 
             rig.velocity = Vector3.zero;
@@ -147,6 +141,12 @@ namespace Arrows {
 
             trailRenderer.enabled = false;
             PlayArrowHitSound();
+
+            // Destroy directly if hit anything else except the terrain and the base
+            if (other.gameObject.layer is not (Constants.Terrain_LAYER_ID or Constants.Base_LAYER_ID)) {
+                DestroyInstantly();
+                return;
+            }
 
             StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterHit));
         }
