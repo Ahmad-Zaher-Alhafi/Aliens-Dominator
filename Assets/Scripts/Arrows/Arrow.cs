@@ -142,9 +142,8 @@ namespace Arrows {
             trailRenderer.enabled = false;
             PlayArrowHitSound();
 
-            // Destroy directly if hit anything else except the terrain and the base
             if (other.gameObject.layer is not (Constants.Terrain_LAYER_ID or Constants.Base_LAYER_ID)) {
-                DestroyInstantly();
+                StartCoroutine(DestroyInstantly());
                 return;
             }
 
@@ -189,10 +188,13 @@ namespace Arrows {
 
         private IEnumerator DestroyAfterSeconds(float timeToDestroyArrow) {
             yield return new WaitForSeconds(timeToDestroyArrow);
-            DestroyInstantly();
+            StartCoroutine(DestroyInstantly());
         }
 
-        private void DestroyInstantly() {
+        private IEnumerator DestroyInstantly() {
+            // Needed to allow colliding with other objects before being destroyed
+            yield return new WaitForFixedUpdate();
+
             if (IsServer) {
                 Despawn();
             } else {
