@@ -134,6 +134,7 @@ namespace ManagersAndControllers {
         [CustomEditor(typeof(GameController))]
         public class GameControllerEditor : Editor {
             private SerializedProperty activateAllWeaponsOnStart;
+            private int timeScale = 1;
 
             private void OnEnable() {
                 activateAllWeaponsOnStart = serializedObject.FindProperty("activateAllWeaponsOnStart");
@@ -186,14 +187,12 @@ namespace ManagersAndControllers {
                     gameController.GameOver(true);
                 }
 
-                GUI.backgroundColor = Color.magenta;
-                if (GUILayout.Button("Set time scale to 5")) {
-                    Time.timeScale = 5;
-                }
+
+                timeScale = EditorGUILayout.IntField("Time scale:", timeScale);
 
                 GUI.backgroundColor = Color.gray;
-                if (GUILayout.Button("Set time scale to 1")) {
-                    Time.timeScale = 1;
+                if (GUILayout.Button("Set time scale")) {
+                    Time.timeScale = timeScale;
                 }
             }
         }
