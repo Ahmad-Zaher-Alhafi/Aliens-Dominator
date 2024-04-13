@@ -162,6 +162,13 @@ namespace ManagersAndControllers {
                 }
             }
 
+            private void OnSceneGUI() {
+                serializedObject.Update();
+
+                EditorGUILayout.PropertyField(activateAllWeaponsOnStart, new GUIContent("Activate All Weapons On Start"));
+                serializedObject.ApplyModifiedProperties();
+            }
+
             public override void OnInspectorGUI() {
                 base.OnInspectorGUI();
 
