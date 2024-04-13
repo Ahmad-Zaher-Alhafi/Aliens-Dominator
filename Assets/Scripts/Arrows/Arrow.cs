@@ -33,7 +33,6 @@ namespace Arrows {
         private void Awake() {
             trailRenderer = GetComponent<TrailRenderer>();
             rig = GetComponent<Rigidbody>();
-            triggerCollider = GetComponent<Collider>();
         }
 
         public override void OnNetworkSpawn() {
