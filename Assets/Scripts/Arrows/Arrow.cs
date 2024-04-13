@@ -54,7 +54,7 @@ namespace Arrows {
 
         private void Init() {
             trailRenderer.enabled = false;
-            triggerCollider.enabled = true;
+            triggerCollider.enabled = false;
 
             if (IsOwner) {
                 if (rig == null) {
@@ -159,6 +159,7 @@ namespace Arrows {
             }
 
             trailRenderer.enabled = true;
+            triggerCollider.enabled = true;
             rig.isKinematic = false;
             rig.useGravity = true;
             rig.velocity = transform.forward * speed * drawForce;
