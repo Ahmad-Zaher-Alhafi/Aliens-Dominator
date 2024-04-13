@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Creatures;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Editor_Helpers {
+namespace EditorHelpers {
     [ExecuteInEditMode]
     public class BordPartsAdder : MonoBehaviour {
 
