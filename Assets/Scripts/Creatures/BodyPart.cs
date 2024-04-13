@@ -28,6 +28,7 @@ namespace Creatures {
         private Vector3 initialLocalPosition;
         private Quaternion initialLocalRotation;
         private CharacterJoint characterJoint;
+        private bool isCoreJoint;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -39,6 +40,7 @@ namespace Creatures {
             characterJoint = GetComponent<CharacterJoint>();
             initialLocalPosition = transform.localPosition;
             initialLocalRotation = transform.localRotation;
+            isCoreJoint = GetComponentInParent<BodyPart>() == null;
         }
 
         public override void OnNetworkSpawn() {
@@ -90,7 +92,14 @@ namespace Creatures {
             collider.enabled = true;
             Rig.useGravity = true;
             Rig.isKinematic = false;
-            Rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            if (creature is FlyingCreature) {
+                Rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            }
+
+            if (!isCoreJoint) {
+                Rig.velocity = Vector3.zero;
+                Rig.angularVelocity = Vector3.zero;
+            }
 
             if (creature.ObjectDamagedWith != null && Type == CreatureBodyPart.Body) {
                 // Force to push the creature away and rotate it once get killed (More realistic)
