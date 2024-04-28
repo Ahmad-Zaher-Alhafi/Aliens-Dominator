@@ -7820,10 +7820,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1906016000
-      Data2: 1229012397
-      Data3: 274672030
-      Data4: 290994286
+      Data1: 1063997019
+      Data2: 1085940963
+      Data3: 704840076
+      Data4: 579767592
     Path: event:/Creature/Death/Ulifo Death
   Event: 
   PlayEvent: 0
@@ -7835,7 +7835,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMaxDistance: 100
 --- !u!114 &1727438327103310847
 MonoBehaviour:
   m_ObjectHideFlags: 0

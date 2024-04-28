@@ -815,10 +815,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -351880817
-      Data2: 1106437226
-      Data3: 1535403437
-      Data4: -1798717820
+      Data1: -1363694861
+      Data2: 1115671260
+      Data3: -1464991303
+      Data4: -1144634436
     Path: event:/Creature/Death/Telekinis Death
   Event: 
   PlayEvent: 0
@@ -830,7 +830,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMaxDistance: 100
 --- !u!114 &-1375824271205975944
 MonoBehaviour:
   m_ObjectHideFlags: 0

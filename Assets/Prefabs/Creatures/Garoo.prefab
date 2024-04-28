@@ -832,10 +832,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 135720709
-      Data2: 1282119093
-      Data3: -681055332
-      Data4: -621985514
+      Data1: -821544321
+      Data2: 1163083704
+      Data3: 1686709151
+      Data4: -675258597
     Path: event:/Creature/Death/Garoo Death
   Event: 
   PlayEvent: 0
