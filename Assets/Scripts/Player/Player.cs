@@ -79,13 +79,24 @@ namespace Player {
             if (IsOwner) {
                 LookUpdate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), rotation);
 
-                if (Input.GetButtonDown("Fire1") && arrow == null) {
+                if (Input.GetButtonDown("Fire1")) {
+                    if (drawSound.IsPlaying()) {
+                        drawSound.Stop();
+                    }
                     drawSound.Play();
 
-                    if (IsServer) {
-                        SpawnArrow(OwnerClientId);
-                    } else {
-                        SpawnArrowServerRPC(OwnerClientId);
+                    if (arrow == null) {
+                        if (IsServer) {
+                            SpawnArrow(OwnerClientId);
+                        } else {
+                            SpawnArrowServerRPC(OwnerClientId);
+                        }
+                    }
+                }
+
+                if (Input.GetButtonUp("Fire1")) {
+                    if (drawSound.IsPlaying()) {
+                        drawSound.Stop();
                     }
                 }
 
