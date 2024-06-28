@@ -13,6 +13,7 @@ namespace Arrows {
         [SerializeField] private float pushingForce;
 
         [SerializeField] protected float speed = 5;
+        public float Speed => speed;
         [SerializeField] protected StudioEventEmitter arrowHitSound;
         [Range(1, 5)]
         [SerializeField] private int damage = 1;

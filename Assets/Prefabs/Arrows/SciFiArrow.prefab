@@ -258,13 +258,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushingForce: 100
-  speed: 100
+  speed: 150
   arrowHitSound: {fileID: 243671901626287143}
   damage: 1
   timeToDestroyAfterHit: 5
   timeToDestroyAfterFire: 25
   triggerCollider: {fileID: 8059447444177858186}
-  minVelocityToBounce: 450
 --- !u!65 &8059447444177858186
 BoxCollider:
   m_ObjectHideFlags: 0

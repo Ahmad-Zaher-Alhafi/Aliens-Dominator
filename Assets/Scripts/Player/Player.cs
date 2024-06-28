@@ -1,4 +1,3 @@
-using System.Collections;
 using Arrows;
 using Cinemachine;
 using Context;
@@ -6,6 +5,7 @@ using FMODUnity;
 using Multiplayer;
 using Unity.Netcode;
 using UnityEngine;
+using Utils.Extensions;
 
 namespace Player {
     public class Player : NetworkBehaviour {
@@ -30,6 +30,11 @@ namespace Player {
 
         [SerializeField] private CinemachineVirtualCamera playerCamera;
         public CinemachineVirtualCamera PlayerCamera => playerCamera;
+
+        [Header("Bow laser")]
+        [SerializeField] private LineRenderer bowLaser;
+        [SerializeField] private int laserNumPoints = 50; // Number of points to draw the line
+        [SerializeField] private float distanceBetweenLaserPoints = 0.1f; // Time step for each point in the trajectory
 
         private Arrow arrow;
         private float draw;
@@ -163,6 +168,8 @@ namespace Player {
         }
 
         private void DrawUpdate(bool isDrawing) {
+            DrawLaser(isDrawing);
+
             if (isDrawing && startDrawTime == 0) {
                 startDrawTime = Time.time;
             }
@@ -196,6 +203,32 @@ namespace Player {
             arrow = null;
             startDrawTime = 0;
             releaseSound.Play();
+        }
+
+        private void DrawLaser(bool isDrawing) {
+            if (!isDrawing || arrow == null) {
+                bowLaser.gameObject.SetActiveWithCheck(false);
+                return;
+            }
+
+            bowLaser.gameObject.SetActiveWithCheck(true);
+
+            bowLaser.positionCount = laserNumPoints;
+            Vector3[] points = new Vector3[laserNumPoints];
+
+            for (int i = 0; i < laserNumPoints; i++) {
+                float time = i * distanceBetweenLaserPoints;
+                points[i] = CalculatePositionAtTime(bow.transform.position, bow.transform.forward * arrow.Speed, time);
+            }
+
+            bowLaser.SetPositions(points);
+
+            Vector3 CalculatePositionAtTime(Vector3 startPosition, Vector3 startVelocity, float time) {
+                // Position at time t = start + velocity * t + 0.5 * gravity * t^2
+                Vector3 gravity = Physics.gravity;
+                Vector3 position = startPosition + startVelocity * time + 0.5f * gravity * time * time;
+                return position;
+            }
         }
 
         public void TeleportTo(Vector3 teleportPosition) {
