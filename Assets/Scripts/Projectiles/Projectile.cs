@@ -23,6 +23,10 @@ namespace Projectiles {
         private float initialSpeed;
         protected Collider Collider;
         private Coroutine destroyAfterTimeCoroutine;
+        /// <summary>
+        /// If ture, then the owner will send some of its transform's properties to other clients on network
+        /// </summary>
+        private bool hasToSyncMotion;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -43,22 +47,23 @@ namespace Projectiles {
         }
 
         protected virtual void Update() {
-            if (IsSpawned) {
-                if (IsServer) {
-                    networkPosition.Value = transform.position;
-                    networkRotation.Value = transform.rotation;
-                    networkScale.Value = transform.localScale;
-                } else {
-                    if (networkPosition.Value != Vector3.zero) {
-                        transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
-                        transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
-                        transform.localScale = networkScale.Value;
-                    }
+            if (!IsSpawned) return;
+
+            if (IsServer && hasToSyncMotion) {
+                networkPosition.Value = transform.position;
+                networkRotation.Value = transform.rotation;
+                networkScale.Value = transform.localScale;
+            } else {
+                if (networkPosition.Value != Vector3.zero) {
+                    transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                    transform.localScale = networkScale.Value;
                 }
             }
         }
 
         public virtual void InitDefaults() {
+            hasToSyncMotion = true;
             transform.localScale = Vector3.one;
 
             if (Rig != null) {
@@ -73,6 +78,7 @@ namespace Projectiles {
 
         protected virtual void OnTriggerEnter(Collider other) {
             Collider.enabled = false;
+            hasToSyncMotion = false;
         }
 
         /// <summary>
@@ -93,6 +99,13 @@ namespace Projectiles {
 
         private IEnumerator DestroyAfterTimeDelayed(float secondsToDestroy) {
             yield return new WaitForSeconds(secondsToDestroy);
+
+            if (IsServer) {
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
+                networkScale.Value = Vector3.zero;
+            }
+
             Despawn();
         }
 

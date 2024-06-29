@@ -28,7 +28,7 @@ namespace Arrows {
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
         /// <summary>
-        /// If ture, then the movement and the rotation of the arrow will be synced on network
+        /// If ture, then the owner will send some of its transform's properties to other clients on network
         /// </summary>
         private bool hasToSyncMotion;
 
@@ -79,13 +79,14 @@ namespace Arrows {
         }
 
         private void Update() {
-            if (!hasToSyncMotion) return;
             UpdatePosition();
             Rotate();
         }
 
         private void UpdatePosition() {
             if (IsOwner) {
+                if (!hasToSyncMotion) return;
+
                 if (IsServer) {
                     networkPosition.Value = transform.position;
                 } else {
