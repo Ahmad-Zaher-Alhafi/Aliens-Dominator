@@ -56,6 +56,11 @@ public class SupplyPlane : NetworkBehaviour {
         airplaneSound.Play();
     }
 
+    [ClientRpc]
+    private void StopAirplaneSoundClientRPC() {
+        airplaneSound.Stop();
+    }
+
     /// <summary>
     /// To let the plane drops the supplies after it reaches the dropping area
     /// </summary>
@@ -96,11 +101,9 @@ public class SupplyPlane : NetworkBehaviour {
     private IEnumerator DestroyDelayed() {
         yield return new WaitForSeconds(secondsToDespawn);
         hasToSyncMotion = false;
-        if (IsServer) {
-            networkPosition.Value = Vector3.zero;
-        }
+        networkPosition.Value = Vector3.zero;
         ReleaseSmokeParticleFromParentClientRPC();
-        airplaneSound.Stop();
+        StopAirplaneSoundClientRPC();
         NetworkObject.Despawn();
     }
 }
