@@ -27,6 +27,7 @@ namespace Creatures {
 
             if (IsServer) {
                 balloon.Spawn();
+                balloon.GetComponent<SupplyBalloon>().Init();
             } else {
                 SpawnBalloonServerRPC(spawnPosition, chanceToDropBalloon);
             }

@@ -1,3 +1,4 @@
+using System;
 using Context;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,9 +13,18 @@ namespace Collectables {
         [SerializeField] private Constants.SuppliesTypes suppliesType;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
+        /// <summary>
+        /// If ture, then the owner will send some of its transform's properties to other clients on network
+        /// </summary>
+        private bool hasToSyncMotion;
+
+        public void Init() {
+            hasToSyncMotion = true;
+        }
 
         private void Update() {
             if (IsServer) {
+                if (!hasToSyncMotion) return;
                 if (DestroyOnHeightLimitReached()) return;
 
                 transform.position += Vector3.up * speed * Time.deltaTime;
@@ -43,7 +53,10 @@ namespace Collectables {
         }
 
         private void Destroy() {
+            hasToSyncMotion = false;
+
             if (IsServer) {
+                networkPosition.Value = Vector3.zero;
                 Despawn();
             } else {
                 DespawnServerRPC();
