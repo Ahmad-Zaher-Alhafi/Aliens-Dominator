@@ -29,6 +29,10 @@ namespace Creatures {
         private Quaternion initialLocalRotation;
         private CharacterJoint characterJoint;
         private bool isCoreJoint;
+        /// <summary>
+        /// If ture, then the owner will send some of its transform's properties to other clients on network
+        /// </summary>
+        private bool hasToSyncMotion;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -54,6 +58,7 @@ namespace Creatures {
         }
 
         public void Init(PhysicMaterial physicMaterial) {
+            hasToSyncMotion = true;
             Rig.useGravity = false;
             Rig.isKinematic = true;
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
@@ -67,6 +72,8 @@ namespace Creatures {
             if (!creature.IsDead) return;
 
             if (IsServer) {
+                if (!hasToSyncMotion) return;
+
                 networkPosition.Value = transform.position;
                 networkRotation.Value = transform.rotation;
             } else {
@@ -104,6 +111,14 @@ namespace Creatures {
             if (creature.ObjectDamagedWith != null && Type == CreatureBodyPart.Body) {
                 // Force to push the creature away and rotate it once get killed (More realistic)
                 Rig.AddForce(creature.ObjectDamagedWith.Transform.forward * creature.ObjectDamagedWith.PushingForce, ForceMode.Impulse);
+            }
+        }
+
+        public void OnDespawn() {
+            hasToSyncMotion = false;
+            if (IsServer) {
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
             }
         }
 

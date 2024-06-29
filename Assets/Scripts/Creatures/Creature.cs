@@ -117,6 +117,10 @@ namespace Creatures {
         private readonly NetworkVariable<Quaternion> networkRotation = new();
         private bool isDeadOnServer;
         private StateUIPlaceable stateUIPlaceable;
+        /// <summary>
+        /// If ture, then the owner will send some of its transform's properties to other clients on network
+        /// </summary>
+        private bool hasToSyncMotion;
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -143,6 +147,7 @@ namespace Creatures {
         }
 
         public void Init(Vector3 spawnPosition, SpawnPointPath pathToFollow, bool isCinematic, TargetPoint targetPoint, CreatureStateType initialCreatureState) {
+            hasToSyncMotion = true;
             Rig.isKinematic = false;
             transform.position = spawnPosition;
             IsSlowedDown = false;
@@ -177,6 +182,8 @@ namespace Creatures {
 
         private void Update() {
             if (IsServer) {
+                if (!hasToSyncMotion) return;
+
                 networkPosition.Value = transform.position;
                 networkRotation.Value = transform.rotation;
             } else {
@@ -298,7 +305,16 @@ namespace Creatures {
         private IEnumerator DestroyObjectDelayed(float secondsToDestroyDeadBody = 0) {
             Ctx.Deps.EventsManager.TriggerEnemyDied(this);
             yield return new WaitForSeconds(secondsToDestroyDeadBody);
+            hasToSyncMotion = false;
+
             if (IsServer) {
+                foreach (BodyPart bodyPart in BodyParts) {
+                    bodyPart.OnDespawn();
+                }
+
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
+
                 Despawn();
             } else {
                 DespawnServerRPC();

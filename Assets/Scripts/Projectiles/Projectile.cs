@@ -49,7 +49,8 @@ namespace Projectiles {
         protected virtual void Update() {
             if (!IsSpawned) return;
 
-            if (IsServer && hasToSyncMotion) {
+            if (IsServer) {
+                if (!hasToSyncMotion) return;
                 networkPosition.Value = transform.position;
                 networkRotation.Value = transform.rotation;
                 networkScale.Value = transform.localScale;
