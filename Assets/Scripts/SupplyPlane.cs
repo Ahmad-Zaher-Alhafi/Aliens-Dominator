@@ -20,6 +20,10 @@ public class SupplyPlane : NetworkBehaviour {
     private StudioEventEmitter airplaneSound;
     private readonly NetworkVariable<Vector3> networkPosition = new();
     private SmokeParticles launchSmokeParticle;
+    /// <summary>
+    /// If ture, then the owner will send some of its transform's properties to other clients on network
+    /// </summary>
+    private bool hasToSyncMotion;
 
     private void Awake() {
         airplaneSound = GetComponent<StudioEventEmitter>();
@@ -28,7 +32,9 @@ public class SupplyPlane : NetworkBehaviour {
     private void Update() {
         if (IsServer) {
             transform.position += transform.forward * airplaneSpeed * Time.deltaTime;
-            networkPosition.Value = transform.position;
+            if (hasToSyncMotion) {
+                networkPosition.Value = transform.position;
+            }
         } else {
             transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
         }
@@ -38,6 +44,7 @@ public class SupplyPlane : NetworkBehaviour {
     /// To let the plane move to the area where to drop the supplies
     /// </summary>
     public void MoveToDropArea(Constants.SuppliesTypes suppliesType) {
+        hasToSyncMotion = true;
         PlayAirplaneSoundClientRPC();
         CreateLaunchSmokeParticleClientRPC();
         StartCoroutine(DropSupplies(suppliesType));
@@ -88,6 +95,10 @@ public class SupplyPlane : NetworkBehaviour {
 
     private IEnumerator DestroyDelayed() {
         yield return new WaitForSeconds(secondsToDespawn);
+        hasToSyncMotion = false;
+        if (IsServer) {
+            networkPosition.Value = Vector3.zero;
+        }
         ReleaseSmokeParticleFromParentClientRPC();
         airplaneSound.Stop();
         NetworkObject.Despawn();

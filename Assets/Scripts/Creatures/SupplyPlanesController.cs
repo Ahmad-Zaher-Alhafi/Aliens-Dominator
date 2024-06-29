@@ -34,7 +34,7 @@ namespace Creatures {
             Vector3 spawnRotation = planeSpawnPoints[randomIndex].rotation;
 
             NetworkObject plane = NetworkObjectPool.Singleton.GetNetworkObject(supplyPlane.gameObject, spawnPosition, Quaternion.Euler(spawnRotation));
-            
+
             plane.Spawn();
             plane.GetComponent<SupplyPlane>().MoveToDropArea(suppliesTypes);
         }
