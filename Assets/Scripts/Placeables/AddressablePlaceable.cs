@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Context;
+using Multiplayer;
+using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
@@ -13,6 +16,17 @@ namespace Placeables {
 
         protected AddressablePlaceable(string address) {
             this.address = address;
+        }
+
+        public async Task<GameObject> TryGetGameObjectFromNetworkPool(Vector3 spawnPosition) {
+            if (!prefabsCache.TryGetValue(address, out Task<GameObject> prefabTask)) return null;
+            GameObject wantedPrefab = await prefabTask;
+
+            if (wantedPrefab == null) return null;
+            NetworkObject wantedNetworkObject = NetworkObjectPool.Singleton.GetNetworkObject(wantedPrefab, spawnPosition, quaternion.identity);
+            if (wantedNetworkObject == null) return null;
+            GameObject = wantedNetworkObject.gameObject;
+            return GameObject;
         }
 
         public async Task<GameObject> GetGameObjectAsync(Transform parent) {
@@ -40,6 +54,7 @@ namespace Placeables {
 
         public void Destroy() {
             if (GameObject.TryGetComponent(out NetworkPlaceableObject networkPlaceableObject)) {
+                networkPlaceableObject.BeforeDespawn();
                 networkPlaceableObject.NetworkObject.Despawn();
             } else {
                 Object.Destroy(GameObject);

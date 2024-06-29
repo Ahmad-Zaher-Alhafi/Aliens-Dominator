@@ -9,5 +9,6 @@ namespace Placeables {
         public virtual void SetPlaceable(AddressablePlaceable placeable) {
             Placeable = placeable;
         }
+        public virtual void BeforeDespawn() { }
     }
 }
