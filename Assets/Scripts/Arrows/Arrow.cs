@@ -27,6 +27,10 @@ namespace Arrows {
 
         private Rigidbody rig;
         private TrailRenderer trailRenderer;
+        /// <summary>
+        /// If ture, then the movement and the rotation of the arrow will be synced on network
+        /// </summary>
+        private bool hasToSyncMotion;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -54,6 +58,7 @@ namespace Arrows {
         }
 
         private void Init() {
+            hasToSyncMotion = true;
             trailRenderer.enabled = false;
             triggerCollider.enabled = false;
 
@@ -69,10 +74,12 @@ namespace Arrows {
             } else {
                 // If nt owner destroy the rigid body so it does not interfere with position that is coming from the network (from the owner)
                 Destroy(rig);
+                rig = null;
             }
         }
 
         private void Update() {
+            if (!hasToSyncMotion) return;
             UpdatePosition();
             Rotate();
         }
@@ -133,6 +140,7 @@ namespace Arrows {
         private void OnTriggerEnter(Collider other) {
             if (!IsOwner) return;
 
+            hasToSyncMotion = false;
             triggerCollider.enabled = false;
 
             rig.velocity = Vector3.zero;
@@ -195,6 +203,14 @@ namespace Arrows {
         private IEnumerator DestroyInstantly() {
             // Needed to allow colliding with other objects before being destroyed
             yield return new WaitForFixedUpdate();
+
+            if (IsServer) {
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
+            } else {
+                UpdatePositionServerRPC(Vector3.zero);
+                RotateServerRPC(Quaternion.identity);
+            }
 
             if (IsServer) {
                 Despawn();
