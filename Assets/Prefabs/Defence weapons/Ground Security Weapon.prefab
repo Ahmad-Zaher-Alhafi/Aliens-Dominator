@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 169094800911230581}
   - component: {fileID: 5077425415438415300}
   - component: {fileID: 3771492673316199511}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Waepon Parent
   m_TagString: SecurityWeapon
   m_Icon: {fileID: 0}
@@ -687,6 +687,7 @@ MonoBehaviour:
   automationCommander: {fileID: 100666107}
   rotateOnYAxisRange: {x: -65, y: 65}
   rotateOnXAxisRange: {x: 0, y: 45}
+  activeOnStart: 0
   weaponSensor: {fileID: 3010871445501105339}
   weaponHealth: 200
   guardingSpeed: 10
@@ -1156,7 +1157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7144631825962316977}
   - component: {fileID: -2221461334052891818}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Ground Security Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

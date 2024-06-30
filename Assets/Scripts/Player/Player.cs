@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Arrows;
 using Cinemachine;
 using Context;
@@ -35,6 +36,9 @@ namespace Player {
         [SerializeField] private LineRenderer bowLaser;
         [SerializeField] private int laserNumPoints = 50; // Number of points to draw the line
         [SerializeField] private float distanceBetweenLaserPoints = 0.1f; // Time step for each point in the trajectory
+        [SerializeField] private float laserPointOverlapOffset = 0.1f;
+        [SerializeField] private Vector2 laserPointDistanceRange = new(0, 100);
+        [SerializeField] private Vector2 laserPointScaleRange = new(0.1f, 10);
 
         private Arrow arrow;
         private float draw;
@@ -52,6 +56,7 @@ namespace Player {
         private readonly Vector3 clientPosition = new(155, 27, 175);
 
         private float startDrawTime;
+        private Transform laserPoint;
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -72,6 +77,9 @@ namespace Player {
             if (!IsOwner) {
                 playerCamera.enabled = false;
             }
+
+            laserPoint = GameObject.Find("Laser Hit Point").transform;
+            laserPoint.gameObject.SetActive(false);
         }
 
         public void Update() {
@@ -106,10 +114,10 @@ namespace Player {
                 }
 
                 if (arrow != null) {
-                    DrawUpdate(Input.GetButton("Fire1"));
+                    DrawArrowUpdate(Input.GetButton("Fire1"));
 
                     if (Input.GetButtonUp("Fire1")) {
-                        ReleaseUpdate();
+                        ReleaseArrowUpdate();
                     }
                 }
 
@@ -167,7 +175,7 @@ namespace Player {
             return arrow;
         }
 
-        private void DrawUpdate(bool isDrawing) {
+        private void DrawArrowUpdate(bool isDrawing) {
             DrawLaser(isDrawing);
 
             if (isDrawing && startDrawTime == 0) {
@@ -192,7 +200,7 @@ namespace Player {
             }
         }
 
-        private void ReleaseUpdate() {
+        private void ReleaseArrowUpdate() {
             // To prevent spamming arrows
             if (Time.time < startDrawTime + 1 / arrowsPerSecond) {
                 startDrawTime = 0;
@@ -203,6 +211,7 @@ namespace Player {
             arrow = null;
             startDrawTime = 0;
             releaseSound.Play();
+            laserPoint.gameObject.SetActive(false);
         }
 
         private void DrawLaser(bool isDrawing) {
@@ -213,15 +222,48 @@ namespace Player {
 
             bowLaser.gameObject.SetActiveWithCheck(true);
 
-            bowLaser.positionCount = laserNumPoints;
-            Vector3[] points = new Vector3[laserNumPoints];
+            List<Vector3> points = new();
 
             for (int i = 0; i < laserNumPoints; i++) {
                 float time = i * distanceBetweenLaserPoints;
-                points[i] = CalculatePositionAtTime(bow.transform.position, bow.transform.forward * arrow.Speed, time);
+                Vector3 point = CalculatePositionAtTime(bowLaser.transform.position, bowLaser.transform.forward * draw * arrow.Speed, time);
+
+                if (i == 0) {
+                    points.Add(point);
+                    continue;
+                }
+
+                Ray ray = new Ray(points[i - 1], point - points[i - 1]);
+
+                if (Physics.Raycast(ray, out RaycastHit rayCastHit, Vector3.Distance(point, points[i - 1]), ~(1 << LayerMask.NameToLayer("Ignore Raycast")))) {
+                    points.Add(rayCastHit.point);
+
+                    Vector3 attachmentPoint = rayCastHit.point;
+                    Vector3 attachmentPointNormal = rayCastHit.normal;
+                    laserPoint.transform.SetPositionAndRotation(attachmentPoint + attachmentPointNormal * laserPointOverlapOffset, Quaternion.LookRotation(attachmentPointNormal, rayCastHit.transform.forward));
+                    laserPoint.gameObject.SetActiveWithCheck(true);
+                    break;
+                }
+
+                points.Add(point);
+                laserPoint.gameObject.SetActiveWithCheck(false);
             }
 
-            bowLaser.SetPositions(points);
+            bowLaser.positionCount = points.Count;
+            bowLaser.SetPositions(points.ToArray());
+
+            // Calculate the distance between the player and the object
+            float distance = Vector3.Distance(transform.position, laserPoint.position);
+
+            // Normalize the distance within the range [minDistance, maxDistance]
+            float normalizedDistance = Mathf.InverseLerp(laserPointDistanceRange.x, laserPointDistanceRange.y, distance);
+
+            // Calculate the scale factor based on the normalized distance
+            float scaleFactor = Mathf.Lerp(laserPointScaleRange.x, laserPointScaleRange.y, normalizedDistance);
+
+            // Apply the scale to the object
+            laserPoint.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+
 
             Vector3 CalculatePositionAtTime(Vector3 startPosition, Vector3 startVelocity, float time) {
                 // Position at time t = start + velocity * t + 0.5 * gravity * t^2
