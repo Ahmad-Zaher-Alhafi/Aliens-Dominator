@@ -34,6 +34,7 @@ Transform:
   - {fileID: 8296447903236158786}
   - {fileID: 8296447902528877972}
   - {fileID: 9176926499745111893}
+  - {fileID: 7230024732336225342}
   m_Father: {fileID: 4238046284629319556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,7 +123,6 @@ Transform:
   - {fileID: 6836515080466163195}
   - {fileID: 6890590379527005533}
   - {fileID: 8752147956380242013}
-  - {fileID: 7230024732336225342}
   m_Father: {fileID: 4094902095222032910}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa8d6a7885c091498cadf45ec5b5421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawingSpeed: 150
+  drawingSpeed: 50
   releaseSpeed: 800
   maxZPos: 0.06
   arrow: {fileID: 8296447903864587603}
@@ -811,7 +811,6 @@ MonoBehaviour:
   bowLaser: {fileID: 7345524014827733459}
   laserNumPoints: 50
   distanceBetweenLaserPoints: 0.1
-  laserPointOverlapOffset: 0.1
   laserPointDistanceRange: {x: 0, y: 100}
   laserPointScaleRange: {x: 0.1, y: 10}
 --- !u!114 &5156337647343923180
@@ -920,13 +919,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384018534361609058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.111, z: 0.219}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.00000008146034, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0039823633, z: 0.013057036}
+  m_LocalScale: {x: 0.0652838, y: 0.0652838, z: 0.0652838}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4238046284629319556}
-  m_RootOrder: 3
+  m_Father: {fileID: 6836515080466163195}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &7345524014827733459
 LineRenderer:

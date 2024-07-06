@@ -34,6 +34,8 @@ namespace Arrows {
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
+        private Player.Player ownerPlayer;
+        private bool isFired;
 
         private void Awake() {
             trailRenderer = GetComponent<TrailRenderer>();
@@ -52,7 +54,7 @@ namespace Arrows {
         private IEnumerator InitDelayed() {
             Init();
             yield return new WaitForEndOfFrame();
-            Player.Player ownerPlayer = Ctx.Deps.GameController.GetPlayerOfClientId(OwnerClientId);
+            ownerPlayer = Ctx.Deps.GameController.GetPlayerOfClientId(OwnerClientId);
             transform.position = ownerPlayer.ArrowSpawnPoint.position;
             transform.rotation = ownerPlayer.ArrowSpawnPoint.rotation;
         }
@@ -81,6 +83,13 @@ namespace Arrows {
         private void Update() {
             UpdatePosition();
             Rotate();
+        }
+
+        private void LateUpdate() {
+            if (!isFired && ownerPlayer != null) {
+                transform.position = ownerPlayer.ArrowSpawnPoint.position;
+                transform.rotation = ownerPlayer.ArrowSpawnPoint.rotation;
+            }
         }
 
         private void UpdatePosition() {
@@ -174,6 +183,7 @@ namespace Arrows {
             rig.velocity = transform.forward * speed * drawForce;
             rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rig.detectCollisions = true;
+            isFired = true;
 
             StartCoroutine(DestroyAfterSeconds(timeToDestroyAfterFire));
         }
@@ -204,7 +214,6 @@ namespace Arrows {
         private IEnumerator DestroyInstantly() {
             // Needed to allow colliding with other objects before being destroyed
             yield return new WaitForFixedUpdate();
-
             if (IsServer) {
                 networkPosition.Value = Vector3.zero;
                 networkRotation.Value = Quaternion.identity;
@@ -212,6 +221,8 @@ namespace Arrows {
                 UpdatePositionServerRPC(Vector3.zero);
                 RotateServerRPC(Quaternion.identity);
             }
+
+            isFired = false;
 
             if (IsServer) {
                 Despawn();

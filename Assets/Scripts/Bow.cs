@@ -26,6 +26,7 @@ public class Bow : NetworkBehaviour {
     private LineRenderer lr;
     private Vector3 maxArrowPosition;
     private readonly bool shootRoutine = false;
+    public float DrawForce { get; private set; }
 
     public override void OnNetworkDespawn() {
         base.OnNetworkDespawn();
@@ -61,8 +62,8 @@ public class Bow : NetworkBehaviour {
         lookRotation = Quaternion.AngleAxis(drawAngle, transform.right) * transform.rotation;
         bottomJoint.rotation = lookRotation;
 
-        float t = drawAngle / maxDrawangle;
-        arrowParent.localPosition = Vector3.Lerp(arrowPosition, maxArrowPosition, t);
+        DrawForce = drawAngle / maxDrawangle;
+        arrowParent.localPosition = Vector3.Lerp(arrowPosition, maxArrowPosition, DrawForce);
     }
 
 

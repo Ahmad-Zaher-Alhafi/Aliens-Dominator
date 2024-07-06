@@ -36,12 +36,10 @@ namespace Player {
         [SerializeField] private LineRenderer bowLaser;
         [SerializeField] private int laserNumPoints = 50; // Number of points to draw the line
         [SerializeField] private float distanceBetweenLaserPoints = 0.1f; // Time step for each point in the trajectory
-        [SerializeField] private float laserPointOverlapOffset = 0.1f;
         [SerializeField] private Vector2 laserPointDistanceRange = new(0, 100);
         [SerializeField] private Vector2 laserPointScaleRange = new(0.1f, 10);
 
         private Arrow arrow;
-        private float draw;
         private Vector3 initialDrawPosition;
 
         private float initialYRotation;
@@ -54,9 +52,7 @@ namespace Player {
 
         private readonly Vector3 serverPosition = new(163, 27, 189);
         private readonly Vector3 clientPosition = new(155, 27, 175);
-
-        private float startDrawTime;
-        private Transform laserPoint;
+        private Bow bowComponent;
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -73,13 +69,14 @@ namespace Player {
             Ctx.Deps.EventsManager.TriggerPlayerDespawnedFromNetwork(this);
         }
 
+        private void Awake() {
+            bowComponent = bow.GetComponentInParent<Bow>();
+        }
+
         private void Start() {
             if (!IsOwner) {
                 playerCamera.enabled = false;
             }
-
-            laserPoint = GameObject.Find("Laser Hit Point").transform;
-            laserPoint.gameObject.SetActive(false);
         }
 
         public void Update() {
@@ -113,12 +110,10 @@ namespace Player {
                     }
                 }
 
-                if (arrow != null) {
-                    DrawArrowUpdate(Input.GetButton("Fire1"));
+                DrawBow(Input.GetButton("Fire1"));
 
-                    if (Input.GetButtonUp("Fire1")) {
-                        ReleaseArrowUpdate();
-                    }
+                if (arrow != null && Input.GetButtonUp("Fire1")) {
+                    ReleaseBow();
                 }
 
                 if (hasToTeleport) {
@@ -139,7 +134,7 @@ namespace Player {
             rotation.y += xChange;
 
             this.rotation = rotation;
-            transform.rotation = Quaternion.Euler(new Vector2(rotation.x, rotation.y + initialYRotation));
+            transform.rotation = Quaternion.LerpUnclamped(transform.rotation, Quaternion.Euler(new Vector2(rotation.x, rotation.y + initialYRotation)), .1f);
 
             if (IsServer) {
                 networkRotation.Value = transform.rotation;
@@ -175,43 +170,28 @@ namespace Player {
             return arrow;
         }
 
-        private void DrawArrowUpdate(bool isDrawing) {
+        private void DrawBow(bool isDrawing) {
             DrawLaser(isDrawing);
 
-            if (isDrawing && startDrawTime == 0) {
-                startDrawTime = Time.time;
-            }
-
-            int direction = isDrawing ? 1 : -1;
-            draw = Mathf.Clamp(draw + Time.deltaTime * direction, 0, 1);
-            arrow.transform.position = arrowSpawnPoint.position;
-            arrow.transform.rotation = arrowSpawnPoint.rotation;
-
             // Whenever we draw, we want the bow to move as well
-            var bowLocalPosition = bow.localPosition;
-            float z = Mathf.Clamp(bowLocalPosition.z + draw, 0, maxBowMovement);
-            bowLocalPosition = Vector3.Lerp(bowLocalPosition, new Vector3(bowLocalPosition.x, bowLocalPosition.y, z), Time.deltaTime * 4f);
-            bow.localPosition = bowLocalPosition;
+            float drawZValue = Mathf.Clamp(bow.localPosition.z + bowComponent.DrawForce, 0, maxBowMovement);
+            bow.localPosition = Vector3.Lerp(bow.localPosition, new Vector3(bow.localPosition.x, bow.localPosition.y, drawZValue), 4 * Time.deltaTime);
 
-
+            if (isDrawing) return;
             // Reset the bow position if its not already reset
             if (bow.localPosition.z != 0f) {
-                bow.localPosition = Vector3.Lerp(bow.localPosition, Vector3.zero, Time.deltaTime * 10f);
+                bow.localPosition = Vector3.Lerp(bow.localPosition, Vector3.zero, 4 * Time.deltaTime);
             }
         }
 
-        private void ReleaseArrowUpdate() {
+        private void ReleaseBow() {
             // To prevent spamming arrows
-            if (Time.time < startDrawTime + 1 / arrowsPerSecond) {
-                startDrawTime = 0;
-                return;
-            }
+            if (bowComponent.DrawForce < 1 / arrowsPerSecond) return;
 
-            arrow.Fire(draw);
+            arrow.Fire(bowComponent.DrawForce);
             arrow = null;
-            startDrawTime = 0;
             releaseSound.Play();
-            laserPoint.gameObject.SetActive(false);
+            BowLaserHitPoint.Instance.gameObject.SetActive(false);
         }
 
         private void DrawLaser(bool isDrawing) {
@@ -226,7 +206,7 @@ namespace Player {
 
             for (int i = 0; i < laserNumPoints; i++) {
                 float time = i * distanceBetweenLaserPoints;
-                Vector3 point = CalculatePositionAtTime(bowLaser.transform.position, bowLaser.transform.forward * draw * arrow.Speed, time);
+                Vector3 point = CalculatePositionAtTime(bowLaser.transform.position, bowLaser.transform.forward * bowComponent.DrawForce * arrow.Speed, time);
 
                 if (i == 0) {
                     points.Add(point);
@@ -240,20 +220,20 @@ namespace Player {
 
                     Vector3 attachmentPoint = rayCastHit.point;
                     Vector3 attachmentPointNormal = rayCastHit.normal;
-                    laserPoint.transform.SetPositionAndRotation(attachmentPoint + attachmentPointNormal * laserPointOverlapOffset, Quaternion.LookRotation(attachmentPointNormal, rayCastHit.transform.forward));
-                    laserPoint.gameObject.SetActiveWithCheck(true);
+                    BowLaserHitPoint.Instance.transform.SetPositionAndRotation(attachmentPoint, Quaternion.LookRotation(attachmentPointNormal, rayCastHit.transform.forward));
+                    BowLaserHitPoint.Instance.gameObject.SetActiveWithCheck(true);
                     break;
                 }
 
                 points.Add(point);
-                laserPoint.gameObject.SetActiveWithCheck(false);
+                BowLaserHitPoint.Instance.gameObject.SetActiveWithCheck(false);
             }
 
             bowLaser.positionCount = points.Count;
             bowLaser.SetPositions(points.ToArray());
 
             // Calculate the distance between the player and the object
-            float distance = Vector3.Distance(transform.position, laserPoint.position);
+            float distance = Vector3.Distance(transform.position, BowLaserHitPoint.Instance.transform.position);
 
             // Normalize the distance within the range [minDistance, maxDistance]
             float normalizedDistance = Mathf.InverseLerp(laserPointDistanceRange.x, laserPointDistanceRange.y, distance);
@@ -262,7 +242,7 @@ namespace Player {
             float scaleFactor = Mathf.Lerp(laserPointScaleRange.x, laserPointScaleRange.y, normalizedDistance);
 
             // Apply the scale to the object
-            laserPoint.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+            BowLaserHitPoint.Instance.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
 
 
             Vector3 CalculatePositionAtTime(Vector3 startPosition, Vector3 startVelocity, float time) {

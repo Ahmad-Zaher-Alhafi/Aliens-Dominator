@@ -630,10 +630,10 @@ GameObject:
   - component: {fileID: 8273696075488936520}
   - component: {fileID: 7702305597586085937}
   - component: {fileID: 477977049}
-  - component: {fileID: 5768297785568713822}
   - component: {fileID: 169094800911230581}
   - component: {fileID: 5077425415438415300}
   - component: {fileID: 3771492673316199511}
+  - component: {fileID: 2804438643643067511}
   m_Layer: 0
   m_Name: Waepon Parent
   m_TagString: SecurityWeapon
@@ -696,19 +696,6 @@ MonoBehaviour:
   useInfiniteAmmo: 0
   projectileCreatePoint: {fileID: 1029521935}
   bulletSound: {fileID: 5077425415438415300}
---- !u!65 &5768297785568713822
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4978288515570775906}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.3558063, z: 1.0968503}
-  m_Center: {x: 5.716312e-10, y: 0.09883098, z: 0.16695075}
 --- !u!114 &169094800911230581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +762,20 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!136 &2804438643643067511
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978288515570775906}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.14452244
+  m_Height: 1.2013037
+  m_Direction: 2
+  m_Center: {x: 0.00000014281073, y: 0.04207635, z: 0.17092098}
 --- !u!1 &5521477000346423419
 GameObject:
   m_ObjectHideFlags: 0
