@@ -86,7 +86,7 @@ namespace Arrows {
         }
 
         private void LateUpdate() {
-            if (!isFired && ownerPlayer != null) {
+            if (IsOwner && !isFired && ownerPlayer != null) {
                 transform.position = ownerPlayer.ArrowSpawnPoint.position;
                 transform.rotation = ownerPlayer.ArrowSpawnPoint.rotation;
             }
@@ -214,6 +214,9 @@ namespace Arrows {
         private IEnumerator DestroyInstantly() {
             // Needed to allow colliding with other objects before being destroyed
             yield return new WaitForFixedUpdate();
+
+            gameObject.SetActive(false);
+
             if (IsServer) {
                 networkPosition.Value = Vector3.zero;
                 networkRotation.Value = Quaternion.identity;
