@@ -4,6 +4,8 @@ public class Bow : NetworkBehaviour {
     [SerializeField] private float drawingSpeed;
     [SerializeField] private float releaseSpeed;
     [SerializeField] private float maxZPos;
+    [SerializeField] private Transform bowMovingPart;
+
     public Transform arrow;
     public Transform arrowParent;
     public Transform topJoint;
@@ -28,6 +30,11 @@ public class Bow : NetworkBehaviour {
     private readonly bool shootRoutine = false;
     public float DrawForce { get; private set; }
 
+    private readonly NetworkVariable<Quaternion> topJointNetworkRotation = new();
+    private readonly NetworkVariable<Quaternion> bottomJointNetworkRotation = new();
+    private readonly NetworkVariable<Vector3> arrowParentNetworkLocalPosition = new();
+    private readonly NetworkVariable<Vector3> bowMovingPartNetworkLocalPosition = new();
+
     public override void OnNetworkDespawn() {
         base.OnNetworkDespawn();
         Destroy(gameObject);
@@ -48,24 +55,55 @@ public class Bow : NetworkBehaviour {
     private void Update() {
         if (Cursor.lockState != CursorLockMode.Locked) return;
 
-        if (!IsOwner) return;
+        if (IsOwner) {
+            if (shootRoutine) return;
 
-        if (shootRoutine) return;
+            if (Input.GetMouseButton(0)) drawAngle += drawingSpeed * Time.deltaTime;
+            else drawAngle += -releaseSpeed * Time.deltaTime;
 
-        if (Input.GetMouseButton(0)) drawAngle += drawingSpeed * Time.deltaTime;
-        else drawAngle += -releaseSpeed * Time.deltaTime;
+            drawAngle = Mathf.Clamp(drawAngle, 0, maxDrawangle);
 
-        drawAngle = Mathf.Clamp(drawAngle, 0, maxDrawangle);
+            Quaternion lookRotation = Quaternion.AngleAxis(-drawAngle, transform.right) * transform.rotation;
+            topJoint.rotation = lookRotation;
+            lookRotation = Quaternion.AngleAxis(drawAngle, transform.right) * transform.rotation;
+            bottomJoint.rotation = lookRotation;
+            DrawForce = drawAngle / maxDrawangle;
+            arrowParent.localPosition = Vector3.Lerp(arrowPosition, maxArrowPosition, DrawForce);
 
-        Quaternion lookRotation = Quaternion.AngleAxis(-drawAngle, transform.right) * transform.rotation;
-        topJoint.rotation = lookRotation;
-        lookRotation = Quaternion.AngleAxis(drawAngle, transform.right) * transform.rotation;
-        bottomJoint.rotation = lookRotation;
+            if (IsServer) {
+                topJointNetworkRotation.Value = topJoint.rotation;
+                bottomJointNetworkRotation.Value = bottomJoint.rotation;
+                arrowParentNetworkLocalPosition.Value = arrowParent.localPosition;
+                bowMovingPartNetworkLocalPosition.Value = bowMovingPart.localPosition;
+            } else {
+                UpdateMotionServerRPC(arrowParent.localPosition, topJoint.rotation, bottomJoint.rotation, bowMovingPart.localPosition);
+            }
+        } else {
+            if (topJointNetworkRotation.Value != Quaternion.identity) {
+                topJoint.rotation = Quaternion.LerpUnclamped(topJoint.rotation, topJointNetworkRotation.Value, .1f);
+            }
 
-        DrawForce = drawAngle / maxDrawangle;
-        arrowParent.localPosition = Vector3.Lerp(arrowPosition, maxArrowPosition, DrawForce);
+            if (bottomJointNetworkRotation.Value != Quaternion.identity) {
+                bottomJoint.rotation = Quaternion.LerpUnclamped(bottomJoint.rotation, bottomJointNetworkRotation.Value, .1f);
+            }
+
+            if (arrowParentNetworkLocalPosition.Value != Vector3.zero) {
+                arrowParent.localPosition = Vector3.LerpUnclamped(arrowParent.localPosition, arrowParentNetworkLocalPosition.Value, .1f);
+            }
+
+            if (bowMovingPartNetworkLocalPosition.Value != Vector3.zero) {
+                bowMovingPart.localPosition = Vector3.LerpUnclamped(bowMovingPart.localPosition, bowMovingPartNetworkLocalPosition.Value, .1f);
+            }
+        }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateMotionServerRPC(Vector3 arrowParentLocalPosition, Quaternion topJointRotation, Quaternion bottomJointRotation, Vector3 bowMovingPartLocalPosition) {
+        topJointNetworkRotation.Value = topJointRotation;
+        bottomJointNetworkRotation.Value = bottomJointRotation;
+        arrowParentNetworkLocalPosition.Value = arrowParentLocalPosition;
+        bowMovingPartNetworkLocalPosition.Value = bowMovingPartLocalPosition;
+    }
 
     private void LateUpdate() {
         var linePositions = new Vector3[3];

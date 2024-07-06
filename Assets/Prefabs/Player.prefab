@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1999179688673224925}
   - component: {fileID: 7438025026980997150}
   m_Layer: 0
-  m_Name: Bow
+  m_Name: Bow Moving Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   drawingSpeed: 50
   releaseSpeed: 800
   maxZPos: 0.06
+  bowMovingPart: {fileID: 6836515080466163195}
   arrow: {fileID: 8296447903864587603}
   arrowParent: {fileID: 9176926499745111893}
   topJoint: {fileID: 8296447903236158786}
@@ -803,7 +804,8 @@ MonoBehaviour:
   teleportSpeed: 15
   arrowSpawnPoint: {fileID: 8296447903864587603}
   enemyTargetPoint: {fileID: 9176926500301972966}
-  bow: {fileID: 6836515080466163195}
+  bow: {fileID: 9176926500282881733}
+  bowMovingPart: {fileID: 6836515080466163195}
   maxBowMovement: 0.25
   releaseSound: {fileID: 5156337647343923180}
   drawSound: {fileID: 5156337647343923181}

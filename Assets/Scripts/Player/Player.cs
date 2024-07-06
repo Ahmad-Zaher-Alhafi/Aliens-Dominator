@@ -23,7 +23,8 @@ namespace Player {
         [SerializeField] private TargetPoint enemyTargetPoint;
         public TargetPoint EnemyTargetPoint => enemyTargetPoint;
 
-        [SerializeField] private Transform bow;
+        [SerializeField] private Bow bow;
+        [SerializeField] private Transform bowMovingPart;
         [SerializeField] private float maxBowMovement = 0.4f;
 
         [SerializeField] private StudioEventEmitter releaseSound;
@@ -52,7 +53,6 @@ namespace Player {
 
         private readonly Vector3 serverPosition = new(163, 27, 189);
         private readonly Vector3 clientPosition = new(155, 27, 175);
-        private Bow bowComponent;
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
@@ -67,10 +67,6 @@ namespace Player {
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
             Ctx.Deps.EventsManager.TriggerPlayerDespawnedFromNetwork(this);
-        }
-
-        private void Awake() {
-            bowComponent = bow.GetComponentInParent<Bow>();
         }
 
         private void Start() {
@@ -174,21 +170,21 @@ namespace Player {
             DrawLaser(isDrawing);
 
             // Whenever we draw, we want the bow to move as well
-            float drawZValue = Mathf.Clamp(bow.localPosition.z + bowComponent.DrawForce, 0, maxBowMovement);
-            bow.localPosition = Vector3.Lerp(bow.localPosition, new Vector3(bow.localPosition.x, bow.localPosition.y, drawZValue), 4 * Time.deltaTime);
+            float drawZValue = Mathf.Clamp(bowMovingPart.localPosition.z + bow.DrawForce, 0, maxBowMovement);
+            bowMovingPart.localPosition = Vector3.Lerp(bowMovingPart.localPosition, new Vector3(bowMovingPart.localPosition.x, bowMovingPart.localPosition.y, drawZValue), 4 * Time.deltaTime);
 
             if (isDrawing) return;
             // Reset the bow position if its not already reset
-            if (bow.localPosition.z != 0f) {
-                bow.localPosition = Vector3.Lerp(bow.localPosition, Vector3.zero, 4 * Time.deltaTime);
+            if (bowMovingPart.localPosition.z != 0f) {
+                bowMovingPart.localPosition = Vector3.Lerp(bowMovingPart.localPosition, Vector3.zero, 4 * Time.deltaTime);
             }
         }
 
         private void ReleaseBow() {
             // To prevent spamming arrows
-            if (bowComponent.DrawForce < 1 / arrowsPerSecond) return;
+            if (bow.DrawForce < 1 / arrowsPerSecond) return;
 
-            arrow.Fire(bowComponent.DrawForce);
+            arrow.Fire(bow.DrawForce);
             arrow = null;
             releaseSound.Play();
             BowLaserHitPoint.Instance.gameObject.SetActive(false);
@@ -206,7 +202,7 @@ namespace Player {
 
             for (int i = 0; i < laserNumPoints; i++) {
                 float time = i * distanceBetweenLaserPoints;
-                Vector3 point = CalculatePositionAtTime(bowLaser.transform.position, bowLaser.transform.forward * bowComponent.DrawForce * arrow.Speed, time);
+                Vector3 point = CalculatePositionAtTime(bowLaser.transform.position, bowLaser.transform.forward * bow.DrawForce * arrow.Speed, time);
 
                 if (i == 0) {
                     points.Add(point);
