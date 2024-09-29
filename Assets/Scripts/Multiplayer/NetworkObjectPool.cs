@@ -15,7 +15,7 @@ namespace Multiplayer {
     /// </summary>
     public class NetworkObjectPool : NetworkBehaviour {
         public static NetworkObjectPool Singleton { get; private set; }
-        
+
         [SerializeField]
         private List<PoolConfigObject> pooledPrefabsList;
 

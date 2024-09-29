@@ -27,6 +27,7 @@ namespace Creatures {
         public IDamager ObjectDamagedWith { get; private set; }
         public virtual bool HasSpawningAnimation => false;
 
+        [SerializeField] private GameObject stateUiView;
         [SerializeField] private Transform stateUICreatePoint;
         [SerializeField] private BloodParticle bloodParticlesPrefab;
         [SerializeField] private Transform bloodEffectCreatePoint;
@@ -166,7 +167,7 @@ namespace Creatures {
             Animator.Init();
             if (stateUIPlaceable == null) {
                 stateUIPlaceable = new StateUIPlaceable(this, initialHealth, stateUICreatePoint);
-                Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUIPlaceable, transform, stateUICreatePoint);
+                Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUiView, stateUIPlaceable, transform, stateUICreatePoint);
             }
             gameObject.SetActive(true);
 

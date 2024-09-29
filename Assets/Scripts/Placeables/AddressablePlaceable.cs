@@ -18,14 +18,8 @@ namespace Placeables {
             this.address = address;
         }
 
-        public async Task<GameObject> TryGetGameObjectFromNetworkPool(Vector3 spawnPosition) {
-            if (!prefabsCache.TryGetValue(address, out Task<GameObject> prefabTask)) return null;
-            GameObject wantedPrefab = await prefabTask;
-
-            if (wantedPrefab == null) return null;
-            NetworkObject wantedNetworkObject = NetworkObjectPool.Singleton.GetNetworkObject(wantedPrefab, spawnPosition, quaternion.identity);
-            if (wantedNetworkObject == null) return null;
-            GameObject = wantedNetworkObject.gameObject;
+        public GameObject TryGetGameObjectFromNetworkPool(GameObject prefab, Vector3 spawnPosition) {
+            GameObject = NetworkObjectPool.Singleton.GetNetworkObject(prefab, spawnPosition, quaternion.identity).gameObject;
             return GameObject;
         }
 

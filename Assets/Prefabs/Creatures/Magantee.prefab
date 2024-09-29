@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe5ec06bc3fe412295e9ec5e30d0027d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateUiView: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
   stateUICreatePoint: {fileID: 1281741390477075980}
   bloodParticlesPrefab: {fileID: 8607470412565423328, guid: f4b6b4037279df64883cdd36c998941c, type: 3}
   bloodEffectCreatePoint: {fileID: 3367316125108477779}
@@ -218,7 +219,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 100
+  OverrideMaxDistance: 150
 --- !u!114 &7552565792052303051
 MonoBehaviour:
   m_ObjectHideFlags: 0

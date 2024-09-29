@@ -13,8 +13,8 @@ namespace ManagersAndControllers {
             await GetPlaceableObject<TPlaceableObject>(placeable, parent);
         }
 
-        public async void PlaceOnNetwork<TPlaceableObject>(AddressablePlaceable placeable, Transform parent, Transform createRectPoint) where TPlaceableObject : IPlaceableObject {
-            TPlaceableObject placeableObject = await GetNetworkPlaceableObject<TPlaceableObject>(placeable, parent, createRectPoint.position);
+        public async void PlaceOnNetwork<TPlaceableObject>(GameObject prefab, AddressablePlaceable placeable, Transform parent, Transform createRectPoint) where TPlaceableObject : IPlaceableObject {
+            TPlaceableObject placeableObject = await GetNetworkPlaceableObject<TPlaceableObject>(prefab, placeable, parent, createRectPoint.position);
 
             if (placeableObject is NetworkPlaceableObject networkPlaceableObject) {
                 networkPlaceableObject.NetworkObject.Spawn();
@@ -32,14 +32,15 @@ namespace ManagersAndControllers {
         /// <summary>
         /// Will try to find the object from the network pool, if not found then a new one will be instantiated
         /// </summary>
+        /// <param name="prefab">the prefab of the object that is being created by the plceable</param>
         /// <param name="placeable"></param>
         /// <param name="parent"></param>
         /// <param name="createPosition"></param>
         /// <typeparam name="TPlaceableObject"></typeparam>
         /// <returns></returns>
-        private async Task<TPlaceableObject> GetNetworkPlaceableObject<TPlaceableObject>(AddressablePlaceable placeable, Transform parent, Vector3 createPosition) where TPlaceableObject : IPlaceableObject {
+        private async Task<TPlaceableObject> GetNetworkPlaceableObject<TPlaceableObject>(GameObject prefab, AddressablePlaceable placeable, Transform parent, Vector3 createPosition) where TPlaceableObject : IPlaceableObject {
             placeables.Add(placeable);
-            GameObject wantedGameObject = await placeable.TryGetGameObjectFromNetworkPool(createPosition);
+            GameObject wantedGameObject = placeable.TryGetGameObjectFromNetworkPool(prefab, createPosition);
             if (wantedGameObject != null) {
                 TPlaceableObject networkPlaceableObject = wantedGameObject.GetComponent<TPlaceableObject>();
                 networkPlaceableObject.SetPlaceable(placeable);
