@@ -1164,6 +1164,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
+      propertyPath: initialSfxVolume
+      value: 0.07386442
+      objectReference: {fileID: 0}
+    - target: {fileID: 7520623741111119143, guid: 924487621673f264bad704c42296a5d2, type: 3}
+      propertyPath: initialMusicVolume
+      value: 0.1874518
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924487621673f264bad704c42296a5d2, type: 3}
 --- !u!114 &2360920366251837563 stripped

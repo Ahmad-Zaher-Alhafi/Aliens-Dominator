@@ -107,6 +107,14 @@ public static class Constants {
     private static readonly string[] ulifoAttackAnimations = new string[4] { "Left Slice Attack", "Leg Attack", "Right Slice Attack", "Stomp Attack" };
 
 
+    #region Fmod
+
+    public const string FmodMusicBus = "bus:/Music";
+    public const string FmodSfxBus = "bus:/Sfx";
+
+    #endregion
+
+
 
     /// <summary>
     /// </summary>

@@ -18,6 +18,7 @@ namespace UI {
         [SerializeField] private GameObject menuHolder;
         [SerializeField] private GameObject mainMenu;
         [SerializeField] private GameObject lobbyMenu;
+        [SerializeField] private GameObject settingsMenu;
 
         [Header("Main menu buttons")]
         [SerializeField] private GameObject mainMenuBottomButtons;
@@ -27,6 +28,7 @@ namespace UI {
 
         [Space]
         [SerializeField] private GameObject lobbyMenuBottomButtons;
+        [SerializeField] private GameObject settingsMenuBottomButtons;
 
         [Space]
         [SerializeField] private Button joinButton;
@@ -91,13 +93,23 @@ namespace UI {
         public void ShowLobbyMenuClicked() {
             DeactivateAllMenus();
             lobbyMenu.SetActive(true);
-            mainMenuBottomButtons.SetActive(false);
             lobbyMenuBottomButtons.SetActive(true);
         }
 
+        public void ShowSettingsMenuClicked() {
+            DeactivateAllMenus();
+            settingsMenu.SetActive(true);
+            settingsMenuBottomButtons.SetActive(true);
+        }
+
         private void DeactivateAllMenus() {
-            mainMenu.SetActiveWithCheck(false);
-            lobbyMenu.SetActiveWithCheck(false);
+            mainMenu.SetActive(false);
+            lobbyMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+
+            mainMenuBottomButtons.SetActive(false);
+            lobbyMenuBottomButtons.SetActive(false);
+            settingsMenuBottomButtons.SetActive(false);
         }
 
         public async void HostLobbyClicked() {
