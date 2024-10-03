@@ -1,13 +1,9 @@
-using System;
 using System.Linq;
 using Arrows;
 using Context;
 using UnityEngine;
 public class PlayerTeleportObject : MonoBehaviour {
-    private MeshRenderer meshRenderer;
-
     private void Awake() {
-        meshRenderer = GetComponent<MeshRenderer>();
         Ctx.Deps.EventsManager.PlayerTeleported += OnPlayerTeleported;
     }
 
