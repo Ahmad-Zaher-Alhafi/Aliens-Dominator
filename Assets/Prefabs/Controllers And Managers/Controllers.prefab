@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledPrefabsList:
+  - Prefab: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+    PrewarmCount: 0
   - Prefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
     PrewarmCount: 0
   - Prefab: {fileID: 1301338880282656, guid: e84c884a27feefb4fb14e4692f0d4c7b, type: 3}
@@ -135,8 +137,6 @@ MonoBehaviour:
   - Prefab: {fileID: 730190827932104653, guid: c219e881533267049bcb9655ee8d4e83, type: 3}
     PrewarmCount: 0
   - Prefab: {fileID: 2789288522396869753, guid: e311819c76a4e1a4284025259b3689b6, type: 3}
-    PrewarmCount: 0
-  - Prefab: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
     PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
@@ -596,6 +596,9 @@ MonoBehaviour:
   cinemachineBrain: {fileID: 0}
   generalCamera: {fileID: 0}
   playerFollowCamera: {fileID: 0}
+  topDownCamera: {fileID: 0}
+  betweenPlayerAndTopDownCamerasBlendTime: 0.5
+  betweenPlayerAndGeneralCamerasBlendTime: 1
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0
