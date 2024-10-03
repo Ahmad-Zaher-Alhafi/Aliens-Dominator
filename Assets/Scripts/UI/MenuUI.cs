@@ -4,6 +4,7 @@ using Context;
 using Multiplayer;
 using Placeables;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -136,6 +137,14 @@ namespace UI {
         private IEnumerator ShowMainMenuDelayed() {
             yield return new WaitForEndOfFrame();
             ShowMainMenuClicked();
+        }
+
+        public void QuitGameClicked() {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+
+            Application.Quit();
         }
 
         private void OnDestroy() {

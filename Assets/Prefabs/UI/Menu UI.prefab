@@ -792,9 +792,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 7936447915205993828}
   sfxVolumeSlider: {fileID: 7820796711191158878}
   maxMusicVolume: 1
-  initialMusicVolume: 0.5
   maxSfxVolume: 1
-  initialSfxVolume: 0.5
 --- !u!1001 &47072282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2605,7 +2603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
