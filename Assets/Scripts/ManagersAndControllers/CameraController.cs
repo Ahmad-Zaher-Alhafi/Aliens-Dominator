@@ -20,8 +20,6 @@ namespace ManagersAndControllers {
         public Vector3 LocalActiveCameraPosition => cinemachineBrain.OutputCamera.transform.position;
         public bool IsBlending => cinemachineBrain.IsBlending;
 
-        private CinemachineVirtualCamera localActiveCamera;
-
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
             SwitchToPlayerCamera(betweenPlayerAndGeneralCamerasBlendTime);
@@ -39,21 +37,18 @@ namespace ManagersAndControllers {
             yield return new WaitForEndOfFrame();
             DisableAllCameras();
             generalCamera.enabled = true;
-            localActiveCamera = generalCamera;
         }
 
         private void SwitchToPlayerCamera(float blendTime) {
             cinemachineBrain.m_DefaultBlend.m_Time = blendTime;
             DisableAllCameras();
             playerFollowCamera.enabled = true;
-            localActiveCamera = playerFollowCamera;
         }
 
         private void SwitchToTopDownCamera() {
             cinemachineBrain.m_DefaultBlend.m_Time = betweenPlayerAndTopDownCamerasBlendTime;
             DisableAllCameras();
             topDownCamera.enabled = true;
-            localActiveCamera = topDownCamera;
         }
 
         private void DisableAllCameras() {
