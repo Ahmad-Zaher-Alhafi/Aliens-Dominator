@@ -36,8 +36,8 @@ namespace ManagersAndControllers {
             PlayerTeleported?.Invoke(teleportPosition);
         }
 
-        public event Action<Constants.SuppliesTypes> SupplyBalloonCollected;
-        public void TriggerSupplyBalloonCollected(Constants.SuppliesTypes suppliesType) {
+        public event Action<SuppliesController.SuppliesTypes> SupplyBalloonCollected;
+        public void TriggerSupplyBalloonCollected(SuppliesController.SuppliesTypes suppliesType) {
             SupplyBalloonCollected?.Invoke(suppliesType);
         }
 

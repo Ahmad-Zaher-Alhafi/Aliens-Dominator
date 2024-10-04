@@ -40,12 +40,6 @@ public static class Constants {
         air
     }
 
-    public enum SuppliesTypes //types of supplies boxes
-    {
-        ArrowUpgrade,
-        RocketsAmmo,
-        BulletsAmmo
-    }
     //Tags
     public const string SuppliesCallerTag = "SuppliesCaller"; //tag of the balloon which calls the supplies
     public const string PlayerAttackPoint = "PlayerAttackPoint"; //tag of the point where the air creatures are gonna attack the player

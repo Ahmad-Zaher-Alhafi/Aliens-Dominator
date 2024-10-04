@@ -16,6 +16,7 @@ namespace Context {
         public PlaceablesController PlaceablesController { get; }
         public SupplyPlanesController SupplyPlanesController { get; }
         public CameraController CameraController { get; }
+        public SuppliesController SuppliesController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -45,12 +46,15 @@ namespace Context {
 
         [SerializeField] private PlaceablesController placeablesController;
         public PlaceablesController PlaceablesController => placeablesController;
-        
+
         [SerializeField] private SupplyPlanesController supplyPlanesController;
         public SupplyPlanesController SupplyPlanesController => supplyPlanesController;
-        
+
         [SerializeField] private CameraController cameraController;
         public CameraController CameraController => cameraController;
+
+        [SerializeField] private SuppliesController suppliesController;
+        public SuppliesController SuppliesController => suppliesController;
 
         private void Awake() {
             Ctx.ContextChanged(this);

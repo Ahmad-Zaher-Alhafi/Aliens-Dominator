@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using FMODUnity;
+using ManagersAndControllers;
 using Multiplayer;
 using Unity.Netcode;
 using UnityEngine;
@@ -43,7 +44,7 @@ public class SupplyPlane : NetworkBehaviour {
     /// <summary>
     /// To let the plane move to the area where to drop the supplies
     /// </summary>
-    public void MoveToDropArea(Constants.SuppliesTypes suppliesType) {
+    public void MoveToDropArea(SuppliesController.SuppliesTypes suppliesType) {
         hasToSyncMotion = true;
         PlayAirplaneSoundClientRPC();
         CreateLaunchSmokeParticleClientRPC();
@@ -64,14 +65,14 @@ public class SupplyPlane : NetworkBehaviour {
     /// <summary>
     /// To let the plane drops the supplies after it reaches the dropping area
     /// </summary>
-    private IEnumerator DropSupplies(Constants.SuppliesTypes suppliesType) {
+    private IEnumerator DropSupplies(SuppliesController.SuppliesTypes suppliesType) {
         yield return new WaitForSeconds(secondsToDropSupplies);
 
         var position = dropCreatingPoint.position;
         NetworkObject supplies = suppliesType switch {
-            Constants.SuppliesTypes.ArrowUpgrade => NetworkObjectPool.Singleton.GetNetworkObject(arrowUpgradePrefab, position, Quaternion.identity),
-            Constants.SuppliesTypes.RocketsAmmo => NetworkObjectPool.Singleton.GetNetworkObject(rocketsAmmoPrefab, position, Quaternion.identity),
-            Constants.SuppliesTypes.BulletsAmmo => NetworkObjectPool.Singleton.GetNetworkObject(bulletsAmmoPrefab, position, Quaternion.identity),
+            SuppliesController.SuppliesTypes.Construction => NetworkObjectPool.Singleton.GetNetworkObject(arrowUpgradePrefab, position, Quaternion.identity),
+            SuppliesController.SuppliesTypes.RocketsAmmo => NetworkObjectPool.Singleton.GetNetworkObject(rocketsAmmoPrefab, position, Quaternion.identity),
+            SuppliesController.SuppliesTypes.BulletsAmmo => NetworkObjectPool.Singleton.GetNetworkObject(bulletsAmmoPrefab, position, Quaternion.identity),
             _ => throw new ArgumentException($"Unknown {suppliesType} supplies type")
         };
 

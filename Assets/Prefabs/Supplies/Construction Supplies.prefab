@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1939811198134922262}
   - component: {fileID: 2326169798499316923}
   m_Layer: 10
-  m_Name: Arrow Upgrade
+  m_Name: Construction Supplies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,3 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suppliesType: 0
+  amountOfSuppliesInThePack: 10

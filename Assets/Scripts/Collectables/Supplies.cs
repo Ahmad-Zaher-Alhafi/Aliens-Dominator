@@ -1,9 +1,12 @@
+using Context;
+using ManagersAndControllers;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Collectables {
     public abstract class Supplies : NetworkBehaviour {
-        [SerializeField] private Constants.SuppliesTypes suppliesType;
+        [SerializeField] private SuppliesController.SuppliesTypes suppliesType;
+        [SerializeField] protected int amountOfSuppliesInThePack;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -24,14 +27,15 @@ namespace Collectables {
             if (!other.gameObject.CompareTag("Arrow")) return;
 
             if (IsServer) {
-                OnCollected(suppliesType);
+                OnCollected();
             } else {
-                CollectServerRPC(suppliesType);
+                CollectServerRPC();
             }
         }
 
-        protected virtual void OnCollected(Constants.SuppliesTypes suppliesType) {
+        private void OnCollected() {
             if (IsServer) {
+                Ctx.Deps.SuppliesController.PlusSupplies(suppliesType, amountOfSuppliesInThePack);
                 Despawn();
             } else {
                 DespawnServerRPC();
@@ -39,8 +43,8 @@ namespace Collectables {
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void CollectServerRPC(Constants.SuppliesTypes suppliesTypes) {
-            OnCollected(suppliesType);
+        private void CollectServerRPC() {
+            OnCollected();
         }
 
         private void Despawn() {

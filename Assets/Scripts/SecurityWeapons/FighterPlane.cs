@@ -148,9 +148,6 @@ namespace SecurityWeapons {
             InitialRotation = transform.rotation;
             AutomationCommander.Init(this, ActiveOnStart);
         }
-        protected override void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
-            Reload(ammoType, ammoNumber);
-        }
 
         private void Update() {
             if (IsSpawned) {
@@ -185,7 +182,7 @@ namespace SecurityWeapons {
                 PlayBulletSoundClientRPC();
             }
         }
-        
+
         [ClientRpc]
         private void PlayBulletSoundClientRPC() {
             bulletSound.Play();

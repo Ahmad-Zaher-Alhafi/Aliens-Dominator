@@ -203,6 +203,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unityTransport: {fileID: 0}
+--- !u!1 &2117516817553455166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5005347161931992949}
+  - component: {fileID: 2488225033593206489}
+  m_Layer: 0
+  m_Name: Supplies Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5005347161931992949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117516817553455166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2488225033593206489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117516817553455166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946fa65f7b894a93bf1e8638ea3b21d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3044567553695726185
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +289,7 @@ Transform:
   - {fileID: 6693789013810108256}
   - {fileID: 3313745327689136300}
   - {fileID: 1477202090832543120}
+  - {fileID: 5005347161931992949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,6 +316,7 @@ MonoBehaviour:
   placeablesController: {fileID: 1577228351297302604}
   supplyPlanesController: {fileID: 944021468266300532}
   cameraController: {fileID: 3016270817342184751}
+  suppliesController: {fileID: 2488225033593206489}
 --- !u!114 &1051280023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,8 +643,8 @@ MonoBehaviour:
   generalCamera: {fileID: 0}
   playerFollowCamera: {fileID: 0}
   topDownCamera: {fileID: 0}
-  betweenPlayerAndTopDownCamerasBlendTime: 0.5
   betweenPlayerAndGeneralCamerasBlendTime: 1
+  betweenPlayerAndTopDownCamerasBlendTime: 0.5
 --- !u!1001 &435536668781113454
 PrefabInstance:
   m_ObjectHideFlags: 0

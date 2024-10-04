@@ -91,12 +91,6 @@ namespace SecurityWeapons {
             magazine.Refill(ammoNumberToAdd);
         }
 
-        protected override void OnAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
-            if (magazine.TypeOfAmmo == ammoType) {
-                Reload(ammoNumber);
-            }
-        }
-
 
 #if UNITY_EDITOR
         [Header("Editor stuff")]

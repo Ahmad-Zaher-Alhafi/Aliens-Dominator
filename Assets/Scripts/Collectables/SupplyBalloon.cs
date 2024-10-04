@@ -1,5 +1,5 @@
-using System;
 using Context;
+using ManagersAndControllers;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace Collectables {
         [Range(1, 100)]
         public int chanceOfSpawning = 50;
 
-        [SerializeField] private Constants.SuppliesTypes suppliesType;
+        [SerializeField] private SuppliesController.SuppliesTypes suppliesType;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         /// <summary>

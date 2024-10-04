@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Context;
+using ManagersAndControllers;
 using Multiplayer;
 using Unity.Netcode;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Creatures {
             Ctx.Deps.EventsManager.SupplyBalloonCollected += OnBalloonCollected;
         }
 
-        private void OnBalloonCollected(Constants.SuppliesTypes suppliesTypes) {
+        private void OnBalloonCollected(SuppliesController.SuppliesTypes suppliesTypes) {
             if (IsServer) {
                 SpawnSuppliesPlane(suppliesTypes);
             } else {
@@ -28,7 +29,7 @@ namespace Creatures {
             }
         }
 
-        private void SpawnSuppliesPlane(Constants.SuppliesTypes suppliesTypes) {
+        private void SpawnSuppliesPlane(SuppliesController.SuppliesTypes suppliesTypes) {
             int randomIndex = Random.Range(0, planeSpawnPoints.Count);
             Vector3 spawnPosition = planeSpawnPoints[randomIndex].position;
             Vector3 spawnRotation = planeSpawnPoints[randomIndex].rotation;
@@ -40,7 +41,7 @@ namespace Creatures {
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SpawnSupplyPlaneServerRPC(Constants.SuppliesTypes suppliesTypes) {
+        private void SpawnSupplyPlaneServerRPC(SuppliesController.SuppliesTypes suppliesTypes) {
             SpawnSuppliesPlane(suppliesTypes);
         }
 
