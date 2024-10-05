@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/UI/State UI View.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5dac4ee7166266f4195487533ba522c9
+    m_Address: Assets/Prefabs/Weapon Construction Panel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6eaa895a54c5b3c4dbda18f892847802, type: 2}
   m_SchemaSet:
