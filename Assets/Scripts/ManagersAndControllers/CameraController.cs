@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Cinemachine;
 using Context;
 using Unity.Netcode;
@@ -7,6 +8,12 @@ using UnityEngine;
 
 namespace ManagersAndControllers {
     public class CameraController : NetworkBehaviour {
+        public enum CameraType {
+            General,
+            Player,
+            TopDown
+        }
+
         [Header("Cameras")]
         [SerializeField] private CinemachineBrain cinemachineBrain;
         [SerializeField] private CinemachineVirtualCamera generalCamera;
@@ -17,19 +24,15 @@ namespace ManagersAndControllers {
         [SerializeField] private float betweenPlayerAndGeneralCamerasBlendTime = 1f;
         [SerializeField] private float betweenPlayerAndTopDownCamerasBlendTime = .5f;
 
-        public Vector3 LocalActiveCameraPosition => cinemachineBrain.OutputCamera.transform.position;
+        public Vector3 LocalActiveCameraPosition => LocalActiveCamera.transform.position;
         public bool IsBlending => cinemachineBrain.IsBlending;
+        public Camera LocalActiveCamera => cinemachineBrain.OutputCamera;
 
-        public override void OnNetworkSpawn() {
-            base.OnNetworkSpawn();
-            SwitchToPlayerCamera(betweenPlayerAndGeneralCamerasBlendTime);
-        }
+        private CameraType currentCameraType;
 
         public void SwitchToGeneralCamera() {
             cinemachineBrain.m_DefaultBlend.m_Time = betweenPlayerAndGeneralCamerasBlendTime;
             DisableAllCameras();
-            // We need to switch to the playerFollowCamera first to prevent the blend interrupt when the player's camera gets destroyed
-            playerFollowCamera.enabled = true;
             StartCoroutine(SwitchToGeneralCameraDelayed());
         }
 
@@ -37,18 +40,27 @@ namespace ManagersAndControllers {
             yield return new WaitForEndOfFrame();
             DisableAllCameras();
             generalCamera.enabled = true;
+            currentCameraType = CameraType.General;
         }
 
-        private void SwitchToPlayerCamera(float blendTime) {
-            cinemachineBrain.m_DefaultBlend.m_Time = blendTime;
+        public void SwitchToPlayerCamera() {
+            cinemachineBrain.m_DefaultBlend.m_Time = currentCameraType switch {
+                CameraType.General => betweenPlayerAndGeneralCamerasBlendTime,
+                CameraType.Player => betweenPlayerAndGeneralCamerasBlendTime,
+                CameraType.TopDown => betweenPlayerAndTopDownCamerasBlendTime,
+                _ => throw new ArgumentOutOfRangeException(nameof(currentCameraType), currentCameraType, "Unknown camera switching from.")
+            };
+
             DisableAllCameras();
             playerFollowCamera.enabled = true;
+            currentCameraType = CameraType.Player;
         }
 
-        private void SwitchToTopDownCamera() {
+        public void SwitchToTopDownCamera() {
             cinemachineBrain.m_DefaultBlend.m_Time = betweenPlayerAndTopDownCamerasBlendTime;
             DisableAllCameras();
             topDownCamera.enabled = true;
+            currentCameraType = CameraType.TopDown;
         }
 
         private void DisableAllCameras() {
@@ -63,14 +75,6 @@ namespace ManagersAndControllers {
 
             playerFollowCamera.transform.position = Ctx.Deps.GameController.Player.PlayerCamera.transform.position;
             playerFollowCamera.transform.rotation = Ctx.Deps.GameController.Player.PlayerCamera.transform.rotation;
-
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                SwitchToTopDownCamera();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                SwitchToPlayerCamera(betweenPlayerAndTopDownCamerasBlendTime);
-            }
         }
 
 

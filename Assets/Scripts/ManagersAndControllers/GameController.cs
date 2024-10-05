@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Context;
@@ -13,12 +14,20 @@ using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
+        public enum ViewMode {
+            General,
+            FPS,
+            TopDown
+        }
+
         [Header("Nav Mesh")]
         [SerializeField] private List<NavMeshSurface> navMeshSurfaces;
         [SerializeField] private int winParticlesLoopCount;
         [SerializeField] private List<ParticleSystem> winParticles;
         [SerializeField] private float winParticlesRepeatTime;
         [SerializeField] private AnimatedText animatedTextPrefab;
+
+        public ViewMode CurrentViewMode { get; private set; }
 
         private readonly List<Player.Player> players = new();
 
@@ -29,15 +38,63 @@ namespace ManagersAndControllers {
                 navMeshSurface.BuildNavMesh();
             }
 
+            SwitchViewModeTo(ViewMode.General);
+
             Ctx.Deps.EventsManager.EnemyGotHit += OnEnemyGotHit;
             Ctx.Deps.EventsManager.WaveFinished += OnWaveFinished;
             Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
             Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedFromNetwork;
         }
 
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            SwitchViewModeTo(ViewMode.FPS);
+        }
+
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
             QuitMatch();
+        }
+
+        private void Update() {
+            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+                SwitchViewModeTo(ViewMode.TopDown);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+                SwitchViewModeTo(ViewMode.FPS);
+            }
+        }
+
+        private void SwitchViewModeTo(ViewMode viewMode) {
+            if (viewMode == CurrentViewMode) return;
+
+            switch (viewMode) {
+                case ViewMode.General:
+                    Ctx.Deps.CameraController.SwitchToGeneralCamera();
+                    break;
+                case ViewMode.FPS:
+                    Ctx.Deps.CameraController.SwitchToPlayerCamera();
+                    break;
+                case ViewMode.TopDown:
+                    Ctx.Deps.CameraController.SwitchToTopDownCamera();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(viewMode), viewMode, null);
+            }
+
+            StartCoroutine(SetCurrentModeDelayed(viewMode));
+        }
+
+        /// <summary>
+        /// Switching view mode at the end of the frame to give time for the CameraBrain to start blinding,
+        /// As the CameraBrain's IsBlinding property is used to show and hide some UI during cameras switch, and it needs time to be set to ture
+        /// </summary>
+        /// <param name="viewMode"></param>
+        /// <returns></returns>
+        private IEnumerator SetCurrentModeDelayed(ViewMode viewMode) {
+            yield return new WaitForEndOfFrame();
+            CurrentViewMode = viewMode;
         }
 
         private void OnPlayerSpawnedOnNetwork(Player.Player player) {
@@ -115,7 +172,7 @@ namespace ManagersAndControllers {
 
         public void QuitMatch() {
             StopAllCoroutines();
-            Ctx.Deps.CameraController.SwitchToGeneralCamera();
+            SwitchViewModeTo(ViewMode.General);
             Ctx.Deps.Matchmaker.QuitMatch();
         }
 
