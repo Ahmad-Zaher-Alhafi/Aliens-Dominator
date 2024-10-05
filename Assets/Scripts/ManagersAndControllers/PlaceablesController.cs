@@ -13,6 +13,11 @@ namespace ManagersAndControllers {
             await GetPlaceableObject<TPlaceableObject>(placeable, parent);
         }
 
+        public async void Place<TPlaceableObject>(AddressablePlaceable placeable, Vector3 position, Transform parent) where TPlaceableObject : IPlaceableObject {
+            TPlaceableObject placeableObject = await GetPlaceableObject<TPlaceableObject>(placeable, parent);
+            placeableObject.GameObject.transform.position = position;
+        }
+
         public async void PlaceOnNetwork<TPlaceableObject>(GameObject prefab, AddressablePlaceable placeable, Transform parent, Transform createRectPoint) where TPlaceableObject : IPlaceableObject {
             TPlaceableObject placeableObject = await GetNetworkPlaceableObject<TPlaceableObject>(prefab, placeable, parent, createRectPoint.position);
 
