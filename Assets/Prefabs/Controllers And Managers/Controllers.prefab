@@ -138,6 +138,12 @@ MonoBehaviour:
     PrewarmCount: 0
   - Prefab: {fileID: 2789288522396869753, guid: e311819c76a4e1a4284025259b3689b6, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 7144631825962316979, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 6360699088146405396, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +324,7 @@ MonoBehaviour:
   supplyPlanesController: {fileID: 944021468266300532}
   cameraController: {fileID: 3016270817342184751}
   suppliesController: {fileID: 2488225033593206489}
+  constructionController: {fileID: 8426720197484602031}
 --- !u!114 &1051280023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,8 +530,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd718e24b2c04524add4d222a63ffcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundDefenceWeaponPrefab: {fileID: 7144631825962316979, guid: 63e044a42166ee746bc6459d3c9f94b8, type: 3}
+  airDefenceWeaponPrefab: {fileID: 6360699088146405396, guid: 8faa985d20da8514e8be856ef22aab35, type: 3}
+  fighterPlaneWeaponPrefab: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
+  defenceWeaponsParent: {fileID: 0}
   topDownUI: {fileID: 0}
-  topDownCamera: {fileID: 0}
+  constructionPanelPositionOffset: {x: 0, y: 80, z: 0}
 --- !u!1 &6269936032128447115
 GameObject:
   m_ObjectHideFlags: 0
