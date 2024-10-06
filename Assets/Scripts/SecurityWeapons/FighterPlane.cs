@@ -34,7 +34,7 @@ namespace SecurityWeapons {
                 fighterPlaneStateMachine.OnAutomationStatusChanged();
             }
         }
-        private bool isAutomatingEnabled;
+        private bool isAutomatingEnabled = true;
 
         [Header("Speeds")]
         [SerializeField] private float patrollingSpeed;
@@ -65,22 +65,15 @@ namespace SecurityWeapons {
         [SerializeField] private float rocketsPerSecondInBurst;
         [SerializeField] private float burstCoolDown = 1.5f;
 
-
-        [Header("Flying Points")]
-        [SerializeField] private Transform takeOffPoint;
         /// <summary>
         /// Point where the plane land and take off from
         /// </summary>
-        public Transform TakeOffPoint => takeOffPoint;
-
-        [SerializeField] private Transform landingPoint;
+        public Transform TakeOffPoint => Ctx.Deps.PointsController.FighterPlaneTakeOffPoint;
         /// <summary>
         /// The point above the plane base where the plane should go to before stars landing
         /// </summary>
-        public Transform LandingPoint => landingPoint;
-
-        [SerializeField] private List<Transform> patrollingPoints = new();
-        public IReadOnlyList<Transform> PatrollingPoints => patrollingPoints;
+        public Transform LandingPoint => Ctx.Deps.PointsController.FighterPlaneLandingPoint;
+        public IReadOnlyList<Transform> PatrollingPoints => Ctx.Deps.PointsController.FighterPlanePatrollingPoints;
 
         [Header("Audio")]
         [SerializeField] private StudioEventEmitter takeOffSound;
@@ -92,7 +85,6 @@ namespace SecurityWeapons {
 
         [SerializeField] private WeaponSensor<Creature> weaponSensor;
         public WeaponSensor<Creature> WeaponSensor => weaponSensor;
-        public Quaternion InitialRotation { get; private set; }
 
         private int currentBulletsNumber;
 
@@ -145,8 +137,6 @@ namespace SecurityWeapons {
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
-            InitialRotation = transform.rotation;
-            AutomationCommander.Init(this, ActiveOnStart);
         }
 
         private void Update() {

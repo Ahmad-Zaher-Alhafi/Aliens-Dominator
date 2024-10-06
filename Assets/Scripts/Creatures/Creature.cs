@@ -15,7 +15,7 @@ namespace Creatures {
     public abstract class Creature : NetworkBehaviour, IDamager, IDamageable, IAutomatable {
         public bool IsDestroyed => IsDead;
         public bool IsAutomatingEnabled { get; set; } = true;
-
+        public Quaternion InitialRotation { get; set; }
         public int Damage => attackDamage;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
@@ -157,6 +157,8 @@ namespace Creatures {
             TargetReached = false;
             Health = initialHealth;
             ObjectDamagedWith = null;
+
+            InitialRotation = transform.rotation;
 
             TargetPoint = targetPoint;
 

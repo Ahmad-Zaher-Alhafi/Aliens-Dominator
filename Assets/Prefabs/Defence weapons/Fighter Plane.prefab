@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201708386}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.886, y: 1.962, z: -1.462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.8374386, y: 0.3661909, z: -1.5244039}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 5
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &201708389
 ParticleSystem:
@@ -4837,13 +4837,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685942582}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.03, y: 1.583, z: -2.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.01855738, y: -0.012809396, z: -2.4624043}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 4
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &685942585
 ParticleSystem:
@@ -9649,13 +9649,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695884078}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.886, y: 1.923, z: -1.56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.9345602, y: 0.32719076, z: -1.6224023}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 6
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &1695884081
 ParticleSystem:
@@ -14454,7 +14454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7664337492891466806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14463,7 +14463,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107197859155802139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.45}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5124073}
   m_LocalScale: {x: 0.030000001, y: 0.03, z: 0.030000001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14472,12 +14472,12 @@ RectTransform:
   - {fileID: 2923595834494968324}
   - {fileID: 560516737025139774}
   - {fileID: 9091956138506447419}
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 3
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.21, y: 4.43}
+  m_AnchoredPosition: {x: -0.25855824, y: 2.834191}
   m_SizeDelta: {x: 164.7859, y: 48.518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &422970679407482260
@@ -15265,12 +15265,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2362468976211023769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.40999985, z: 1.8999996}
+  m_LocalPosition: {x: -0.04855918, y: -1.1858095, z: 1.8375986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 1
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8921797642620062675
 SphereCollider:
@@ -15532,12 +15532,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3140345078017916487}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.008555254, y: 0.41380948, z: 2.1634011}
+  m_LocalPosition: {x: -0.04000464, y: -1.1819999, z: 2.100997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5339142272931065833}
-  m_RootOrder: 2
+  m_Father: {fileID: 2405700943819587867}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3299251992293005846
 GameObject:
@@ -17247,7 +17247,7 @@ GameObject:
   - component: {fileID: 8846329073176156006}
   - component: {fileID: 3304326747693677914}
   m_Layer: 2
-  m_Name: SM_SpaceshipS_Assault03_Body
+  m_Name: Fighter Plane Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17261,7 +17261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7629907540260265953}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.048559897, y: 1.5958093, z: 0.062404275}
+  m_LocalPosition: {x: 0, y: 1.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17271,7 +17271,13 @@ Transform:
   - {fileID: 904397340608116126}
   - {fileID: 4832343752929359026}
   - {fileID: 8566221526742089995}
-  m_Father: {fileID: 5339142272931065833}
+  - {fileID: 5949094263690635765}
+  - {fileID: 6591588923433466406}
+  - {fileID: 7664337492891466806}
+  - {fileID: 685942583}
+  - {fileID: 201708387}
+  - {fileID: 1695884079}
+  m_Father: {fileID: 6771601484532986675}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8846329073176156006
@@ -17466,6 +17472,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6771601484532986675}
   - component: {fileID: -5727395568285840592}
+  - component: {fileID: 4088908160918698212}
+  - component: {fileID: 8522248844831433835}
+  - component: {fileID: 3429880273745342631}
+  - component: {fileID: 5348404744738819083}
+  - component: {fileID: 247744504986915505}
+  - component: {fileID: 4080324355317780187}
+  - component: {fileID: 479957744080381329}
   m_Layer: 2
   m_Name: Fighter Plane
   m_TagString: Untagged
@@ -17480,16 +17493,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7755997305639944480}
-  m_LocalRotation: {x: 0, y: -0.43609506, z: 0, w: 0.8999006}
-  m_LocalPosition: {x: 178.47, y: 6.87, z: 183.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5339142272931065833}
-  - {fileID: 7580818964965813291}
+  - {fileID: 2405700943819587867}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -51.71, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-5727395568285840592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17510,6 +17522,233 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &4088908160918698212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1223a4809e4d1fb4be9edc2e4d9e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineData: {fileID: 11400000, guid: e870ac6abf9313343adf28309adb75c4, type: 2}
+--- !u!114 &8522248844831433835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab57d18c903e2f4cacea4c219e02d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateOnYAxisRange: {x: -360, y: 360}
+  rotateOnXAxisRange: {x: 0, y: 65}
+  activeOnStart: 0
+  patrollingSpeed: 5
+  rotateSpeed: 2
+  aimingSpeed: 15
+  takeOffSpeed: 5
+  hasToUseRockets: 1
+  bulletCreatePoint: {fileID: 6591588923433466406}
+  bulletsPerSecond: 2
+  rocketsPerSecond: 1
+  useBursts: 1
+  numOfRocketsInBurst: 5
+  rocketsPerSecondInBurst: 5
+  burstCoolDown: 1.5
+  takeOffPoint: {fileID: 0}
+  landingPoint: {fileID: 0}
+  patrollingPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  takeOffSound: {fileID: 247744504986915505}
+  landSound: {fileID: 4080324355317780187}
+  bulletSound: {fileID: 479957744080381329}
+  smokeParticles:
+  - {fileID: 685942585}
+  - {fileID: 201708389}
+  - {fileID: 1695884081}
+  weaponSensor: {fileID: 1968061742312605515}
+  activateOnStart: 1
+  useInfiniteAmmo: 1
+--- !u!114 &3429880273745342631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55883c1450941d6b97cda7f6677ad18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilesNumberOnStart: 150
+  capacity: 300
+  bulletPrefab: {fileID: -162898778088909944, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
+--- !u!114 &5348404744738819083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95e926ff4824dffac4badfdc03c6495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilesNumberOnStart: 20
+  capacity: 40
+  rocketsCreatePoints:
+  - {fileID: 8905319219460638281}
+  - {fileID: 3203191843158241335}
+  - {fileID: 6726395880611838918}
+  - {fileID: 6218523865823990260}
+  - {fileID: 6580620025377625451}
+  - {fileID: 1558099876078267683}
+  - {fileID: 5031059025979827099}
+  - {fileID: 2999814259509730190}
+  - {fileID: 2949237217045607714}
+  - {fileID: 3028397102491705147}
+  - {fileID: 6530375647132849182}
+  - {fileID: 3142065383147579230}
+  - {fileID: 5845109672658889118}
+  - {fileID: 3256511674065423410}
+  - {fileID: 191451633559794029}
+  - {fileID: 4019742850638381188}
+  - {fileID: 9168654813077403882}
+  - {fileID: 7019196933157301602}
+  - {fileID: 8224568951903473508}
+  - {fileID: 8087132841285670432}
+  - {fileID: 3330617929195377424}
+  - {fileID: 1301057516521101276}
+  - {fileID: 7718658255226197225}
+  - {fileID: 6146740308552507324}
+  - {fileID: 8298687329359011128}
+  - {fileID: 6436605813331684171}
+  - {fileID: 6032345357823829559}
+  - {fileID: 2726529754137632927}
+  - {fileID: 8260736086496896649}
+  - {fileID: 216433316343433427}
+  - {fileID: 612205354382693294}
+  - {fileID: 3562820802945911561}
+  - {fileID: 4187165663878789106}
+  - {fileID: 2850126271710676869}
+  - {fileID: 3623882156414252675}
+  - {fileID: 5350294488703998047}
+  - {fileID: 7795250436083924816}
+  - {fileID: 3707742233821626811}
+  - {fileID: 5999123997857552762}
+  - {fileID: 5795835515856898334}
+  rocketPrefab: {fileID: 8894950018666185079, guid: 435e5b92fd9ef4443af2bba2b196f095, type: 3}
+--- !u!114 &247744504986915505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1302243292
+      Data2: 1112087422
+      Data3: -206518372
+      Data4: 603342602
+    Path: event:/Fighter Plane/Fighter Airplane Take Off
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.90000004
+  OverrideMaxDistance: 200
+--- !u!114 &4080324355317780187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1097352172
+      Data2: 1102286571
+      Data3: 1032565667
+      Data4: 468157298
+    Path: event:/Fighter Plane/Fighter Airplane Land
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &479957744080381329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1310762784
+      Data2: 1114990550
+      Data3: 886814852
+      Data4: 1912839383
+    Path: event:/Projectiles/Bullet
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &7904623339261107417
 GameObject:
   m_ObjectHideFlags: 0
@@ -17593,299 +17832,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7919893160873747283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5339142272931065833}
-  - component: {fileID: 737129712005555352}
-  - component: {fileID: 5743793896088468407}
-  - component: {fileID: 1536504171}
-  - component: {fileID: 1536504170}
-  - component: {fileID: 1011293635}
-  - component: {fileID: 1011293634}
-  - component: {fileID: 1338177725166116797}
-  - component: {fileID: 303041840148798580}
-  m_Layer: 2
-  m_Name: Fighter Parent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5339142272931065833
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2405700943819587867}
-  - {fileID: 5949094263690635765}
-  - {fileID: 6591588923433466406}
-  - {fileID: 7664337492891466806}
-  - {fileID: 685942583}
-  - {fileID: 201708387}
-  - {fileID: 1695884079}
-  m_Father: {fileID: 6771601484532986675}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &737129712005555352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1223a4809e4d1fb4be9edc2e4d9e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateMachineData: {fileID: 11400000, guid: e870ac6abf9313343adf28309adb75c4, type: 2}
---- !u!114 &5743793896088468407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab57d18c903e2f4cacea4c219e02d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  automationCommander: {fileID: 3696549638994004115}
-  rotateOnYAxisRange: {x: -360, y: 360}
-  rotateOnXAxisRange: {x: 0, y: 65}
-  patrollingSpeed: 5
-  rotateSpeed: 2
-  aimingSpeed: 15
-  takeOffSpeed: 5
-  hasToUseRockets: 1
-  bulletCreatePoint: {fileID: 6591588923433466406}
-  bulletsPerSecond: 2
-  rocketsPerSecond: 1
-  useBursts: 1
-  numOfRocketsInBurst: 5
-  rocketsPerSecondInBurst: 5
-  burstCoolDown: 1.5
-  takeOffPoint: {fileID: 0}
-  landingPoint: {fileID: 0}
-  patrollingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  takeOffSound: {fileID: 1011293635}
-  landSound: {fileID: 1011293634}
-  bulletSound: {fileID: 1338177725166116797}
-  smokeParticles:
-  - {fileID: 685942585}
-  - {fileID: 201708389}
-  - {fileID: 1695884081}
-  weaponSensor: {fileID: 1968061742312605515}
-  activateOnStart: 1
-  useInfiniteAmmo: 1
---- !u!114 &1536504171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55883c1450941d6b97cda7f6677ad18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilesNumberOnStart: 150
-  capacity: 300
-  bulletPrefab: {fileID: -162898778088909944, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
---- !u!114 &1536504170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a95e926ff4824dffac4badfdc03c6495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilesNumberOnStart: 20
-  capacity: 40
-  rocketsCreatePoints:
-  - {fileID: 8905319219460638281}
-  - {fileID: 3203191843158241335}
-  - {fileID: 6726395880611838918}
-  - {fileID: 6218523865823990260}
-  - {fileID: 6580620025377625451}
-  - {fileID: 1558099876078267683}
-  - {fileID: 5031059025979827099}
-  - {fileID: 2999814259509730190}
-  - {fileID: 2949237217045607714}
-  - {fileID: 3028397102491705147}
-  - {fileID: 6530375647132849182}
-  - {fileID: 3142065383147579230}
-  - {fileID: 5845109672658889118}
-  - {fileID: 3256511674065423410}
-  - {fileID: 191451633559794029}
-  - {fileID: 4019742850638381188}
-  - {fileID: 9168654813077403882}
-  - {fileID: 7019196933157301602}
-  - {fileID: 8224568951903473508}
-  - {fileID: 8087132841285670432}
-  - {fileID: 3330617929195377424}
-  - {fileID: 1301057516521101276}
-  - {fileID: 7718658255226197225}
-  - {fileID: 6146740308552507324}
-  - {fileID: 8298687329359011128}
-  - {fileID: 6436605813331684171}
-  - {fileID: 6032345357823829559}
-  - {fileID: 2726529754137632927}
-  - {fileID: 8260736086496896649}
-  - {fileID: 216433316343433427}
-  - {fileID: 612205354382693294}
-  - {fileID: 3562820802945911561}
-  - {fileID: 4187165663878789106}
-  - {fileID: 2850126271710676869}
-  - {fileID: 3623882156414252675}
-  - {fileID: 5350294488703998047}
-  - {fileID: 7795250436083924816}
-  - {fileID: 3707742233821626811}
-  - {fileID: 5999123997857552762}
-  - {fileID: 5795835515856898334}
-  rocketPrefab: {fileID: 8894950018666185079, guid: 435e5b92fd9ef4443af2bba2b196f095, type: 3}
---- !u!114 &1011293635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1302243292
-      Data2: 1112087422
-      Data3: -206518372
-      Data4: 603342602
-    Path: event:/Fighter Plane/Fighter Airplane Take Off
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &1011293634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1097352172
-      Data2: 1102286571
-      Data3: 1032565667
-      Data4: 468157298
-    Path: event:/Fighter Plane/Fighter Airplane Land
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &1338177725166116797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1310762784
-      Data2: 1114990550
-      Data3: 886814852
-      Data4: 1912839383
-    Path: event:/Projectiles/Bullet
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &303041840148798580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919893160873747283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &7938083978550586952
 GameObject:
   m_ObjectHideFlags: 0
@@ -18243,96 +18189,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a557911a7b459eb113479ed0dff83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &8376223896603922331
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6771601484532986675}
-    m_Modifications:
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3121399397648503203, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: m_Name
-      value: Automation Comander
-      objectReference: {fileID: 0}
-    - target: {fileID: 4259227856492062339, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 951099334
-      objectReference: {fileID: 0}
-    - target: {fileID: 8745248032121487353, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 951099334
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
---- !u!114 &3696549638994004115 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5148347810665531144, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-  m_PrefabInstance: {fileID: 8376223896603922331}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975d5bc08d15a344abe896701045612c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &7580818964965813291 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2092531079941710768, guid: 535b90f1cca45e0468aa7877ca8e713d, type: 3}
-  m_PrefabInstance: {fileID: 8376223896603922331}
-  m_PrefabAsset: {fileID: 0}

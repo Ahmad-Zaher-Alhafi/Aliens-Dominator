@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace SecurityWeapons {
     public abstract class SecurityWeapon<TEnemyType> : DefenceWeapon where TEnemyType : IAutomatable {
-        public Vector3 InitialEulerAngels { get; private set; }
         public SecurityWeaponStateType CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
         public override bool IsDestroyed => weaponHealth <= 0;
 
@@ -56,11 +55,9 @@ namespace SecurityWeapons {
 
         protected override void Awake() {
             base.Awake();
-            InitialEulerAngels = transform.eulerAngles;
             magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
-            AutomationCommander.Init(this, ActiveOnStart);
         }
 
         private void Update() {

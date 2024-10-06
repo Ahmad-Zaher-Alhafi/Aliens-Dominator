@@ -5,5 +5,6 @@ namespace FiniteStateMachine {
         GameObject GameObject { get; }
         bool IsDestroyed { get; }
         bool IsAutomatingEnabled { get; set; }
+        Quaternion InitialRotation { get; set; }
     }
 }

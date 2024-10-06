@@ -18,6 +18,7 @@ namespace Context {
         public CameraController CameraController { get; }
         public SuppliesController SuppliesController { get; }
         public ConstructionController ConstructionController { get; }
+        public PointsController PointsController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -59,6 +60,9 @@ namespace Context {
 
         [SerializeField] private ConstructionController constructionController;
         public ConstructionController ConstructionController => constructionController;
+
+        [SerializeField] private PointsController pointsController;
+        public PointsController PointsController => pointsController;
 
         private void Awake() {
             Ctx.ContextChanged(this);

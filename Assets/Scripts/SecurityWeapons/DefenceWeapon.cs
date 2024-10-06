@@ -1,11 +1,15 @@
 using FiniteStateMachine;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace SecurityWeapons {
     public abstract class DefenceWeapon : NetworkBehaviour, IWeaponSpecification, IAutomatable {
-        [SerializeField] private AutomationCommander automationCommander;
-        protected AutomationCommander AutomationCommander => automationCommander;
+        public enum WeaponType {
+            Ground,
+            Air,
+            FighterPlane
+        }
 
         [Header("Specifications")]
         [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
@@ -21,7 +25,12 @@ namespace SecurityWeapons {
         public GameObject GameObject => gameObject;
         public virtual bool IsDestroyed => false;
         public virtual bool IsAutomatingEnabled { get; set; } = true;
+        public Quaternion InitialRotation { get; set; }
 
         protected virtual void Awake() { }
+
+        public void Init() {
+            InitialRotation = transform.rotation;
+        }
     }
 }

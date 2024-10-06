@@ -44,7 +44,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         }
 
         private Quaternion GetRandomRotation() {
-            Vector3 initialEulerAngels = AutomatedObject.InitialEulerAngels;
+            Vector3 initialEulerAngels = AutomatedObject.InitialRotation.eulerAngles;
 
             // Get random angel on X axis
             Vector3 targetEulerAngels = Vector3.right * (initialEulerAngels.x + Random.Range(AutomatedObject.RotateOnXAxisRange.x, AutomatedObject.RotateOnXAxisRange.y));
@@ -52,7 +52,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
             targetEulerAngels += Vector3.up * (initialEulerAngels.y + Random.Range(AutomatedObject.RotateOnYAxisRange.x, AutomatedObject.RotateOnYAxisRange.y));
             // Give the same angel on Z axis
             targetEulerAngels += Vector3.forward * AutomatedObject.transform.eulerAngles.z;
-            
+
             // Return it as quaternion to avoid the gimbal lock of the euler angels
             return Quaternion.Euler(targetEulerAngels);
         }
