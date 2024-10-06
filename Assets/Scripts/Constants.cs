@@ -34,11 +34,7 @@ public static class Constants {
         Green
     }
 
-    public enum SecurityWeaponsTypes //type of security weapons
-    {
-        ground,
-        air
-    }
+
 
     //Tags
     public const string SuppliesCallerTag = "SuppliesCaller"; //tag of the balloon which calls the supplies
