@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponTypesThatCanBeBuiltInThisPoint: 
+  circleEffect: {fileID: 6750389461666371251}
 --- !u!114 &5163020900602201053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,12 +125,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3744133877081091469, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
       propertyPath: m_Name
-      value: Magic circle
+      value: Circle Effect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
 --- !u!4 &6697497548113938182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3650638188812647480, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
+  m_PrefabInstance: {fileID: 7952203140861180734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6750389461666371251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3744133877081091469, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
   m_PrefabInstance: {fileID: 7952203140861180734}
   m_PrefabAsset: {fileID: 0}

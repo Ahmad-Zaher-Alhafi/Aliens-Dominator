@@ -56,6 +56,8 @@ namespace ManagersAndControllers {
             networkObject.Spawn(true);
             networkObject.GetComponent<DefenceWeapon>().Init();
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
+
+            weaponConstructionPoint.OnWeaponBuiltClientRPC();
         }
 
         [ServerRpc(RequireOwnership = false)]
