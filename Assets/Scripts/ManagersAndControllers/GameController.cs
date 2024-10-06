@@ -66,24 +66,30 @@ namespace ManagersAndControllers {
             }
         }
 
-        private void SwitchViewModeTo(ViewMode viewMode) {
-            if (viewMode == CurrentViewMode) return;
+        private void SwitchViewModeTo(ViewMode viewModeToSwitchTo) {
+            if (viewModeToSwitchTo == CurrentViewMode) return;
 
-            switch (viewMode) {
+            switch (viewModeToSwitchTo) {
                 case ViewMode.General:
+                    Ctx.Deps.InputActions.FPSViewActions.Disable();
+                    Ctx.Deps.InputActions.TopDownViewActions.Disable();
                     Ctx.Deps.CameraController.SwitchToGeneralCamera();
                     break;
                 case ViewMode.FPS:
+                    Ctx.Deps.InputActions.TopDownViewActions.Disable();
+                    Ctx.Deps.InputActions.FPSViewActions.Enable();
                     Ctx.Deps.CameraController.SwitchToPlayerCamera();
                     break;
                 case ViewMode.TopDown:
+                    Ctx.Deps.InputActions.FPSViewActions.Disable();
+                    Ctx.Deps.InputActions.TopDownViewActions.Enable();
                     Ctx.Deps.CameraController.SwitchToTopDownCamera();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(viewMode), viewMode, null);
+                    throw new ArgumentOutOfRangeException(nameof(viewModeToSwitchTo), viewModeToSwitchTo, null);
             }
 
-            StartCoroutine(SetCurrentModeDelayed(viewMode));
+            StartCoroutine(SetCurrentModeDelayed(viewModeToSwitchTo));
         }
 
         /// <summary>

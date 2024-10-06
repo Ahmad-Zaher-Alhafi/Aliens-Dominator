@@ -84,9 +84,9 @@ namespace Player {
 #endif
 
             if (IsOwner) {
-                UpdateRotation(Ctx.Deps.InputActions.SharedActions.MouseAxis.ReadValue<Vector2>().x, Ctx.Deps.InputActions.SharedActions.MouseAxis.ReadValue<Vector2>().y, rotation);
+                UpdateRotation(Ctx.Deps.InputActions.FPSViewActions.RotationAxis.ReadValue<Vector2>().x, Ctx.Deps.InputActions.FPSViewActions.RotationAxis.ReadValue<Vector2>().y, rotation);
 
-                if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasPressedThisFrame()) {
+                if (Ctx.Deps.InputActions.FPSViewActions.Draw.WasPressedThisFrame()) {
                     if (drawSound.IsPlaying()) {
                         drawSound.Stop();
                     }
@@ -101,15 +101,15 @@ namespace Player {
                     }
                 }
 
-                if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasReleasedThisFrame()) {
+                if (Ctx.Deps.InputActions.FPSViewActions.Draw.WasReleasedThisFrame()) {
                     if (drawSound.IsPlaying()) {
                         drawSound.Stop();
                     }
                 }
 
-                DrawBow(Ctx.Deps.InputActions.SharedActions.PrimaryAction.IsPressed());
+                DrawBow(Ctx.Deps.InputActions.FPSViewActions.Draw.IsPressed());
 
-                if (arrow != null && Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasReleasedThisFrame()) {
+                if (arrow != null && Ctx.Deps.InputActions.FPSViewActions.Draw.WasReleasedThisFrame()) {
                     ReleaseBow();
                 }
 

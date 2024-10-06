@@ -62,15 +62,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Mouse Axis"",
-                    ""type"": ""Value"",
-                    ""id"": ""2a942213-428e-4f7d-99a5-3c278769c168"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -115,17 +106,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Top Down View Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9db4314b-9fc0-4ee1-aa6a-5675f68c8350"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mouse Axis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -208,6 +188,82 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""FPS View Actions"",
+            ""id"": ""cd746fcf-5d60-46f3-bb56-4c70be8ca521"",
+            ""actions"": [
+                {
+                    ""name"": ""Draw"",
+                    ""type"": ""Button"",
+                    ""id"": ""d88198b4-ff73-44ef-a776-03abcdb15bad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotation Axis"",
+                    ""type"": ""Value"",
+                    ""id"": ""ab787ac3-7600-41f6-ab96-2850d4de7a8c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3c8ed1db-a630-4eca-9a17-f018a93781f3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Draw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b1a3b1e-0590-4111-9e4c-6a1e9d1494d9"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Top Down View Actions"",
+            ""id"": ""3f4005a4-e73c-48e5-af2b-10bdf41b8017"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""2202eee9-727b-4be8-b321-1abf18b045ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6d78b36f-90e9-463a-a8fb-f92112f0edde"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -218,13 +274,19 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_SharedActions_SecondaryAction = m_SharedActions.FindAction("Secondary Action", throwIfNotFound: true);
         m_SharedActions_FPSViewAction = m_SharedActions.FindAction("FPS View Action", throwIfNotFound: true);
         m_SharedActions_TopDownViewAction = m_SharedActions.FindAction("Top Down View Action", throwIfNotFound: true);
-        m_SharedActions_MouseAxis = m_SharedActions.FindAction("Mouse Axis", throwIfNotFound: true);
         // Editor Actions
         m_EditorActions = asset.FindActionMap("Editor Actions", throwIfNotFound: true);
         m_EditorActions_ChangeGameWindowSize = m_EditorActions.FindAction("Change Game Window Size", throwIfNotFound: true);
         // UI Actions
         m_UIActions = asset.FindActionMap("UI Actions", throwIfNotFound: true);
         m_UIActions_Escape = m_UIActions.FindAction("Escape", throwIfNotFound: true);
+        // FPS View Actions
+        m_FPSViewActions = asset.FindActionMap("FPS View Actions", throwIfNotFound: true);
+        m_FPSViewActions_Draw = m_FPSViewActions.FindAction("Draw", throwIfNotFound: true);
+        m_FPSViewActions_RotationAxis = m_FPSViewActions.FindAction("Rotation Axis", throwIfNotFound: true);
+        // Top Down View Actions
+        m_TopDownViewActions = asset.FindActionMap("Top Down View Actions", throwIfNotFound: true);
+        m_TopDownViewActions_Newaction = m_TopDownViewActions.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -288,7 +350,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_SharedActions_SecondaryAction;
     private readonly InputAction m_SharedActions_FPSViewAction;
     private readonly InputAction m_SharedActions_TopDownViewAction;
-    private readonly InputAction m_SharedActions_MouseAxis;
     public struct SharedActionsActions
     {
         private @InputActions m_Wrapper;
@@ -297,7 +358,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @SecondaryAction => m_Wrapper.m_SharedActions_SecondaryAction;
         public InputAction @FPSViewAction => m_Wrapper.m_SharedActions_FPSViewAction;
         public InputAction @TopDownViewAction => m_Wrapper.m_SharedActions_TopDownViewAction;
-        public InputAction @MouseAxis => m_Wrapper.m_SharedActions_MouseAxis;
         public InputActionMap Get() { return m_Wrapper.m_SharedActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -319,9 +379,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @TopDownViewAction.started -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
                 @TopDownViewAction.performed -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
                 @TopDownViewAction.canceled -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
-                @MouseAxis.started -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnMouseAxis;
-                @MouseAxis.performed -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnMouseAxis;
-                @MouseAxis.canceled -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnMouseAxis;
             }
             m_Wrapper.m_SharedActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -338,9 +395,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @TopDownViewAction.started += instance.OnTopDownViewAction;
                 @TopDownViewAction.performed += instance.OnTopDownViewAction;
                 @TopDownViewAction.canceled += instance.OnTopDownViewAction;
-                @MouseAxis.started += instance.OnMouseAxis;
-                @MouseAxis.performed += instance.OnMouseAxis;
-                @MouseAxis.canceled += instance.OnMouseAxis;
             }
         }
     }
@@ -411,13 +465,86 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     }
     public UIActionsActions @UIActions => new UIActionsActions(this);
+
+    // FPS View Actions
+    private readonly InputActionMap m_FPSViewActions;
+    private IFPSViewActionsActions m_FPSViewActionsActionsCallbackInterface;
+    private readonly InputAction m_FPSViewActions_Draw;
+    private readonly InputAction m_FPSViewActions_RotationAxis;
+    public struct FPSViewActionsActions
+    {
+        private @InputActions m_Wrapper;
+        public FPSViewActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Draw => m_Wrapper.m_FPSViewActions_Draw;
+        public InputAction @RotationAxis => m_Wrapper.m_FPSViewActions_RotationAxis;
+        public InputActionMap Get() { return m_Wrapper.m_FPSViewActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FPSViewActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IFPSViewActionsActions instance)
+        {
+            if (m_Wrapper.m_FPSViewActionsActionsCallbackInterface != null)
+            {
+                @Draw.started -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnDraw;
+                @Draw.performed -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnDraw;
+                @Draw.canceled -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnDraw;
+                @RotationAxis.started -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnRotationAxis;
+                @RotationAxis.performed -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnRotationAxis;
+                @RotationAxis.canceled -= m_Wrapper.m_FPSViewActionsActionsCallbackInterface.OnRotationAxis;
+            }
+            m_Wrapper.m_FPSViewActionsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Draw.started += instance.OnDraw;
+                @Draw.performed += instance.OnDraw;
+                @Draw.canceled += instance.OnDraw;
+                @RotationAxis.started += instance.OnRotationAxis;
+                @RotationAxis.performed += instance.OnRotationAxis;
+                @RotationAxis.canceled += instance.OnRotationAxis;
+            }
+        }
+    }
+    public FPSViewActionsActions @FPSViewActions => new FPSViewActionsActions(this);
+
+    // Top Down View Actions
+    private readonly InputActionMap m_TopDownViewActions;
+    private ITopDownViewActionsActions m_TopDownViewActionsActionsCallbackInterface;
+    private readonly InputAction m_TopDownViewActions_Newaction;
+    public struct TopDownViewActionsActions
+    {
+        private @InputActions m_Wrapper;
+        public TopDownViewActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_TopDownViewActions_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_TopDownViewActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TopDownViewActionsActions set) { return set.Get(); }
+        public void SetCallbacks(ITopDownViewActionsActions instance)
+        {
+            if (m_Wrapper.m_TopDownViewActionsActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_TopDownViewActionsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public TopDownViewActionsActions @TopDownViewActions => new TopDownViewActionsActions(this);
     public interface ISharedActionsActions
     {
         void OnPrimaryAction(InputAction.CallbackContext context);
         void OnSecondaryAction(InputAction.CallbackContext context);
         void OnFPSViewAction(InputAction.CallbackContext context);
         void OnTopDownViewAction(InputAction.CallbackContext context);
-        void OnMouseAxis(InputAction.CallbackContext context);
     }
     public interface IEditorActionsActions
     {
@@ -426,5 +553,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     public interface IUIActionsActions
     {
         void OnEscape(InputAction.CallbackContext context);
+    }
+    public interface IFPSViewActionsActions
+    {
+        void OnDraw(InputAction.CallbackContext context);
+        void OnRotationAxis(InputAction.CallbackContext context);
+    }
+    public interface ITopDownViewActionsActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
