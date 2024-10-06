@@ -13,7 +13,8 @@ namespace Player {
         [SerializeField] private GameObject arrowPrefab;
 
         [SerializeField] private float arrowsPerSecond = 5;
-        [SerializeField] private float lookSpeed = 3;
+        [SerializeField] private Vector2 rotationSpeed = new(.5f, .5f);
+        [SerializeField] private Vector2 maxRotationSpeed = new(1, 1);
         [SerializeField] private float cameraVerticalClamp = 90;
         [SerializeField] private float teleportSpeed;
 
@@ -83,9 +84,9 @@ namespace Player {
 #endif
 
             if (IsOwner) {
-                LookUpdate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), rotation);
+                UpdateRotation(Ctx.Deps.InputActions.SharedActions.MouseAxis.ReadValue<Vector2>().x, Ctx.Deps.InputActions.SharedActions.MouseAxis.ReadValue<Vector2>().y, rotation);
 
-                if (Input.GetButtonDown("Fire1")) {
+                if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasPressedThisFrame()) {
                     if (drawSound.IsPlaying()) {
                         drawSound.Stop();
                     }
@@ -100,15 +101,15 @@ namespace Player {
                     }
                 }
 
-                if (Input.GetButtonUp("Fire1")) {
+                if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasReleasedThisFrame()) {
                     if (drawSound.IsPlaying()) {
                         drawSound.Stop();
                     }
                 }
 
-                DrawBow(Input.GetButton("Fire1"));
+                DrawBow(Ctx.Deps.InputActions.SharedActions.PrimaryAction.IsPressed());
 
-                if (arrow != null && Input.GetButtonUp("Fire1")) {
+                if (arrow != null && Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasReleasedThisFrame()) {
                     ReleaseBow();
                 }
 
@@ -121,12 +122,12 @@ namespace Player {
             }
         }
 
-        private void LookUpdate(float inputX, float inputY, Vector2 rotation) {
-            float yChange = inputY * lookSpeed;
+        private void UpdateRotation(float inputX, float inputY, Vector2 rotation) {
+            float yChange = Mathf.Clamp(inputY * rotationSpeed.y, -maxRotationSpeed.y, maxRotationSpeed.y);
             rotation.x -= yChange;
             rotation.x = Mathf.Clamp(rotation.x, -cameraVerticalClamp, cameraVerticalClamp);
 
-            float xChange = inputX * lookSpeed;
+            float xChange = Mathf.Clamp(inputX * rotationSpeed.x, -maxRotationSpeed.x, maxRotationSpeed.x);
             rotation.y += xChange;
 
             this.rotation = rotation;
@@ -135,12 +136,12 @@ namespace Player {
             if (IsServer) {
                 networkRotation.Value = transform.rotation;
             } else {
-                LookUpdateServerRPC(transform.rotation);
+                UpdateRotationServerRPC(transform.rotation);
             }
         }
 
         [ServerRpc]
-        private void LookUpdateServerRPC(Quaternion rotation) {
+        private void UpdateRotationServerRPC(Quaternion rotation) {
             networkRotation.Value = rotation;
         }
 

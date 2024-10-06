@@ -19,6 +19,7 @@ namespace Context {
         public SuppliesController SuppliesController { get; }
         public ConstructionController ConstructionController { get; }
         public PointsController PointsController { get; }
+        public InputActions InputActions { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -64,7 +65,11 @@ namespace Context {
         [SerializeField] private PointsController pointsController;
         public PointsController PointsController => pointsController;
 
+        public InputActions InputActions { get; private set; }
+
         private void Awake() {
+            InputActions = new InputActions();
+            InputActions.Enable();
             Ctx.ContextChanged(this);
         }
     }

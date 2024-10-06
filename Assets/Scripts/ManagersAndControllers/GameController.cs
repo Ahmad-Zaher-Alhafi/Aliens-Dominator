@@ -57,11 +57,11 @@ namespace ManagersAndControllers {
         }
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            if (Ctx.Deps.InputActions.SharedActions.TopDownViewAction.WasPressedThisFrame()) {
                 SwitchViewModeTo(ViewMode.TopDown);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            if (Ctx.Deps.InputActions.SharedActions.FPSViewAction.WasPressedThisFrame()) {
                 SwitchViewModeTo(ViewMode.FPS);
             }
         }

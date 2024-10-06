@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using Context;
+using Unity.Netcode;
 using UnityEngine;
 public class Bow : NetworkBehaviour {
     [SerializeField] private float drawingSpeed;
@@ -58,7 +59,7 @@ public class Bow : NetworkBehaviour {
         if (IsOwner) {
             if (shootRoutine) return;
 
-            if (Input.GetMouseButton(0)) drawAngle += drawingSpeed * Time.deltaTime;
+            if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.IsPressed()) drawAngle += drawingSpeed * Time.deltaTime;
             else drawAngle += -releaseSpeed * Time.deltaTime;
 
             drawAngle = Mathf.Clamp(drawAngle, 0, maxDrawangle);

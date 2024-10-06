@@ -1,0 +1,192 @@
+{
+    "name": "Input Actions",
+    "maps": [
+        {
+            "name": "Shared Actions",
+            "id": "0f2463f9-7aa9-41e3-9c2d-9db2518a0899",
+            "actions": [
+                {
+                    "name": "Primary Action",
+                    "type": "Button",
+                    "id": "94cf9182-9a5d-42ac-b9f2-6e362ed27f5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Action",
+                    "type": "Button",
+                    "id": "edf206fb-c1d0-4adc-bf5c-5bf8e43b102d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FPS View Action",
+                    "type": "Button",
+                    "id": "fcb71ba9-061a-420a-84c3-8ef7f1480236",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Top Down View Action",
+                    "type": "Button",
+                    "id": "c57f88c1-fa09-4e7a-b58c-db9ba8db6439",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Axis",
+                    "type": "Value",
+                    "id": "2a942213-428e-4f7d-99a5-3c278769c168",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4cbf8129-928c-4a29-b5dc-6f1c6bdbd81f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b73aa903-ee3b-429e-a273-57209eeee375",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19be8f00-888e-4b37-b4f5-4d833e950f94",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FPS View Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4657b5b4-7cfa-4d77-ac3c-0944d68ee729",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Top Down View Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9db4314b-9fc0-4ee1-aa6a-5675f68c8350",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Axis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Editor Actions",
+            "id": "433e8586-ef7c-4147-82e2-971136107cad",
+            "actions": [
+                {
+                    "name": "Change Game Window Size",
+                    "type": "Button",
+                    "id": "9c68a32c-2029-40c1-8cb1-20ecb563f869",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "LShift + Space",
+                    "id": "06f69e08-09f9-42f9-8c18-36c5f026444b",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Game Window Size",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "dad0daaa-5026-4ecb-a739-2edf7edf6eee",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Game Window Size",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "5c53ccf6-d944-4ee6-851c-562896bf983f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Game Window Size",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "UI Actions",
+            "id": "d82cca22-9ff9-4096-9f05-4b0b83328020",
+            "actions": [
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "d7006468-aebe-4c55-9881-cd724125f4c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cfe3e472-e1c7-426f-a567-29d8a64158a8",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

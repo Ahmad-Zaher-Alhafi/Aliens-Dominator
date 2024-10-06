@@ -53,14 +53,14 @@ namespace UI {
 
         private void Update() {
 #if UNITY_EDITOR
-            if (Input.GetMouseButtonDown(0) && !menuHolder.activeSelf && EventSystem.current.currentSelectedGameObject == null && Ctx.Deps.GameController.IsSpawned) {
+            if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasPressedThisFrame() && !menuHolder.activeSelf && EventSystem.current.currentSelectedGameObject == null && Ctx.Deps.GameController.IsSpawned) {
                 Cursor.lockState = CursorLockMode.Locked;
-            } else if (Input.GetMouseButtonDown(1)) {
+            } else if (Ctx.Deps.InputActions.SharedActions.SecondaryAction.WasPressedThisFrame()) {
                 Cursor.lockState = CursorLockMode.None;
             }
 #endif
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Ctx.Deps.InputActions.UIActions.Escape.WasPressedThisFrame()) {
                 MenuButtonClicked();
             }
 

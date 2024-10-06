@@ -799,7 +799,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 5123602584278176004, guid: c38cfa06ff6253a45838f238d19a64c5, type: 3}
   arrowsPerSecond: 5
-  lookSpeed: 3
+  rotationSpeed: {x: 0.1, y: 0.1}
+  maxRotationSpeed: {x: 10, y: 10}
   cameraVerticalClamp: 90
   teleportSpeed: 15
   arrowSpawnPoint: {fileID: 8296447903864587603}
