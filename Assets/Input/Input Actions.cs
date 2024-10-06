@@ -242,26 +242,68 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""id"": ""3f4005a4-e73c-48e5-af2b-10bdf41b8017"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""2202eee9-727b-4be8-b321-1abf18b045ec"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Drag Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""049e9e9e-8181-401f-961a-c641e854c7d0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zoom Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""db1c4e20-9bea-4f63-97d5-1936153b38f9"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""6d78b36f-90e9-463a-a8fb-f92112f0edde"",
-                    ""path"": """",
+                    ""id"": ""e896e7df-dfd0-4e62-aed4-11e6f6cb66ee"",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Zoom Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""96c2f69b-1b9c-4f21-bdf3-e5157cbb3eaa"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag Camera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""459d6ed7-0c41-478c-841f-9d6b22282a8f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""319e23e1-6f32-43b1-bb56-fa9f1a974e44"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -286,7 +328,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_FPSViewActions_RotationAxis = m_FPSViewActions.FindAction("Rotation Axis", throwIfNotFound: true);
         // Top Down View Actions
         m_TopDownViewActions = asset.FindActionMap("Top Down View Actions", throwIfNotFound: true);
-        m_TopDownViewActions_Newaction = m_TopDownViewActions.FindAction("New action", throwIfNotFound: true);
+        m_TopDownViewActions_DragCamera = m_TopDownViewActions.FindAction("Drag Camera", throwIfNotFound: true);
+        m_TopDownViewActions_ZoomCamera = m_TopDownViewActions.FindAction("Zoom Camera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -510,12 +553,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Top Down View Actions
     private readonly InputActionMap m_TopDownViewActions;
     private ITopDownViewActionsActions m_TopDownViewActionsActionsCallbackInterface;
-    private readonly InputAction m_TopDownViewActions_Newaction;
+    private readonly InputAction m_TopDownViewActions_DragCamera;
+    private readonly InputAction m_TopDownViewActions_ZoomCamera;
     public struct TopDownViewActionsActions
     {
         private @InputActions m_Wrapper;
         public TopDownViewActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_TopDownViewActions_Newaction;
+        public InputAction @DragCamera => m_Wrapper.m_TopDownViewActions_DragCamera;
+        public InputAction @ZoomCamera => m_Wrapper.m_TopDownViewActions_ZoomCamera;
         public InputActionMap Get() { return m_Wrapper.m_TopDownViewActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -525,16 +570,22 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_TopDownViewActionsActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnNewaction;
+                @DragCamera.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnDragCamera;
+                @DragCamera.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnDragCamera;
+                @DragCamera.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnDragCamera;
+                @ZoomCamera.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
+                @ZoomCamera.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
+                @ZoomCamera.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
             }
             m_Wrapper.m_TopDownViewActionsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @DragCamera.started += instance.OnDragCamera;
+                @DragCamera.performed += instance.OnDragCamera;
+                @DragCamera.canceled += instance.OnDragCamera;
+                @ZoomCamera.started += instance.OnZoomCamera;
+                @ZoomCamera.performed += instance.OnZoomCamera;
+                @ZoomCamera.canceled += instance.OnZoomCamera;
             }
         }
     }
@@ -561,6 +612,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     }
     public interface ITopDownViewActionsActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnDragCamera(InputAction.CallbackContext context);
+        void OnZoomCamera(InputAction.CallbackContext context);
     }
 }
