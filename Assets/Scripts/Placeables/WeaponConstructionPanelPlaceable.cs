@@ -3,6 +3,7 @@ using System.Linq;
 using Context;
 using ManagersAndControllers;
 using SecurityWeapons;
+using UnityEngine;
 
 namespace Placeables {
     public class WeaponConstructionPanelPlaceable : AddressablePlaceable {
@@ -10,6 +11,7 @@ namespace Placeables {
         public bool ShowBuildWeaponButtons => !weaponConstructionPoint.IsWeaponBuilt;
         public bool ShowWeaponModificationButtons => weaponConstructionPoint.IsWeaponBuilt;
         public IReadOnlyList<DefenceWeapon.WeaponType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
+        public Vector3 Position => Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + Vector3.up * 80;
 
         private bool isHiddenForMoreSpace;
         private readonly WeaponConstructionPoint weaponConstructionPoint;

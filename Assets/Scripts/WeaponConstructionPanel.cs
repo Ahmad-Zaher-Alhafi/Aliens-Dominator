@@ -37,6 +37,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     private void Update() {
         RefreshButtonsVisibility();
+        transform.position = weaponConstructionPanelPlaceable.Position;
     }
 
     public void BuildGroundWeaponButtonClicked() {

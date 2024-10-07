@@ -17,7 +17,6 @@ namespace ManagersAndControllers {
         [Header("Others")]
         [SerializeField] private Transform defenceWeaponsParent;
         [SerializeField] private Transform topDownUI;
-        [SerializeField] private Vector3 constructionPanelPositionOffset = Vector3.forward * 10;
 
         private List<WeaponConstructionPoint> weaponConstructionPoints = new();
 
@@ -28,8 +27,7 @@ namespace ManagersAndControllers {
 
         private void CreateWeaponConstructionPanel(WeaponConstructionPoint weaponConstructionPoint) {
             WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable = new WeaponConstructionPanelPlaceable(weaponConstructionPoint);
-            Vector3 createPosition = Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + constructionPanelPositionOffset;
-            Ctx.Deps.PlaceablesController.Place<WeaponConstructionPanel>(weaponConstructionPanelPlaceable, createPosition, topDownUI);
+            Ctx.Deps.PlaceablesController.Place<WeaponConstructionPanel>(weaponConstructionPanelPlaceable, topDownUI);
         }
 
         private void CreateWeaponConstructionPanels(List<WeaponConstructionPoint> weaponConstructionPoints) {
