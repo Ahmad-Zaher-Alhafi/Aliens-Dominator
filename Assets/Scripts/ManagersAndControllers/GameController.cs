@@ -100,7 +100,9 @@ namespace ManagersAndControllers {
         /// <returns></returns>
         private IEnumerator SetCurrentModeDelayed(ViewMode viewMode) {
             yield return new WaitForEndOfFrame();
+            ViewMode previousViewMode = CurrentViewMode;
             CurrentViewMode = viewMode;
+            Ctx.Deps.EventsManager.TriggerViewModeChanged(previousViewMode, CurrentViewMode);
         }
 
         private void OnPlayerSpawnedOnNetwork(Player.Player player) {

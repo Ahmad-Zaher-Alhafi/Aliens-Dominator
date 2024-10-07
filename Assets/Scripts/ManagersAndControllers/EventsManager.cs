@@ -41,6 +41,11 @@ namespace ManagersAndControllers {
             SupplyBalloonCollected?.Invoke(suppliesType);
         }
 
+        public event Action<GameController.ViewMode, GameController.ViewMode> ViewModeChanged;
+        public void TriggerViewModeChanged(GameController.ViewMode previousViewMode, GameController.ViewMode currentViewMode) {
+            ViewModeChanged?.Invoke(previousViewMode, currentViewMode);
+        }
+
         public event Action<Magazine.AmmoType, int> AmmoSuppliesCollected;
         public void TriggerAmmoSuppliesCollected(Magazine.AmmoType ammoType, int ammoNumber) {
             AmmoSuppliesCollected?.Invoke(ammoType, ammoNumber);
