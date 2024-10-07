@@ -2,17 +2,20 @@
 using ManagersAndControllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Cameras {
     public class TopDownCamera : MonoBehaviour {
-        [SerializeField] private Vector3 topDownCameraMinOffset = Vector3.one * 10;
-        [SerializeField] private Vector3 topDownCameraMaxOffset = Vector3.one * 10;
+        [Tooltip("X,Z sets how much left and down can the camera go from its initial position, Y forms the zoom level limitation")]
+        [SerializeField] private Vector3 topDownCameraMinBoundaries = Vector3.one * 10;
+        [Tooltip("X,Z sets how much right and up can the camera go from its initial position, Y forms the zoom level limitation")]
+        [SerializeField] private Vector3 topDownCameraMaxBoundaries = Vector3.one * 10;
         [SerializeField] private float topDownCameraDragSpeed = 3;
         [SerializeField] private float topDownCameraZoomSpeed = 3;
 
         private float CurrentZoomLevel => initialTopDownCameraPosition.y - transform.position.y;
-        private Vector3 TopDownCameraMinPosition => initialTopDownCameraPosition - topDownCameraMinOffset - new Vector3(CurrentZoomLevel, 0, CurrentZoomLevel);
-        private Vector3 TopDownCameraMaxPosition => initialTopDownCameraPosition + topDownCameraMaxOffset + new Vector3(CurrentZoomLevel, 0, CurrentZoomLevel);
+        private Vector3 TopDownCameraMinPosition => initialTopDownCameraPosition - topDownCameraMinBoundaries - new Vector3(CurrentZoomLevel, 0, CurrentZoomLevel);
+        private Vector3 TopDownCameraMaxPosition => initialTopDownCameraPosition + topDownCameraMaxBoundaries + new Vector3(CurrentZoomLevel, 0, CurrentZoomLevel);
 
         private Vector3 initialTopDownCameraPosition;
         private Vector3 topDownCameraTargetPosition;
