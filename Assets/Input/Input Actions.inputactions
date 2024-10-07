@@ -22,24 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "FPS View Action",
-                    "type": "Button",
-                    "id": "fcb71ba9-061a-420a-84c3-8ef7f1480236",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Top Down View Action",
-                    "type": "Button",
-                    "id": "c57f88c1-fa09-4e7a-b58c-db9ba8db6439",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -62,28 +44,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Secondary Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "19be8f00-888e-4b37-b4f5-4d833e950f94",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FPS View Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4657b5b4-7cfa-4d77-ac3c-0944d68ee729",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Top Down View Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -282,6 +242,54 @@
                     "action": "Drag Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "FPS And Top Down Views Shared Actions",
+            "id": "c13f02b5-fbac-4298-9a20-9f3f64d5bc6c",
+            "actions": [
+                {
+                    "name": "FPS View Action",
+                    "type": "Button",
+                    "id": "96055eac-6ce4-43fe-926b-3720eff20059",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Top Down View Action",
+                    "type": "Button",
+                    "id": "60e0ea1f-5b0d-474e-88ca-dfe6a21098c3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "87004691-1ca3-4f4b-9103-5c47904bd1e7",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FPS View Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a23d5c7a-ba76-4aaf-a5d8-df6f94473ff3",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Top Down View Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

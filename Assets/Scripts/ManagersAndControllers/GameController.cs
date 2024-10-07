@@ -49,20 +49,15 @@ namespace ManagersAndControllers {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
-            SwitchViewModeTo(ViewMode.FPS);
-        }
-
-        public override void OnNetworkDespawn() {
-            base.OnNetworkDespawn();
-            QuitMatch();
+            SwitchViewModeTo(ViewMode.General);
         }
 
         private void Update() {
-            if (Ctx.Deps.InputActions.SharedActions.TopDownViewAction.WasPressedThisFrame()) {
+            if (Ctx.Deps.InputActions.FPSAndTopDownViewsSharedActions.TopDownViewAction.WasPressedThisFrame()) {
                 SwitchViewModeTo(ViewMode.TopDown);
             }
 
-            if (Ctx.Deps.InputActions.SharedActions.FPSViewAction.WasPressedThisFrame()) {
+            if (Ctx.Deps.InputActions.FPSAndTopDownViewsSharedActions.FPSViewAction.WasPressedThisFrame()) {
                 SwitchViewModeTo(ViewMode.FPS);
             }
         }
@@ -74,16 +69,19 @@ namespace ManagersAndControllers {
                 case ViewMode.General:
                     Ctx.Deps.InputActions.FPSViewActions.Disable();
                     Ctx.Deps.InputActions.TopDownViewActions.Disable();
+                    Ctx.Deps.InputActions.FPSAndTopDownViewsSharedActions.Disable();
                     Ctx.Deps.CameraController.SwitchToGeneralCamera();
                     break;
                 case ViewMode.FPS:
                     Ctx.Deps.InputActions.TopDownViewActions.Disable();
                     Ctx.Deps.InputActions.FPSViewActions.Enable();
+                    Ctx.Deps.InputActions.FPSAndTopDownViewsSharedActions.Enable();
                     Ctx.Deps.CameraController.SwitchToPlayerCamera();
                     break;
                 case ViewMode.TopDown:
                     Ctx.Deps.InputActions.FPSViewActions.Disable();
                     Ctx.Deps.InputActions.TopDownViewActions.Enable();
+                    Ctx.Deps.InputActions.FPSAndTopDownViewsSharedActions.Enable();
                     Ctx.Deps.CameraController.SwitchToTopDownCamera();
                     break;
                 default:
@@ -109,12 +107,15 @@ namespace ManagersAndControllers {
         private void OnPlayerSpawnedOnNetwork(Player.Player player) {
             if (player.IsOwner) {
                 Player = player;
+                SwitchViewModeTo(ViewMode.FPS);
             }
             players.Add(player);
         }
+
         private void OnPlayerDespawnedFromNetwork(Player.Player player) {
             if (player.IsOwner) {
                 Player = null;
+                QuitMatch();
             }
             players.Remove(player);
         }

@@ -44,24 +44,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""FPS View Action"",
-                    ""type"": ""Button"",
-                    ""id"": ""fcb71ba9-061a-420a-84c3-8ef7f1480236"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Top Down View Action"",
-                    ""type"": ""Button"",
-                    ""id"": ""c57f88c1-fa09-4e7a-b58c-db9ba8db6439"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -84,28 +66,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Secondary Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""19be8f00-888e-4b37-b4f5-4d833e950f94"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FPS View Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4657b5b4-7cfa-4d77-ac3c-0944d68ee729"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Top Down View Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -306,6 +266,54 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""FPS And Top Down Views Shared Actions"",
+            ""id"": ""c13f02b5-fbac-4298-9a20-9f3f64d5bc6c"",
+            ""actions"": [
+                {
+                    ""name"": ""FPS View Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""96055eac-6ce4-43fe-926b-3720eff20059"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Top Down View Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""60e0ea1f-5b0d-474e-88ca-dfe6a21098c3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""87004691-1ca3-4f4b-9103-5c47904bd1e7"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FPS View Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a23d5c7a-ba76-4aaf-a5d8-df6f94473ff3"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Top Down View Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -314,8 +322,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_SharedActions = asset.FindActionMap("Shared Actions", throwIfNotFound: true);
         m_SharedActions_PrimaryAction = m_SharedActions.FindAction("Primary Action", throwIfNotFound: true);
         m_SharedActions_SecondaryAction = m_SharedActions.FindAction("Secondary Action", throwIfNotFound: true);
-        m_SharedActions_FPSViewAction = m_SharedActions.FindAction("FPS View Action", throwIfNotFound: true);
-        m_SharedActions_TopDownViewAction = m_SharedActions.FindAction("Top Down View Action", throwIfNotFound: true);
         // Editor Actions
         m_EditorActions = asset.FindActionMap("Editor Actions", throwIfNotFound: true);
         m_EditorActions_ChangeGameWindowSize = m_EditorActions.FindAction("Change Game Window Size", throwIfNotFound: true);
@@ -330,6 +336,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_TopDownViewActions = asset.FindActionMap("Top Down View Actions", throwIfNotFound: true);
         m_TopDownViewActions_DragCamera = m_TopDownViewActions.FindAction("Drag Camera", throwIfNotFound: true);
         m_TopDownViewActions_ZoomCamera = m_TopDownViewActions.FindAction("Zoom Camera", throwIfNotFound: true);
+        // FPS And Top Down Views Shared Actions
+        m_FPSAndTopDownViewsSharedActions = asset.FindActionMap("FPS And Top Down Views Shared Actions", throwIfNotFound: true);
+        m_FPSAndTopDownViewsSharedActions_FPSViewAction = m_FPSAndTopDownViewsSharedActions.FindAction("FPS View Action", throwIfNotFound: true);
+        m_FPSAndTopDownViewsSharedActions_TopDownViewAction = m_FPSAndTopDownViewsSharedActions.FindAction("Top Down View Action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -391,16 +401,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private ISharedActionsActions m_SharedActionsActionsCallbackInterface;
     private readonly InputAction m_SharedActions_PrimaryAction;
     private readonly InputAction m_SharedActions_SecondaryAction;
-    private readonly InputAction m_SharedActions_FPSViewAction;
-    private readonly InputAction m_SharedActions_TopDownViewAction;
     public struct SharedActionsActions
     {
         private @InputActions m_Wrapper;
         public SharedActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimaryAction => m_Wrapper.m_SharedActions_PrimaryAction;
         public InputAction @SecondaryAction => m_Wrapper.m_SharedActions_SecondaryAction;
-        public InputAction @FPSViewAction => m_Wrapper.m_SharedActions_FPSViewAction;
-        public InputAction @TopDownViewAction => m_Wrapper.m_SharedActions_TopDownViewAction;
         public InputActionMap Get() { return m_Wrapper.m_SharedActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -416,12 +422,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @SecondaryAction.started -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnSecondaryAction;
                 @SecondaryAction.performed -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnSecondaryAction;
                 @SecondaryAction.canceled -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnSecondaryAction;
-                @FPSViewAction.started -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnFPSViewAction;
-                @FPSViewAction.performed -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnFPSViewAction;
-                @FPSViewAction.canceled -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnFPSViewAction;
-                @TopDownViewAction.started -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
-                @TopDownViewAction.performed -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
-                @TopDownViewAction.canceled -= m_Wrapper.m_SharedActionsActionsCallbackInterface.OnTopDownViewAction;
             }
             m_Wrapper.m_SharedActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -432,12 +432,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @SecondaryAction.started += instance.OnSecondaryAction;
                 @SecondaryAction.performed += instance.OnSecondaryAction;
                 @SecondaryAction.canceled += instance.OnSecondaryAction;
-                @FPSViewAction.started += instance.OnFPSViewAction;
-                @FPSViewAction.performed += instance.OnFPSViewAction;
-                @FPSViewAction.canceled += instance.OnFPSViewAction;
-                @TopDownViewAction.started += instance.OnTopDownViewAction;
-                @TopDownViewAction.performed += instance.OnTopDownViewAction;
-                @TopDownViewAction.canceled += instance.OnTopDownViewAction;
             }
         }
     }
@@ -590,12 +584,51 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     }
     public TopDownViewActionsActions @TopDownViewActions => new TopDownViewActionsActions(this);
+
+    // FPS And Top Down Views Shared Actions
+    private readonly InputActionMap m_FPSAndTopDownViewsSharedActions;
+    private IFPSAndTopDownViewsSharedActionsActions m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface;
+    private readonly InputAction m_FPSAndTopDownViewsSharedActions_FPSViewAction;
+    private readonly InputAction m_FPSAndTopDownViewsSharedActions_TopDownViewAction;
+    public struct FPSAndTopDownViewsSharedActionsActions
+    {
+        private @InputActions m_Wrapper;
+        public FPSAndTopDownViewsSharedActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @FPSViewAction => m_Wrapper.m_FPSAndTopDownViewsSharedActions_FPSViewAction;
+        public InputAction @TopDownViewAction => m_Wrapper.m_FPSAndTopDownViewsSharedActions_TopDownViewAction;
+        public InputActionMap Get() { return m_Wrapper.m_FPSAndTopDownViewsSharedActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FPSAndTopDownViewsSharedActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IFPSAndTopDownViewsSharedActionsActions instance)
+        {
+            if (m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface != null)
+            {
+                @FPSViewAction.started -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnFPSViewAction;
+                @FPSViewAction.performed -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnFPSViewAction;
+                @FPSViewAction.canceled -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnFPSViewAction;
+                @TopDownViewAction.started -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnTopDownViewAction;
+                @TopDownViewAction.performed -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnTopDownViewAction;
+                @TopDownViewAction.canceled -= m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface.OnTopDownViewAction;
+            }
+            m_Wrapper.m_FPSAndTopDownViewsSharedActionsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @FPSViewAction.started += instance.OnFPSViewAction;
+                @FPSViewAction.performed += instance.OnFPSViewAction;
+                @FPSViewAction.canceled += instance.OnFPSViewAction;
+                @TopDownViewAction.started += instance.OnTopDownViewAction;
+                @TopDownViewAction.performed += instance.OnTopDownViewAction;
+                @TopDownViewAction.canceled += instance.OnTopDownViewAction;
+            }
+        }
+    }
+    public FPSAndTopDownViewsSharedActionsActions @FPSAndTopDownViewsSharedActions => new FPSAndTopDownViewsSharedActionsActions(this);
     public interface ISharedActionsActions
     {
         void OnPrimaryAction(InputAction.CallbackContext context);
         void OnSecondaryAction(InputAction.CallbackContext context);
-        void OnFPSViewAction(InputAction.CallbackContext context);
-        void OnTopDownViewAction(InputAction.CallbackContext context);
     }
     public interface IEditorActionsActions
     {
@@ -614,5 +647,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnDragCamera(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
+    }
+    public interface IFPSAndTopDownViewsSharedActionsActions
+    {
+        void OnFPSViewAction(InputAction.CallbackContext context);
+        void OnTopDownViewAction(InputAction.CallbackContext context);
     }
 }
