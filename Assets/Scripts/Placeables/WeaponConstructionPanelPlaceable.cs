@@ -6,9 +6,9 @@ using SecurityWeapons;
 
 namespace Placeables {
     public class WeaponConstructionPanelPlaceable : AddressablePlaceable {
-        public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !weaponConstructionPoint.IsWeaponBuilt &&
-                                 !Ctx.Deps.CameraController.IsBlending && !isHiddenForMoreSpace;
-        public bool IsBuilt { get; private set; }
+        public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !Ctx.Deps.CameraController.IsBlending && !isHiddenForMoreSpace;
+        public bool ShowBuildWeaponButtons => !weaponConstructionPoint.IsWeaponBuilt;
+        public bool ShowWeaponModificationButtons => weaponConstructionPoint.IsWeaponBuilt;
         public IReadOnlyList<DefenceWeapon.WeaponType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
 
         private bool isHiddenForMoreSpace;
@@ -19,7 +19,6 @@ namespace Placeables {
         }
 
         public void BuildWeapon(DefenceWeapon.WeaponType weaponType) {
-            IsBuilt = true;
             Ctx.Deps.ConstructionController.BuildWeapon(weaponType, weaponConstructionPoint);
         }
 

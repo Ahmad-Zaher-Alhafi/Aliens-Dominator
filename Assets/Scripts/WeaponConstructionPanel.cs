@@ -21,8 +21,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     public GameObject GameObject => gameObject;
 
     private WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable;
-    private bool areSecondaryButtonsShown;
-    private bool areBuildButtonsShown;
+    private bool expandButtons;
 
     private void Awake() {
         buttonsHolder.SetActive(false);
@@ -37,9 +36,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     }
 
     private void Update() {
-        buttonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.IsVisible);
-        groundBuildWeaponButton.SetActiveWithCheck(!weaponConstructionPanelPlaceable.IsBuilt);
-        repairButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.IsBuilt);
+        RefreshButtonsVisibility();
     }
 
     public void BuildGroundWeaponButtonClicked() {
@@ -58,28 +55,23 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        if (weaponConstructionPanelPlaceable.IsBuilt) {
-            areSecondaryButtonsShown = true;
-            secondaryButtonsHolder.SetActive(areSecondaryButtonsShown);
-            buildButtonsHolder.SetActive(!areSecondaryButtonsShown);
-        } else {
-            areBuildButtonsShown = true;
-            buildButtonsHolder.SetActive(areBuildButtonsShown);
-            secondaryButtonsHolder.SetActive(!areBuildButtonsShown);
-        }
-
+        expandButtons = true;
         weaponConstructionPanelPlaceable.OnPointerEnter();
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        if (weaponConstructionPanelPlaceable.IsBuilt) {
-            areSecondaryButtonsShown = false;
-            secondaryButtonsHolder.SetActive(areSecondaryButtonsShown);
-        } else {
-            areBuildButtonsShown = false;
-            buildButtonsHolder.SetActive(areBuildButtonsShown);
-        }
-
+        expandButtons = false;
         weaponConstructionPanelPlaceable.OnPointerExit();
+    }
+
+    private void RefreshButtonsVisibility() {
+        buttonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.IsVisible);
+
+        groundBuildWeaponButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons);
+        repairButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons);
+
+        secondaryButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons && expandButtons);
+        buildButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons && expandButtons);
+
     }
 }
