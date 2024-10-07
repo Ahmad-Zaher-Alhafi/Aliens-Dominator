@@ -15,6 +15,7 @@ using UnityEngine.Assertions;
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
         public enum ViewMode {
+            None,
             General,
             FPS,
             TopDown
