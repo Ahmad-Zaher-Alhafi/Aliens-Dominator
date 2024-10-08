@@ -36,16 +36,16 @@ namespace ManagersAndControllers {
             }
         }
 
-        public void BuildWeapon(DefenceWeapon.WeaponType weaponType, WeaponConstructionPoint weaponConstructionPoint) {
+        public void BuildWeapon(DefenceWeapon.WeaponsType weaponType, WeaponConstructionPoint weaponConstructionPoint) {
             if (!IsServer) {
                 BuildWeaponServerRPC(weaponType, new NetworkBehaviourReference(weaponConstructionPoint));
                 return;
             }
 
             NetworkObject networkObject = weaponType switch {
-                DefenceWeapon.WeaponType.Ground => NetworkObjectPool.Singleton.GetNetworkObject(groundDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
-                DefenceWeapon.WeaponType.Air => NetworkObjectPool.Singleton.GetNetworkObject(airDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
-                DefenceWeapon.WeaponType.FighterPlane => NetworkObjectPool.Singleton.GetNetworkObject(fighterPlaneWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
+                DefenceWeapon.WeaponsType.Ground => NetworkObjectPool.Singleton.GetNetworkObject(groundDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
+                DefenceWeapon.WeaponsType.Air => NetworkObjectPool.Singleton.GetNetworkObject(airDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
+                DefenceWeapon.WeaponsType.FighterPlane => NetworkObjectPool.Singleton.GetNetworkObject(fighterPlaneWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
                 _ => null
             };
 
@@ -60,7 +60,7 @@ namespace ManagersAndControllers {
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void BuildWeaponServerRPC(DefenceWeapon.WeaponType weaponType, NetworkBehaviourReference weaponConstructionPointNetworkReference) {
+        private void BuildWeaponServerRPC(DefenceWeapon.WeaponsType weaponType, NetworkBehaviourReference weaponConstructionPointNetworkReference) {
             NetworkBehaviour constructionPointNetworkBehaviour = weaponConstructionPointNetworkReference;
             BuildWeapon(weaponType, constructionPointNetworkBehaviour.GetComponent<WeaponConstructionPoint>());
         }

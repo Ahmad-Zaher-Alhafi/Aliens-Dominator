@@ -8,11 +8,14 @@ using UnityEngine;
 namespace SecurityWeapons {
     [RequireComponent(typeof(Outline))]
     public abstract class DefenceWeapon : NetworkBehaviour, IWeaponSpecification, IAutomatable, IHighlightable {
-        public enum WeaponType {
+        public enum WeaponsType {
             Ground,
             Air,
             FighterPlane
         }
+
+        [SerializeField] private WeaponsType weaponType;
+        public WeaponsType WeaponType => weaponType;
 
         [Header("Specifications")]
         [Tooltip("Min/Max angel that the weapon can rotate around y axis")]

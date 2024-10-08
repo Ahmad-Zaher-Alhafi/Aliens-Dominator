@@ -5,15 +5,20 @@ using SecurityWeapons;
 using Unity.Netcode;
 using UnityEngine;
 public class WeaponConstructionPoint : NetworkBehaviour {
-    [SerializeField] private List<DefenceWeapon.WeaponType> weaponTypesThatCanBeBuiltInThisPoint;
+    [SerializeField] private List<DefenceWeapon.WeaponsType> weaponTypesThatCanBeBuiltInThisPoint;
     [SerializeField] private GameObject circleEffect;
-    public IReadOnlyList<DefenceWeapon.WeaponType> WeaponTypesThatCanBeBuiltInThisPoint => weaponTypesThatCanBeBuiltInThisPoint;
+    [SerializeField] private GameObject airWeaponBase;
+    public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesThatCanBeBuiltInThisPoint => weaponTypesThatCanBeBuiltInThisPoint;
 
     public bool IsWeaponBuilt {
         get => isWeaponBuilt;
         private set {
             isWeaponBuilt = value;
             circleEffect.SetActive(ShowCircleEffect);
+
+            if (isWeaponBuilt) {
+                airWeaponBase.SetActive(builtWeapon.WeaponType == DefenceWeapon.WeaponsType.Air);
+            }
         }
     }
     private bool isWeaponBuilt;
@@ -23,7 +28,7 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     public Vector3 WeaponCreatePosition => transform.position;
     public Quaternion WeaponCreateRotation => transform.rotation;
 
-    private IHighlightable highlightableWeapon;
+    private DefenceWeapon builtWeapon;
 
     private void Awake() {
         Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
@@ -36,20 +41,20 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     [ClientRpc]
     public void OnWeaponBuiltClientRPC(NetworkBehaviourReference highlightableWeaponNetworkReference) {
         NetworkBehaviour highlightableWeaponNetworkBehaviour = highlightableWeaponNetworkReference;
-        highlightableWeapon = highlightableWeaponNetworkBehaviour.GetComponent<IHighlightable>();
+        builtWeapon = highlightableWeaponNetworkBehaviour.GetComponent<DefenceWeapon>();
         IsWeaponBuilt = true;
     }
 
     public void OnSelected() {
         if (!IsWeaponBuilt) return;
 
-        highlightableWeapon.HighlightAsSelected();
+        builtWeapon.HighlightAsSelected();
     }
 
     public void OnDeselected() {
         if (!IsWeaponBuilt) return;
 
-        highlightableWeapon.HighlightNormal();
+        builtWeapon.HighlightNormal();
     }
 
     public override void OnDestroy() {

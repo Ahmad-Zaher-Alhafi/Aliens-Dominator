@@ -30,9 +30,9 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     public void SetPlaceable(AddressablePlaceable placeable) {
         weaponConstructionPanelPlaceable = (WeaponConstructionPanelPlaceable) placeable;
 
-        groundBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponType.Ground));
-        airBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponType.Air));
-        fighterBuildPlaneWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponType.FighterPlane));
+        groundBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground));
+        airBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
+        fighterBuildPlaneWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane));
     }
 
     private void Update() {
@@ -41,17 +41,17 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     }
 
     public void BuildGroundWeaponButtonClicked() {
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponType.Ground);
+        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
         OnPointerEnter(null);
     }
 
     public void BuildAirWeaponButtonClicked() {
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponType.Air);
+        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Air);
         OnPointerEnter(null);
     }
 
     public void BuildFighterPlaneWeaponButtonClicked() {
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponType.FighterPlane);
+        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.FighterPlane);
         OnPointerEnter(null);
     }
 

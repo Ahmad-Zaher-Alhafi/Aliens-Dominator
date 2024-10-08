@@ -10,7 +10,7 @@ namespace Placeables {
         public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !Ctx.Deps.CameraController.IsBlending && !isHiddenForMoreSpace;
         public bool ShowBuildWeaponButtons => !weaponConstructionPoint.IsWeaponBuilt;
         public bool ShowWeaponModificationButtons => weaponConstructionPoint.IsWeaponBuilt;
-        public IReadOnlyList<DefenceWeapon.WeaponType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
+        public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
         public Vector3 Position => Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + Vector3.up * 80;
 
         private bool isHiddenForMoreSpace;
@@ -20,7 +20,7 @@ namespace Placeables {
             this.weaponConstructionPoint = weaponConstructionPoint;
         }
 
-        public void BuildWeapon(DefenceWeapon.WeaponType weaponType) {
+        public void BuildWeapon(DefenceWeapon.WeaponsType weaponType) {
             Ctx.Deps.ConstructionController.BuildWeapon(weaponType, weaponConstructionPoint);
         }
 
