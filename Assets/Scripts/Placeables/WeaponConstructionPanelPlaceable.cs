@@ -27,6 +27,14 @@ namespace Placeables {
             Ctx.Deps.ConstructionController.BuildWeapon(weaponType, weaponConstructionPoint);
         }
 
+        public void ShowWeaponPlaceholder(DefenceWeapon.WeaponsType weaponType) {
+            WeaponPlaceholder.Instance.ShowPlaceholder(weaponType, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.Rotation);
+        }
+
+        public void HideWeaponPlaceholder() {
+            WeaponPlaceholder.Instance.HidePlaceholder();
+        }
+
         public void BulldozeWeapon() { }
 
         public void RepairWeapon() { }

@@ -46,16 +46,35 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     public void BuildGroundWeaponButtonClicked() {
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
         OnPointerEnter(null);
+        OnWeaponButtonPointerExit();
     }
 
     public void BuildAirWeaponButtonClicked() {
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Air);
         OnPointerEnter(null);
+        OnWeaponButtonPointerExit();
     }
 
     public void BuildFighterPlaneWeaponButtonClicked() {
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.FighterPlane);
         OnPointerEnter(null);
+        OnWeaponButtonPointerExit();
+    }
+
+    public void OnGroundWeaponButtonPointerEnter() {
+        weaponConstructionPanelPlaceable.ShowWeaponPlaceholder(DefenceWeapon.WeaponsType.Ground);
+    }
+
+    public void OnAirWeaponButtonPointerEnter() {
+        weaponConstructionPanelPlaceable.ShowWeaponPlaceholder(DefenceWeapon.WeaponsType.Air);
+    }
+
+    public void OnFighterPlaneButtonPointerEnter() {
+        weaponConstructionPanelPlaceable.ShowWeaponPlaceholder(DefenceWeapon.WeaponsType.FighterPlane);
+    }
+
+    public void OnWeaponButtonPointerExit() {
+        weaponConstructionPanelPlaceable.HideWeaponPlaceholder();
     }
 
     public void OnPointerEnter(PointerEventData eventData) {

@@ -26,7 +26,8 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     private bool ShowCircleEffect => !IsWeaponBuilt && Ctx.Deps.GameController.CurrentViewMode is GameController.ViewMode.TopDown;
 
     public Vector3 WeaponCreatePosition => transform.position;
-    public Quaternion WeaponCreateRotation => transform.rotation;
+    public Quaternion Rotation => transform.rotation;
+    public Quaternion WeaponCreateRotation => WeaponPlaceholder.Instance.ActivePlaceholderRotation;
 
     private DefenceWeapon builtWeapon;
 
