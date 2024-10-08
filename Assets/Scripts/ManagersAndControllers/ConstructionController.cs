@@ -37,6 +37,8 @@ namespace ManagersAndControllers {
         }
 
         public void BuildWeapon(DefenceWeapon.WeaponsType weaponType, WeaponConstructionPoint weaponConstructionPoint) {
+            if (weaponConstructionPoint.IsWeaponBuilt) return;
+
             if (!IsServer) {
                 BuildWeaponServerRPC(weaponType, new NetworkBehaviourReference(weaponConstructionPoint));
                 return;
