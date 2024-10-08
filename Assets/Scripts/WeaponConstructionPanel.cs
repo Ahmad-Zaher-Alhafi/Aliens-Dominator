@@ -1,4 +1,5 @@
 using System.Linq;
+using DG.Tweening;
 using Placeables;
 using SecurityWeapons;
 using UnityEngine;
@@ -22,9 +23,11 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     private WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable;
     private bool expandButtons;
+    private CanvasGroup buttonsHolderCanvasGroup;
 
     private void Awake() {
         buttonsHolder.SetActive(false);
+        buttonsHolderCanvasGroup = buttonsHolder.GetComponent<CanvasGroup>();
     }
 
     public void SetPlaceable(AddressablePlaceable placeable) {
@@ -67,6 +70,9 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     private void RefreshButtonsVisibility() {
         buttonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.IsVisible);
+
+        buttonsHolderCanvasGroup.DOFade(weaponConstructionPanelPlaceable.IsDimmed ? .3f : 1, .5f);
+        buttonsHolderCanvasGroup.blocksRaycasts = !weaponConstructionPanelPlaceable.IsDimmed;
 
         groundBuildWeaponButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons);
         repairButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons);

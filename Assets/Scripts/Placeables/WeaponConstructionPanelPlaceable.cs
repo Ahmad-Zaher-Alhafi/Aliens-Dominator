@@ -7,13 +7,16 @@ using UnityEngine;
 
 namespace Placeables {
     public class WeaponConstructionPanelPlaceable : AddressablePlaceable {
-        public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !Ctx.Deps.CameraController.IsBlending && !isHiddenForMoreSpace;
+        public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !Ctx.Deps.CameraController.IsBlending;
         public bool ShowBuildWeaponButtons => !weaponConstructionPoint.IsWeaponBuilt;
         public bool ShowWeaponModificationButtons => weaponConstructionPoint.IsWeaponBuilt;
         public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
         public Vector3 Position => Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + Vector3.up * 80;
+        /// <summary>
+        /// True when some other panel is hovered
+        /// </summary>
+        public bool IsDimmed { get; private set; }
 
-        private bool isHiddenForMoreSpace;
         private readonly WeaponConstructionPoint weaponConstructionPoint;
 
         public WeaponConstructionPanelPlaceable(WeaponConstructionPoint weaponConstructionPoint) : base("Assets/Prefabs/Weapon Construction Panel.prefab") {
@@ -45,13 +48,13 @@ namespace Placeables {
 
         private void HideAllOtherPanelsForSpace() {
             foreach (WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable in Ctx.Deps.PlaceablesController.GetPlaceablesOfType<WeaponConstructionPanelPlaceable>().Where(placeable => placeable != this)) {
-                weaponConstructionPanelPlaceable.isHiddenForMoreSpace = true;
+                weaponConstructionPanelPlaceable.IsDimmed = true;
             }
         }
 
         private void ShowAllOtherPanels() {
             foreach (WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable in Ctx.Deps.PlaceablesController.GetPlaceablesOfType<WeaponConstructionPanelPlaceable>().Where(placeable => placeable != this)) {
-                weaponConstructionPanelPlaceable.isHiddenForMoreSpace = false;
+                weaponConstructionPanelPlaceable.IsDimmed = false;
             }
         }
     }

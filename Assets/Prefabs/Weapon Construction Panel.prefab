@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4808429771759583500}
   - component: {fileID: 3977539689652314138}
   - component: {fileID: 7326718487738263803}
+  - component: {fileID: 6183844657683282780}
   m_Layer: 5
   m_Name: Primary Buttons Holder
   m_TagString: Untagged
@@ -122,6 +123,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!225 &6183844657683282780
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826098701888600372}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1544704899019620015
 GameObject:
   m_ObjectHideFlags: 0
