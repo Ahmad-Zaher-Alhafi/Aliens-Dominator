@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace FiniteStateMachine {
-    public interface IState { }
-
-    public abstract class State<TAutomatable, TType> : IState where TAutomatable : IAutomatable where TType : Enum {
+    public abstract class State<TAutomatable, TType> where TAutomatable : IAutomatable where TType : Enum {
         public abstract TType Type { get; }
 
         public bool IsActive { get; private set; }
