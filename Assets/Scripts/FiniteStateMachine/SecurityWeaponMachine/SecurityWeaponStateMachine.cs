@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FiniteStateMachine.SecurityWeaponMachine.GuardingState;
 using ScriptableObjects;
 using SecurityWeapons;
 using UnityEditor;
@@ -13,14 +14,27 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
 
         protected override void CreateStates() {
             foreach (SecurityWeaponStateMachineData.StateData stateData in StateMachineData.statesData) {
-                SecurityWeaponState<TEnemyType> state = stateData.originStateType switch {
-                    SecurityWeaponStateType.Shutdown => new ShutdownState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    SecurityWeaponStateType.Guarding => new GuardingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    SecurityWeaponStateType.Aiming => new AimingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    SecurityWeaponStateType.Shooting => new ShootingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    SecurityWeaponStateType.Destroyed => new DestroyedState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
+                SecurityWeaponState<TEnemyType> state;
+                switch (stateData.originStateType) {
+                    case SecurityWeaponStateType.Shutdown:
+                        state = new ShutdownState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled);
+                        break;
+                    case SecurityWeaponStateType.Guarding:
+                        state = new GuardingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled);
+                        AutomatedObject.GetComponent<GuardingStateComponent>().Init(state);
+                        break;
+                    case SecurityWeaponStateType.Aiming:
+                        state = new AimingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled);
+                        break;
+                    case SecurityWeaponStateType.Shooting:
+                        state = new ShootingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled);
+                        break;
+                    case SecurityWeaponStateType.Destroyed:
+                        state = new DestroyedState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
                 StatesTransitions.Add(state, new List<Transition<SecurityWeaponState<TEnemyType>, SecurityWeapon<TEnemyType>, SecurityWeaponStateType>>());
                 States.Add(state.Type, state);

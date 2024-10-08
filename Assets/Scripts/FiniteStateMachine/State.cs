@@ -3,23 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace FiniteStateMachine {
-    public interface IState { }
+    public interface IState {
+        bool IsActive { get; }
+        event Action<bool> StateActivationChanged;
+        void Fulfil();
+    }
 
     public abstract class State<TAutomatable, TType> : IState where TAutomatable : IAutomatable where TType : Enum {
         public abstract TType Type { get; }
-
-        public bool IsActive { get; private set; }
+        public bool IsActive {
+            get => isActive;
+            private set {
+                isActive = value;
+                stateActivationChanged?.Invoke(isActive);
+            }
+        }
+        private bool isActive;
         public bool IsActiveAsSecondaryState => IsActive && isSecondaryState;
-
-        protected readonly TAutomatable AutomatedObject;
         public bool CheckWhenAutomatingDisabled { get; }
+        public event Action<bool> StateActivationChanged {
+            add => stateActivationChanged += value;
+            remove => stateActivationChanged -= value;
+        }
+        private event Action<bool> stateActivationChanged;
+
+        public TAutomatable AutomatedObject { get; }
 
         private List<State<TAutomatable, TType>> statesSyncedWith = new();
         private List<State<TAutomatable, TType>> interruptStates = new();
         private bool isSecondaryState;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="automatedObject"></param>
         /// <param name="checkWhenAutomatingDisabled">Set to ture to be checked in the state machine even if the automation was disabled</param>
