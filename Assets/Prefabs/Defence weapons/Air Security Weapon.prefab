@@ -79447,6 +79447,7 @@ GameObject:
   - component: {fileID: 2746195460793553385}
   - component: {fileID: 4948405218731504127}
   - component: {fileID: 567554898082861685}
+  - component: {fileID: 7264502354537436883}
   m_Layer: 0
   m_Name: Air Security Weapon
   m_TagString: Untagged
@@ -79499,6 +79500,9 @@ MonoBehaviour:
   rotateOnYAxisRange: {x: -360, y: 360}
   rotateOnXAxisRange: {x: -35, y: 5}
   activeOnStart: 0
+  outline: {fileID: 7264502354537436883}
+  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
+  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   weaponSensor: {fileID: 5519423599643542842}
   weaponHealth: 200
   guardingSpeed: 10
@@ -79574,6 +79578,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6645339, y: 1.6622283, z: 1.1221942}
   m_Center: {x: -0.019954123, y: 0.7324707, z: -0.062330566}
+--- !u!114 &7264502354537436883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360699088146405396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7340499471483849241
 GameObject:
   m_ObjectHideFlags: 0

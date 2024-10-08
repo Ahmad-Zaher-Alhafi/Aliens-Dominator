@@ -23,6 +23,8 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     public Vector3 WeaponCreatePosition => transform.position;
     public Quaternion WeaponCreateRotation => transform.rotation;
 
+    private IHighlightable highlightableWeapon;
+
     private void Awake() {
         Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
     }
@@ -32,8 +34,22 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void OnWeaponBuiltClientRPC() {
+    public void OnWeaponBuiltClientRPC(NetworkBehaviourReference highlightableWeaponNetworkReference) {
+        NetworkBehaviour highlightableWeaponNetworkBehaviour = highlightableWeaponNetworkReference;
+        highlightableWeapon = highlightableWeaponNetworkBehaviour.GetComponent<IHighlightable>();
         IsWeaponBuilt = true;
+    }
+
+    public void OnSelected() {
+        if (!IsWeaponBuilt) return;
+
+        highlightableWeapon.HighlightAsSelected();
+    }
+
+    public void OnDeselected() {
+        if (!IsWeaponBuilt) return;
+
+        highlightableWeapon.HighlightNormal();
     }
 
     public override void OnDestroy() {

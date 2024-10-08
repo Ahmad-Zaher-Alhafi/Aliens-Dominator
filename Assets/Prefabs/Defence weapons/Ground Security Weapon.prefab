@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 805883145939391682}
   - component: {fileID: 3890373539077853883}
   - component: {fileID: 6853583510528146610}
+  - component: {fileID: 6365059444814774000}
   m_Layer: 0
   m_Name: Ground Security Weapon
   m_TagString: Untagged
@@ -1078,6 +1079,9 @@ MonoBehaviour:
   rotateOnYAxisRange: {x: -65, y: 65}
   rotateOnXAxisRange: {x: 0, y: 45}
   activeOnStart: 0
+  outline: {fileID: 6365059444814774000}
+  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
+  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   weaponSensor: {fileID: 3010871445501105339}
   weaponHealth: 200
   guardingSpeed: 10
@@ -1146,6 +1150,24 @@ CapsuleCollider:
   m_Height: 1.1917895
   m_Direction: 2
   m_Center: {x: 0, y: 0.0764266, z: 0.19545995}
+--- !u!114 &6365059444814774000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144631825962316979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7984239014812917849
 GameObject:
   m_ObjectHideFlags: 0

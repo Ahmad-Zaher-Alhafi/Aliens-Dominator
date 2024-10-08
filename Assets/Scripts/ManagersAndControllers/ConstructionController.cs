@@ -52,10 +52,11 @@ namespace ManagersAndControllers {
             if (networkObject is null) return;
 
             networkObject.Spawn(true);
-            networkObject.GetComponent<DefenceWeapon>().Init();
+            var defenceWeapon = networkObject.GetComponent<DefenceWeapon>();
+            defenceWeapon.Init();
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
 
-            weaponConstructionPoint.OnWeaponBuiltClientRPC();
+            weaponConstructionPoint.OnWeaponBuiltClientRPC(new NetworkBehaviourReference(defenceWeapon));
         }
 
         [ServerRpc(RequireOwnership = false)]

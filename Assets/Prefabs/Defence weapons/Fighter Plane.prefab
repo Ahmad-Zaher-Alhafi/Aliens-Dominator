@@ -17479,6 +17479,7 @@ GameObject:
   - component: {fileID: 247744504986915505}
   - component: {fileID: 4080324355317780187}
   - component: {fileID: 479957744080381329}
+  - component: {fileID: 5949008205160456271}
   m_Layer: 2
   m_Name: Fighter Plane
   m_TagString: Untagged
@@ -17550,6 +17551,9 @@ MonoBehaviour:
   rotateOnYAxisRange: {x: -360, y: 360}
   rotateOnXAxisRange: {x: 0, y: 65}
   activeOnStart: 0
+  outline: {fileID: 5949008205160456271}
+  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
+  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   patrollingSpeed: 5
   rotateSpeed: 2
   aimingSpeed: 15
@@ -17562,19 +17566,6 @@ MonoBehaviour:
   numOfRocketsInBurst: 5
   rocketsPerSecondInBurst: 5
   burstCoolDown: 1.5
-  takeOffPoint: {fileID: 0}
-  landingPoint: {fileID: 0}
-  patrollingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   takeOffSound: {fileID: 247744504986915505}
   landSound: {fileID: 4080324355317780187}
   bulletSound: {fileID: 479957744080381329}
@@ -17749,6 +17740,24 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &5949008205160456271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755997305639944480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7904623339261107417
 GameObject:
   m_ObjectHideFlags: 0

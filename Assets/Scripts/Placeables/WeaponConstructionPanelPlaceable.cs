@@ -36,9 +36,11 @@ namespace Placeables {
 
         public void OnPointerEnter() {
             HideAllOtherPanelsForSpace();
+            weaponConstructionPoint.OnSelected();
         }
         public void OnPointerExit() {
             ShowAllOtherPanels();
+            weaponConstructionPoint.OnDeselected();
         }
 
         private void HideAllOtherPanelsForSpace() {
