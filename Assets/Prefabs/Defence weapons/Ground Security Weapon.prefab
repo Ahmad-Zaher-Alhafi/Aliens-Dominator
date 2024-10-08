@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 3890373539077853883}
   - component: {fileID: 6853583510528146610}
   - component: {fileID: 6365059444814774000}
+  - component: {fileID: 3453814128938343843}
   m_Layer: 0
   m_Name: Ground Security Weapon
   m_TagString: Untagged
@@ -1076,6 +1077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1610199b944baac4293bb9a765ec5559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 0
   rotateOnYAxisRange: {x: -65, y: 65}
   rotateOnXAxisRange: {x: 0, y: 45}
   activeOnStart: 0
@@ -1168,6 +1170,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &3453814128938343843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144631825962316979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6d6b7fd56941e6a5a461c614fdbb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guardingSpeed: 10
 --- !u!1 &7984239014812917849
 GameObject:
   m_ObjectHideFlags: 0
