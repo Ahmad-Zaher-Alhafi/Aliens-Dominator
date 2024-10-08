@@ -711,11 +711,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
@@ -950,11 +950,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
@@ -1081,11 +1081,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
@@ -1232,7 +1232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 517326450592082614, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_fontSize
-      value: 52.85
+      value: 30.8
       objectReference: {fileID: 0}
     - target: {fileID: 517326450592082614, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_enableAutoSizing
@@ -1240,11 +1240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
@@ -1400,11 +1400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
@@ -1560,11 +1560,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinWidth
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7531318785845622025, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_MinHeight
-      value: 100
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
