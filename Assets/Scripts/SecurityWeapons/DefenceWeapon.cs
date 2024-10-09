@@ -17,22 +17,15 @@ namespace SecurityWeapons {
         [SerializeField] private WeaponsType weaponType;
         public WeaponsType WeaponType => weaponType;
 
-        [Header("Specifications")]
-        [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
-        [SerializeField] private Vector2 rotateOnYAxisRange;
-        public Vector3 RotateOnYAxisRange => rotateOnYAxisRange;
-
-        [Tooltip("Min/Max angel that the weapon can rotate around x axis")]
-        [SerializeField] private Vector2 rotateOnXAxisRange;
-        public Vector3 RotateOnXAxisRange => rotateOnXAxisRange;
         [SerializeField] private bool activeOnStart;
         protected bool ActiveOnStart => activeOnStart;
 
         [Header("Outline")]
         [SerializeField] private Outline outline;
-        [SerializeField] private Color normalOutlineColCor;
-        [SerializeField] private Color selectionOutlineColCor;
 
+        public abstract Vector3 RotateOnYAxisRange { get; }
+        public abstract Vector3 RotateOnXAxisRange { get; }
+        public abstract float Range { get; }
         public GameObject GameObject => gameObject;
         public virtual bool IsDestroyed => false;
         public virtual bool IsAutomatingEnabled { get; set; } = true;
@@ -62,12 +55,12 @@ namespace SecurityWeapons {
 
         public void HighlightNormal() {
             outline.enabled = true;
-            outline.OutlineColor = normalOutlineColCor;
+            outline.OutlineColor = SharedWeaponSpecifications.Instance.NormalOutlineColor;
         }
 
         public void HighlightAsSelected() {
             outline.enabled = true;
-            outline.OutlineColor = selectionOutlineColCor;
+            outline.OutlineColor = SharedWeaponSpecifications.Instance.SelectionOutlineColor;
         }
 
         public void RemoveHighlight() {

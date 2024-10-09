@@ -8,6 +8,7 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     [SerializeField] private List<DefenceWeapon.WeaponsType> weaponTypesThatCanBeBuiltInThisPoint;
     [SerializeField] private GameObject circleEffect;
     [SerializeField] private GameObject airWeaponBase;
+    [SerializeField] private RangeVisualizer rangeVisualizer;
     public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesThatCanBeBuiltInThisPoint => weaponTypesThatCanBeBuiltInThisPoint;
 
     public bool IsWeaponBuilt {
@@ -50,12 +51,14 @@ public class WeaponConstructionPoint : NetworkBehaviour {
         if (!IsWeaponBuilt) return;
 
         builtWeapon.HighlightAsSelected();
+        rangeVisualizer.ShowRange(WeaponCreatePosition, SharedWeaponSpecifications.Instance.GetWeaponRange(builtWeapon.WeaponType));
     }
 
     public void OnDeselected() {
         if (!IsWeaponBuilt) return;
 
         builtWeapon.HighlightNormal();
+        rangeVisualizer.HideRange();
     }
 
     public override void OnDestroy() {

@@ -27,6 +27,7 @@ namespace SecurityWeapons {
             }
         }
         private bool hasLanded;
+
         public override bool IsAutomatingEnabled {
             get => isAutomatingEnabled;
             set {
@@ -118,6 +119,10 @@ namespace SecurityWeapons {
                 return 0;
             }
         }
+
+        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnXAxisRange;
+        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnYAxisRange;
+        public override float Range => SharedWeaponSpecifications.Instance.FighterPlaneRange;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();

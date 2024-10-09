@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 8177613182625750705}
   - component: {fileID: 8177613182625750710}
   m_Layer: 0
-  m_Name: Second Camera
+  m_Name: Render On Top Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

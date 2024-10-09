@@ -10,7 +10,7 @@ using MathUtils = Utils.MathUtils;
 
 namespace SecurityWeapons {
     public abstract class WeaponSensor<TEnemyType> : MonoBehaviour where TEnemyType : IAutomatable {
-        [SerializeField] private float sensorRange = 150;
+
         [SerializeField] private bool activateDebugging;
         public IDamageable TargetToAimAt { get; private set; }
 
@@ -113,7 +113,7 @@ namespace SecurityWeapons {
         }
 
         private bool IsInRange(GameObject target) {
-            return Vector3.Distance(target.transform.position, transform.position) <= sensorRange;
+            return Vector3.Distance(target.transform.position, transform.position) <= weaponSpecification.Range;
         }
 
         private bool IsHidingBehindSomething(GameObject target) {

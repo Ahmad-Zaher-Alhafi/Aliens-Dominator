@@ -75905,6 +75905,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2181339329086736206, guid: 1d9b4698efdb1ad4a989ed96e718e67b, type: 3}
   m_PrefabInstance: {fileID: 2181339330899328750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2193238826387405102
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 157.18092
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 74.49281
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 227.98213
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793453416072755, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831696033776017846, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: m_Name
+      value: Shared Weapon Specifications
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: normalOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: normalOutlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: normalOutlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: normalOutlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: selectionOutlineColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: selectionOutlineColor.b
+      value: 0.10594514
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: selectionOutlineColor.g
+      value: 0.4250003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: selectionOutlineColor.r
+      value: 0.9056604
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
 --- !u!1001 &2678034705907680075
 PrefabInstance:
   m_ObjectHideFlags: 0
