@@ -2,6 +2,7 @@ using System.Linq;
 using DG.Tweening;
 using Placeables;
 using SecurityWeapons;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils.Extensions;
@@ -13,11 +14,17 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     [SerializeField] private GameObject repairButton;
     [SerializeField] private GameObject secondaryButtonsHolder;
 
-    [Header("Build buttons")]
+    [Header("Build buttons and price texts")]
     [SerializeField] private GameObject buildButtonsHolder;
+
     [SerializeField] private GameObject groundBuildWeaponButton;
+    [SerializeField] private TextMeshProUGUI groundBuildWeaponPriceText;
+
     [SerializeField] private GameObject airBuildWeaponButton;
+    [SerializeField] private TextMeshProUGUI airBuildWeaponPriceText;
+
     [SerializeField] private GameObject fighterBuildPlaneWeaponButton;
+    [SerializeField] private TextMeshProUGUI fighterBuildWeaponPriceText;
 
     public GameObject GameObject => gameObject;
 
@@ -28,6 +35,10 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     private void Awake() {
         buttonsHolder.SetActive(false);
         buttonsHolderCanvasGroup = buttonsHolder.GetComponent<CanvasGroup>();
+
+        groundBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.Ground).ToString();
+        airBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.Air).ToString();
+        fighterBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.FighterPlane).ToString();
     }
 
     public void SetPlaceable(AddressablePlaceable placeable) {
