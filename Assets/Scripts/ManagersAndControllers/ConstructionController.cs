@@ -65,8 +65,6 @@ namespace ManagersAndControllers {
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
 
             weaponConstructionPoint.OnWeaponBuiltClientRPC(new NetworkBehaviourReference(defenceWeapon));
-
-            WeaponPlaceholder.Instance.HidePlaceholder();
         }
 
         [ServerRpc(RequireOwnership = false)]

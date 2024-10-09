@@ -2,11 +2,9 @@ using System.Linq;
 using DG.Tweening;
 using Placeables;
 using SecurityWeapons;
-using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Utils.Extensions;
 
 public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointerEnterHandler, IPointerExitHandler {
@@ -57,6 +55,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
         OnPointerEnter(null);
+        OnWeaponButtonPointerExit();
     }
 
     public void BuildAirWeaponButtonClicked() {
