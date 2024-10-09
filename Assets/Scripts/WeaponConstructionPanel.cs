@@ -3,51 +3,45 @@ using DG.Tweening;
 using Placeables;
 using SecurityWeapons;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Utils.Extensions;
 
 public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointerEnterHandler, IPointerExitHandler {
+    [Header("Holders")]
     [SerializeField] private GameObject buttonsHolder;
-
-    [Header("Secondary buttons")]
-    [SerializeField] private GameObject repairButton;
+    [SerializeField] private GameObject buildButtonsHolder;
     [SerializeField] private GameObject secondaryButtonsHolder;
 
-    [Header("Build buttons and price texts")]
-    [SerializeField] private GameObject buildButtonsHolder;
-
-    [SerializeField] private GameObject groundBuildWeaponButton;
-    [SerializeField] private TextMeshProUGUI groundBuildWeaponPriceText;
-
-    [SerializeField] private GameObject airBuildWeaponButton;
-    [SerializeField] private TextMeshProUGUI airBuildWeaponPriceText;
-
-    [SerializeField] private GameObject fighterBuildPlaneWeaponButton;
-    [SerializeField] private TextMeshProUGUI fighterBuildWeaponPriceText;
+    [Header("Buttons")]
+    [SerializeField] private ConstructionButton groundWeaponBuildButton;
+    [SerializeField] private ConstructionButton airWeaponBuildButton;
+    [SerializeField] private ConstructionButton fighterPlaneBuildWeaponButton;
+    [SerializeField] private ConstructionButton repairButton;
 
     public GameObject GameObject => gameObject;
 
     private WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable;
     private bool expandButtons;
     private CanvasGroup buttonsHolderCanvasGroup;
-    private Sequence textShakeTween;
 
     private void Awake() {
         buttonsHolder.SetActive(false);
         buttonsHolderCanvasGroup = buttonsHolder.GetComponent<CanvasGroup>();
 
-        groundBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Ground).ToString();
-        airBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Air).ToString();
-        fighterBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.FighterPlane).ToString();
+        groundWeaponBuildButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Ground).ToString());
+        airWeaponBuildButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Air).ToString());
+        fighterPlaneBuildWeaponButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.FighterPlane).ToString());
     }
 
     public void SetPlaceable(AddressablePlaceable placeable) {
         weaponConstructionPanelPlaceable = (WeaponConstructionPanelPlaceable) placeable;
 
-        groundBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground));
-        airBuildWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
-        fighterBuildPlaneWeaponButton.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane));
+        groundWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground));
+        airWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
+        fighterPlaneBuildWeaponButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane));
     }
 
     private void Update() {
@@ -57,13 +51,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     public void BuildGroundWeaponButtonClicked() {
         if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.Ground)) {
-            textShakeTween?.Complete();
-            textShakeTween = DOTween.Sequence()
-                .Join(groundBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
-                .Join(groundBuildWeaponPriceText.DOColor(Colors.Instance.Error, .5f))
-                .Append(groundBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
-                .Play();
-
+            groundWeaponBuildButton.PlayErrorAnimation();
             return;
         }
 
@@ -73,13 +61,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     public void BuildAirWeaponButtonClicked() {
         if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.Air)) {
-            textShakeTween?.Complete();
-            textShakeTween = DOTween.Sequence()
-                .Join(airBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
-                .Join(airBuildWeaponPriceText.DOColor(Colors.Instance.Error, .25f))
-                .Append(airBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
-                .Play();
-
+            airWeaponBuildButton.PlayErrorAnimation();
             return;
         }
 
@@ -90,13 +72,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     public void BuildFighterPlaneWeaponButtonClicked() {
         if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.FighterPlane)) {
-            textShakeTween?.Complete();
-            textShakeTween = DOTween.Sequence()
-                .Join(fighterBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
-                .Join(fighterBuildWeaponPriceText.DOColor(Colors.Instance.Error, .5f))
-                .Append(fighterBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
-                .Play();
-
+            fighterPlaneBuildWeaponButton.PlayErrorAnimation();
             return;
         }
 
@@ -137,8 +113,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         buttonsHolderCanvasGroup.DOFade(weaponConstructionPanelPlaceable.IsDimmed ? .3f : 1, .5f);
         buttonsHolderCanvasGroup.blocksRaycasts = !weaponConstructionPanelPlaceable.IsDimmed;
 
-        groundBuildWeaponButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons);
-        repairButton.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons);
+        groundWeaponBuildButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons);
+        repairButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons);
 
         secondaryButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons && expandButtons);
         buildButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons && expandButtons);
