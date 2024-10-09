@@ -75961,6 +75961,10 @@ PrefabInstance:
       value: Shared Weapon Specifications
       objectReference: {fileID: 0}
     - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: airRequiredResources
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
       propertyPath: normalOutlineColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -75977,6 +75981,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: groundRequiredResources
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
       propertyPath: selectionOutlineColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -75991,6 +75999,10 @@ PrefabInstance:
     - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
       propertyPath: selectionOutlineColor.r
       value: 0.9056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: fighterRequiredResources
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}

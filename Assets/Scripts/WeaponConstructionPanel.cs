@@ -46,7 +46,6 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     public void BuildGroundWeaponButtonClicked() {
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
         OnPointerEnter(null);
-        OnWeaponButtonPointerExit();
     }
 
     public void BuildAirWeaponButtonClicked() {

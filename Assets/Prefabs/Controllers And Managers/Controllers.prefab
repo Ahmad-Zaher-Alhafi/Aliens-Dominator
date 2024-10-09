@@ -310,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946fa65f7b894a93bf1e8638ea3b21d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constructionSuppliesAmountOnStart: 500
 --- !u!1 &3044567553695726185
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +595,6 @@ MonoBehaviour:
   fighterPlaneWeaponPrefab: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
   defenceWeaponsParent: {fileID: 0}
   topDownUI: {fileID: 0}
-  constructionPanelPositionOffset: {x: 0, y: 80, z: 0}
 --- !u!1 &6269936032128447115
 GameObject:
   m_ObjectHideFlags: 0

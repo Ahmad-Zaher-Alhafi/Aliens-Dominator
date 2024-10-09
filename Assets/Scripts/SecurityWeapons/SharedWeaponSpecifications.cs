@@ -6,6 +6,8 @@ namespace SecurityWeapons {
         public static SharedWeaponSpecifications Instance { get; private set; }
 
         [Header("Ground weapon")]
+        [SerializeField] private int groundRequiredResources;
+
         [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
         [SerializeField] private Vector2 groundRotateOnYAxisRange;
         public Vector3 GroundRotateOnYAxisRange => groundRotateOnYAxisRange;
@@ -18,6 +20,8 @@ namespace SecurityWeapons {
         public float GroundRange => groundRange;
 
         [Header("Air weapon")]
+        [SerializeField] private int airRequiredResources;
+
         [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
         [SerializeField] private Vector2 airRotateOnYAxisRange;
         public Vector3 AirRotateOnYAxisRange => airRotateOnYAxisRange;
@@ -30,6 +34,8 @@ namespace SecurityWeapons {
         public float AirRange => airRange;
 
         [Header("Fighter plane")]
+        [SerializeField] private int fighterRequiredResources;
+
         [Tooltip("Min/Max angel that the weapon can rotate around y axis")]
         [SerializeField] private Vector2 fighterPlaneRotateOnYAxisRange;
         public Vector3 FighterPlaneRotateOnYAxisRange => fighterPlaneRotateOnYAxisRange;
@@ -86,5 +92,13 @@ namespace SecurityWeapons {
             };
         }
 
+        public int GetWeaponRequiredResources(DefenceWeapon.WeaponsType weaponType) {
+            return weaponType switch {
+                DefenceWeapon.WeaponsType.Ground => groundRequiredResources,
+                DefenceWeapon.WeaponsType.Air => airRequiredResources,
+                DefenceWeapon.WeaponsType.FighterPlane => fighterRequiredResources,
+                _ => throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, "No such weapon type")
+            };
+        }
     }
 }

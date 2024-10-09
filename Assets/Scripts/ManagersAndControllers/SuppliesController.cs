@@ -9,17 +9,24 @@ namespace ManagersAndControllers {
             BulletsAmmo
         }
 
+
+        [SerializeField] private int constructionSuppliesAmountOnStart = 500;
+
         private readonly Dictionary<SuppliesTypes, int> supplies = new() {
             { SuppliesTypes.Construction, 0 },
             { SuppliesTypes.BulletsAmmo, 0 },
             { SuppliesTypes.RocketsAmmo, 0 }
         };
 
+        private void Awake() {
+            PlusSupplies(SuppliesTypes.Construction, constructionSuppliesAmountOnStart);
+        }
+
         public void PlusSupplies(SuppliesTypes type, int amount) {
             supplies[type] += amount;
         }
 
-        public void MinusSupplies(SuppliesTypes type, int amount) {
+        private void MinusSupplies(SuppliesTypes type, int amount) {
             supplies[type] -= amount;
         }
 

@@ -44,6 +44,8 @@ namespace ManagersAndControllers {
                 return;
             }
 
+            if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(weaponType))) return;
+
             NetworkObject networkObject = weaponType switch {
                 DefenceWeapon.WeaponsType.Ground => NetworkObjectPool.Singleton.GetNetworkObject(groundDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
                 DefenceWeapon.WeaponsType.Air => NetworkObjectPool.Singleton.GetNetworkObject(airDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
@@ -51,7 +53,11 @@ namespace ManagersAndControllers {
                 _ => null
             };
 
-            if (networkObject is null) return;
+            if (networkObject is null) {
+                // Failed to instantiate the weapon, refund the resources
+                Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(weaponType));
+                return;
+            }
 
             networkObject.Spawn(true);
             var defenceWeapon = networkObject.GetComponent<DefenceWeapon>();
@@ -59,6 +65,8 @@ namespace ManagersAndControllers {
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
 
             weaponConstructionPoint.OnWeaponBuiltClientRPC(new NetworkBehaviourReference(defenceWeapon));
+
+            WeaponPlaceholder.Instance.HidePlaceholder();
         }
 
         [ServerRpc(RequireOwnership = false)]
