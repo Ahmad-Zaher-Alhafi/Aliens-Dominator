@@ -92,7 +92,7 @@ namespace SecurityWeapons {
             };
         }
 
-        public int GetWeaponRequiredResources(DefenceWeapon.WeaponsType weaponType) {
+        public int GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType weaponType) {
             return weaponType switch {
                 DefenceWeapon.WeaponsType.Ground => groundRequiredResources,
                 DefenceWeapon.WeaponsType.Air => airRequiredResources,

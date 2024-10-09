@@ -27,6 +27,10 @@ namespace Placeables {
             Ctx.Deps.ConstructionController.BuildWeapon(weaponType, weaponConstructionPoint);
         }
 
+        public bool HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
+            return Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType));
+        }
+
         public void ShowWeaponPlaceholder(DefenceWeapon.WeaponsType weaponType) {
             WeaponPlaceholder.Instance.ShowPlaceholder(weaponType, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.Rotation);
         }

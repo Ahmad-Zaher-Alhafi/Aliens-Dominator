@@ -44,7 +44,7 @@ namespace ManagersAndControllers {
                 return;
             }
 
-            if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(weaponType))) return;
+            if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType))) return;
 
             NetworkObject networkObject = weaponType switch {
                 DefenceWeapon.WeaponsType.Ground => NetworkObjectPool.Singleton.GetNetworkObject(groundDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
@@ -55,7 +55,7 @@ namespace ManagersAndControllers {
 
             if (networkObject is null) {
                 // Failed to instantiate the weapon, refund the resources
-                Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(weaponType));
+                Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType));
                 return;
             }
 

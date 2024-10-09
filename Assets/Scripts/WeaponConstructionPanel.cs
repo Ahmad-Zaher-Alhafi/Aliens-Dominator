@@ -31,14 +31,15 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     private WeaponConstructionPanelPlaceable weaponConstructionPanelPlaceable;
     private bool expandButtons;
     private CanvasGroup buttonsHolderCanvasGroup;
+    private Sequence textShakeTween;
 
     private void Awake() {
         buttonsHolder.SetActive(false);
         buttonsHolderCanvasGroup = buttonsHolder.GetComponent<CanvasGroup>();
 
-        groundBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.Ground).ToString();
-        airBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.Air).ToString();
-        fighterBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredResources(DefenceWeapon.WeaponsType.FighterPlane).ToString();
+        groundBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Ground).ToString();
+        airBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Air).ToString();
+        fighterBuildWeaponPriceText.text = SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.FighterPlane).ToString();
     }
 
     public void SetPlaceable(AddressablePlaceable placeable) {
@@ -55,17 +56,50 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     }
 
     public void BuildGroundWeaponButtonClicked() {
+        if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.Ground)) {
+            textShakeTween?.Complete();
+            textShakeTween = DOTween.Sequence()
+                .Join(groundBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
+                .Join(groundBuildWeaponPriceText.DOColor(Colors.Instance.Error, .5f))
+                .Append(groundBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
+                .Play();
+
+            return;
+        }
+
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
         OnPointerEnter(null);
     }
 
     public void BuildAirWeaponButtonClicked() {
+        if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.Air)) {
+            textShakeTween?.Complete();
+            textShakeTween = DOTween.Sequence()
+                .Join(airBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
+                .Join(airBuildWeaponPriceText.DOColor(Colors.Instance.Error, .25f))
+                .Append(airBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
+                .Play();
+
+            return;
+        }
+
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Air);
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
     }
 
     public void BuildFighterPlaneWeaponButtonClicked() {
+        if (!weaponConstructionPanelPlaceable.HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType.FighterPlane)) {
+            textShakeTween?.Complete();
+            textShakeTween = DOTween.Sequence()
+                .Join(fighterBuildWeaponPriceText.transform.DOShakePosition(.5f, 5))
+                .Join(fighterBuildWeaponPriceText.DOColor(Colors.Instance.Error, .5f))
+                .Append(fighterBuildWeaponPriceText.DOColor(Colors.Instance.Normal, .25f))
+                .Play();
+
+            return;
+        }
+
         weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.FighterPlane);
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
