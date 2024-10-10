@@ -11,8 +11,8 @@ namespace SecurityWeapons {
         [SerializeField] private float rocketsPerSecondInBurst;
         [SerializeField] private float burstCoolDown = 1.5f;
 
-        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.AirRotateOnXAxisRange;
-        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.AirRotateOnYAxisRange;
+        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.AirRotateOnXAxisRange;
+        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.AirRotateOnYAxisRange;
         public override float Range => SharedWeaponSpecifications.Instance.AirRange;
 
         private int numOfRocketsShotInBurst;

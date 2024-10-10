@@ -12,8 +12,8 @@ namespace SecurityWeapons {
         [Header("Audio files")]
         [SerializeField] private StudioEventEmitter bulletSound;
 
-        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.GroundRotateOnXAxisRange;
-        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.GroundRotateOnYAxisRange;
+        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.GroundRotateOnXAxisRange;
+        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.GroundRotateOnYAxisRange;
         public override float Range => SharedWeaponSpecifications.Instance.GroundRange;
 
         public override Projectile Shoot(IDamageable target, Transform spawnPoint = null) {

@@ -120,8 +120,8 @@ namespace SecurityWeapons {
             }
         }
 
-        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnXAxisRange;
-        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnYAxisRange;
+        public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnXAxisRange;
+        public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnYAxisRange;
         public override float Range => SharedWeaponSpecifications.Instance.FighterPlaneRange;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
