@@ -53,7 +53,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
             return;
         }
 
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Ground);
+        if (!weaponConstructionPanelPlaceable.TryBuildWeapon(DefenceWeapon.WeaponsType.Ground)) return;
+
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
     }
@@ -64,7 +65,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
             return;
         }
 
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.Air);
+        if (!weaponConstructionPanelPlaceable.TryBuildWeapon(DefenceWeapon.WeaponsType.Air)) return;
+
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
     }
@@ -75,7 +77,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
             return;
         }
 
-        weaponConstructionPanelPlaceable.BuildWeapon(DefenceWeapon.WeaponsType.FighterPlane);
+        if (!weaponConstructionPanelPlaceable.TryBuildWeapon(DefenceWeapon.WeaponsType.FighterPlane)) return;
+
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
     }

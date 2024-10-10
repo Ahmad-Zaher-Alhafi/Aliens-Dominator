@@ -36,15 +36,16 @@ namespace ManagersAndControllers {
             }
         }
 
-        public void BuildWeapon(DefenceWeapon.WeaponsType weaponType, WeaponConstructionPoint weaponConstructionPoint) {
-            if (weaponConstructionPoint.IsWeaponBuilt) return;
+        public bool TryBuildWeapon(DefenceWeapon.WeaponsType weaponType, WeaponConstructionPoint weaponConstructionPoint) {
+            if (weaponConstructionPoint.IsWeaponBuilt) return false;
 
-            if (!IsServer) {
-                BuildWeaponServerRPC(weaponType, new NetworkBehaviourReference(weaponConstructionPoint));
-                return;
+            if (IsServer) {
+                if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType))) return false;
+            } else {
+                if (!Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType))) return false;
+                TryBuildWeaponServerRPC(weaponType, new NetworkBehaviourReference(weaponConstructionPoint));
+                return true;
             }
-
-            if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType))) return;
 
             NetworkObject networkObject = weaponType switch {
                 DefenceWeapon.WeaponsType.Ground => NetworkObjectPool.Singleton.GetNetworkObject(groundDefenceWeaponPrefab, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation),
@@ -56,7 +57,7 @@ namespace ManagersAndControllers {
             if (networkObject is null) {
                 // Failed to instantiate the weapon, refund the resources
                 Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType));
-                return;
+                return false;
             }
 
             networkObject.Spawn(true);
@@ -65,12 +66,14 @@ namespace ManagersAndControllers {
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
 
             weaponConstructionPoint.OnWeaponBuiltClientRPC(new NetworkBehaviourReference(defenceWeapon));
+
+            return true;
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void BuildWeaponServerRPC(DefenceWeapon.WeaponsType weaponType, NetworkBehaviourReference weaponConstructionPointNetworkReference) {
+        private void TryBuildWeaponServerRPC(DefenceWeapon.WeaponsType weaponType, NetworkBehaviourReference weaponConstructionPointNetworkReference) {
             NetworkBehaviour constructionPointNetworkBehaviour = weaponConstructionPointNetworkReference;
-            BuildWeapon(weaponType, constructionPointNetworkBehaviour.GetComponent<WeaponConstructionPoint>());
+            TryBuildWeapon(weaponType, constructionPointNetworkBehaviour.GetComponent<WeaponConstructionPoint>());
         }
     }
 }

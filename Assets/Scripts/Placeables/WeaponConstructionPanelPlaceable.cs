@@ -23,8 +23,8 @@ namespace Placeables {
             this.weaponConstructionPoint = weaponConstructionPoint;
         }
 
-        public void BuildWeapon(DefenceWeapon.WeaponsType weaponType) {
-            Ctx.Deps.ConstructionController.BuildWeapon(weaponType, weaponConstructionPoint);
+        public bool TryBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
+            return Ctx.Deps.ConstructionController.TryBuildWeapon(weaponType, weaponConstructionPoint);
         }
 
         public bool HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
