@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Context;
+using ManagersAndControllers;
 using Multiplayer;
 using Projectiles;
 using Unity.Netcode;
@@ -29,7 +31,20 @@ namespace AmmoMagazines {
             return rocket.Value;
         }
 
-        public override void Refill(int projectilesNumberToAdd) {
+        public override void Refill(int projectilesNumberToAdd, bool consumesSupplies = true) {
+            if (!IsServer) {
+                RefillServerRPC(projectilesNumberToAdd);
+                return;
+            }
+
+            if (consumesSupplies) {
+                // Make sure to not exceed the capacity of the magazine
+                int amountToAdd = CurrentProjectilesNumber + projectilesNumberToAdd > capacity ? capacity - CurrentProjectilesNumber : projectilesNumberToAdd;
+                // Make sure that we have enough supplies for the wanted amount, if not then take what is left of the supplies
+                amountToAdd = Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.RocketsAmmo, amountToAdd) ? amountToAdd : Ctx.Deps.SuppliesController.CheckSuppliesAmount(SuppliesController.SuppliesTypes.RocketsAmmo);
+                if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.RocketsAmmo, amountToAdd)) return;
+            }
+
             foreach (RocketReloadPoint rocketsReloadPoint in rockets.Keys.ToList()) {
                 if (!rocketsReloadPoint.IsUed) continue;
                 if (projectilesNumberToAdd <= 0) break;
@@ -45,6 +60,11 @@ namespace AmmoMagazines {
                 rocket.InitDefaults();
                 rockets[rocketsReloadPoint] = rocket;
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void RefillServerRPC(int projectilesNumberToAdd) {
+            Refill(projectilesNumberToAdd);
         }
     }
 }

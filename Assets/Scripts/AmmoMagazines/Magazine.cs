@@ -9,17 +9,18 @@ namespace AmmoMagazines {
             Bullet,
             Rocket
         }
-       
+
         public abstract AmmoType TypeOfAmmo { get; }
         public bool IsEmpty => CurrentProjectilesNumber == 0;
 
         [SerializeField] protected int projectilesNumberOnStart;
         [SerializeField] protected int capacity;
 
-        protected int CurrentProjectilesNumber;
+        public int CurrentProjectilesNumber { get; protected set; }
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            if (!IsServer) return;
             StartCoroutine(RefillDelayed());
         }
 
@@ -29,11 +30,11 @@ namespace AmmoMagazines {
         /// <returns></returns>
         private IEnumerator RefillDelayed() {
             yield return new WaitForEndOfFrame();
-            Refill(projectilesNumberOnStart);
+            Refill(projectilesNumberOnStart, false);
         }
 
         public abstract Projectile GetProjectile(Transform spawnPoint = null);
 
-        public abstract void Refill(int projectilesNumberToAdd);
+        public abstract void Refill(int projectilesNumberToAdd, bool consumesSupplies = true);
     }
 }

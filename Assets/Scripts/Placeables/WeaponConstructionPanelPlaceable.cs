@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AmmoMagazines;
 using Context;
 using ManagersAndControllers;
 using SecurityWeapons;
@@ -16,6 +17,8 @@ namespace Placeables {
         /// True when some other panel is hovered
         /// </summary>
         public bool IsDimmed { get; private set; }
+        public int BulletsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine() : 0;
+        public int RocketsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine(Magazine.AmmoType.Rocket) : 0;
 
         private readonly WeaponConstructionPoint weaponConstructionPoint;
 
@@ -35,6 +38,10 @@ namespace Placeables {
             WeaponPlaceholder.Instance.ShowPlaceholder(weaponType, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.Rotation);
         }
 
+        public void RefillAmmo(Magazine.AmmoType ammoType) {
+            weaponConstructionPoint.BuiltWeapon.Reload(SharedWeaponSpecifications.Instance.GetAmmoRefillAmount(ammoType));
+        }
+
         public void HideWeaponPlaceholder() {
             WeaponPlaceholder.Instance.HidePlaceholder();
         }
@@ -44,8 +51,6 @@ namespace Placeables {
         public void RepairWeapon() { }
 
         public void UpgradeWeapon() { }
-
-        public void RefillAmmo() { }
 
         public void OnWeaponDestroyed() { }
 

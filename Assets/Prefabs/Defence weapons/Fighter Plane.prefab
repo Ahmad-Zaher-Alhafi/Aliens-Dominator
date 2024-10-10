@@ -15297,7 +15297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e89bd064e7463c8188631456fcc722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorRange: 150
   activateDebugging: 0
 --- !u!1 &2422370486760904943
 GameObject:
@@ -17549,12 +17548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  rotateOnYAxisRange: {x: -360, y: 360}
-  rotateOnXAxisRange: {x: 0, y: 65}
   activeOnStart: 0
   outline: {fileID: 5949008205160456271}
-  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
-  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   patrollingSpeed: 5
   rotateSpeed: 2
   aimingSpeed: 15
@@ -17576,7 +17571,7 @@ MonoBehaviour:
   - {fileID: 1695884081}
   weaponSensor: {fileID: 1968061742312605515}
   activateOnStart: 1
-  useInfiniteAmmo: 1
+  useInfiniteAmmo: 0
 --- !u!114 &3429880273745342631
 MonoBehaviour:
   m_ObjectHideFlags: 0

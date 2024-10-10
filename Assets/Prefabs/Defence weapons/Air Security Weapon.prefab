@@ -79073,7 +79073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa72563e20d46d9ad877420a682fbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorRange: 150
   activateDebugging: 0
 --- !u!1 &5519423600134972093
 GameObject:
@@ -79414,18 +79413,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
-  rotateOnYAxisRange: {x: -360, y: 360}
-  rotateOnXAxisRange: {x: -35, y: 5}
   activeOnStart: 0
   outline: {fileID: 7264502354537436883}
-  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
-  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   weaponSensor: {fileID: 5519423599643542842}
   weaponHealth: 200
   guardingSpeed: 10
   aimingSpeed: 15
   projectilesPerSecond: 1
-  useInfiniteAmmo: 1
+  useInfiniteAmmo: 0
   useBursts: 0
   numOfRocketsInBurst: 0
   rocketsPerSecondInBurst: 0
@@ -79442,7 +79437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95e926ff4824dffac4badfdc03c6495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesNumberOnStart: 16
+  projectilesNumberOnStart: 8
   capacity: 16
   rocketsCreatePoints:
   - {fileID: 7688019794481490679}

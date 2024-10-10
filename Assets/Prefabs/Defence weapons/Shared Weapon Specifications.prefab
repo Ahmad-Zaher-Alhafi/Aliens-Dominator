@@ -44,12 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e86206c298c405db693ae0da296de84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundRequiredResources: 50
   groundRotateOnYAxisRange: {x: -65, y: 65}
   groundRotateOnXAxisRange: {x: 0, y: 45}
   groundRange: 100
+  airRequiredResources: 100
   airRotateOnYAxisRange: {x: -360, y: 360}
   airRotateOnXAxisRange: {x: -35, y: 5}
   airRange: 150
+  fighterRequiredResources: 300
   fighterPlaneRotateOnYAxisRange: {x: 0, y: 0}
   fighterPlaneRotateOnXAxisRange: {x: 0, y: 0}
   fighterPlaneRange: 150
+  normalOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  selectionOutlineColor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
+  bulletsAmountToReloadPerClick: 50
+  rocketsAmountToReloadPerClick: 8

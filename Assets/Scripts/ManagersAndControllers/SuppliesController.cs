@@ -13,6 +13,8 @@ namespace ManagersAndControllers {
         }
 
         [SerializeField] private int constructionSuppliesAmountOnStart = 500;
+        [SerializeField] private int bulletSuppliesAmountOnStart = 250;
+        [SerializeField] private int rocketSuppliesAmountOnStart = 25;
 
         private Dictionary<SuppliesTypes, int> supplies = new() {
             { SuppliesTypes.Construction, 0 },
@@ -25,6 +27,8 @@ namespace ManagersAndControllers {
             if (!IsServer) return;
 
             PlusSupplies(SuppliesTypes.Construction, constructionSuppliesAmountOnStart);
+            PlusSupplies(SuppliesTypes.BulletsAmmo, bulletSuppliesAmountOnStart);
+            PlusSupplies(SuppliesTypes.RocketsAmmo, rocketSuppliesAmountOnStart);
         }
 
         public void PlusSupplies(SuppliesTypes type, int amount) {
@@ -41,6 +45,10 @@ namespace ManagersAndControllers {
 
         public bool HasEnoughSupplies(SuppliesTypes type, int wantedAmount) {
             return supplies[type] >= wantedAmount;
+        }
+
+        public int CheckSuppliesAmount(SuppliesTypes type) {
+            return supplies[type];
         }
 
         public bool TryConsumeSupplies(SuppliesTypes type, int amount) {

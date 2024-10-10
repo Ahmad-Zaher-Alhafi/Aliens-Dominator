@@ -183,8 +183,12 @@ namespace SecurityWeapons {
             bulletSound.Play();
         }
 
-        private void Reload(Magazine.AmmoType ammoType, int ammoNumberToAdd) {
-            magazines.FirstOrDefault(magazine => magazine.TypeOfAmmo == ammoType)?.Refill(ammoNumberToAdd);
+        public override void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
+            magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).Refill(ammoNumberToAdd);
+        }
+
+        public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
+            return magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).CurrentProjectilesNumber;
         }
 
         public void TakeOff() {

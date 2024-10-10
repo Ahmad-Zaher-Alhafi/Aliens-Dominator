@@ -11,18 +11,7 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     [SerializeField] private RangeVisualizer rangeVisualizer;
     public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesThatCanBeBuiltInThisPoint => weaponTypesThatCanBeBuiltInThisPoint;
 
-    public bool IsWeaponBuilt {
-        get => isWeaponBuilt;
-        private set {
-            isWeaponBuilt = value;
-            circleEffect.SetActive(ShowCircleEffect);
-
-            if (isWeaponBuilt) {
-                airWeaponBase.SetActive(builtWeapon.WeaponType == DefenceWeapon.WeaponsType.Air);
-            }
-        }
-    }
-    private bool isWeaponBuilt;
+    public bool IsWeaponBuilt => BuiltWeapon != null;
 
     private bool ShowCircleEffect => !IsWeaponBuilt && Ctx.Deps.GameController.CurrentViewMode is GameController.ViewMode.TopDown;
 
@@ -30,6 +19,17 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     public Quaternion Rotation => transform.rotation;
     public Quaternion WeaponCreateRotation => WeaponPlaceholder.Instance.ActivePlaceholderRotation;
 
+    public DefenceWeapon BuiltWeapon {
+        get => builtWeapon;
+        private set {
+            builtWeapon = value;
+            circleEffect.SetActive(ShowCircleEffect);
+
+            if (builtWeapon != null) {
+                airWeaponBase.SetActive(builtWeapon.WeaponType == DefenceWeapon.WeaponsType.Air);
+            }
+        }
+    }
     private DefenceWeapon builtWeapon;
 
     private void Awake() {
@@ -43,21 +43,20 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     [ClientRpc]
     public void OnWeaponBuiltClientRPC(NetworkBehaviourReference highlightableWeaponNetworkReference) {
         NetworkBehaviour highlightableWeaponNetworkBehaviour = highlightableWeaponNetworkReference;
-        builtWeapon = highlightableWeaponNetworkBehaviour.GetComponent<DefenceWeapon>();
-        IsWeaponBuilt = true;
+        BuiltWeapon = highlightableWeaponNetworkBehaviour.GetComponent<DefenceWeapon>();
     }
 
     public void OnSelected() {
         if (!IsWeaponBuilt) return;
 
-        builtWeapon.HighlightAsSelected();
+        BuiltWeapon.HighlightAsSelected();
         rangeVisualizer.ShowRange(WeaponCreatePosition, SharedWeaponSpecifications.Instance.GetWeaponRange(builtWeapon.WeaponType));
     }
 
     public void OnDeselected() {
         if (!IsWeaponBuilt) return;
 
-        builtWeapon.HighlightNormal();
+        BuiltWeapon.HighlightNormal();
         rangeVisualizer.HideRange();
     }
 

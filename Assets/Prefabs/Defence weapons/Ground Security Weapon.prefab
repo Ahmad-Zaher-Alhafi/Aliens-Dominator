@@ -377,7 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ea3407d07142ab974a3f0228993ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorRange: 100
   activateDebugging: 0
 --- !u!1 &2847269026860701782
 GameObject:
@@ -1078,12 +1077,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
-  rotateOnYAxisRange: {x: -65, y: 65}
-  rotateOnXAxisRange: {x: 0, y: 45}
   activeOnStart: 0
   outline: {fileID: 6365059444814774000}
-  normalOutlineColCor: {r: 1, g: 1, b: 1, a: 1}
-  selectionOutlineColCor: {r: 0.9056604, g: 0.4250003, b: 0.10594514, a: 1}
   weaponSensor: {fileID: 3010871445501105339}
   weaponHealth: 200
   guardingSpeed: 10
@@ -1104,7 +1099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55883c1450941d6b97cda7f6677ad18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesNumberOnStart: 150
+  projectilesNumberOnStart: 75
   capacity: 150
   bulletPrefab: {fileID: -162898778088909944, guid: 86ea2bb6e761d0e4683821ab8415fa40, type: 3}
 --- !u!114 &3890373539077853883

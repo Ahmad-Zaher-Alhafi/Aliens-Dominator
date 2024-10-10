@@ -1,3 +1,4 @@
+using AmmoMagazines;
 using Context;
 using FiniteStateMachine;
 using ManagersAndControllers;
@@ -53,6 +54,8 @@ namespace SecurityWeapons {
             InitialRotation = transform.rotation;
         }
 
+        public abstract void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
+
         public void HighlightNormal() {
             outline.enabled = true;
             outline.OutlineColor = SharedWeaponSpecifications.Instance.NormalOutlineColor;
@@ -66,6 +69,8 @@ namespace SecurityWeapons {
         public void RemoveHighlight() {
             outline.enabled = false;
         }
+
+        public abstract int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
 
         public override void OnDestroy() {
             base.OnDestroy();

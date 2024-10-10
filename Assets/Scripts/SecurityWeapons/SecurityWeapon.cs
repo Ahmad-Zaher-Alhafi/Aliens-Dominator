@@ -84,8 +84,12 @@ namespace SecurityWeapons {
             return projectile;
         }
 
-        private void Reload(int ammoNumberToAdd) {
+        public override void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
             magazine.Refill(ammoNumberToAdd);
+        }
+
+        public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
+            return magazine.CurrentProjectilesNumber;
         }
 
 

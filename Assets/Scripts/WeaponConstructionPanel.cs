@@ -1,4 +1,5 @@
 using System.Linq;
+using AmmoMagazines;
 using DG.Tweening;
 using Placeables;
 using SecurityWeapons;
@@ -18,6 +19,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     [SerializeField] private ConstructionButton airWeaponBuildButton;
     [SerializeField] private ConstructionButton fighterPlaneBuildWeaponButton;
     [SerializeField] private ConstructionButton repairButton;
+    [SerializeField] private ConstructionButton reloadBulletAmmoButton;
+    [SerializeField] private ConstructionButton reloadRocketAmmoButton;
 
     public GameObject GameObject => gameObject;
 
@@ -40,11 +43,15 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         groundWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground));
         airWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
         fighterPlaneBuildWeaponButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane));
+
+        reloadRocketAmmoButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
     }
 
     private void Update() {
         RefreshButtonsVisibility();
         transform.position = weaponConstructionPanelPlaceable.Position;
+        reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine.ToString());
+        reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine.ToString());
     }
 
     public void BuildGroundWeaponButtonClicked() {
@@ -93,6 +100,14 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     public void OnFighterPlaneButtonPointerEnter() {
         weaponConstructionPanelPlaceable.ShowWeaponPlaceholder(DefenceWeapon.WeaponsType.FighterPlane);
+    }
+
+    public void RefillBulletAmmoClicked() {
+        weaponConstructionPanelPlaceable.RefillAmmo(Magazine.AmmoType.Bullet);
+    }
+
+    public void RefillRocketAmmoClicked() {
+        weaponConstructionPanelPlaceable.RefillAmmo(Magazine.AmmoType.Rocket);
     }
 
     public void OnWeaponButtonPointerExit() {

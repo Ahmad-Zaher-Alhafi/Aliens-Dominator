@@ -1,4 +1,5 @@
 ﻿using System;
+using AmmoMagazines;
 using UnityEngine;
 
 namespace SecurityWeapons {
@@ -54,7 +55,11 @@ namespace SecurityWeapons {
         [SerializeField] private Color selectionOutlineColor;
         public Color SelectionOutlineColor => selectionOutlineColor;
 
+        [Tooltip("How much bullets to refill the magazine of the weapon on clicking the reload bullets button")]
+        [SerializeField] private int bulletsAmountToReloadPerClick;
 
+        [Tooltip("How much rockets to refill the magazine of the weapon on clicking the reload bullets button")]
+        [SerializeField] private int rocketsAmountToReloadPerClick;
 
         private void Awake() {
             if (Instance is not null) {
@@ -98,6 +103,14 @@ namespace SecurityWeapons {
                 DefenceWeapon.WeaponsType.Air => airRequiredResources,
                 DefenceWeapon.WeaponsType.FighterPlane => fighterRequiredResources,
                 _ => throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, "No such weapon type")
+            };
+        }
+
+        public int GetAmmoRefillAmount(Magazine.AmmoType ammoType) {
+            return ammoType switch {
+                Magazine.AmmoType.Bullet => bulletsAmountToReloadPerClick,
+                Magazine.AmmoType.Rocket => rocketsAmountToReloadPerClick,
+                _ => throw new ArgumentOutOfRangeException(nameof(ammoType), ammoType, null)
             };
         }
     }
