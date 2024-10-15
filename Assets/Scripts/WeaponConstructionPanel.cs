@@ -1,5 +1,7 @@
 using AmmoMagazines;
+using Context;
 using DG.Tweening;
+using ManagersAndControllers;
 using Placeables;
 using SecurityWeapons;
 using UI;
@@ -34,6 +36,8 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         groundWeaponBuildButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Ground).ToString());
         airWeaponBuildButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.Air).ToString());
         fighterPlaneBuildWeaponButton.SetText(SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(DefenceWeapon.WeaponsType.FighterPlane).ToString());
+
+        Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
     }
 
     public void SetPlaceable(AddressablePlaceable placeable) {
@@ -52,6 +56,10 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
         reloadBulletAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillBulletAmmoButton);
         reloadRocketAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillRocketAmmoButton);
+    }
+
+    private void OnViewModeChanged(GameController.ViewMode previousMode, GameController.ViewMode currentMode) {
+        OnWeaponButtonPointerExit();
     }
 
     public void BuildGroundWeaponButtonClicked() {
@@ -135,6 +143,9 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
         secondaryButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowWeaponModificationButtons && expandButtons);
         buildButtonsHolder.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowBuildWeaponButtons && expandButtons);
+    }
 
+    private void OnDestroy() {
+        Ctx.Deps.EventsManager.ViewModeChanged -= OnViewModeChanged;
     }
 }
