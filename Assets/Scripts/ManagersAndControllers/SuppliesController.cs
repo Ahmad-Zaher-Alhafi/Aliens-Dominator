@@ -16,6 +16,7 @@ namespace ManagersAndControllers {
         [SerializeField] private int bulletSuppliesAmountOnStart = 250;
         [SerializeField] private int rocketSuppliesAmountOnStart = 25;
 
+        private readonly NetworkVariable<SerializedNetworkSuppliesDictionary> networkSupplies = new();
         private Dictionary<SuppliesTypes, int> supplies = new() {
             { SuppliesTypes.Construction, 0 },
             { SuppliesTypes.BulletsAmmo, 0 },
@@ -31,16 +32,24 @@ namespace ManagersAndControllers {
             PlusSupplies(SuppliesTypes.RocketsAmmo, rocketSuppliesAmountOnStart);
         }
 
+        private void Update() {
+            if (!IsSpawned) return;
+
+            if (!IsServer) {
+                supplies = networkSupplies.Value.ToDictionary();
+            }
+        }
+
         public void PlusSupplies(SuppliesTypes type, int amount) {
             if (!IsServer) throw new ArgumentException("Supplies are managed by server only");
             supplies[type] += amount;
-            OnSuppliesAmountChangedClientRPC(new SerializedNetworkSuppliesDictionary(supplies));
+            networkSupplies.Value = new SerializedNetworkSuppliesDictionary(supplies);
         }
 
         private void MinusSupplies(SuppliesTypes type, int amount) {
             if (!IsServer) throw new ArgumentException("Supplies are managed by server only");
             supplies[type] -= amount;
-            OnSuppliesAmountChangedClientRPC(new SerializedNetworkSuppliesDictionary(supplies));
+            networkSupplies.Value = new SerializedNetworkSuppliesDictionary(supplies);
         }
 
         public bool HasEnoughSupplies(SuppliesTypes type, int wantedAmount) {
@@ -57,12 +66,6 @@ namespace ManagersAndControllers {
 
             MinusSupplies(type, amount);
             return true;
-        }
-
-        [ClientRpc]
-        private void OnSuppliesAmountChangedClientRPC(SerializedNetworkSuppliesDictionary newSupplies) {
-            if (IsServer) return;
-            supplies = newSupplies.ToDictionary();
         }
 
         private struct SerializedNetworkSuppliesDictionary : INetworkSerializable {

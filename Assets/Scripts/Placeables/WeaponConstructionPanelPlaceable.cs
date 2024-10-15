@@ -11,7 +11,12 @@ namespace Placeables {
         public bool IsVisible => Ctx.Deps.GameController.CurrentViewMode == GameController.ViewMode.TopDown && !Ctx.Deps.CameraController.IsBlending;
         public bool ShowBuildWeaponButtons => !weaponConstructionPoint.IsWeaponBuilt;
         public bool ShowWeaponModificationButtons => weaponConstructionPoint.IsWeaponBuilt;
-        public IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
+        public bool ShowGroundWeaponBuildButton => WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground);
+        public bool ShowAirWeaponBuildButton => WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air);
+        public bool ShowFighterPlaneBuildButton => WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane);
+        public bool ShowRefillBulletAmmoButton => weaponConstructionPoint.BuiltWeapon?.WeaponType != DefenceWeapon.WeaponsType.Air;
+        public bool ShowRefillRocketAmmoButton => weaponConstructionPoint.BuiltWeapon?.WeaponType != DefenceWeapon.WeaponsType.Ground;
+        private IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
         public Vector3 Position => Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + Vector3.up * 80;
         /// <summary>
         /// True when some other panel is hovered
@@ -39,7 +44,7 @@ namespace Placeables {
         }
 
         public void RefillAmmo(Magazine.AmmoType ammoType) {
-            weaponConstructionPoint.BuiltWeapon.Reload(SharedWeaponSpecifications.Instance.GetAmmoRefillAmount(ammoType));
+            weaponConstructionPoint.BuiltWeapon.Reload(SharedWeaponSpecifications.Instance.GetAmmoRefillAmount(ammoType), ammoType);
         }
 
         public void HideWeaponPlaceholder() {

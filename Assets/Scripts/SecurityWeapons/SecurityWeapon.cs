@@ -88,7 +88,7 @@ namespace SecurityWeapons {
         }
 
         public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
-            return magazine.CurrentProjectilesNumber;
+            return ammoType != magazine.TypeOfAmmo ? 0 : magazine.CurrentProjectilesNumber;
         }
 
 

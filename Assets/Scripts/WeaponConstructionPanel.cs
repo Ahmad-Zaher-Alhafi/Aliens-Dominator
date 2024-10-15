@@ -1,4 +1,3 @@
-using System.Linq;
 using AmmoMagazines;
 using DG.Tweening;
 using Placeables;
@@ -40,11 +39,9 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     public void SetPlaceable(AddressablePlaceable placeable) {
         weaponConstructionPanelPlaceable = (WeaponConstructionPanelPlaceable) placeable;
 
-        groundWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Ground));
-        airWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
-        fighterPlaneBuildWeaponButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane));
-
-        reloadRocketAmmoButton.gameObject.SetActive(weaponConstructionPanelPlaceable.WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.Air));
+        groundWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.ShowGroundWeaponBuildButton);
+        airWeaponBuildButton.gameObject.SetActive(weaponConstructionPanelPlaceable.ShowAirWeaponBuildButton);
+        fighterPlaneBuildWeaponButton.gameObject.SetActive(weaponConstructionPanelPlaceable.ShowFighterPlaneBuildButton);
     }
 
     private void Update() {
@@ -52,6 +49,9 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         transform.position = weaponConstructionPanelPlaceable.Position;
         reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine.ToString());
         reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine.ToString());
+
+        reloadBulletAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillBulletAmmoButton);
+        reloadRocketAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillRocketAmmoButton);
     }
 
     public void BuildGroundWeaponButtonClicked() {

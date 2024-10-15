@@ -16,12 +16,31 @@ namespace AmmoMagazines {
         [SerializeField] protected int projectilesNumberOnStart;
         [SerializeField] protected int capacity;
 
-        public int CurrentProjectilesNumber { get; protected set; }
+        public int CurrentProjectilesNumber {
+            get => currentProjectilesNumber;
+            protected set {
+                currentProjectilesNumber = value;
+                if (IsServer) {
+                    networkCurrentProjectilesNumber.Value = currentProjectilesNumber;
+                }
+            }
+        }
+        private int currentProjectilesNumber;
+
+        private readonly NetworkVariable<int> networkCurrentProjectilesNumber = new();
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
             if (!IsServer) return;
             StartCoroutine(RefillDelayed());
+        }
+
+        private void Update() {
+            if (!IsSpawned) return;
+
+            if (!IsServer) {
+                CurrentProjectilesNumber = networkCurrentProjectilesNumber.Value;
+            }
         }
 
         /// <summary>
