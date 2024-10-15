@@ -132,9 +132,6 @@ namespace SecurityWeapons {
             if (IsServer) return;
 
             Destroy(fighterPlaneStateMachine);
-            foreach (Magazine magazine in magazines) {
-                Destroy(magazine);
-            }
         }
 
         protected override void Awake() {

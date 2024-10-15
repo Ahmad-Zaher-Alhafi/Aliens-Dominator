@@ -50,7 +50,6 @@ namespace SecurityWeapons {
             if (IsServer) return;
 
             Destroy(securityWeaponStateMachine);
-            Destroy(magazine);
         }
 
         protected override void Awake() {
