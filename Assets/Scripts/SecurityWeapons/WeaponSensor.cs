@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Context;
 using Creatures;
 using FiniteStateMachine;
-using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 using BodyPart = Creatures.BodyPart;
@@ -17,7 +16,6 @@ namespace SecurityWeapons {
         private readonly List<IDamageable> targets = new();
         private IWeaponSpecification weaponSpecification;
         private readonly RaycastHit[] raycastHits = new RaycastHit[10];
-        private bool hasToDefend;
 
         /// <summary>
         /// The transform.up as it was set in the editor before the sensor rotates
@@ -34,18 +32,13 @@ namespace SecurityWeapons {
 
         private void Awake() {
             weaponSpecification = GetComponentInParent<IWeaponSpecification>();
-            Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
             initialUpVector = transform.up;
             initialForwardVector = transform.forward;
             initialRightVector = transform.right;
         }
 
-        private void OnWaveStarted(Wave wave) {
-            hasToDefend = true;
-        }
-
         private void Update() {
-            if (!hasToDefend) return;
+            if (!Ctx.Deps.WaveController.HasWaveStarted) return;
 
             if (CanBeShot(TargetToAimAt)) return;
 
@@ -152,10 +145,6 @@ namespace SecurityWeapons {
             }
         }
 
-        private void OnDestroy() {
-            Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
-        }
-
 
 #if UNITY_EDITOR
         [CustomEditor(typeof(WeaponSensor<>))]
@@ -170,7 +159,6 @@ namespace SecurityWeapons {
                 // Use test target
                 if (GUILayout.Button("Use test target")) {
                     if (Application.isPlaying) {
-                        weaponSensor.hasToDefend = true;
                         testCreature ??= GameObject.FindGameObjectWithTag("TestCreature").GetComponent<Creature>();
                         weaponSensor.TargetToAimAt = testCreature;
                     } else {
