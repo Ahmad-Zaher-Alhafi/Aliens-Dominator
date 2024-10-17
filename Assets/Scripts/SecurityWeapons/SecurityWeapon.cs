@@ -70,7 +70,7 @@ namespace SecurityWeapons {
             if (IsSpawned) {
                 if (IsServer) {
                     networkRotation.Value = transform.rotation;
-                } else {
+                } else if (networkRotation.Value != Quaternion.identity) {
                     transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
                 }
             }

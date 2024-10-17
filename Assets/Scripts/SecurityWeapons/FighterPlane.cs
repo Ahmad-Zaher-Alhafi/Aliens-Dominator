@@ -155,8 +155,10 @@ namespace SecurityWeapons {
                     networkPosition.Value = transform.position;
                     networkRotation.Value = transform.rotation;
                 } else {
-                    transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
-                    transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                    if (networkPosition.Value != Vector3.zero) {
+                        transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
+                        transform.rotation = Quaternion.LerpUnclamped(transform.rotation, networkRotation.Value, .1f);
+                    }
                 }
             }
 

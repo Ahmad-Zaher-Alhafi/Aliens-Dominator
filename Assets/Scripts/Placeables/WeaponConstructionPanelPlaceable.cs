@@ -33,7 +33,7 @@ namespace Placeables {
         }
 
         public bool TryBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
-            return Ctx.Deps.ConstructionController.TryBuildWeapon(weaponType, weaponConstructionPoint);
+            return Ctx.Deps.ConstructionController.TryBuildWeapon(weaponType, weaponConstructionPoint, weaponConstructionPoint.WeaponCreatePosition, weaponConstructionPoint.WeaponCreateRotation);
         }
 
         public bool HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
