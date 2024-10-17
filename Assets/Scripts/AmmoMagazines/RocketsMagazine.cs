@@ -66,5 +66,12 @@ namespace AmmoMagazines {
         private void RefillServerRPC(int projectilesNumberToAdd) {
             Refill(projectilesNumberToAdd);
         }
+
+        protected override void UnFillMagazine() {
+            base.UnFillMagazine();
+            foreach (RocketReloadPoint rocketReloadPoint in rockets.Keys) {
+                rocketReloadPoint.IsUed = true;
+            }
+        }
     }
 }

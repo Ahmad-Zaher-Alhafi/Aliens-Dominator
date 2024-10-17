@@ -70,6 +70,23 @@ namespace ManagersAndControllers {
             return true;
         }
 
+        public void BulldozeWeapon(WeaponConstructionPoint weaponConstructionPoint) {
+            if (!IsServer) {
+                BulldozeWeaponServerRPC(weaponConstructionPoint);
+                return;
+            }
+
+            weaponConstructionPoint.BuiltWeapon.Despawn();
+            Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponConstructionPoint.BuiltWeapon.WeaponType));
+            weaponConstructionPoint.OnWeaponDestroyedClientRPC();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void BulldozeWeaponServerRPC(NetworkBehaviourReference weaponConstructionPointNetworkReference) {
+            NetworkBehaviour weaponConstructionPointNetworkBehaviour = weaponConstructionPointNetworkReference;
+            BulldozeWeapon(weaponConstructionPointNetworkBehaviour.gameObject.GetComponent<WeaponConstructionPoint>());
+        }
+
         [ServerRpc(RequireOwnership = false)]
         private void TryBuildWeaponServerRPC(DefenceWeapon.WeaponsType weaponType, NetworkBehaviourReference weaponConstructionPointNetworkReference) {
             NetworkBehaviour constructionPointNetworkBehaviour = weaponConstructionPointNetworkReference;

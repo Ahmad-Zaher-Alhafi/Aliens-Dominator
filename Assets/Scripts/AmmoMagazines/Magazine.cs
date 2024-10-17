@@ -20,9 +20,7 @@ namespace AmmoMagazines {
             get => currentProjectilesNumber;
             protected set {
                 currentProjectilesNumber = value;
-                if (IsServer) {
-                    networkCurrentProjectilesNumber.Value = currentProjectilesNumber;
-                }
+                networkCurrentProjectilesNumber.Value = currentProjectilesNumber;
             }
         }
         private int currentProjectilesNumber;
@@ -33,6 +31,13 @@ namespace AmmoMagazines {
             base.OnNetworkSpawn();
             if (!IsServer) return;
             StartCoroutine(RefillDelayed());
+        }
+
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsServer) {
+                UnFillMagazine();
+            }
         }
 
         private void Update() {
@@ -55,5 +60,9 @@ namespace AmmoMagazines {
         public abstract Projectile GetProjectile(Transform spawnPoint = null);
 
         public abstract void Refill(int projectilesNumberToAdd, bool consumesSupplies = true);
+
+        protected virtual void UnFillMagazine() {
+            CurrentProjectilesNumber = 0;
+        }
     }
 }

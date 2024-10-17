@@ -24,10 +24,7 @@ public class WeaponConstructionPoint : NetworkBehaviour {
         private set {
             builtWeapon = value;
             circleEffect.SetActive(ShowCircleEffect);
-
-            if (builtWeapon != null) {
-                airWeaponBase.SetActive(builtWeapon.WeaponType == DefenceWeapon.WeaponsType.Air);
-            }
+            airWeaponBase.SetActive(IsWeaponBuilt && builtWeapon.WeaponType == DefenceWeapon.WeaponsType.Air);
         }
     }
     private DefenceWeapon builtWeapon;
@@ -44,6 +41,12 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     public void OnWeaponBuiltClientRPC(NetworkBehaviourReference highlightableWeaponNetworkReference) {
         NetworkBehaviour highlightableWeaponNetworkBehaviour = highlightableWeaponNetworkReference;
         BuiltWeapon = highlightableWeaponNetworkBehaviour.GetComponent<DefenceWeapon>();
+    }
+
+    [ClientRpc]
+    public void OnWeaponDestroyedClientRPC() {
+        OnDeselected();
+        BuiltWeapon = null;
     }
 
     public void OnSelected() {

@@ -134,6 +134,14 @@ namespace SecurityWeapons {
             Destroy(fighterPlaneStateMachine);
         }
 
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsServer) {
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
+            }
+        }
+
         protected override void Awake() {
             base.Awake();
             magazines = GetComponents<Magazine>().ToList();

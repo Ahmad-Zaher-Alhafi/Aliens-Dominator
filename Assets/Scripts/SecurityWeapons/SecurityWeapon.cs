@@ -52,6 +52,13 @@ namespace SecurityWeapons {
             Destroy(securityWeaponStateMachine);
         }
 
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsServer) {
+                networkRotation.Value = Quaternion.identity;
+            }
+        }
+
         protected override void Awake() {
             base.Awake();
             magazine = GetComponent<Magazine>();

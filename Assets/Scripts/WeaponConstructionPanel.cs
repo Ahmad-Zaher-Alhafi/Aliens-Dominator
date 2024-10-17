@@ -22,6 +22,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     [SerializeField] private ConstructionButton repairButton;
     [SerializeField] private ConstructionButton reloadBulletAmmoButton;
     [SerializeField] private ConstructionButton reloadRocketAmmoButton;
+    [SerializeField] private ConstructionButton sellButton;
 
     public GameObject GameObject => gameObject;
 
@@ -53,6 +54,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         transform.position = weaponConstructionPanelPlaceable.Position;
         reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine.ToString());
         reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine.ToString());
+        sellButton.SetText(weaponConstructionPanelPlaceable.RefundAmountFromSellingWeapon.ToString());
 
         reloadBulletAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillBulletAmmoButton);
         reloadRocketAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillRocketAmmoButton);
@@ -84,6 +86,10 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
         OnPointerEnter(null);
         OnWeaponButtonPointerExit();
+    }
+
+    public void SellButtonClicked() {
+        weaponConstructionPanelPlaceable.BulldozeWeapon();
     }
 
     public void BuildFighterPlaneWeaponButtonClicked() {

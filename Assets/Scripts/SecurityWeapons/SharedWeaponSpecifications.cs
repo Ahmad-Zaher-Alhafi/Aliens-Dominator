@@ -61,6 +61,8 @@ namespace SecurityWeapons {
         [Tooltip("How much rockets to refill the magazine of the weapon on clicking the reload bullets button")]
         [SerializeField] private int rocketsAmountToReloadPerClick;
 
+        [SerializeField] private int refundPercentOnSellingWeapon = 50;
+
         private void Awake() {
             if (Instance is not null) {
                 Destroy(gameObject);
@@ -112,6 +114,10 @@ namespace SecurityWeapons {
                 Magazine.AmmoType.Rocket => rocketsAmountToReloadPerClick,
                 _ => throw new ArgumentOutOfRangeException(nameof(ammoType), ammoType, null)
             };
+        }
+
+        public int GetRefundAmountFromSellingWeapon(DefenceWeapon.WeaponsType weaponsType) {
+            return (int) (refundPercentOnSellingWeapon / 100f * GetWeaponRequiredSupplies(weaponsType));
         }
     }
 }

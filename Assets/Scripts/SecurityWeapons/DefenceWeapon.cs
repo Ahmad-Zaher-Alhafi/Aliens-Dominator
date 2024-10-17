@@ -1,3 +1,4 @@
+using System.Linq;
 using AmmoMagazines;
 using Context;
 using FiniteStateMachine;
@@ -75,6 +76,15 @@ namespace SecurityWeapons {
         public override void OnDestroy() {
             base.OnDestroy();
             Ctx.Deps.EventsManager.ViewModeChanged -= OnViewModeChanged;
+        }
+
+        public void Despawn() {
+            foreach (NetworkObject networkObject in GetComponentsInChildren<NetworkObject>().Where(netObj => netObj != NetworkObject)) {
+                networkObject.transform.SetParent(null);
+                networkObject.Despawn();
+            }
+
+            NetworkObject.Despawn();
         }
     }
 }

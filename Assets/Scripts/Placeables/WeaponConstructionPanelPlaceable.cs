@@ -16,6 +16,7 @@ namespace Placeables {
         public bool ShowFighterPlaneBuildButton => WeaponTypesToShow.Contains(DefenceWeapon.WeaponsType.FighterPlane);
         public bool ShowRefillBulletAmmoButton => weaponConstructionPoint.BuiltWeapon?.WeaponType != DefenceWeapon.WeaponsType.Air;
         public bool ShowRefillRocketAmmoButton => weaponConstructionPoint.BuiltWeapon?.WeaponType != DefenceWeapon.WeaponsType.Ground;
+        public int RefundAmountFromSellingWeapon => weaponConstructionPoint.IsWeaponBuilt ? SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponConstructionPoint.BuiltWeapon.WeaponType) : 0;
         private IReadOnlyList<DefenceWeapon.WeaponsType> WeaponTypesToShow => weaponConstructionPoint.WeaponTypesThatCanBeBuiltInThisPoint;
         public Vector3 Position => Ctx.Deps.CameraController.LocalActiveCamera.WorldToScreenPoint(weaponConstructionPoint.WeaponCreatePosition) + Vector3.up * 80;
         /// <summary>
@@ -51,13 +52,12 @@ namespace Placeables {
             WeaponPlaceholder.Instance.HidePlaceholder();
         }
 
-        public void BulldozeWeapon() { }
+        public void BulldozeWeapon() {
+            Ctx.Deps.ConstructionController.BulldozeWeapon(weaponConstructionPoint);
+        }
 
         public void RepairWeapon() { }
 
-        public void UpgradeWeapon() { }
-
-        public void OnWeaponDestroyed() { }
 
         public void OnPointerEnter() {
             HideAllOtherPanelsForSpace();

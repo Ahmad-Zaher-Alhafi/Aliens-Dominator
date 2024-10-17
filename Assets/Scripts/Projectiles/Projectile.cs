@@ -40,6 +40,15 @@ namespace Projectiles {
             Destroy(Rig);
         }
 
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            if (IsServer) {
+                networkPosition.Value = Vector3.zero;
+                networkRotation.Value = Quaternion.identity;
+                networkScale.Value = Vector3.zero;
+            }
+        }
+
         protected virtual void Awake() {
             Rig = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
@@ -100,13 +109,6 @@ namespace Projectiles {
 
         private IEnumerator DestroyAfterTimeDelayed(float secondsToDestroy) {
             yield return new WaitForSeconds(secondsToDestroy);
-
-            if (IsServer) {
-                networkPosition.Value = Vector3.zero;
-                networkRotation.Value = Quaternion.identity;
-                networkScale.Value = Vector3.zero;
-            }
-
             Despawn();
         }
 
