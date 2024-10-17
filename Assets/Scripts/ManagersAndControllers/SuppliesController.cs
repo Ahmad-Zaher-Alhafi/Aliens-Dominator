@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 
 namespace ManagersAndControllers {
@@ -90,5 +91,30 @@ namespace ManagersAndControllers {
                 return dictionary;
             }
         }
+
+
+#if UNITY_EDITOR
+        [CustomEditor(typeof(SuppliesController))]
+        private class SuppliesControllerEditor : Editor {
+            public override void OnInspectorGUI() {
+                base.OnInspectorGUI();
+                EditorGUILayout.Space();
+
+                if (!Application.isPlaying) {
+                    EditorGUILayout.HelpBox("Editor content is shown only in play mode", MessageType.Info);
+                    return;
+                }
+
+                SuppliesController suppliesController = (SuppliesController) target;
+
+                GUI.backgroundColor = Color.green;
+                if (GUILayout.Button("Increase supplies amount by 1000 each")) {
+                    foreach (SuppliesTypes suppliesType in suppliesController.supplies.Keys.ToList()) {
+                        suppliesController.PlusSupplies(suppliesType, 1000);
+                    }
+                }
+            }
+        }
+#endif
     }
 }
