@@ -45,7 +45,7 @@ namespace Creatures {
         [SerializeField] private int health = 5;
         public int Health {
             get => health;
-            set => health = value;
+            private set => health = value;
         }
 
         [Range(1, 100)]
@@ -196,7 +196,7 @@ namespace Creatures {
                 }
             }
 
-            if (TargetPoint == null) {
+            if (TargetPoint == null || !TargetPoint.IsExist) {
                 TargetPoint = FindNewTargetPoint();
             }
         }
@@ -222,8 +222,10 @@ namespace Creatures {
             }
         }
 
-        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, IDamager objectDamagedWith) {
+        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, IDamager objectDamagedWith, Action<bool> callBack) {
+            Health -= totalDamage;
             NetworkBehaviour networkBehaviour = objectDamagedWith.GameObject.GetComponent<NetworkBehaviour>();
+           Animator.PlayGettingHitAnimation(callBack);
 
             if (networkBehaviour.OwnerClientId == OwnerClientId) {
                 ShowDamageText(totalDamage, damagedBodyPart);

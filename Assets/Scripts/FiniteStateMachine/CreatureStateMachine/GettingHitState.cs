@@ -21,11 +21,8 @@ namespace FiniteStateMachine.CreatureStateMachine {
             base.Activate(isSecondaryState);
 
             int totalDamage = damager.Damage * damageWeight;
-            AutomatedObject.Health -= totalDamage;
-            AutomatedObject.OnDamageTaken(totalDamage, damagedBodyPart, damager);
+            AutomatedObject.OnDamageTaken(totalDamage, damagedBodyPart, damager, OnAnimationFinished);
             Debug.Log($"Creature {AutomatedObject} took damage = {totalDamage} and current health = {AutomatedObject.Health}");
-
-            AutomatedObject.Animator.PlayGettingHitAnimation(OnAnimationFinished);
 
             gotHit = false;
 
