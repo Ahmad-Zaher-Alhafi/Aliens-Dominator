@@ -9,6 +9,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override void Init(SecurityWeapon<TEnemyType> automatedObject, Enum initialState) {
             base.Init(automatedObject, initialState);
             GetState<ShutdownState<TEnemyType>>().Fulfil();
+            GetState<DestroyedState<TEnemyType>>().Fulfil();
         }
 
         protected override void CreateStates() {
@@ -18,7 +19,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
                     SecurityWeaponStateType.Guarding => new GuardingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Aiming => new AimingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Shooting => new ShootingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    SecurityWeaponStateType.GettingHit =>new GettingHitState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.GettingHit => new GettingHitState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Destroyed => new DestroyedState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     _ => throw new ArgumentOutOfRangeException()
                 };

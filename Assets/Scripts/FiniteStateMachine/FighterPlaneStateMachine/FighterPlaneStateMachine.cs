@@ -9,6 +9,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         public override void Init(FighterPlane automatedObject, Enum initialState) {
             base.Init(automatedObject, initialState);
             GetState<DeactivatedState>().Fulfil();
+            GetState<DestroyedState>().Fulfil();
         }
 
         protected override void CreateStates() {

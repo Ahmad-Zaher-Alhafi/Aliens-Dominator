@@ -149,6 +149,11 @@ namespace SecurityWeapons {
             base.Awake();
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
+            Init();
+        }
+
+        public override void Init() {
+            base.Init();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
         }
 

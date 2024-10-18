@@ -4,6 +4,7 @@ using AmmoMagazines;
 using Context;
 using FiniteStateMachine;
 using ManagersAndControllers;
+using Placeables;
 using QuickOutline.Scripts;
 using Unity.Netcode;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace SecurityWeapons {
         public Quaternion InitialRotation { get; set; }
         protected bool IsDestroyedOnServer { get; private set; }
 
+        private int initialHealth;
+
         protected virtual void Awake() {
             if (Ctx.Deps.GameController.CurrentViewMode is not GameController.ViewMode.TopDown) {
                 RemoveHighlight();
@@ -53,6 +56,8 @@ namespace SecurityWeapons {
             }
 
             Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
+
+            initialHealth = Health;
         }
 
         private void OnViewModeChanged(GameController.ViewMode previousViewMode, GameController.ViewMode currentViewMode) {
@@ -63,8 +68,13 @@ namespace SecurityWeapons {
             }
         }
 
-        public void Init() {
+        public virtual void Init() {
             InitialRotation = transform.rotation;
+
+            if (stateUIPlaceable == null) {
+                stateUIPlaceable = new StateUIPlaceable(this, initialHealth, stateUICreatePoint, Colors.Instance.BlueUI, Colors.Instance.BlueUI);
+                Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUiViewPrefab, stateUIPlaceable, transform, stateUICreatePoint);
+            }
         }
 
         public abstract void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
@@ -102,6 +112,9 @@ namespace SecurityWeapons {
 
         public void Despawn() {
             OnDespawnClientRPC();
+
+            stateUIPlaceable.Destroy();
+            stateUIPlaceable = null;
 
             foreach (NetworkObject networkObject in GetComponentsInChildren<NetworkObject>().Where(netObj => netObj != NetworkObject)) {
                 networkObject.transform.SetParent(null);

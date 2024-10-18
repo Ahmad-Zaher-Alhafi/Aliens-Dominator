@@ -63,6 +63,11 @@ namespace SecurityWeapons {
             base.Awake();
             magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
+            Init();
+        }
+
+        public override void Init() {
+            base.Init();
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
         }
 
