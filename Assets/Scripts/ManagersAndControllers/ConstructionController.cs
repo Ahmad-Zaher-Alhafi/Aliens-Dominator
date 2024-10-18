@@ -6,6 +6,7 @@ using Placeables;
 using SecurityWeapons;
 using Unity.Netcode;
 using UnityEngine;
+using Utils;
 
 namespace ManagersAndControllers {
     public class ConstructionController : NetworkBehaviour {
@@ -17,6 +18,8 @@ namespace ManagersAndControllers {
         [Header("Others")]
         [SerializeField] private Transform defenceWeaponsParent;
         [SerializeField] private Transform topDownUI;
+
+        private readonly List<DefenceWeapon> builtWeapons = new();
 
         private List<WeaponConstructionPoint> weaponConstructionPoints = new();
 
@@ -64,6 +67,7 @@ namespace ManagersAndControllers {
             var defenceWeapon = networkObject.GetComponent<DefenceWeapon>();
             defenceWeapon.Init();
             networkObject.gameObject.transform.SetParent(defenceWeaponsParent, true);
+            builtWeapons.Add(defenceWeapon);
 
             weaponConstructionPoint.OnWeaponBuiltClientRPC(new NetworkBehaviourReference(defenceWeapon));
 
@@ -82,15 +86,25 @@ namespace ManagersAndControllers {
                 return;
             }
 
-            weaponConstructionPoint.BuiltWeapon.Despawn();
-            Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponConstructionPoint.BuiltWeapon.WeaponType));
+            DefenceWeapon weaponToBulldoze = weaponConstructionPoint.BuiltWeapon;
+            builtWeapons.Remove(weaponToBulldoze);
+            weaponToBulldoze.Despawn();
+            Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponToBulldoze.WeaponType));
             weaponConstructionPoint.OnWeaponDestroyedClientRPC();
+        }
+
+        public void BulldozeWeapon(DefenceWeapon defenceWeapon) {
+            BulldozeWeapon(weaponConstructionPoints.Single(point => point.BuiltWeapon == defenceWeapon));
         }
 
         [ServerRpc(RequireOwnership = false)]
         private void BulldozeWeaponServerRPC(NetworkBehaviourReference weaponConstructionPointNetworkReference) {
             NetworkBehaviour weaponConstructionPointNetworkBehaviour = weaponConstructionPointNetworkReference;
             BulldozeWeapon(weaponConstructionPointNetworkBehaviour.gameObject.GetComponent<WeaponConstructionPoint>());
+        }
+
+        public DefenceWeapon GetRandomDefenceWeapon() {
+            return MathUtils.GetRandomObjectFromList(builtWeapons);
         }
     }
 }
