@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Context;
 using Creatures;
 using Unity.Netcode;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace ScriptableObjects {
 
         public void ReassignAirTargetPoints() {
             for (int i = 0; i < WavePaths.Count(tuple => tuple.Item2.PathType == SpawnPointPath.PointPathType.AirPath); i++) {
-                TargetPoint targetPoint = MathUtils.GetRandomObjectFromList(NetworkManager.Singleton.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint;
+                TargetPoint targetPoint = Ctx.Deps.GameController.GetRandomPlayer().EnemyTargetPoint;
                 WavePaths[i] = new Tuple<SpawnPoint, SpawnPointPath, bool, TargetPoint>(WavePaths[i].Item1, WavePaths[i].Item2, WavePaths[i].Item3, targetPoint);
             }
         }

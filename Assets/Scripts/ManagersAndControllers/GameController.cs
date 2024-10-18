@@ -11,6 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
+using MathUtils = Utils.MathUtils;
 
 namespace ManagersAndControllers {
     public class GameController : NetworkBehaviour {
@@ -122,6 +123,10 @@ namespace ManagersAndControllers {
 
         public Player.Player GetPlayerOfClientId(ulong playerClientId) {
             return players.SingleOrDefault(player => player.OwnerClientId == playerClientId);
+        }
+
+        public Player.Player GetRandomPlayer() {
+            return MathUtils.GetRandomObjectFromList(players);
         }
 
         private void OnEnemyGotHit(Creature creature) {

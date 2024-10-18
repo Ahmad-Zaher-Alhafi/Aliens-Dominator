@@ -136,12 +136,11 @@ namespace ManagersAndControllers {
 
         public TargetPoint GetNewTargetPoint(Creature creature) {
             if (creature is FlyingCreature) {
-                return MathUtils.GetRandomObjectFromList(NetworkManager.Singleton.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint;
+                return Ctx.Deps.ConstructionController.GetRandomDefenceWeapon()?.EnemyTargetPoint ?? Ctx.Deps.GameController.GetRandomPlayer().EnemyTargetPoint;
             }
 
             // This is a deconstruct statement, do not be confused, it just gives you better reading for the variables of the tuple instead of item1, item2...etc
             return MathUtils.GetRandomObjectFromList(Ctx.Deps.WaveController.CurrentWave?.GetPathsOfType(SpawnPointPath.PointPathType.GroundPath))?.Item4;
-
         }
 
         private void OnEnemyDied(Creature creature) {

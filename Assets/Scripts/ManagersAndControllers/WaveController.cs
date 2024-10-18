@@ -75,7 +75,7 @@ namespace ManagersAndControllers {
 
                 for (int j = 0; j < wave.NumOfAirPaths; j++) {
                     pathToFollow = randomSpawnPoint.AirPath;
-                    targetPoint = MathUtils.GetRandomObjectFromList(NetworkManager.Singleton.ConnectedClients.Values.ToList()).PlayerObject.GetComponent<Player.Player>().EnemyTargetPoint;
+                    targetPoint = Ctx.Deps.ConstructionController.GetRandomDefenceWeapon()?.EnemyTargetPoint ?? Ctx.Deps.GameController.GetRandomPlayer().EnemyTargetPoint;
                     wave.AddWavePath(randomSpawnPoint, pathToFollow, false, targetPoint);
                 }
             }
