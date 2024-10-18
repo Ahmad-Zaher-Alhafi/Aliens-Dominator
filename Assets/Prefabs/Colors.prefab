@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal: {r: 1, g: 1, b: 1, a: 1}
   error: {r: 1, g: 0.2113207, b: 0.2113207, a: 1}
+  blueUI: {r: 0, g: 0.54901963, b: 1, a: 1}
+  redUI: {r: 1, g: 0.156, b: 0.327, a: 1}
