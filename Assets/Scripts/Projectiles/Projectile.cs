@@ -77,7 +77,7 @@ namespace Projectiles {
             transform.localScale = Vector3.one;
 
             if (Rig != null) {
-                Rig.velocity = Vector3.zero;
+                Rig.linearVelocity = Vector3.zero;
             }
             speed = initialSpeed;
         }

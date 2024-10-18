@@ -57,12 +57,11 @@ namespace Creatures {
             }
         }
 
-        public void Init(PhysicMaterial physicMaterial) {
+        public void Init(PhysicsMaterial physicMaterial) {
             hasToSyncMotion = true;
             Rig.useGravity = false;
             Rig.isKinematic = true;
             Rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            Rig.velocity = Vector3.zero;
             collider.material = physicMaterial;
             transform.localPosition = initialLocalPosition;
             transform.localRotation = initialLocalRotation;
@@ -104,7 +103,7 @@ namespace Creatures {
             }
 
             if (!isCoreJoint) {
-                Rig.velocity = Vector3.zero;
+                Rig.linearVelocity = Vector3.zero;
                 Rig.angularVelocity = Vector3.zero;
             }
 

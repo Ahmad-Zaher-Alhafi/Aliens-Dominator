@@ -72,7 +72,6 @@ namespace Arrows {
                 rig.useGravity = false;
                 rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
                 rig.detectCollisions = false;
-                rig.velocity = Vector3.zero;
             } else {
                 // If nt owner destroy the rigid body so it does not interfere with position that is coming from the network (from the owner)
                 Destroy(rig);
@@ -116,7 +115,7 @@ namespace Arrows {
         private void Rotate() {
             if (IsOwner && rig != null) {
                 // Rotate towards the velocity direction
-                transform.forward = Vector3.Slerp(transform.forward, rig.velocity.normalized, 10f * Time.deltaTime);
+                transform.forward = Vector3.Slerp(transform.forward, rig.linearVelocity.normalized, 10f * Time.deltaTime);
             }
 
             if (IsOwner) {
@@ -153,7 +152,7 @@ namespace Arrows {
             hasToSyncMotion = false;
             triggerCollider.enabled = false;
 
-            rig.velocity = Vector3.zero;
+            rig.linearVelocity = Vector3.zero;
             rig.collisionDetectionMode = CollisionDetectionMode.Discrete;
             rig.isKinematic = true;
             rig.useGravity = false;
@@ -180,7 +179,7 @@ namespace Arrows {
             triggerCollider.enabled = true;
             rig.isKinematic = false;
             rig.useGravity = true;
-            rig.velocity = transform.forward * speed * drawForce;
+            rig.linearVelocity = transform.forward * speed * drawForce;
             rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rig.detectCollisions = true;
             isFired = true;

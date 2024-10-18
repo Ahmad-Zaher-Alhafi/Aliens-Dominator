@@ -9,7 +9,7 @@ using UI;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
+using Unity.AI.Navigation;
 using UnityEngine.Assertions;
 
 namespace ManagersAndControllers {

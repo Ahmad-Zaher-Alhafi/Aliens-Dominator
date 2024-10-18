@@ -33,7 +33,7 @@ namespace BzKovSoft.ActiveRagdollSamples
 			rigid.mass = _mass;
 
 			bullet.transform.position = Camera.main.transform.position;
-			rigid.velocity = Camera.main.transform.rotation * Vector3.forward * _velocity;
+			rigid.linearVelocity = Camera.main.transform.rotation * Vector3.forward * _velocity;
 
 			yield return new WaitForSeconds(10f);
 

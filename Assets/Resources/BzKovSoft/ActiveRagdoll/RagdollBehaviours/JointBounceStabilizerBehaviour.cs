@@ -55,7 +55,7 @@ namespace BzKovSoft.ActiveRagdoll.RagdollBehaviours
 			if (_joints == null || !_ragdoll.IsConnected)
 				return;
 			
-			Vector3 mainVelocity = _velocityCenter.velocity;
+			Vector3 mainVelocity = _velocityCenter.linearVelocity;
 			Vector3 mainAngularVelocity = _velocityCenter.angularVelocity;
 
 			for (int i = 0; i < _joints.Length; i++)
@@ -65,7 +65,7 @@ namespace BzKovSoft.ActiveRagdoll.RagdollBehaviours
 				Vector3 toVel = mainVelocity;
 
 				Rigidbody fromRigid = joint.ragdollRigid;
-				Vector3 fromVel = fromRigid.velocity;
+				Vector3 fromVel = fromRigid.linearVelocity;
 				Transform from = fromRigid.transform;
 
 				Vector3 dist = joint.skeleton.position - from.position;
@@ -76,7 +76,7 @@ namespace BzKovSoft.ActiveRagdoll.RagdollBehaviours
 				if (needSuppressPos)
 				{
 					float suppressForce = _suppressForce * Time.deltaTime; 
-					fromRigid.velocity = Vector3.Lerp(fromVel, mainVelocity, suppressForce);
+					fromRigid.linearVelocity = Vector3.Lerp(fromVel, mainVelocity, suppressForce);
 
 					fromRigid.angularVelocity = Vector3.Lerp(fromRigid.angularVelocity, mainAngularVelocity, suppressForce);
 				}

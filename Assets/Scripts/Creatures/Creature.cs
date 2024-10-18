@@ -33,7 +33,7 @@ namespace Creatures {
         [SerializeField] private Transform bloodEffectCreatePoint;
         [SerializeField] private Color bloodColor;
         [SerializeField] private List<Material> colors;
-        [SerializeField] private PhysicMaterial bouncingMaterial;
+        [SerializeField] private PhysicsMaterial bouncingMaterial;
 
         [SerializeField] private int slowdownTimer = 6;
         [SerializeField] private int attackDamage = 10;
