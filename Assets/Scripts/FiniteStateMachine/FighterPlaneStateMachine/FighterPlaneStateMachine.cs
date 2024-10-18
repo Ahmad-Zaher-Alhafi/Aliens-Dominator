@@ -20,6 +20,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
                     FighterPlaneStateType.Aiming => new AimingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     FighterPlaneStateType.Shooting => new ShootingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     FighterPlaneStateType.GoingBackToBase => new GoingBackToBaseState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    FighterPlaneStateType.GettingHit => new GettingHitState(AutomatedObject, true),
                     FighterPlaneStateType.Destroyed => new DestroyedState(AutomatedObject, true),
                     _ => throw new ArgumentOutOfRangeException()
                 };

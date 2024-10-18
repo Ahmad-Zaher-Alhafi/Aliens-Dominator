@@ -7,6 +7,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         Aiming,
         Shooting,
         Destroyed,
+        GettingHit,
     }
 
     public abstract class SecurityWeaponState<TEnemyType> : State<SecurityWeapon<TEnemyType>, SecurityWeaponStateType> where TEnemyType : IAutomatable {

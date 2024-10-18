@@ -17,6 +17,7 @@ MonoBehaviour:
     transitionsData:
     - destinationStateType: 1
     - destinationStateType: 5
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 0
     interruptStatesMask: 0
@@ -26,6 +27,7 @@ MonoBehaviour:
     - destinationStateType: 2
     - destinationStateType: 3
     - destinationStateType: 5
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 24
     interruptStatesMask: 32
@@ -35,6 +37,7 @@ MonoBehaviour:
     - destinationStateType: 2
     - destinationStateType: 3
     - destinationStateType: 5
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 0
     interruptStatesMask: 0
@@ -44,6 +47,7 @@ MonoBehaviour:
     - destinationStateType: 2
     - destinationStateType: 4
     - destinationStateType: 5
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 38
     interruptStatesMask: 0
@@ -52,6 +56,7 @@ MonoBehaviour:
     transitionsData:
     - destinationStateType: 3
     - destinationStateType: 5
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 38
     interruptStatesMask: 0
@@ -59,9 +64,23 @@ MonoBehaviour:
   - originStateType: 5
     transitionsData:
     - destinationStateType: 0
+    - destinationStateType: 7
     - destinationStateType: 6
     statesSyncedWithMask: 24
     interruptStatesMask: 6
+    checkedWhenAutomationDisabled: 1
+  - originStateType: 7
+    transitionsData:
+    - destinationStateType: 7
+    - destinationStateType: 1
+    - destinationStateType: 2
+    - destinationStateType: 3
+    - destinationStateType: 4
+    - destinationStateType: 5
+    - destinationStateType: 7
+    - destinationStateType: 6
+    statesSyncedWithMask: 63
+    interruptStatesMask: 0
     checkedWhenAutomationDisabled: 1
   - originStateType: 6
     transitionsData:

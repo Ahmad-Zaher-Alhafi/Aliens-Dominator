@@ -9,6 +9,7 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
         Shooting,
         GoingBackToBase,
         Destroyed,
+        GettingHit,
     }
 
     public abstract class FighterPlaneState : State<FighterPlane, FighterPlaneStateType> {

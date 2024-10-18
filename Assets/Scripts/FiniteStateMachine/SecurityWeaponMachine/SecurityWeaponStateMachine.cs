@@ -18,6 +18,7 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
                     SecurityWeaponStateType.Guarding => new GuardingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Aiming => new AimingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Shooting => new ShootingState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
+                    SecurityWeaponStateType.GettingHit =>new GettingHitState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     SecurityWeaponStateType.Destroyed => new DestroyedState<TEnemyType>(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     _ => throw new ArgumentOutOfRangeException()
                 };
