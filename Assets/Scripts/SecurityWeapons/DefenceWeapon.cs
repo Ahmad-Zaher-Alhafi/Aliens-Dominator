@@ -33,6 +33,9 @@ namespace SecurityWeapons {
             private set => health = value;
         }
 
+        [SerializeField] private GameObject stateUiViewPrefab;
+        [SerializeField] private Transform stateUICreatePoint;
+
         [Header("Outline")]
         [SerializeField] private Outline outline;
 
@@ -46,6 +49,7 @@ namespace SecurityWeapons {
         public Quaternion InitialRotation { get; set; }
         protected bool IsDestroyedOnServer { get; private set; }
 
+        private StateUIPlaceable stateUIPlaceable;
         private int initialHealth;
 
         protected virtual void Awake() {
@@ -69,6 +73,7 @@ namespace SecurityWeapons {
         }
 
         public virtual void Init() {
+            Health = initialHealth;
             InitialRotation = transform.rotation;
 
             if (stateUIPlaceable == null) {

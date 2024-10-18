@@ -168,7 +168,7 @@ namespace Creatures {
             Mover.Init(pathToFollow);
             Animator.Init();
             if (stateUIPlaceable == null) {
-                stateUIPlaceable = new StateUIPlaceable(this, initialHealth, stateUICreatePoint);
+                stateUIPlaceable = new StateUIPlaceable(this, initialHealth, stateUICreatePoint, Colors.Instance.RedUI, Colors.Instance.RedUI);
                 Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUiViewPrefab, stateUIPlaceable, transform, stateUICreatePoint);
             }
             gameObject.SetActive(true);
