@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 public class TargetPoint : MonoBehaviour {
-    [SerializeField] private DamageableObject targetObject;
-    public DamageableObject TargetObject => targetObject;
+    [SerializeField] private GameObject targetObject;
+    public IDamageable TargetObject => targetObject.GetComponent<IDamageable>();
+
+    public bool IsExist => !TargetObject.IsDestroyed;
 
     [SerializeField] private Color color;
     [SerializeField] private Vector3 size = Vector3.one;

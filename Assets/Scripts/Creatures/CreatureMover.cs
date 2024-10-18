@@ -39,7 +39,7 @@ namespace Creatures {
             if (Creature.IsDead) return;
 
             if (Creature.IsAttacking && Creature.TargetPoint != null) {
-                RotateToTheWantedAngle(Creature.TargetPoint.TargetObject.transform.position);
+                RotateToTheWantedAngle(Creature.TargetPoint.TargetObject.GameObject.transform.position);
             }
         }
 
