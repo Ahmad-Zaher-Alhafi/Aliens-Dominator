@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,6 +121,8 @@ namespace SecurityWeapons {
             }
         }
 
+        public override bool IsDestroyed => IsServer ? IsStateActive<DestroyedState>() : IsDestroyedOnServer;
+
         public override Vector3 RotateOnXAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnXAxisRange;
         public override Vector3 RotateOnYAxisRange => SharedWeaponSpecifications.Instance.FighterPlaneRotateOnYAxisRange;
         public override float Range => SharedWeaponSpecifications.Instance.FighterPlaneRange;
@@ -194,6 +197,10 @@ namespace SecurityWeapons {
             magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).Refill(ammoNumberToAdd);
         }
 
+        public override void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
+            fighterPlaneStateMachine.GetState<GettingHitState>().GotHit(damager, damageWeight);
+        }
+
         public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
             return magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).CurrentProjectilesNumber;
         }
@@ -243,6 +250,10 @@ namespace SecurityWeapons {
             yield return new WaitForSeconds(burstCoolDown);
             numOfRocketsShotInBurst = 0;
             isCoolingDown = false;
+        }
+
+        private bool IsStateActive<T>() where T : FighterPlaneState {
+            return fighterPlaneStateMachine.GetState<T>().IsActive;
         }
 
 

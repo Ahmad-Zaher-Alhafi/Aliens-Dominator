@@ -79140,6 +79140,7 @@ Transform:
   - {fileID: 1169863901434658893}
   - {fileID: 5519423600134972092}
   - {fileID: 5519423599643542843}
+  - {fileID: 3352445654642848722}
   m_Father: {fileID: 7935034431726217735}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79414,9 +79415,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   activeOnStart: 0
+  enemyTargetPoint: {fileID: 7501274566999997476}
+  health: 200
   outline: {fileID: 7264502354537436883}
   weaponSensor: {fileID: 5519423599643542842}
-  weaponHealth: 200
   guardingSpeed: 10
   aimingSpeed: 15
   projectilesPerSecond: 1
@@ -79733,3 +79735,80 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &7157700960603462843
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8690097273715696812}
+    m_Modifications:
+    - target: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 6360699088146405396}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.227
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865571304653740898, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+      propertyPath: m_Name
+      value: Enemy Target Point
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+--- !u!4 &3352445654642848722 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5607831003985096553, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+  m_PrefabInstance: {fileID: 7157700960603462843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7501274566999997476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 814204166209085599, guid: 695cb7ab99e021842b85371614c28cea, type: 3}
+  m_PrefabInstance: {fileID: 7157700960603462843}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c20d44fc3340c3936efc1f69ef317f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

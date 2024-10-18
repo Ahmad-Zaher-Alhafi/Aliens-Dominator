@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3352673461833411531}
   m_Layer: 0
-  m_Name: Enemy attack points
+  m_Name: Enemy Target Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

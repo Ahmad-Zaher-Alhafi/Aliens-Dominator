@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Arrows;
 using Cinemachine;
@@ -9,7 +10,7 @@ using UnityEngine;
 using Utils.Extensions;
 
 namespace Player {
-    public class Player : NetworkBehaviour {
+    public class Player : NetworkBehaviour, IDamageable {
         [SerializeField] private GameObject arrowPrefab;
 
         [SerializeField] private float arrowsPerSecond = 5;
@@ -40,6 +41,8 @@ namespace Player {
         [SerializeField] private float distanceBetweenLaserPoints = 0.1f; // Time step for each point in the trajectory
         [SerializeField] private Vector2 laserPointDistanceRange = new(0, 100);
         [SerializeField] private Vector2 laserPointScaleRange = new(0.1f, 10);
+
+        public GameObject GameObject => gameObject;
 
         private Arrow arrow;
         private Vector3 initialDrawPosition;
@@ -281,5 +284,13 @@ namespace Player {
         private void UpdatePositionServerRPC(Vector3 position) {
             networkPosition.Value = position;
         }
+
+        public void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
+            Debug.Log("Player was damaged but nothing to do");
+        }
+
+        public bool IsDestroyed => false;
+
+        public int Health => 0;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AmmoMagazines;
 using Context;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace SecurityWeapons {
     [RequireComponent(typeof(Outline))]
-    public abstract class DefenceWeapon : NetworkBehaviour, IWeaponSpecification, IAutomatable, IHighlightable {
+    public abstract class DefenceWeapon : NetworkBehaviour, IWeaponSpecification, IAutomatable, IHighlightable, IDamageable {
         public enum WeaponsType {
             Ground,
             Air,
@@ -22,6 +23,15 @@ namespace SecurityWeapons {
         [SerializeField] private bool activeOnStart;
         protected bool ActiveOnStart => activeOnStart;
 
+        [SerializeField] private TargetPoint enemyTargetPoint;
+        public TargetPoint EnemyTargetPoint => enemyTargetPoint;
+
+        [SerializeField] private int health = 500;
+        public int Health {
+            get => health;
+            private set => health = value;
+        }
+
         [Header("Outline")]
         [SerializeField] private Outline outline;
 
@@ -29,9 +39,11 @@ namespace SecurityWeapons {
         public abstract Vector3 RotateOnXAxisRange { get; }
         public abstract float Range { get; }
         public GameObject GameObject => gameObject;
-        public virtual bool IsDestroyed => false;
+
+        public abstract bool IsDestroyed { get; }
         public virtual bool IsAutomatingEnabled { get; set; } = true;
         public Quaternion InitialRotation { get; set; }
+        protected bool IsDestroyedOnServer { get; private set; }
 
         protected virtual void Awake() {
             if (Ctx.Deps.GameController.CurrentViewMode is not GameController.ViewMode.TopDown) {
@@ -56,6 +68,11 @@ namespace SecurityWeapons {
         }
 
         public abstract void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
+        public abstract void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null);
+
+        public void OnDamageTaken(int totalDamage) {
+            Health -= totalDamage;
+        }
 
         public void HighlightNormal() {
             outline.enabled = true;
@@ -73,12 +90,19 @@ namespace SecurityWeapons {
 
         public abstract int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
 
+        [ClientRpc]
+        private void OnDespawnClientRPC() {
+            IsDestroyedOnServer = true;
+        }
+
         public override void OnDestroy() {
             base.OnDestroy();
             Ctx.Deps.EventsManager.ViewModeChanged -= OnViewModeChanged;
         }
 
         public void Despawn() {
+            OnDespawnClientRPC();
+
             foreach (NetworkObject networkObject in GetComponentsInChildren<NetworkObject>().Where(netObj => netObj != NetworkObject)) {
                 networkObject.transform.SetParent(null);
                 networkObject.Despawn();

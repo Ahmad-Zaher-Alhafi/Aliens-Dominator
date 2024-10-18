@@ -1,3 +1,4 @@
+using System;
 using AmmoMagazines;
 using FiniteStateMachine;
 using FiniteStateMachine.SecurityWeaponMachine;
@@ -9,13 +10,10 @@ using UnityEngine;
 namespace SecurityWeapons {
     public abstract class SecurityWeapon<TEnemyType> : DefenceWeapon where TEnemyType : IAutomatable {
         public SecurityWeaponStateType CurrentStateType => securityWeaponStateMachine.PrimaryState.Type;
-        public override bool IsDestroyed => weaponHealth <= 0;
 
         [SerializeField] private WeaponSensor<TEnemyType> weaponSensor;
         public WeaponSensor<TEnemyType> WeaponSensor => weaponSensor;
 
-
-        [SerializeField] private float weaponHealth = 200;
 
         [Header("Speeds")]
         [SerializeField] private float guardingSpeed;
@@ -27,6 +25,8 @@ namespace SecurityWeapons {
         [Header("Shooting and ammo")]
         [SerializeField] protected float projectilesPerSecond = 1;
         public virtual float ProjectilesPerSecond => projectilesPerSecond;
+
+        public override bool IsDestroyed => IsServer ? IsStateActive<DestroyedState<TEnemyType>>() : IsDestroyedOnServer;
 
         public virtual float CoolDownTime => 0;
         public override bool IsAutomatingEnabled {
@@ -96,6 +96,14 @@ namespace SecurityWeapons {
 
         public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
             return ammoType != magazine.TypeOfAmmo ? 0 : magazine.CurrentProjectilesNumber;
+        }
+
+        private bool IsStateActive<T>() where T : SecurityWeaponState<TEnemyType> {
+            return securityWeaponStateMachine.GetState<T>().IsActive;
+        }
+
+        public override void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
+            securityWeaponStateMachine.GetState<GettingHitState<TEnemyType>>().GotHit(damager, damageWeight);
         }
 
 
