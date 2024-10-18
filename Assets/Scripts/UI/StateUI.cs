@@ -7,6 +7,8 @@ using Utils.Extensions;
 namespace UI {
     public class StateUI : NetworkPlaceableObject {
         [SerializeField] private Slider healthBar;
+        [SerializeField] private Image backgroundImage;
+        [SerializeField] private Image fillImage;
 
         private StateUIPlaceable stateUIPlaceable;
         private readonly NetworkVariable<int> networkHealthBarValue = new();
@@ -33,6 +35,9 @@ namespace UI {
             stateUIPlaceable = (StateUIPlaceable) placeable;
             healthBar.minValue = 0;
             healthBar.maxValue = stateUIPlaceable.HealthBarMaxValue;
+
+            backgroundImage.color = stateUIPlaceable.BackgroundColor;
+            fillImage.color = stateUIPlaceable.FillColor;
         }
 
         private void Update() {
