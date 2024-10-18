@@ -2374,7 +2374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55df7f8c7124243ab17a61243f9ee0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateUiView: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
+  stateUiViewPrefab: {fileID: 3728144926634794980, guid: ccf53ef8f349eca45b8d8a66924687de, type: 3}
   stateUICreatePoint: {fileID: 7268750638675135673}
   bloodParticlesPrefab: {fileID: 8607470412565423328, guid: f4b6b4037279df64883cdd36c998941c, type: 3}
   bloodEffectCreatePoint: {fileID: 7390980640699396251}

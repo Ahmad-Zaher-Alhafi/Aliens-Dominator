@@ -27,7 +27,7 @@ namespace Creatures {
         public IDamager ObjectDamagedWith { get; private set; }
         public virtual bool HasSpawningAnimation => false;
 
-        [SerializeField] private GameObject stateUiView;
+        [SerializeField] private GameObject stateUiViewPrefab;
         [SerializeField] private Transform stateUICreatePoint;
         [SerializeField] private BloodParticle bloodParticlesPrefab;
         [SerializeField] private Transform bloodEffectCreatePoint;
@@ -169,7 +169,7 @@ namespace Creatures {
             Animator.Init();
             if (stateUIPlaceable == null) {
                 stateUIPlaceable = new StateUIPlaceable(this, initialHealth, stateUICreatePoint);
-                Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUiView, stateUIPlaceable, transform, stateUICreatePoint);
+                Ctx.Deps.PlaceablesController.PlaceOnNetwork<NetworkPlaceableObject>(stateUiViewPrefab, stateUIPlaceable, transform, stateUICreatePoint);
             }
             gameObject.SetActive(true);
 
@@ -225,7 +225,7 @@ namespace Creatures {
         public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, IDamager objectDamagedWith, Action<bool> callBack) {
             Health -= totalDamage;
             NetworkBehaviour networkBehaviour = objectDamagedWith.GameObject.GetComponent<NetworkBehaviour>();
-           Animator.PlayGettingHitAnimation(callBack);
+            Animator.PlayGettingHitAnimation(callBack);
 
             if (networkBehaviour.OwnerClientId == OwnerClientId) {
                 ShowDamageText(totalDamage, damagedBodyPart);
