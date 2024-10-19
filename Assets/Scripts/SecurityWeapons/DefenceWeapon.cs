@@ -64,6 +64,11 @@ namespace SecurityWeapons {
             initialHealth = Health;
         }
 
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            IsDestroyedOnServer = false;
+        }
+
         private void OnViewModeChanged(GameController.ViewMode previousViewMode, GameController.ViewMode currentViewMode) {
             if (currentViewMode is not GameController.ViewMode.TopDown) {
                 RemoveHighlight();
