@@ -116,8 +116,9 @@ namespace SecurityWeapons {
             };
         }
 
-        public int GetRefundAmountFromSellingWeapon(DefenceWeapon.WeaponsType weaponsType) {
-            return (int) (refundPercentOnSellingWeapon / 100f * GetWeaponRequiredSupplies(weaponsType));
+        public int GetRefundAmountFromSellingWeapon(DefenceWeapon defenceWeapon) {
+            var fullRefundAmount = (int) (refundPercentOnSellingWeapon / 100f * GetWeaponRequiredSupplies(defenceWeapon.WeaponType));
+            return Mathf.Clamp(fullRefundAmount - defenceWeapon.TakenDamage, 0, fullRefundAmount);
         }
     }
 }

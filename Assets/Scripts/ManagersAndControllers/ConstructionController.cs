@@ -89,7 +89,7 @@ namespace ManagersAndControllers {
             DefenceWeapon weaponToBulldoze = weaponConstructionPoint.BuiltWeapon;
             builtWeapons.Remove(weaponToBulldoze);
             weaponToBulldoze.Despawn();
-            Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponToBulldoze.WeaponType));
+            Ctx.Deps.SuppliesController.PlusSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetRefundAmountFromSellingWeapon(weaponToBulldoze));
             weaponConstructionPoint.OnWeaponDestroyedClientRPC();
         }
 
