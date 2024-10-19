@@ -75,7 +75,6 @@ public static class Constants {
 
 
     //Layers number
-    public const int ENEMY_LAYER_ID = 6;
     public const int PROJECTILE_LAYER_ID = 8;
     public const int IGNORE_RAYCAST_LAYER_ID = 2;
     public const int Arrow_LAYER_ID = 7;

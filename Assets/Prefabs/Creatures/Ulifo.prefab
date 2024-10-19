@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4212884450275018}
   - component: {fileID: 198701652746225470}
   - component: {fileID: 199185849962458260}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: FX Slimes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4834,7 +4834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4368987800259360}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFeelerR2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4869,7 +4869,7 @@ GameObject:
   - component: {fileID: 8089569983325691251}
   - component: {fileID: 5633882396039539867}
   - component: {fileID: 3514239164295463880}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -4994,7 +4994,7 @@ GameObject:
   - component: {fileID: 2094432840112748223}
   - component: {fileID: 7045563329512064929}
   - component: {fileID: 3334479236720593793}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -5116,7 +5116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4255135066769670}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5273,7 +5273,7 @@ GameObject:
   - component: {fileID: 4786749595230033407}
   - component: {fileID: 732199115833449199}
   - component: {fileID: 1546413701551269215}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -5399,7 +5399,7 @@ GameObject:
   - component: {fileID: 7956017621898103395}
   - component: {fileID: 4984509363905836613}
   - component: {fileID: 9206952070467923831}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLArm3
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -5524,7 +5524,7 @@ GameObject:
   - component: {fileID: 471827366821165701}
   - component: {fileID: 8646887102358283727}
   - component: {fileID: 8570987590065038539}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRArm3
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -5645,7 +5645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4058507414391288}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5680,7 +5680,7 @@ GameObject:
   - component: {fileID: 2430520397466174925}
   - component: {fileID: 5397544767004360116}
   - component: {fileID: 8250115899243400806}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -5806,7 +5806,7 @@ GameObject:
   - component: {fileID: 9038083166028975488}
   - component: {fileID: 8827355455512742943}
   - component: {fileID: 5415564510898467182}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -5932,7 +5932,7 @@ GameObject:
   - component: {fileID: 8727949699570097132}
   - component: {fileID: 5797205134101728281}
   - component: {fileID: 4798811671399112478}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -6058,7 +6058,7 @@ GameObject:
   - component: {fileID: 7442921421917725885}
   - component: {fileID: 2807455718060128172}
   - component: {fileID: 7924418564886312520}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -6180,7 +6180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947896734941806}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFeelerL2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6211,7 +6211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4493718295043376}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6242,7 +6242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4243711160879942}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFeelerL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6277,7 +6277,7 @@ GameObject:
   - component: {fileID: 6118165461703137254}
   - component: {fileID: 4660221287985847130}
   - component: {fileID: 262926327932155490}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -6399,7 +6399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4188635135527200}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethMR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6434,7 +6434,7 @@ GameObject:
   - component: {fileID: 4602361369475536156}
   - component: {fileID: 3522722396606172078}
   - component: {fileID: 8247860404659033925}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -6560,7 +6560,7 @@ GameObject:
   - component: {fileID: 7347833707394899545}
   - component: {fileID: 3450261387987049920}
   - component: {fileID: 980171390882606616}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -6682,7 +6682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4596383842164994}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethML
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6717,7 +6717,7 @@ GameObject:
   - component: {fileID: 6636250310884382424}
   - component: {fileID: 2159527307877346078}
   - component: {fileID: 849143202463708997}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -6843,7 +6843,7 @@ GameObject:
   - component: {fileID: 3923818187560150787}
   - component: {fileID: 1848429690080505979}
   - component: {fileID: 7600630977069511631}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -6968,7 +6968,7 @@ GameObject:
   - component: {fileID: 3707872951833272027}
   - component: {fileID: 1651706942352256540}
   - component: {fileID: 3177313283074897275}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -7094,7 +7094,7 @@ GameObject:
   - component: {fileID: 3915762622186098737}
   - component: {fileID: 5604461958146029028}
   - component: {fileID: 6381135853290885751}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRArm2
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -7216,7 +7216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4293017213761782}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7251,7 +7251,7 @@ GameObject:
   - component: {fileID: 4018151166944691185}
   - component: {fileID: 2203382881495414757}
   - component: {fileID: 2056885942173945588}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -7377,7 +7377,7 @@ GameObject:
   - component: {fileID: 1826435514725808006}
   - component: {fileID: 6852400994810300436}
   - component: {fileID: 3178069152038387620}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRArm3
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -7502,7 +7502,7 @@ GameObject:
   - component: {fileID: 251649974017003279}
   - component: {fileID: 1287523648288764955}
   - component: {fileID: 869597587397555417}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLLeg1
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -7634,7 +7634,8 @@ GameObject:
   - component: {fileID: -5669534903185949356}
   - component: {fileID: 1727438327103310847}
   - component: {fileID: -2413611237717014507}
-  m_Layer: 6
+  - component: {fileID: 3879598274563201938}
+  m_Layer: 15
   m_Name: Ulifo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7871,6 +7872,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 95598856156689880}
+--- !u!65 &3879598274563201938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640262395653480}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1645786814419820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7884,7 +7898,7 @@ GameObject:
   - component: {fileID: 4701963426236714664}
   - component: {fileID: 4001258714965961575}
   - component: {fileID: 8696663705498122103}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLArm3
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -8009,7 +8023,7 @@ GameObject:
   - component: {fileID: 962126219390246871}
   - component: {fileID: 3713720985376670971}
   - component: {fileID: 1970665830308088144}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBLLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -8134,7 +8148,7 @@ GameObject:
   - component: {fileID: 6121197235064709715}
   - component: {fileID: 4486276117681633485}
   - component: {fileID: 3244118917350809793}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFRArm1
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
@@ -8260,7 +8274,7 @@ GameObject:
   - component: {fileID: 1768779704265775561}
   - component: {fileID: 8097923000327608590}
   - component: {fileID: 5668352296948143505}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFLLeg3
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -8385,7 +8399,7 @@ GameObject:
   - component: {fileID: 3043470719763706157}
   - component: {fileID: 340153402938030902}
   - component: {fileID: 4333035346278870782}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigMain
   m_TagString: EnemyHead
   m_Icon: {fileID: 0}
@@ -8500,7 +8514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4138826844093170}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8531,7 +8545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4120494931680802}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigFeelerR1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8566,7 +8580,7 @@ GameObject:
   - component: {fileID: 5614801875756375322}
   - component: {fileID: 1235959595479343173}
   - component: {fileID: 3188207366147808517}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigBRLeg2
   m_TagString: EnemyLegs
   m_Icon: {fileID: 0}
@@ -8688,7 +8702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4922661500237848}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RigTeethB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8719,7 +8733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3699112926918192737}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: CreatureSpawningPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8750,7 +8764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9102326247991127506}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Blood Particles Create Point
   m_TagString: BloodEffect
   m_Icon: {fileID: 0}

@@ -40,16 +40,16 @@ TagManager:
   - Terrain
   - Water
   - UI
-  - Enemy
+  - 
   - Arrow
   - Projectile
   - Base
   - Supplies
-  - BodyPart
+  - EnemyBodyPart
   - Transition
   - SuppliesPlane
   - RenderedOnTop
-  - 
+  - Enemy
   - 
   - 
   - 

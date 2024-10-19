@@ -1,7 +1,4 @@
 using System.Collections;
-using Context;
-using Creatures;
-using SecurityWeapons;
 using UnityEngine;
 
 namespace Projectiles {
@@ -10,7 +7,7 @@ namespace Projectiles {
         [SerializeField] private Constants.ObjectsColors stinkyBallColor;
         public float speed;
         [SerializeField] private Vector3 targetOffset;
-        [SerializeField] private float smoothRotatingSpeed; //the speed of projectilr rotating 
+        [SerializeField] private float smoothRotatingSpeed; //the speed of projectilr rotating
         [SerializeField] private DestroyAfterTime tailParticles;
         [SerializeField] private DestroyAfterTime explosionParticles;
         private bool hasToFollowTarget;
@@ -41,7 +38,7 @@ namespace Projectiles {
             } else if (other.CompareTag(Constants.SecurityWeapon)) {
                 DestroyParticles();
                 Destroy(gameObject);
-            } else if (other.gameObject.layer != Constants.ENEMY_LAYER_ID && other.gameObject.layer != Constants.IGNORE_RAYCAST_LAYER_ID && !other.CompareTag(Constants.SecuritySensor)) //to prevent the stinky ball from being destroied if hit a creature(prevent selt destruction)
+            } else if (other.gameObject.layer != LayerMask.NameToLayer("EnemyBodyPart") && other.gameObject.layer != Constants.IGNORE_RAYCAST_LAYER_ID && !other.CompareTag(Constants.SecuritySensor)) //to prevent the stinky ball from being destroied if hit a creature(prevent selt destruction)
             {
                 DestroyParticles();
                 Destroy(gameObject);
@@ -67,7 +64,7 @@ namespace Projectiles {
             //I'm doing that as a trick to get the wanted angle and after that i'm resetting the angle to it's old angle and that because we need to rotates the projectile smoothly and not suddenly which make it cooler
             oldAngle = transform.eulerAngles; //save old angle
             wantedAngle = transform.eulerAngles; //get the wanted eural angle after he looked
-            transform.eulerAngles = oldAngle; //reset the angle to the old angle 
+            transform.eulerAngles = oldAngle; //reset the angle to the old angle
 
             Quaternion newAngle = Quaternion.Euler(wantedAngle); //get the new angle from the wanted eural angle (needed for the next step)
             transform.rotation = Quaternion.Lerp(transform.rotation, newAngle, smoothRotatingSpeed); //rotate the projectile smoothly from old angle to the new one

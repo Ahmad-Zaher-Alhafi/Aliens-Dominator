@@ -115,11 +115,11 @@ namespace SecurityWeapons {
                     Vector3.Distance(target.transform.position, transform.position),
                     ~LayerMask.GetMask("Ignore Raycast")) == 0) return true;
 
-            return raycastHits[0].collider.gameObject.layer != LayerMask.NameToLayer("Enemy");
+            return raycastHits[0].collider.gameObject.layer != LayerMask.NameToLayer("EnemyBodyPart");
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (other.gameObject.layer != Constants.ENEMY_LAYER_ID) return;
+            if (other.gameObject.layer != LayerMask.NameToLayer("EnemyBodyPart")) return;
 
             Creature creature = other.GetComponentInParent<Creature>();
 
@@ -132,7 +132,7 @@ namespace SecurityWeapons {
         }
 
         private void OnTriggerExit(Collider other) {
-            if (other.gameObject.layer != Constants.ENEMY_LAYER_ID) return;
+            if (other.gameObject.layer != LayerMask.NameToLayer("EnemyBodyPart")) return;
 
             BodyPart bodyPart = other.GetComponent<BodyPart>();
             if (bodyPart == null) return;
