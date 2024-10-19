@@ -149,7 +149,6 @@ namespace SecurityWeapons {
             base.Awake();
             magazines = GetComponents<Magazine>().ToList();
             fighterPlaneStateMachine = GetComponent<FighterPlaneStateMachine>();
-            Init();
         }
 
         public override void Init() {
@@ -157,7 +156,8 @@ namespace SecurityWeapons {
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
         }
 
-        private void Update() {
+        protected override void Update() {
+            base.Update();
             if (IsSpawned) {
                 if (IsServer) {
                     networkPosition.Value = transform.position;

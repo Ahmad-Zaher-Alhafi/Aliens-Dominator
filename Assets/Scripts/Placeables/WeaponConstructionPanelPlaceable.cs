@@ -25,6 +25,11 @@ namespace Placeables {
         public bool IsDimmed { get; private set; }
         public int BulletsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine() : 0;
         public int RocketsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine(Magazine.AmmoType.Rocket) : 0;
+        private int TakenDamage => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.TakenDamage : 0;
+        private bool HasTakenDamage => TakenDamage > 0;
+        public string RepairButtonText => HasTakenDamage ? TakenDamage.ToString() : "Fixed";
+        public Color RepairButtonTextColor => HasTakenDamage ? Colors.Instance.RedUI : Colors.Instance.Normal;
+        public bool HasAnyConstructionSupplies => Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, 1);
 
         private readonly WeaponConstructionPoint weaponConstructionPoint;
 
@@ -53,11 +58,14 @@ namespace Placeables {
         }
 
         public void BulldozeWeapon() {
+            if (!weaponConstructionPoint.IsWeaponBuilt) return;
             Ctx.Deps.ConstructionController.BulldozeWeapon(weaponConstructionPoint);
         }
 
-        public void RepairWeapon() { }
-
+        public void RepairWeapon() {
+            if (!weaponConstructionPoint.IsWeaponBuilt) return;
+            Ctx.Deps.ConstructionController.RepairWeapon(weaponConstructionPoint.BuiltWeapon);
+        }
 
         public void OnPointerEnter() {
             HideAllOtherPanelsForSpace();

@@ -2264,6 +2264,34 @@ PrefabInstance:
       propertyPath: m_text
       value: \uf0ad
       objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -9065178354244026161}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RepairClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WeaponConstructionPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658792060210438670, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6658792060220643310, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
       propertyPath: m_Name
       value: Repair Button

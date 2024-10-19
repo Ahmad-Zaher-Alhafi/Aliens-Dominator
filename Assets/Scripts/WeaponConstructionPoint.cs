@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Context;
 using ManagersAndControllers;
 using SecurityWeapons;
@@ -31,6 +32,18 @@ public class WeaponConstructionPoint : NetworkBehaviour {
 
     private void Awake() {
         Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
+        Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
+    }
+
+    private void OnPlayerSpawnedOnNetwork(Player.Player player) {
+        if (IsServer && IsWeaponBuilt) {
+            StartCoroutine(InitClientDelayed());
+        }
+    }
+
+    private IEnumerator InitClientDelayed() {
+        yield return new WaitUntil(() => IsSpawned);
+        OnWeaponBuiltClientRPC(new NetworkBehaviourReference(builtWeapon));
     }
 
     private void OnViewModeChanged(GameController.ViewMode previousViewMode, GameController.ViewMode currentViewMode) {
@@ -66,5 +79,6 @@ public class WeaponConstructionPoint : NetworkBehaviour {
     public override void OnDestroy() {
         base.OnDestroy();
         Ctx.Deps.EventsManager.ViewModeChanged -= OnViewModeChanged;
+        Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
     }
 }

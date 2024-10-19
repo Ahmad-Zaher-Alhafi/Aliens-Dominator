@@ -63,7 +63,6 @@ namespace SecurityWeapons {
             base.Awake();
             magazine = GetComponent<Magazine>();
             securityWeaponStateMachine = GetComponent<SecurityWeaponStateMachine<TEnemyType>>();
-            Init();
         }
 
         public override void Init() {
@@ -71,7 +70,8 @@ namespace SecurityWeapons {
             securityWeaponStateMachine.Init(this, SecurityWeaponStateType.Shutdown);
         }
 
-        private void Update() {
+        protected override void Update() {
+            base.Update();
             if (IsSpawned) {
                 if (IsServer) {
                     networkRotation.Value = transform.rotation;

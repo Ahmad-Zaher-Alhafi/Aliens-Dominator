@@ -103,6 +103,27 @@ namespace ManagersAndControllers {
             BulldozeWeapon(weaponConstructionPointNetworkBehaviour.gameObject.GetComponent<WeaponConstructionPoint>());
         }
 
+        public void RepairWeapon(DefenceWeapon defenceWeapon) {
+            if (!IsServer) {
+                RepairWeaponServerRPC(new NetworkBehaviourReference(defenceWeapon));
+                return;
+            }
+
+            int suppliesToConsume = defenceWeapon.TakenDamage;
+            if (!Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, defenceWeapon.TakenDamage)) {
+                suppliesToConsume = Ctx.Deps.SuppliesController.CheckSuppliesAmount(SuppliesController.SuppliesTypes.Construction);
+            }
+
+            Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.Construction, suppliesToConsume);
+            defenceWeapon.AddHealth(suppliesToConsume);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void RepairWeaponServerRPC(NetworkBehaviourReference weaponNetworkReference) {
+            NetworkBehaviour weaponNetworkBehaviour = weaponNetworkReference;
+            RepairWeapon(weaponNetworkBehaviour.gameObject.GetComponent<DefenceWeapon>());
+        }
+
         public DefenceWeapon GetRandomDefenceWeapon() {
             return MathUtils.GetRandomObjectFromList(builtWeapons);
         }

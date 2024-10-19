@@ -55,6 +55,7 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
         reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine.ToString());
         reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine.ToString());
         sellButton.SetText(weaponConstructionPanelPlaceable.RefundAmountFromSellingWeapon.ToString());
+        repairButton.SetText(weaponConstructionPanelPlaceable.RepairButtonText, weaponConstructionPanelPlaceable.RepairButtonTextColor);
 
         reloadBulletAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillBulletAmmoButton);
         reloadRocketAmmoButton.gameObject.SetActiveWithCheck(weaponConstructionPanelPlaceable.ShowRefillRocketAmmoButton);
@@ -122,6 +123,15 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
 
     public void RefillRocketAmmoClicked() {
         weaponConstructionPanelPlaceable.RefillAmmo(Magazine.AmmoType.Rocket);
+    }
+
+    public void RepairClicked() {
+        if (!weaponConstructionPanelPlaceable.HasAnyConstructionSupplies) {
+            repairButton.PlayErrorAnimation();
+            return;
+        }
+
+        weaponConstructionPanelPlaceable.RepairWeapon();
     }
 
     public void OnWeaponButtonPointerExit() {

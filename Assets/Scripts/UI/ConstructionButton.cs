@@ -8,8 +8,12 @@ namespace UI {
 
         private Sequence textShakeTween;
 
-        public void SetText(string text) {
+        public void SetText(string text, Color color = default) {
             priceText.text = text;
+
+            if (color != default) {
+                priceText.color = color;
+            }
         }
 
         public void PlayErrorAnimation() {

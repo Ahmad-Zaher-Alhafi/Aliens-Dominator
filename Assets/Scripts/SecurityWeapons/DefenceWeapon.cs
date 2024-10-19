@@ -30,7 +30,10 @@ namespace SecurityWeapons {
         [SerializeField] private int health = 500;
         public int Health {
             get => health;
-            private set => health = value;
+            private set {
+                health = value;
+                networkHealth.Value = health;
+            }
         }
 
         [SerializeField] private GameObject stateUiViewPrefab;
@@ -47,10 +50,13 @@ namespace SecurityWeapons {
         public abstract bool IsDestroyed { get; }
         public virtual bool IsAutomatingEnabled { get; set; } = true;
         public Quaternion InitialRotation { get; set; }
+        public int TakenDamage => IsDestroyed ? initialHealth : initialHealth - Health;
         protected bool IsDestroyedOnServer { get; private set; }
 
         private StateUIPlaceable stateUIPlaceable;
         private int initialHealth;
+
+        private readonly NetworkVariable<int> networkHealth = new();
 
         protected virtual void Awake() {
             if (Ctx.Deps.GameController.CurrentViewMode is not GameController.ViewMode.TopDown) {
@@ -62,6 +68,10 @@ namespace SecurityWeapons {
             Ctx.Deps.EventsManager.ViewModeChanged += OnViewModeChanged;
 
             initialHealth = Health;
+
+            if (IsServer) {
+                Init();
+            }
         }
 
         public override void OnNetworkSpawn() {
@@ -87,6 +97,12 @@ namespace SecurityWeapons {
             }
         }
 
+        protected virtual void Update() {
+            if (!IsServer) {
+                Health = networkHealth.Value;
+            }
+        }
+
         public abstract void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
         public abstract void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null);
 
@@ -109,6 +125,10 @@ namespace SecurityWeapons {
         }
 
         public abstract int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
+
+        public void AddHealth(int amount) {
+            Health += amount;
+        }
 
         [ClientRpc]
         private void OnDespawnClientRPC() {
