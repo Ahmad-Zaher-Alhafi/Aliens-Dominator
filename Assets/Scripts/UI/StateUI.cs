@@ -1,4 +1,6 @@
-﻿using Placeables;
+﻿using System.Collections;
+using Context;
+using Placeables;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,11 +35,38 @@ namespace UI {
             base.SetPlaceable(placeable);
             hasToSyncMotion = true;
             stateUIPlaceable = (StateUIPlaceable) placeable;
-            healthBar.minValue = 0;
-            healthBar.maxValue = stateUIPlaceable.HealthBarMaxValue;
 
-            backgroundImage.color = stateUIPlaceable.BackgroundColor;
-            fillImage.color = stateUIPlaceable.FillColor;
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
+        }
+
+        public override void OnNetworkSpawn() {
+            base.OnNetworkSpawn();
+            if (IsServer) {
+                InitClientRPC(stateUIPlaceable.HealthBarMaxValue, stateUIPlaceable.BackgroundColor, stateUIPlaceable.FillColor);
+            }
+        }
+
+        private void OnPlayerSpawnedOnNetwork(Player.Player player) {
+            if (IsServer) {
+                StartCoroutine(InitClientDelayed());
+            }
+        }
+
+        /// <summary>
+        /// Give time for the state ui to get created
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator InitClientDelayed() {
+            yield return new WaitUntil(() => IsSpawned);
+            InitClientRPC(stateUIPlaceable.HealthBarMaxValue, stateUIPlaceable.BackgroundColor, stateUIPlaceable.FillColor);
+        }
+
+        [ClientRpc]
+        private void InitClientRPC(int maxHealthBarValue, Color backgroundColor, Color fillColor) {
+            healthBar.minValue = 0;
+            healthBar.maxValue = maxHealthBarValue;
+            backgroundImage.color = backgroundColor;
+            fillImage.color = fillColor;
         }
 
         private void Update() {
@@ -59,6 +88,11 @@ namespace UI {
                     transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
                 }
             }
+        }
+
+        public override void OnDestroy() {
+            base.OnDestroy();
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
         }
     }
 }
