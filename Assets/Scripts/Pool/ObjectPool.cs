@@ -35,7 +35,7 @@ namespace Pool {
 
         public void AddToPool(PooledObject objectToReturnToPool) {
             objectToReturnToPool.gameObject.SetActive(false);
-            objectToReturnToPool.transform.parent = transform;
+            objectToReturnToPool.transform.SetParent(transform);
             pooledObjects.Add(objectToReturnToPool);
         }
     }
