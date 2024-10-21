@@ -3,8 +3,8 @@ using Context;
 
 namespace Base {
     public class BaseGate : DamageableObject {
-        public override void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
-            base.TakeDamage(damager, damageWeight);
+        public override void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default) {
+            base.TakeDamage(damage, damagedPart, objectDamagedWithClientID);
             if (Health <= 0) {
                 Ctx.Deps.GameController.GameOver(false);
             }

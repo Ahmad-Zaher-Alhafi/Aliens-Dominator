@@ -104,7 +104,11 @@ namespace SecurityWeapons {
         }
 
         public abstract void Reload(int ammoNumberToAdd, Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
-        public abstract void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null);
+        public abstract void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default);
+
+        public void TakeExplosionDamage(IDamager damager, int damage) {
+            TakeDamage(damage);
+        }
 
         public void OnDamageTaken(int totalDamage) {
             Health -= totalDamage;

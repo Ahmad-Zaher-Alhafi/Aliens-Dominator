@@ -20,7 +20,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
         private void ApplyDamage() {
             if (AutomatedObject.TargetPoint?.TargetObject == null) return;
 
-            AutomatedObject.TargetPoint.TargetObject.TakeDamage(AutomatedObject, 1);
+            AutomatedObject.TargetPoint.TargetObject.TakeDamage(AutomatedObject.Damage);
             Debug.Log($"Creature {AutomatedObject} applied damage to {AutomatedObject.TargetPoint.TargetObject}!");
         }
     }

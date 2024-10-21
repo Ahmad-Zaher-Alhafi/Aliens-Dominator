@@ -33,6 +33,7 @@ namespace Creatures {
         /// If ture, then the owner will send some of its transform's properties to other clients on network
         /// </summary>
         private bool hasToSyncMotion;
+        private IDamager objectDamagedWith;
 
         private readonly NetworkVariable<Vector3> networkPosition = new();
         private readonly NetworkVariable<Quaternion> networkRotation = new();
@@ -85,13 +86,14 @@ namespace Creatures {
         }
 
         private void OnTriggerEnter(Collider other) {
-            IDamager damager = other.gameObject.GetComponent<IDamager>();
-            if (damager == null) return;
+            objectDamagedWith = other.gameObject.GetComponent<IDamager>();
+
+            if (objectDamagedWith == null) return;
 
             if (IsServer) {
-                TakeDamage(damager, damageWeight, type);
+                TakeDamage(objectDamagedWith.Damage, type, objectDamagedWith.GameObject.GetComponent<NetworkObject>().OwnerClientId);
             } else {
-                TakeDamageServerRPC(new NetworkBehaviourReference(damager.GameObject.GetComponent<NetworkBehaviour>()));
+                TakeDamageServerRPC(objectDamagedWith.Damage, objectDamagedWith.GameObject.GetComponent<NetworkObject>().OwnerClientId);
             }
         }
 
@@ -108,9 +110,9 @@ namespace Creatures {
                 Rig.angularVelocity = Vector3.zero;
             }
 
-            if (creature.ObjectDamagedWith != null && Type == CreatureBodyPart.Body) {
+            if (objectDamagedWith != null) {
                 // Force to push the creature away and rotate it once get killed (More realistic)
-                Rig.AddForce(creature.ObjectDamagedWith.Transform.forward * creature.ObjectDamagedWith.PushingForce, ForceMode.Impulse);
+                Rig.AddForce((creature.transform.position - objectDamagedWith.Transform.position).normalized * objectDamagedWith.PushingForce, ForceMode.Impulse);
             }
         }
 
@@ -122,16 +124,19 @@ namespace Creatures {
             }
         }
 
-        public void TakeDamage(IDamager damager, int damageWeight, Enum creatureBodyPart) {
+        public void TakeDamage(int damage, Enum creatureBodyPart = default, ulong objectDamagedWithClientID = default) {
             if (creature.IsDead) return;
-            creature.TakeDamage(damager, damageWeight, (CreatureBodyPart) creatureBodyPart);
+            creature.TakeDamage(damage * damageWeight, type, objectDamagedWithClientID);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void TakeDamageServerRPC(NetworkBehaviourReference damagerReference) {
-            NetworkBehaviour networkBehaviour = damagerReference;
-            IDamager damager = networkBehaviour as IDamager;
-            TakeDamage(damager, damageWeight, type);
+        private void TakeDamageServerRPC(int damage, ulong objectDamagedWithClientID) {
+            TakeDamage(damage, type, objectDamagedWithClientID);
+        }
+
+        public void TakeExplosionDamage(IDamager damager, int damage) {
+            objectDamagedWith = damager;
+            TakeDamage(damage);
         }
     }
 }

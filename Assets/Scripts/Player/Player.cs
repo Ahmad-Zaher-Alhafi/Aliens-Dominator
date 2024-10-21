@@ -285,8 +285,12 @@ namespace Player {
             networkPosition.Value = position;
         }
 
-        public void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
+        public void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default) {
             Debug.Log("Player was damaged but nothing to do");
+        }
+
+        public void TakeExplosionDamage(IDamager damager,int damage) {
+            TakeDamage(damage);
         }
 
         public bool IsDestroyed => false;

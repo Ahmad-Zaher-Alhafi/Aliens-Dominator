@@ -202,8 +202,8 @@ namespace SecurityWeapons {
             magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).Refill(ammoNumberToAdd);
         }
 
-        public override void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
-            fighterPlaneStateMachine.GetState<GettingHitState>().GotHit(damager, damageWeight);
+        public override void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default) {
+            fighterPlaneStateMachine.GetState<GettingHitState>().GotHit(damage);
         }
 
         public override int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {

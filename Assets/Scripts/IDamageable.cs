@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 public interface IDamageable {
     GameObject GameObject { get; }
-    void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null);
+    void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default);
+    void TakeExplosionDamage(IDamager damager, int damage);
     bool IsDestroyed { get; }
     int Health { get; }
 }

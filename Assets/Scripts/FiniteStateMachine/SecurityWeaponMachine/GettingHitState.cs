@@ -6,10 +6,8 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override SecurityWeaponStateType Type => SecurityWeaponStateType.GettingHit;
         public override bool CanBeActivated() => AutomatedObject.Health > 0 && gotHit;
 
-
         private bool gotHit;
-        private int damageWeight;
-        private IDamager damager;
+        private int damage;
 
         public GettingHitState(SecurityWeapon<TEnemyType> automatedObject, bool checkWhenAutomatingDisabled) : base(automatedObject, checkWhenAutomatingDisabled) { }
 
@@ -17,19 +15,17 @@ namespace FiniteStateMachine.SecurityWeaponMachine {
         public override void Activate(bool isSecondaryState = false) {
             base.Activate(isSecondaryState);
 
-            int totalDamage = damager.Damage * damageWeight;
-            AutomatedObject.OnDamageTaken(totalDamage);
-            Debug.Log($"Creature {AutomatedObject} took damage = {totalDamage} and current health = {AutomatedObject.Health}");
+            AutomatedObject.OnDamageTaken(damage);
+            Debug.Log($"Creature {AutomatedObject} took damage = {damage} and current health = {AutomatedObject.Health}");
 
             gotHit = false;
 
             Fulfil();
         }
 
-        public void GotHit(IDamager damager, int damageWeight) {
+        public void GotHit(int damage) {
             gotHit = true;
-            this.damager = damager;
-            this.damageWeight = damageWeight;
+            this.damage = damage;
         }
     }
 }

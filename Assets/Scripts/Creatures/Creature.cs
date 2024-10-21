@@ -10,6 +10,7 @@ using FMODUnity;
 using Placeables;
 using Unity.Netcode;
 using UnityEngine;
+using Utils;
 
 namespace Creatures {
     public abstract class Creature : NetworkBehaviour, IDamager, IDamageable, IAutomatable {
@@ -24,7 +25,6 @@ namespace Creatures {
         public CreatureMover Mover { get; private set; }
         public TargetPoint TargetPoint { get; private set; }
         public bool HasToDisappear { get; set; }
-        public IDamager ObjectDamagedWith { get; private set; }
         public virtual bool HasSpawningAnimation => false;
 
         [SerializeField] private GameObject stateUiViewPrefab;
@@ -122,6 +122,7 @@ namespace Creatures {
         /// If ture, then the owner will send some of its transform's properties to other clients on network
         /// </summary>
         private bool hasToSyncMotion;
+        private ulong objectDamagedWithClientID;
 
         protected virtual void Awake() {
             creatureStateMachine = GetComponent<CreatureStateMachine>();
@@ -156,7 +157,7 @@ namespace Creatures {
             HasToDisappear = false;
             TargetReached = false;
             Health = initialHealth;
-            ObjectDamagedWith = null;
+            objectDamagedWithClientID = default;
 
             InitialRotation = transform.rotation;
 
@@ -211,26 +212,29 @@ namespace Creatures {
             }
         }
 
-        public void TakeDamage(IDamager damager, int damageWeight, Enum damagedBodyPart) {
-            ObjectDamagedWith = damager;
-            creatureStateMachine.GetState<GettingHitState>().GotHit(ObjectDamagedWith, damageWeight, (BodyPart.CreatureBodyPart) damagedBodyPart);
+        public void TakeDamage(int damage, Enum damagedBodyPart, ulong objectDamagedWithClientID) {
+            this.objectDamagedWithClientID = objectDamagedWithClientID;
+            creatureStateMachine.GetState<GettingHitState>().GotHit(damage, (BodyPart.CreatureBodyPart) damagedBodyPart);
+        }
+
+        public void TakeExplosionDamage(IDamager damager, int damage) {
+            MathUtils.GetRandomObjectFromList(BodyParts).TakeExplosionDamage(damager, damage);
+        }
+
+        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, Action<bool> callBack) {
+            Health -= totalDamage;
+            Animator.PlayGettingHitAnimation(callBack);
+
+            if (objectDamagedWithClientID == OwnerClientId) {
+                ShowDamageText(totalDamage, damagedBodyPart);
+            } else {
+                ShowDamageTextClientRPC(totalDamage, damagedBodyPart, objectDamagedWithClientID);
+            }
 
             if (IsServer) {
                 PlayBloodParticlesClientRPC();
             } else {
                 PlayBloodParticlesServerRPC();
-            }
-        }
-
-        public void OnDamageTaken(int totalDamage, BodyPart.CreatureBodyPart damagedBodyPart, IDamager objectDamagedWith, Action<bool> callBack) {
-            Health -= totalDamage;
-            NetworkBehaviour networkBehaviour = objectDamagedWith.GameObject.GetComponent<NetworkBehaviour>();
-            Animator.PlayGettingHitAnimation(callBack);
-
-            if (networkBehaviour.OwnerClientId == OwnerClientId) {
-                ShowDamageText(totalDamage, damagedBodyPart);
-            } else {
-                ShowDamageTextClientRPC(totalDamage, damagedBodyPart, networkBehaviour.OwnerClientId);
             }
         }
 

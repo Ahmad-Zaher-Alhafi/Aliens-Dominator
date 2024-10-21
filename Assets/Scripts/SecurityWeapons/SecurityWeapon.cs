@@ -107,8 +107,8 @@ namespace SecurityWeapons {
             return securityWeaponStateMachine.GetState<T>().IsActive;
         }
 
-        public override void TakeDamage(IDamager damager, int damageWeight, Enum damagedPart = null) {
-            securityWeaponStateMachine.GetState<GettingHitState<TEnemyType>>().GotHit(damager, damageWeight);
+        public override void TakeDamage(int damage, Enum damagedPart = null, ulong objectDamagedWithClientID = default) {
+            securityWeaponStateMachine.GetState<GettingHitState<TEnemyType>>().GotHit(damage);
         }
 
 
