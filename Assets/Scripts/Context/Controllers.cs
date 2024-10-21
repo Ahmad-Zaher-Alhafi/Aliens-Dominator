@@ -20,6 +20,7 @@ namespace Context {
         public ConstructionController ConstructionController { get; }
         public PointsController PointsController { get; }
         public InputActions InputActions { get; }
+        public InputController InputController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -64,6 +65,9 @@ namespace Context {
 
         [SerializeField] private PointsController pointsController;
         public PointsController PointsController => pointsController;
+
+        [SerializeField] private InputController inputController;
+        public InputController InputController => inputController;
 
         public InputActions InputActions { get; private set; }
 
