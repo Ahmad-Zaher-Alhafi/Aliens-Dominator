@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utils {
-    public class MathUtils : MonoBehaviour {
+    public static class MathUtils {
         public static T GetRandomObjectFromList<T>(IReadOnlyList<T> list) {
             if (list == null || list.Count == 0) return default;
 
