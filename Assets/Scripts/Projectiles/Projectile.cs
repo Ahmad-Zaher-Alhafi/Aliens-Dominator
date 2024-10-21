@@ -83,6 +83,7 @@ namespace Projectiles {
         }
 
         public virtual void Fire(IDamageable target) {
+            Collider.enabled = true;
             DestroyAfterTime(15);
         }
 
@@ -98,6 +99,7 @@ namespace Projectiles {
         protected void DestroyAfterTime(float secondsToDestroy) {
             if (destroyAfterTimeCoroutine != null) {
                 StopCoroutine(destroyAfterTimeCoroutine);
+                destroyAfterTimeCoroutine = null;
             }
 
             if (secondsToDestroy == 0) {
@@ -123,6 +125,11 @@ namespace Projectiles {
         [ServerRpc(RequireOwnership = false)]
         private void DespawnServerRPC() {
             NetworkObject.Despawn();
+        }
+
+        public override void OnDestroy() {
+            base.OnDestroy();
+            destroyAfterTimeCoroutine = null;
         }
     }
 }
