@@ -48,7 +48,6 @@ namespace Projectiles {
             wasLaunched = true;
             transform.SetParent(null);
             this.target = target;
-            Collider.enabled = true;
 
             CreateLaunchSmokeParticle();
             CreateLaunchSmokeParticleClientRPC();
