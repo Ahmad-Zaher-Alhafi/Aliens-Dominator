@@ -196,6 +196,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Show Rockets Strike Area",
+                    "type": "Button",
+                    "id": "7c0cc3b9-969b-4b1a-a0f1-7ac428327fa8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -242,6 +251,17 @@
                     "action": "Drag Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e2b37e9d-3e4d-4113-8a76-c53b214b1f21",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Rockets Strike Area",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

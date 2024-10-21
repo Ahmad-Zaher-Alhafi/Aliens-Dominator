@@ -1,15 +1,55 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Context;
+using DG.Tweening;
+using TMPro;
+using Unity.Netcode;
+using UnityEngine;
+using Utils.Extensions;
+
 [RequireComponent(typeof(LineRenderer))]
-public class RangeVisualizer : MonoBehaviour {
+public class RangeVisualizer : NetworkBehaviour {
     [SerializeField] private int segments = 50; // Number of segments to form the circle
+    [SerializeField] private float dimmingTime = .5f;
+    [SerializeField] private TextMeshPro icon;
+    [SerializeField] private float iconMaxSize = 30;
 
     private LineRenderer lineRenderer;
+    private bool followMouse;
+    private float radios;
+    private Sequence colorDimmingTween;
+    private bool showIcon;
+
+    private readonly NetworkVariable<Vector3> networkPosition = new();
 
     private void Awake() {
         lineRenderer = GetComponent<LineRenderer>();
     }
 
-    public void ShowRange(Vector3 position, float radios) {
+    private void Update() {
+        if (followMouse) {
+            Vector3 mouseWorldPosition = Ctx.Deps.InputController.GetMouseWorldHitPoint(LayerMask.NameToLayer("Terrain"));
+            ShowRange(mouseWorldPosition, radios, showIcon);
+            transform.position = mouseWorldPosition;
+        } else {
+            if (!IsServer) {
+                transform.position = networkPosition.Value;
+            }
+        }
+    }
+
+    public override void OnNetworkSpawn() {
+        base.OnNetworkSpawn();
+        if (IsServer) {
+            networkPosition.Value = transform.position;
+        }
+    }
+
+    public void ShowRange(Vector3 center, float radios, bool showIcon = false) {
+        if (showIcon) {
+            icon.gameObject.SetActiveWithCheck(true);
+            FitIconWithinRadius(radios);
+        }
+
         // Set the number of points based on the number of segments
         lineRenderer.positionCount = segments + 1;
 
@@ -20,14 +60,85 @@ public class RangeVisualizer : MonoBehaviour {
             float z = Mathf.Sin(Mathf.Deg2Rad * angle) * radios;
 
             // Set the position of each point
-            lineRenderer.SetPosition(i, new Vector3(x, 0, z) + position);
+            lineRenderer.SetPosition(i, new Vector3(x, 0, z) + center);
 
             // Increment the angle
             angle += 360f / segments;
         }
     }
 
-    public void HideRange() {
+    [ClientRpc]
+    public void ShowRangeClientRPC(Vector3 center, float radios, bool showIcon = false) {
+        ShowRange(center, radios, showIcon);
+    }
+
+    private void FitIconWithinRadius(float radios) {
+        icon.ForceMeshUpdate();
+
+        // Get the bounds of the TextMeshPro text
+        Bounds textBounds = icon.bounds;
+        float maxDimension = Mathf.Max(textBounds.size.x, textBounds.size.y) * 1.3f; // Get the largest dimension
+
+        // Calculate the scale factor to fit within the given radius
+        float scaleFactor = (radios * 2) / maxDimension; // Use circle's diameter
+
+        // Apply the scale uniformly
+        icon.transform.localScale = Vector3.one * scaleFactor;
+    }
+
+    public void ShowMouseFollowerRange(float radios, bool showIcon) {
+        this.radios = radios;
+        followMouse = true;
+        this.showIcon = showIcon;
+    }
+
+    public void HideRange(bool despawn = false) {
         lineRenderer.positionCount = 0;
+        followMouse = false;
+        radios = 0;
+        icon.gameObject.SetActive(false);
+        colorDimmingTween.Complete();
+        colorDimmingTween.Kill();
+
+        if (IsServer && IsSpawned && despawn) {
+            NetworkObject.Despawn();
+        }
+    }
+
+    [ClientRpc]
+    public void HideRangeDelayedClientRPC(float secondsToHide, bool despawn = false) {
+        StartCoroutine(HideRangeAfter(secondsToHide, despawn));
+    }
+
+    private IEnumerator HideRangeAfter(float secondsToHide, bool despawn = false) {
+        yield return new WaitForSeconds(secondsToHide);
+        HideRange(despawn);
+    }
+
+    public void StopFollowingMouse() {
+        followMouse = false;
+    }
+
+    [ClientRpc]
+    public void PlayColorDimmingAnimationClientRPC() {
+        if (icon == null) return;
+
+        // Get the current material color
+        Color initialColor = icon.color;
+
+        // Create a sequence for the fade in/out effect
+        colorDimmingTween = DOTween.Sequence()
+            .Append(icon.DOColor(new Color(initialColor.r, initialColor.g, initialColor.b, 0f), dimmingTime)) // Fade out
+            .Append(icon.DOColor(initialColor, dimmingTime)) // Fade back in
+            .SetLoops(-1, LoopType.Yoyo) // Loop infinitely with Yoyo effect (in/out)
+            .SetEase(Ease.InOutSine) // Smooth easing
+            .OnKill(() => icon.color = initialColor)
+            .Play();
+    }
+
+    public override void OnDestroy() {
+        base.OnDestroy();
+        colorDimmingTween?.Kill();
+        colorDimmingTween = null;
     }
 }

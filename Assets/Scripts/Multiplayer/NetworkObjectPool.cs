@@ -84,7 +84,7 @@ namespace Multiplayer {
         /// <summary>
         /// Return an object to the pool (reset objects before returning).
         /// </summary>
-        private void ReturnNetworkObject(NetworkObject networkObject, GameObject prefab) {
+        public void ReturnNetworkObject(NetworkObject networkObject, GameObject prefab) {
             pooledObjects[prefab].Release(networkObject);
         }
 

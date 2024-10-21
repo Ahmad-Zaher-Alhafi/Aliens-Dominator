@@ -218,6 +218,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Show Rockets Strike Area"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c0cc3b9-969b-4b1a-a0f1-7ac428327fa8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -264,6 +273,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Drag Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2b37e9d-3e4d-4113-8a76-c53b214b1f21"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Show Rockets Strike Area"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -336,6 +356,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_TopDownViewActions = asset.FindActionMap("Top Down View Actions", throwIfNotFound: true);
         m_TopDownViewActions_DragCamera = m_TopDownViewActions.FindAction("Drag Camera", throwIfNotFound: true);
         m_TopDownViewActions_ZoomCamera = m_TopDownViewActions.FindAction("Zoom Camera", throwIfNotFound: true);
+        m_TopDownViewActions_ShowRocketsStrikeArea = m_TopDownViewActions.FindAction("Show Rockets Strike Area", throwIfNotFound: true);
         // FPS And Top Down Views Shared Actions
         m_FPSAndTopDownViewsSharedActions = asset.FindActionMap("FPS And Top Down Views Shared Actions", throwIfNotFound: true);
         m_FPSAndTopDownViewsSharedActions_FPSViewAction = m_FPSAndTopDownViewsSharedActions.FindAction("FPS View Action", throwIfNotFound: true);
@@ -549,12 +570,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private ITopDownViewActionsActions m_TopDownViewActionsActionsCallbackInterface;
     private readonly InputAction m_TopDownViewActions_DragCamera;
     private readonly InputAction m_TopDownViewActions_ZoomCamera;
+    private readonly InputAction m_TopDownViewActions_ShowRocketsStrikeArea;
     public struct TopDownViewActionsActions
     {
         private @InputActions m_Wrapper;
         public TopDownViewActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @DragCamera => m_Wrapper.m_TopDownViewActions_DragCamera;
         public InputAction @ZoomCamera => m_Wrapper.m_TopDownViewActions_ZoomCamera;
+        public InputAction @ShowRocketsStrikeArea => m_Wrapper.m_TopDownViewActions_ShowRocketsStrikeArea;
         public InputActionMap Get() { return m_Wrapper.m_TopDownViewActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -570,6 +593,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ZoomCamera.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
                 @ZoomCamera.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
                 @ZoomCamera.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnZoomCamera;
+                @ShowRocketsStrikeArea.started -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnShowRocketsStrikeArea;
+                @ShowRocketsStrikeArea.performed -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnShowRocketsStrikeArea;
+                @ShowRocketsStrikeArea.canceled -= m_Wrapper.m_TopDownViewActionsActionsCallbackInterface.OnShowRocketsStrikeArea;
             }
             m_Wrapper.m_TopDownViewActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -580,6 +606,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ZoomCamera.started += instance.OnZoomCamera;
                 @ZoomCamera.performed += instance.OnZoomCamera;
                 @ZoomCamera.canceled += instance.OnZoomCamera;
+                @ShowRocketsStrikeArea.started += instance.OnShowRocketsStrikeArea;
+                @ShowRocketsStrikeArea.performed += instance.OnShowRocketsStrikeArea;
+                @ShowRocketsStrikeArea.canceled += instance.OnShowRocketsStrikeArea;
             }
         }
     }
@@ -647,6 +676,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnDragCamera(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
+        void OnShowRocketsStrikeArea(InputAction.CallbackContext context);
     }
     public interface IFPSAndTopDownViewsSharedActionsActions
     {

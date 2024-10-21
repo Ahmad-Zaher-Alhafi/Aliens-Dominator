@@ -144,6 +144,10 @@ MonoBehaviour:
     PrewarmCount: 0
   - Prefab: {fileID: 7755997305639944480, guid: df57a70065a818245890639027a7226f, type: 3}
     PrewarmCount: 0
+  - Prefab: {fileID: 5140444623459532068, guid: f904009a405a8ac4f8ad5da2dc4bc0dd, type: 3}
+    PrewarmCount: 0
+  - Prefab: {fileID: 7722456533266441325, guid: 1d98fc895d67f1f478674ec4b4468446, type: 3}
+    PrewarmCount: 0
 --- !u!114 &1220729976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +315,98 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructionSuppliesAmountOnStart: 500
+  bulletSuppliesAmountOnStart: 250
+  rocketSuppliesAmountOnStart: 25
+--- !u!1 &2302959679168329115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4866074140468985274}
+  - component: {fileID: 1021092698736023341}
+  m_Layer: 0
+  m_Name: Abilities Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4866074140468985274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302959679168329115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1021092698736023341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302959679168329115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb56cec144543d19e7808322ccfc711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketsStrikeAbility:
+  - {fileID: 0}
+--- !u!1 &2306798730522221847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8977307680839387396}
+  - component: {fileID: 5482535547399790346}
+  m_Layer: 0
+  m_Name: Input Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8977307680839387396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306798730522221847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3044567553695726191}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5482535547399790346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306798730522221847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4279018bd14bf6915d7a36972998a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3044567553695726185
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +452,8 @@ Transform:
   - {fileID: 5005347161931992949}
   - {fileID: 6404362943314897777}
   - {fileID: 6775173828924670342}
+  - {fileID: 4866074140468985274}
+  - {fileID: 8977307680839387396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -385,6 +483,8 @@ MonoBehaviour:
   suppliesController: {fileID: 2488225033593206489}
   constructionController: {fileID: 8426720197484602031}
   pointsController: {fileID: 1882250229709797764}
+  abilitiesController: {fileID: 1021092698736023341}
+  inputController: {fileID: 5482535547399790346}
 --- !u!114 &1051280023
 MonoBehaviour:
   m_ObjectHideFlags: 0

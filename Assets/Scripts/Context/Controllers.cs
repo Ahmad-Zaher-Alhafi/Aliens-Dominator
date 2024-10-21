@@ -20,6 +20,7 @@ namespace Context {
         public ConstructionController ConstructionController { get; }
         public PointsController PointsController { get; }
         public InputActions InputActions { get; }
+        public AbilitiesController AbilitiesController { get; }
         public InputController InputController { get; }
     }
 
@@ -65,6 +66,9 @@ namespace Context {
 
         [SerializeField] private PointsController pointsController;
         public PointsController PointsController => pointsController;
+
+        [SerializeField] private AbilitiesController abilitiesController;
+        public AbilitiesController AbilitiesController => abilitiesController;
 
         [SerializeField] private InputController inputController;
         public InputController InputController => inputController;
