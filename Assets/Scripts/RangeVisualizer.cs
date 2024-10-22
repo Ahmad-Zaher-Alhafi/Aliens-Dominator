@@ -11,7 +11,6 @@ public class RangeVisualizer : NetworkBehaviour {
     [SerializeField] private int segments = 50; // Number of segments to form the circle
     [SerializeField] private float dimmingTime = .5f;
     [SerializeField] private TextMeshPro icon;
-    [SerializeField] private float iconMaxSize = 30;
 
     private LineRenderer lineRenderer;
     private bool followMouse;
