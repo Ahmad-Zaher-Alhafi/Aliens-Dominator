@@ -24,7 +24,9 @@ namespace Placeables {
         /// </summary>
         public bool IsDimmed { get; private set; }
         public int BulletsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine() : 0;
+        public int BulletsMagazineCapacity => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileMagazineCapacity() : 0;
         public int RocketsAmountInMagazine => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileAmountInMagazine(Magazine.AmmoType.Rocket) : 0;
+        public int RocketsMagazineCapacity => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.GetProjectileMagazineCapacity(Magazine.AmmoType.Rocket) : 0;
         private int TakenDamage => weaponConstructionPoint.IsWeaponBuilt ? weaponConstructionPoint.BuiltWeapon.TakenDamage : 0;
         private bool HasTakenDamage => TakenDamage > 0;
         public string RepairButtonText => HasTakenDamage ? TakenDamage.ToString() : "Fixed";

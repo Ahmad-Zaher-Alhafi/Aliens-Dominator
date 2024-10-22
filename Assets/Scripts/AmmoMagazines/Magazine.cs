@@ -15,6 +15,7 @@ namespace AmmoMagazines {
 
         [SerializeField] protected int projectilesNumberOnStart;
         [SerializeField] protected int capacity;
+        public int Capacity => capacity;
 
         public int CurrentProjectilesNumber {
             get => currentProjectilesNumber;

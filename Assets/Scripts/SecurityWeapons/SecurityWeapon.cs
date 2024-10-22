@@ -103,6 +103,10 @@ namespace SecurityWeapons {
             return ammoType != magazine.TypeOfAmmo ? 0 : magazine.CurrentProjectilesNumber;
         }
 
+        public override int GetProjectileMagazineCapacity(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
+            return magazine.Capacity;
+        }
+
         private bool IsStateActive<T>() where T : SecurityWeaponState<TEnemyType> {
             return securityWeaponStateMachine.GetState<T>().IsActive;
         }

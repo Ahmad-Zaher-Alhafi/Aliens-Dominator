@@ -52,8 +52,12 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     private void Update() {
         RefreshButtonsVisibility();
         transform.position = weaponConstructionPanelPlaceable.Position;
-        reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine.ToString());
-        reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine.ToString());
+
+        reloadBulletAmmoButton.SetText(weaponConstructionPanelPlaceable.BulletsAmountInMagazine + "/" + weaponConstructionPanelPlaceable.BulletsMagazineCapacity,
+            weaponConstructionPanelPlaceable.BulletsAmountInMagazine > 0 ? Colors.Instance.Normal : Colors.Instance.RedUI, weaponConstructionPanelPlaceable.BulletsAmountInMagazine <= 0);
+        reloadRocketAmmoButton.SetText(weaponConstructionPanelPlaceable.RocketsAmountInMagazine + "/" + weaponConstructionPanelPlaceable.RocketsMagazineCapacity,
+            weaponConstructionPanelPlaceable.RocketsAmountInMagazine > 0 ? Colors.Instance.Normal : Colors.Instance.RedUI, weaponConstructionPanelPlaceable.RocketsAmountInMagazine <= 0);
+
         sellButton.SetText(weaponConstructionPanelPlaceable.RefundAmountFromSellingWeapon.ToString());
         repairButton.SetText(weaponConstructionPanelPlaceable.RepairButtonText, weaponConstructionPanelPlaceable.RepairButtonTextColor);
 

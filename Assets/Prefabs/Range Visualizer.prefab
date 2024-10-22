@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 255774188038906772}
   - component: {fileID: 7573652294417728217}
   - component: {fileID: -3991780909160675536}
+  - component: {fileID: 8804960499053514861}
   m_Layer: 14
   m_Name: Range Visualizer
   m_TagString: Untagged
@@ -319,7 +320,7 @@ MonoBehaviour:
   segments: 50
   dimmingTime: 0.5
   icon: {fileID: 4585775469748459736}
-  iconMaxSize: 30
+  fadeTextInOutAnimation: {fileID: 8804960499053514861}
 --- !u!114 &-3991780909160675536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,3 +341,17 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8804960499053514861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722456533266441325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8363da22032f42129da263677dde18fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInOutTime: 0.5
+  textToAnimate: {fileID: 4585775469748459736}

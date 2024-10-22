@@ -102365,6 +102365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strike Rocket Create Points Holder
       objectReference: {fileID: 0}
+    - target: {fileID: 7390963489479801262, guid: 1da90876ef7bd3c4c80b809de5357028, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7390963489479801263, guid: 1da90876ef7bd3c4c80b809de5357028, type: 3}
       propertyPath: m_RootOrder
       value: 29

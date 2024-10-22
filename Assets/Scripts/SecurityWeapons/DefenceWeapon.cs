@@ -129,6 +129,7 @@ namespace SecurityWeapons {
         }
 
         public abstract int GetProjectileAmountInMagazine(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
+        public abstract int GetProjectileMagazineCapacity(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet);
 
         public void AddHealth(int amount) {
             Health += amount;

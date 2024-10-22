@@ -210,6 +210,10 @@ namespace SecurityWeapons {
             return magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).CurrentProjectilesNumber;
         }
 
+        public override int GetProjectileMagazineCapacity(Magazine.AmmoType ammoType = Magazine.AmmoType.Bullet) {
+            return magazines.Single(magazine => magazine.TypeOfAmmo == ammoType).Capacity;
+        }
+
         public void TakeOff() {
             if (HasToTakeOff) return;
             if (IsDestroyed) return;

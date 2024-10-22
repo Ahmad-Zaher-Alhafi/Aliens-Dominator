@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Context;
 using DG.Tweening;
+using DoTweenAnimations;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,11 +12,11 @@ public class RangeVisualizer : NetworkBehaviour {
     [SerializeField] private int segments = 50; // Number of segments to form the circle
     [SerializeField] private float dimmingTime = .5f;
     [SerializeField] private TextMeshPro icon;
+    [SerializeField] private FadeTextInOutAnimation fadeTextInOutAnimation;
 
     private LineRenderer lineRenderer;
     private bool followMouse;
     private float radios;
-    private Sequence colorDimmingTween;
     private bool showIcon;
 
     private readonly NetworkVariable<Vector3> networkPosition = new();
@@ -96,8 +97,7 @@ public class RangeVisualizer : NetworkBehaviour {
         followMouse = false;
         radios = 0;
         icon.gameObject.SetActive(false);
-        colorDimmingTween.Complete();
-        colorDimmingTween.Kill();
+        fadeTextInOutAnimation.StopFadeInOutAnimation();
 
         if (IsServer && IsSpawned && despawn) {
             NetworkObject.Despawn();
@@ -121,23 +121,6 @@ public class RangeVisualizer : NetworkBehaviour {
     [ClientRpc]
     public void PlayColorDimmingAnimationClientRPC() {
         if (icon == null) return;
-
-        // Get the current material color
-        Color initialColor = icon.color;
-
-        // Create a sequence for the fade in/out effect
-        colorDimmingTween = DOTween.Sequence()
-            .Append(icon.DOColor(new Color(initialColor.r, initialColor.g, initialColor.b, 0f), dimmingTime)) // Fade out
-            .Append(icon.DOColor(initialColor, dimmingTime)) // Fade back in
-            .SetLoops(-1, LoopType.Yoyo) // Loop infinitely with Yoyo effect (in/out)
-            .SetEase(Ease.InOutSine) // Smooth easing
-            .OnKill(() => icon.color = initialColor)
-            .Play();
-    }
-
-    public override void OnDestroy() {
-        base.OnDestroy();
-        colorDimmingTween?.Kill();
-        colorDimmingTween = null;
+        fadeTextInOutAnimation.PlayFadeInOutAnimation();
     }
 }
