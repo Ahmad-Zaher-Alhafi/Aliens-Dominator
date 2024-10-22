@@ -593,6 +593,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInOutTime: 0.5
   textToAnimate: {fileID: 5461550743725249461}
+--- !u!114 &4137164398289687815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321642825500705413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bf66d3daf242e98b3719d80f112086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipToShow: Call a rockets strike on a specific area that deals massive damage to
+    aliens within the explosion area
 --- !u!1001 &5650159473673246851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724,6 +738,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3864593078505301853, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
   m_PrefabInstance: {fileID: 5650159473673246851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5366600177242185342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919569238548021214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bf66d3daf242e98b3719d80f112086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipToShow: Switch to first person view
 --- !u!1001 &6740546979307223782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -866,6 +893,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3864593078505301853, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
   m_PrefabInstance: {fileID: 6740546979307223782}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4149241494267187366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7506076909521706427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bf66d3daf242e98b3719d80f112086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipToShow: Swich to top-down view
 --- !u!224 &7506076909535090459 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3864593078491393533, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
