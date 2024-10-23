@@ -2,10 +2,12 @@
 using ManagersAndControllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Cameras {
     public class TopDownCamera : MonoBehaviour {
+        [Tooltip("How much you should more your mouse to start dragging the camera")]
+        [SerializeField] private float dragSensitivity = .1f;
+
         [Tooltip("X,Z sets how much left and down can the camera go from its initial position, Y forms the zoom level limitation")]
         [SerializeField] private Vector3 topDownCameraMinBoundaries = Vector3.one * 10;
         [Tooltip("X,Z sets how much right and up can the camera go from its initial position, Y forms the zoom level limitation")]
@@ -30,14 +32,13 @@ namespace Cameras {
 
         private void OnCameraDrag(InputAction.CallbackContext obj) {
             Vector2 dragDelta = Ctx.Deps.InputActions.TopDownViewActions.DragCamera.ReadValue<Vector2>();
+            if (!HasMovedMouseEnough(dragDelta)) return;
             topDownCameraTargetPosition += -(transform.right * dragDelta.x + transform.up * dragDelta.y) * topDownCameraDragSpeed;
         }
 
         private void OnCameraZoom(InputAction.CallbackContext obj) {
             Vector2 zoomDelta = Ctx.Deps.InputActions.TopDownViewActions.ZoomCamera.ReadValue<Vector2>();
-
             topDownCameraTargetPosition += (-transform.forward * zoomDelta.x + transform.forward * zoomDelta.y) * topDownCameraZoomSpeed;
-
         }
 
         private void Update() {
@@ -52,6 +53,10 @@ namespace Cameras {
             topDownCameraTargetPosition.z = Mathf.Clamp(topDownCameraTargetPosition.z, TopDownCameraMinPosition.z, TopDownCameraMaxPosition.z);
 
             transform.position = Vector3.LerpUnclamped(transform.position, topDownCameraTargetPosition, .1f);
+        }
+
+        private bool HasMovedMouseEnough(Vector2 dragDelta) {
+            return Mathf.Abs(dragDelta.x) >= dragSensitivity || Mathf.Abs(dragDelta.y) >= dragSensitivity;
         }
 
         private void OnDestroy() {

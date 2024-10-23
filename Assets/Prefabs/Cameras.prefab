@@ -398,10 +398,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5caa0ed1c0234b6a80e3290a4b4d4d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragSensitivity: 0.1
   topDownCameraMinBoundaries: {x: 10, y: 80, z: 10}
   topDownCameraMaxBoundaries: {x: 10, y: 10, z: 10}
   topDownCameraDragSpeed: 1
-  topDownCameraZoomSpeed: 0.1
+  topDownCameraZoomSpeed: 0.2
 --- !u!1 &8177613182625750704
 GameObject:
   m_ObjectHideFlags: 0
