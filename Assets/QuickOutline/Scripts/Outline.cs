@@ -82,7 +82,7 @@ namespace QuickOutline.Scripts {
         void Awake() {
 
             // Cache renderers
-            renderers = GetComponentsInChildren<Renderer>();
+            renderers = GetComponentsInChildren<Renderer>().Where(renderer1 => !renderer1.TryGetComponent(out ParticleSystem _)).ToArray();
 
             // Instantiate outline materials
             outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
