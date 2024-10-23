@@ -23,9 +23,16 @@ namespace Abilities.RocketsStrikeAbility {
             Ctx.Deps.InputActions.SharedActions.SecondaryAction.performed += OnSecondaryActionPressed;
         }
 
-        private void OnShowRocketsStrikeAreaPressed(InputAction.CallbackContext obj) {
+        public override void StartUsage() {
             if (!ReadyToBeUsed) return;
-            InitializeStrikeArea();
+            if (isInitialized) return;
+            rangeVisualizer = NetworkObjectPool.Singleton.GetNetworkObject(rangeVisualizerPrefab, default, default).GetComponent<RangeVisualizer>();
+            rangeVisualizer.ShowMouseFollowerRange(rocketsStrikeAreaRadios, true);
+            isInitialized = true;
+        }
+
+        private void OnShowRocketsStrikeAreaPressed(InputAction.CallbackContext obj) {
+            StartUsage();
         }
 
         private void OnPrimaryActionPressed(InputAction.CallbackContext obj) {
@@ -71,13 +78,6 @@ namespace Abilities.RocketsStrikeAbility {
                 rocket.NetworkObject.Spawn();
                 yield return new WaitForSeconds(.2f);
             }
-        }
-
-        private void InitializeStrikeArea() {
-            if (isInitialized) return;
-            rangeVisualizer = NetworkObjectPool.Singleton.GetNetworkObject(rangeVisualizerPrefab, default, default).GetComponent<RangeVisualizer>();
-            rangeVisualizer.ShowMouseFollowerRange(rocketsStrikeAreaRadios, true);
-            isInitialized = true;
         }
 
         /// <summary>

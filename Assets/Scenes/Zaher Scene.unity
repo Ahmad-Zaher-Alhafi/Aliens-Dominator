@@ -102472,6 +102472,10 @@ PrefabInstance:
       value: Rockets Strike Ability
       objectReference: {fileID: 0}
     - target: {fileID: 7947124550717555441, guid: ea6990aabdf538d48ad579d6f93111da, type: 3}
+      propertyPath: coolDownSeconds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947124550717555441, guid: ea6990aabdf538d48ad579d6f93111da, type: 3}
       propertyPath: strikeRocketCreatePoints.Array.data[0]
       value: 
       objectReference: {fileID: 72481006}

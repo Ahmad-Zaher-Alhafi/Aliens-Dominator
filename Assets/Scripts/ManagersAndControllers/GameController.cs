@@ -63,7 +63,7 @@ namespace ManagersAndControllers {
             }
         }
 
-        private void SwitchViewModeTo(ViewMode viewModeToSwitchTo) {
+        public void SwitchViewModeTo(ViewMode viewModeToSwitchTo) {
             if (viewModeToSwitchTo == CurrentViewMode) return;
 
             switch (viewModeToSwitchTo) {

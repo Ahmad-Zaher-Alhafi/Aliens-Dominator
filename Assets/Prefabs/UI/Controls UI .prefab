@@ -510,6 +510,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2589531285813883825}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RocketsStrikeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ControlsUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3864593078505301853, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
       propertyPath: m_Name
       value: Rockets Strike Button
@@ -579,20 +607,6 @@ MonoBehaviour:
   labelText: {fileID: 5461550743725249461}
   dimmingTime: 0.5
   fadeTextInOutAnimation: {fileID: 4321951507265765502}
---- !u!114 &4321951507265765502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8321642825500705413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8363da22032f42129da263677dde18fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeInOutTime: 0.5
-  textToAnimate: {fileID: 5461550743725249461}
 --- !u!114 &4137164398289687815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,6 +621,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tipToShow: Call a rockets strike on a specific area that deals massive damage to
     aliens within the explosion area
+--- !u!114 &4321951507265765502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321642825500705413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8363da22032f42129da263677dde18fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInOutTime: 0.5
+  textToAnimate: {fileID: 5461550743725249461}
 --- !u!1001 &5650159473673246851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,6 +749,34 @@ PrefabInstance:
     - target: {fileID: 3864593078491393533, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2589531285813883825}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FPSViewModeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ControlsUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3864593078505301853, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
       propertyPath: m_Name
@@ -877,6 +933,34 @@ PrefabInstance:
     - target: {fileID: 3864593078491393533, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2589531285813883825}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TopDownViewModeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ControlsUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864593078494007997, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3864593078505301853, guid: e4dbeded15baa1f40b74b60782a19cb9, type: 3}
       propertyPath: m_Name

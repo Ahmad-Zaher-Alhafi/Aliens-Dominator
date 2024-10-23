@@ -15,5 +15,9 @@ namespace ManagersAndControllers {
         public TimeSpan GetAbilityTimeLeftToBeReady<TAbility>() where TAbility : Ability {
             return rocketsStrikeAbility.OfType<TAbility>().Single().TimeLeftToBeReady;
         }
+
+        public void UseAbility<TAbility>() where TAbility : Ability {
+            rocketsStrikeAbility.OfType<TAbility>().Single().StartUsage();
+        }
     }
 }

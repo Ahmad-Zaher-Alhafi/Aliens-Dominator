@@ -19,6 +19,8 @@ namespace Abilities {
 
         private readonly NetworkVariable<long> networkTicksLeftToBeReady = new();
 
+        public abstract void StartUsage();
+
         protected void OnAbilityActivated() {
             lastActivationTime = Time.time;
         }
