@@ -60,7 +60,7 @@ namespace AmmoMagazines {
 
         public abstract Projectile GetProjectile(Transform spawnPoint = null);
 
-        public abstract void Refill(int projectilesNumberToAdd, bool consumesSupplies = true);
+        public abstract void Refill(int wantedProjectilesNumber, bool consumesSupplies = true);
 
         protected virtual void UnFillMagazine() {
             CurrentProjectilesNumber = 0;

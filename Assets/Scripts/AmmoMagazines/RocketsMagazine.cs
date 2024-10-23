@@ -31,15 +31,17 @@ namespace AmmoMagazines {
             return rocket.Value;
         }
 
-        public override void Refill(int projectilesNumberToAdd, bool consumesSupplies = true) {
+        public override void Refill(int wantedProjectilesNumber, bool consumesSupplies = true) {
             if (!IsServer) {
-                RefillServerRPC(projectilesNumberToAdd);
+                RefillServerRPC(wantedProjectilesNumber);
                 return;
             }
 
+            int amountToAdd = wantedProjectilesNumber;
+
             if (consumesSupplies) {
                 // Make sure to not exceed the capacity of the magazine
-                int amountToAdd = CurrentProjectilesNumber + projectilesNumberToAdd > capacity ? capacity - CurrentProjectilesNumber : projectilesNumberToAdd;
+                amountToAdd = CurrentProjectilesNumber + wantedProjectilesNumber > capacity ? capacity - CurrentProjectilesNumber : wantedProjectilesNumber;
                 // Make sure that we have enough supplies for the wanted amount, if not then take what is left of the supplies
                 amountToAdd = Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.RocketsAmmo, amountToAdd) ? amountToAdd : Ctx.Deps.SuppliesController.CheckSuppliesAmount(SuppliesController.SuppliesTypes.RocketsAmmo);
                 if (amountToAdd == 0) return;
@@ -48,9 +50,9 @@ namespace AmmoMagazines {
 
             foreach (RocketReloadPoint rocketsReloadPoint in rockets.Keys.ToList()) {
                 if (!rocketsReloadPoint.IsUed) continue;
-                if (projectilesNumberToAdd <= 0) break;
+                if (amountToAdd <= 0) break;
 
-                projectilesNumberToAdd--;
+                amountToAdd--;
                 CurrentProjectilesNumber++;
 
                 rocketsReloadPoint.IsUed = false;

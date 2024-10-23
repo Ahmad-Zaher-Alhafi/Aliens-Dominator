@@ -21,19 +21,19 @@ namespace AmmoMagazines {
             return bullet;
         }
 
-        public override void Refill(int projectilesNumberToAdd, bool consumesSupplies = true) {
+        public override void Refill(int wantedProjectilesNumber, bool consumesSupplies = true) {
             if (!IsServer) {
-                RefillServerRPC(projectilesNumberToAdd);
+                RefillServerRPC(wantedProjectilesNumber);
                 return;
             }
 
             if (!consumesSupplies) {
-                CurrentProjectilesNumber = Mathf.Clamp(CurrentProjectilesNumber + projectilesNumberToAdd, 0, capacity);
+                CurrentProjectilesNumber = Mathf.Clamp(CurrentProjectilesNumber + wantedProjectilesNumber, 0, capacity);
                 return;
             }
 
             // Make sure to not exceed the capacity of the magazine
-            int amountToAdd = CurrentProjectilesNumber + projectilesNumberToAdd > capacity ? capacity - CurrentProjectilesNumber : projectilesNumberToAdd;
+            int amountToAdd = CurrentProjectilesNumber + wantedProjectilesNumber > capacity ? capacity - CurrentProjectilesNumber : wantedProjectilesNumber;
             // Make sure that we have enough supplies for the wanted amount, if not then take what is left of the supplies
             amountToAdd = Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.BulletsAmmo, amountToAdd) ? amountToAdd : Ctx.Deps.SuppliesController.CheckSuppliesAmount(SuppliesController.SuppliesTypes.BulletsAmmo);
             if (amountToAdd == 0) return;
