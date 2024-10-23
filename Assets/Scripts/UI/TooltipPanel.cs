@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Utils.Extensions;
 
@@ -25,6 +26,13 @@ namespace UI {
         }
 
         private void Update() {
+            if (!tooltipBackground.activeInHierarchy) return;
+
+            if (!EventSystem.current.IsPointerOverGameObject()) {
+                HideTooltip();
+                return;
+            }
+
             KeepTooltipInsideScreen();
         }
 
