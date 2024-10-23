@@ -122,16 +122,27 @@ public class WeaponConstructionPanel : MonoBehaviour, IPlaceableObject, IPointer
     }
 
     public void RefillBulletAmmoClicked() {
+        if (!weaponConstructionPanelPlaceable.HasAnySuppliesOfType(SuppliesController.SuppliesTypes.BulletsAmmo)) {
+            Ctx.Deps.UIController.SuppliesUI.PlayInsufficientSuppliesAnimation(SuppliesController.SuppliesTypes.BulletsAmmo);
+            return;
+        }
+
         weaponConstructionPanelPlaceable.RefillAmmo(Magazine.AmmoType.Bullet);
     }
 
     public void RefillRocketAmmoClicked() {
+        if (!weaponConstructionPanelPlaceable.HasAnySuppliesOfType(SuppliesController.SuppliesTypes.RocketsAmmo)) {
+            Ctx.Deps.UIController.SuppliesUI.PlayInsufficientSuppliesAnimation(SuppliesController.SuppliesTypes.RocketsAmmo);
+            return;
+        }
+
         weaponConstructionPanelPlaceable.RefillAmmo(Magazine.AmmoType.Rocket);
     }
 
     public void RepairClicked() {
-        if (!weaponConstructionPanelPlaceable.HasAnyConstructionSupplies) {
+        if (!weaponConstructionPanelPlaceable.HasAnySuppliesOfType(SuppliesController.SuppliesTypes.Construction)) {
             repairButton.PlayErrorAnimation();
+            Ctx.Deps.UIController.SuppliesUI.PlayInsufficientSuppliesAnimation(SuppliesController.SuppliesTypes.Construction);
             return;
         }
 

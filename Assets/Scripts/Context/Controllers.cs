@@ -22,6 +22,7 @@ namespace Context {
         public InputActions InputActions { get; }
         public AbilitiesController AbilitiesController { get; }
         public InputController InputController { get; }
+        public UIController UIController { get; }
     }
 
     public class Controllers : MonoBehaviour, IControllers {
@@ -72,6 +73,9 @@ namespace Context {
 
         [SerializeField] private InputController inputController;
         public InputController InputController => inputController;
+
+        [SerializeField] private UIController uiController;
+        public UIController UIController => uiController;
 
         public InputActions InputActions { get; private set; }
 

@@ -599,6 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 45340223354313994}
   fadeTextInOutAnimation: {fileID: 1100475316977998011}
+  textShakeAnimation: {fileID: 0}
 --- !u!224 &6755652846373373504 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6658792060242419022, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
@@ -996,6 +997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 1085835708687274981}
   fadeTextInOutAnimation: {fileID: 1162359046729051223}
+  textShakeAnimation: {fileID: 0}
 --- !u!1001 &2189927682272157729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1284,6 +1286,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 2264489618306213413}
   fadeTextInOutAnimation: {fileID: 5292633126126127637}
+  textShakeAnimation: {fileID: 322401294273392514}
+--- !u!114 &322401294273392514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759433471200655311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c5220954d34d99b7d86d7be8914501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToAnimate: {fileID: 2264489618306213413}
+  strength: 5
+  duration: 0.5
 --- !u!1001 &2509966368864390137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1505,6 +1523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 2583953263569473021}
   fadeTextInOutAnimation: {fileID: 3161277964517527688}
+  textShakeAnimation: {fileID: 126709860880440323}
 --- !u!114 &7957991483978674139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,6 +1582,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipToShow: Build anti-ground aliens machinegun
+--- !u!114 &126709860880440323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9132729416578915351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c5220954d34d99b7d86d7be8914501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToAnimate: {fileID: 2583953263569473021}
+  strength: 5
+  duration: 0.5
 --- !u!224 &9132729416590694071 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6658792060242419022, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
@@ -1941,6 +1975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 6579534767269875756}
   fadeTextInOutAnimation: {fileID: 4847789349073702149}
+  textShakeAnimation: {fileID: 0}
 --- !u!224 &6454787174250775016 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 275296194120439744, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
@@ -2202,6 +2237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 6593203889878350177}
   fadeTextInOutAnimation: {fileID: 7648899883731691474}
+  textShakeAnimation: {fileID: 4927447941918490069}
 --- !u!114 &7648899883731691474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2229,6 +2265,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipToShow: Build a fighter plane, it targets both ground and air aliens
+--- !u!114 &4927447941918490069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440850048505047179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c5220954d34d99b7d86d7be8914501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToAnimate: {fileID: 6593203889878350177}
+  strength: 5
+  duration: 0.5
 --- !u!224 &440850048516825643 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6658792060242419022, guid: d0d6d74beae430749971b9d921cb0e0c, type: 3}
@@ -2464,6 +2515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 7228578264493074580}
   fadeTextInOutAnimation: {fileID: 4870256733422883989}
+  textShakeAnimation: {fileID: 0}
 --- !u!114 &8876844674815396069
 MonoBehaviour:
   m_ObjectHideFlags: 0

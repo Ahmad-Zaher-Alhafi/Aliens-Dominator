@@ -31,7 +31,6 @@ namespace Placeables {
         private bool HasTakenDamage => TakenDamage > 0;
         public string RepairButtonText => HasTakenDamage ? TakenDamage.ToString() : "Fixed";
         public Color RepairButtonTextColor => HasTakenDamage ? Colors.Instance.RedUI : Colors.Instance.Normal;
-        public bool HasAnyConstructionSupplies => Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, 1);
 
         private readonly WeaponConstructionPoint weaponConstructionPoint;
 
@@ -45,6 +44,10 @@ namespace Placeables {
 
         public bool HasEnoughSuppliesToBuildWeapon(DefenceWeapon.WeaponsType weaponType) {
             return Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.Construction, SharedWeaponSpecifications.Instance.GetWeaponRequiredSupplies(weaponType));
+        }
+
+        public bool HasAnySuppliesOfType(SuppliesController.SuppliesTypes suppliesType) {
+            return Ctx.Deps.SuppliesController.HasEnoughSupplies(suppliesType, 1);
         }
 
         public void ShowWeaponPlaceholder(DefenceWeapon.WeaponsType weaponType) {
