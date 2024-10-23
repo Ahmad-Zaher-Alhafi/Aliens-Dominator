@@ -42,6 +42,7 @@ namespace AmmoMagazines {
                 int amountToAdd = CurrentProjectilesNumber + projectilesNumberToAdd > capacity ? capacity - CurrentProjectilesNumber : projectilesNumberToAdd;
                 // Make sure that we have enough supplies for the wanted amount, if not then take what is left of the supplies
                 amountToAdd = Ctx.Deps.SuppliesController.HasEnoughSupplies(SuppliesController.SuppliesTypes.RocketsAmmo, amountToAdd) ? amountToAdd : Ctx.Deps.SuppliesController.CheckSuppliesAmount(SuppliesController.SuppliesTypes.RocketsAmmo);
+                if (amountToAdd == 0) return;
                 if (!Ctx.Deps.SuppliesController.TryConsumeSupplies(SuppliesController.SuppliesTypes.RocketsAmmo, amountToAdd)) return;
             }
 
