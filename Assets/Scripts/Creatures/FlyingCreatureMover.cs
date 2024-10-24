@@ -9,7 +9,12 @@ namespace Creatures {
         private Vector3 wantedAngle; // Wanted angle is the angle that the creature has to rotate to for reaching the wanted point
         private Vector3 current;
         private CreatureSpawnController creatureSpawnController;
+
         private Transform pointToMoveTo;
+        /// <summary>
+        /// This offset is needed because the center of the creature is offset by the animations on y-axis, this offset will allow the creature to move to points correctly according to his center
+        /// </summary>
+        private readonly Vector3 animationBugOffset = Vector3.down * 2.5f;
 
         protected override void Awake() {
             base.Awake();
@@ -19,8 +24,8 @@ namespace Creatures {
         protected override void FixedUpdate() {
             base.FixedUpdate();
             if (HasMovingOrder && pointToMoveTo != null) {
-                MoveTo(pointToMoveTo.position);
-                RotateToTheWantedAngle(pointToMoveTo.position);
+                MoveTo(pointToMoveTo.position + animationBugOffset);
+                RotateToTheWantedAngle(pointToMoveTo.position + animationBugOffset);
             }
         }
 
