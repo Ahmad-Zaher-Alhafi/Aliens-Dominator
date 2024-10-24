@@ -18,6 +18,8 @@ namespace FiniteStateMachine.FighterPlaneStateMachine {
             Debug.Log($"Creature {AutomatedObject} took damage = {damage} and current health = {AutomatedObject.Health}");
 
             gotHit = false;
+
+            Fulfil();
         }
 
         public void GotHit(int damage) {
