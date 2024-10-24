@@ -8,7 +8,7 @@ namespace Player {
         private void Update() {
             if (Ctx.Deps.GameController.Player == null) return;
 
-            transform.eulerAngles = Quaternion.LookRotation(transform.position - Ctx.Deps.CameraController.LocalActiveCameraPosition).eulerAngles;
+            transform.eulerAngles = Quaternion.LookRotation(transform.position - Ctx.Deps.CameraController.LocalActiveCamera.transform.position).eulerAngles;
         }
     }
 }

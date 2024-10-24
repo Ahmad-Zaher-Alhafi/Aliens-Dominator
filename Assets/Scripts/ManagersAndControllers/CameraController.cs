@@ -24,7 +24,6 @@ namespace ManagersAndControllers {
         [SerializeField] private float betweenPlayerAndGeneralCamerasBlendTime = 1f;
         [SerializeField] private float betweenPlayerAndTopDownCamerasBlendTime = .5f;
 
-        public Vector3 LocalActiveCameraPosition => LocalActiveCamera.transform.position;
         public bool IsBlending => cinemachineBrain.IsBlending;
         public Camera LocalActiveCamera => cinemachineBrain.OutputCamera;
 
