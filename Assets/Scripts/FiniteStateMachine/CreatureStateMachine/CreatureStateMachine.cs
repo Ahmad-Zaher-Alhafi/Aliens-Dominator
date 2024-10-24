@@ -25,7 +25,7 @@ namespace FiniteStateMachine.CreatureStateMachine {
                     CreatureStateType.GettingHit => new GettingHitState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     CreatureStateType.Attacking => new AttackingState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     CreatureStateType.RunningAway => new RunningAwayState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
-                    CreatureStateType.Dead => new DeadState(AutomatedObject, true),
+                    CreatureStateType.Dead => new DeadState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     CreatureStateType.SpecialAbility => new SpecialAbilityState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     CreatureStateType.Spawning => new SpawningState(AutomatedObject, stateData.checkedWhenAutomationDisabled),
                     _ => throw new ArgumentOutOfRangeException()

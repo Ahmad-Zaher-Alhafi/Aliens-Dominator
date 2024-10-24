@@ -21,6 +21,7 @@ MonoBehaviour:
     - destinationStateType: 3
     statesSyncedWithMask: 0
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 10
     transitionsData:
     - destinationStateType: 1
@@ -30,6 +31,7 @@ MonoBehaviour:
     - destinationStateType: 5
     statesSyncedWithMask: 0
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 1
     transitionsData:
     - destinationStateType: 1
@@ -38,6 +40,7 @@ MonoBehaviour:
     - destinationStateType: 5
     statesSyncedWithMask: 0
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 2
     transitionsData:
     - destinationStateType: 1
@@ -46,18 +49,21 @@ MonoBehaviour:
     - destinationStateType: 5
     statesSyncedWithMask: 0
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 3
     transitionsData:
     - destinationStateType: 5
     - destinationStateType: 4
     statesSyncedWithMask: 32
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 4
     transitionsData:
     - destinationStateType: 6
     - destinationStateType: 5
     statesSyncedWithMask: 32
     interruptStatesMask: 143
+    checkedWhenAutomationDisabled: 0
   - originStateType: 5
     transitionsData:
     - destinationStateType: 5
@@ -67,18 +73,21 @@ MonoBehaviour:
     - destinationStateType: 8
     statesSyncedWithMask: 664
     interruptStatesMask: 255
+    checkedWhenAutomationDisabled: 0
   - originStateType: 6
     transitionsData:
     - destinationStateType: 4
     - destinationStateType: 5
     statesSyncedWithMask: 0
     interruptStatesMask: 143
+    checkedWhenAutomationDisabled: 0
   - originStateType: 7
     transitionsData:
     - destinationStateType: 5
     - destinationStateType: 8
     statesSyncedWithMask: 32
     interruptStatesMask: 95
+    checkedWhenAutomationDisabled: 0
   - originStateType: 9
     transitionsData:
     - destinationStateType: 3
@@ -86,7 +95,9 @@ MonoBehaviour:
     - destinationStateType: 5
     statesSyncedWithMask: 536
     interruptStatesMask: 0
+    checkedWhenAutomationDisabled: 0
   - originStateType: 8
     transitionsData: []
     statesSyncedWithMask: 0
     interruptStatesMask: 767
+    checkedWhenAutomationDisabled: 1
