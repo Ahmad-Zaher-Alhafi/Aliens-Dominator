@@ -16696,7 +16696,7 @@ MonoBehaviour:
   outline: {fileID: 5949008205160456271}
   patrollingSpeed: 5
   rotateSpeed: 2
-  aimingSpeed: 15
+  aimingSpeed: 2
   takeOffSpeed: 5
   hasToUseRockets: 1
   bulletCreatePoint: {fileID: 6591588923433466406}
