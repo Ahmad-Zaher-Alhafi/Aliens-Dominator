@@ -32,6 +32,8 @@ namespace Projectiles {
         private readonly NetworkVariable<Quaternion> networkRotation = new();
         private readonly NetworkVariable<Vector3> networkScale = new();
 
+        private Vector3 initialScale;
+
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
             if (IsServer) return;
@@ -53,6 +55,7 @@ namespace Projectiles {
             Rig = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
             initialSpeed = speed;
+            initialScale = transform.localScale;
         }
 
         protected virtual void Update() {
@@ -74,7 +77,7 @@ namespace Projectiles {
 
         public virtual void InitDefaults() {
             hasToSyncMotion = true;
-            transform.localScale = Vector3.one;
+            transform.localScale = initialScale;
 
             if (Rig != null) {
                 Rig.velocity = Vector3.zero;

@@ -108,6 +108,7 @@ namespace Projectiles {
             explosionParticle.transform.position = explosionParticlePoint.position;
             explosionParticle.transform.rotation = explosionParticlePoint.rotation;
             explosionParticle.transform.parent = null;
+            explosionParticle.transform.localScale = Vector3.one * 3;
             explosionParticle.Play();
         }
 
