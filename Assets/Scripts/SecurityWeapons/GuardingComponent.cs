@@ -15,7 +15,7 @@ namespace SecurityWeapons {
         public void Init(Quaternion initialRotation, Vector2 rotateOnXAxisRange, Vector2 rotateOnYAxisRange, Action onFinishCallBack = null) {
             this.initialRotation = initialRotation;
             this.rotateOnXAxisRange = rotateOnXAxisRange;
-            this.rotateOnXAxisRange = rotateOnYAxisRange;
+            this.rotateOnYAxisRange = rotateOnYAxisRange;
             this.onFinishCallBack = onFinishCallBack;
         }
 
@@ -41,9 +41,9 @@ namespace SecurityWeapons {
             Vector3 initialEulerAngels = initialRotation.eulerAngles;
 
             // Get random angel on X axis
-            Vector3 targetEulerAngels = Vector3.right * (initialEulerAngels.x + Random.Range(rotateOnYAxisRange.x, rotateOnYAxisRange.y));
+            Vector3 targetEulerAngels = Vector3.right * (initialEulerAngels.x + Random.Range(rotateOnXAxisRange.x, rotateOnXAxisRange.y));
             // Get random angel on Y axis
-            targetEulerAngels += Vector3.up * (initialEulerAngels.y + Random.Range(rotateOnXAxisRange.x, rotateOnXAxisRange.y));
+            targetEulerAngels += Vector3.up * (initialEulerAngels.y + Random.Range(rotateOnYAxisRange.x, rotateOnYAxisRange.y));
             // Give the same angel on Z axis
             targetEulerAngels += Vector3.forward * initialRotation.eulerAngles.z;
 
