@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Context;
 using Creatures;
 using FiniteStateMachine;
@@ -30,6 +30,8 @@ namespace SecurityWeapons {
         /// </summary>
         private Vector3 initialRightVector;
 
+        private bool isUsingTestTarget;
+
         private void Awake() {
             weaponSpecification = GetComponentInParent<IWeaponSpecification>();
             initialUpVector = transform.up;
@@ -38,7 +40,7 @@ namespace SecurityWeapons {
         }
 
         private void Update() {
-            if (!Ctx.Deps.WaveController.HasWaveStarted) return;
+            if (!Ctx.Deps.WaveController.HasWaveStarted && !isUsingTestTarget) return;
 
             if (CanBeShot(TargetToAimAt)) return;
 
@@ -161,6 +163,7 @@ namespace SecurityWeapons {
                     if (Application.isPlaying) {
                         testCreature ??= GameObject.FindGameObjectWithTag("TestCreature").GetComponent<Creature>();
                         weaponSensor.TargetToAimAt = testCreature;
+                        weaponSensor.isUsingTestTarget = true;
                     } else {
                         Debug.LogError("Works only in play mode!");
                     }

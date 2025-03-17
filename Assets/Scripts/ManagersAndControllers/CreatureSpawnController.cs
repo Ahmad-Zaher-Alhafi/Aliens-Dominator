@@ -154,6 +154,7 @@ namespace ManagersAndControllers {
         }
 
         private void OnWaveStarted(Wave wave) {
+            if (!spawnCreaturesOnWaveStart) return;
             SpawnWaveCreatures(wave);
         }
 
@@ -165,13 +166,16 @@ namespace ManagersAndControllers {
 #if UNITY_EDITOR
         [Space, Header("Editor Stuff")]
         [SerializeField, HideInInspector] private Creature testCreaturePrefab;
+        [SerializeField, HideInInspector] private bool spawnCreaturesOnWaveStart;
 
         [CustomEditor(typeof(CreatureSpawnController))]
         public class CreatureSpawnControllerEditor : Editor {
             private SerializedProperty testCreaturePrefab;
+            private SerializedProperty spawnCreaturesOnWaveStart;
 
             private void OnEnable() {
                 testCreaturePrefab = serializedObject.FindProperty("testCreaturePrefab");
+                spawnCreaturesOnWaveStart = serializedObject.FindProperty("spawnCreaturesOnWaveStart");
             }
 
             public override void OnInspectorGUI() {
@@ -181,6 +185,8 @@ namespace ManagersAndControllers {
                 EditorGUILayout.Space();
 
                 EditorGUILayout.PropertyField(testCreaturePrefab, new GUIContent("Test creature prefab"));
+                EditorGUILayout.PropertyField(spawnCreaturesOnWaveStart, new GUIContent("Spawn creatures on wave start"));
+
                 serializedObject.ApplyModifiedProperties();
 
                 if (GUILayout.Button("Spawn Test Creature")) {
