@@ -32,7 +32,7 @@ namespace SecurityWeapons {
 
         private bool isUsingTestTarget;
 
-        private void Awake() {
+        private void Start() {
             weaponSpecification = GetComponentInParent<IWeaponSpecification>();
             initialUpVector = transform.up;
             initialForwardVector = transform.forward;

@@ -76459,6 +76459,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shared Weapon Specifications
       objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: groundRotateOnXAxisRange.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: groundRotateOnYAxisRange.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782208340665992729, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
+      propertyPath: groundRotateOnYAxisRange.y
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0696a1a6357b74886c7bfe41404cc7, type: 3}
 --- !u!1001 &2678034705907680075
@@ -77086,6 +77098,10 @@ PrefabInstance:
       propertyPath: testSpawnPoint
       value: 
       objectReference: {fileID: 1172071717}
+    - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
+      propertyPath: spawnCreaturesOnWaveStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8373024146854449137, guid: 179d136e629c19e498ae199e5cfaec4c, type: 3}
       propertyPath: runningAwayPoints.Array.data[0]
       value: 
