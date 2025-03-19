@@ -1,4 +1,5 @@
-﻿using Context;
+﻿using System;
+using Context;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -34,32 +35,38 @@ namespace Multiplayer {
             playerTypeText.text = IsServer ? "Player is: Server" : "Player is: Client";
 
             if (IsServer) {
-                networkNumOfPlayers.Value += 1;
-            } else {
-                OnPlayerSpawnedServerRPC();
+                networkNumOfPlayers.Value = 1;
+                Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedFromNetwork;
+                Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
             }
         }
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
-            if (!IsServer) {
-                OnPlayerDespawnServerRPC();
+
+            pingText.gameObject.SetActive(false);
+            numOfPlayersText.gameObject.SetActive(false);
+            playerTypeText.gameObject.SetActive(false);
+
+            if (IsServer) {
+                Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork -= OnPlayerDespawnedFromNetwork;
+                Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
             }
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void OnPlayerSpawnedServerRPC() {
+        private void OnPlayerSpawnedOnNetwork(Player.Player player) {
             networkNumOfPlayers.Value += 1;
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void OnPlayerDespawnServerRPC() {
+        private void OnPlayerDespawnedFromNetwork(Player.Player player) {
+            if (Ctx.Deps.Matchmaker.Status == Matchmaker.LobbyStatus.None || player.IsOwner) return;
             networkNumOfPlayers.Value -= 1;
         }
 
         private void Update() {
             if (!IsSpawned) return;
-            numOfPlayersText.text = $"Players: {networkNumOfPlayers.Value.ToString()}";
+            numOfPlayersText.text = $"Players: {NumOfPlayers.ToString()}";
+
             if (IsClient) {
                 pingText.text = $"Ping:  + {NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetCurrentRtt(0)} ms";
             }
