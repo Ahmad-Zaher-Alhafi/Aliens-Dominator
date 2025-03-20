@@ -21,6 +21,7 @@ namespace AmmoMagazines {
             get => currentProjectilesNumber;
             protected set {
                 currentProjectilesNumber = value;
+                if (!IsSpawned) return;
                 networkCurrentProjectilesNumber.Value = currentProjectilesNumber;
             }
         }

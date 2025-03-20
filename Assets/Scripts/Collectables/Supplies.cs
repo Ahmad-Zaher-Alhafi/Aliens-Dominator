@@ -12,6 +12,8 @@ namespace Collectables {
         private readonly NetworkVariable<Quaternion> networkRotation = new();
 
         private void Update() {
+            if (!IsSpawned) return;
+
             if (IsServer) {
                 networkPosition.Value = transform.position;
                 networkRotation.Value = transform.rotation;

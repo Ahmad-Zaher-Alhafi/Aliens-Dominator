@@ -78,7 +78,8 @@ namespace ManagersAndControllers {
                 .ToDictionary(prefab => prefab.CreaturePrefab, num => num.NumberToSpawn);
             List<Creature> waveCreaturesPrefabs = creaturesData.Keys.ToList();
 
-            while (waveCreaturesPrefabs.Count > 0) {
+            // Break the loop if the server disconnected during the creatures spawn process
+            while (waveCreaturesPrefabs.Count > 0 && IsSpawned) {
                 int randomCreaturePrefabIndex = Random.Range(0, waveCreaturesPrefabs.Count);
                 Creature randomCreaturePrefab = waveCreaturesPrefabs[randomCreaturePrefabIndex];
 
@@ -124,6 +125,9 @@ namespace ManagersAndControllers {
         private void SpawnCinematicCreatures() {
             foreach (Wave.WaveCreature waveCreature in Ctx.Deps.WaveController.CinematicWave.WaveCreatures) {
                 for (int i = 0; i < waveCreature.NumberToSpawn; i++) {
+                    // In case the server despawned while spawning the creatures then break the loop
+                    if (!IsSpawned) break;
+
                     PathPoint randomPoint = MathUtils.GetRandomObjectFromList(waveCreature.CreaturePrefab is FlyingCreature ? airCinematicEnemyPathPoints : groundCinematicEnemyPathPoints);
                     SpawnCreature(waveCreature.CreaturePrefab.gameObject, randomPoint.transform.position, null, isCinematic: true);
                 }

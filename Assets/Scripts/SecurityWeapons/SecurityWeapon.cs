@@ -54,6 +54,7 @@ namespace SecurityWeapons {
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
+            if (!IsSpawned) return;
             if (IsServer) {
                 networkRotation.Value = Quaternion.identity;
             }

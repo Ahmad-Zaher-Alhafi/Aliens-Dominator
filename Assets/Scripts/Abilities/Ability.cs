@@ -26,6 +26,8 @@ namespace Abilities {
         }
 
         private void Update() {
+            if (!IsSpawned) return;
+
             if (!IsServer) {
                 TimeLeftToBeReady = new TimeSpan(networkTicksLeftToBeReady.Value);
                 return;
