@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using Context;
 using Multiplayer;
 using Placeables;
@@ -42,6 +41,12 @@ namespace UI {
         private void Awake() {
             UpdateManuVisibilityState(true);
             Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork += OnPlayerDespawnedOnNetwork;
+        }
+
+        private void OnPlayerDespawnedOnNetwork(Player.Player player) {
+            if (!player.IsOwner) return;
+            UpdateManuVisibilityState(true);
         }
 
         private void OnPlayerSpawnedOnNetwork(Player.Player player) {
@@ -131,12 +136,6 @@ namespace UI {
 
         public void QuitMatchClicked() {
             Ctx.Deps.GameController.QuitMatch();
-            StartCoroutine(ShowMainMenuDelayed());
-        }
-
-        private IEnumerator ShowMainMenuDelayed() {
-            yield return new WaitForEndOfFrame();
-            ShowMainMenuClicked();
         }
 
         public void QuitGameClicked() {
@@ -149,6 +148,7 @@ namespace UI {
 
         private void OnDestroy() {
             Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
+            Ctx.Deps.EventsManager.PlayerDespawnedFromNetwork -= OnPlayerDespawnedOnNetwork;
         }
     }
 }
