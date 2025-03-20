@@ -24,6 +24,7 @@ namespace Multiplayer {
             InGame
         }
 
+        [SerializeField, Tooltip("Time before shutting down the client because of inactivity")] private int secondsBeforeShutdown = 60;
         [SerializeField] private UnityTransport unityTransport;
         public static Lobby ConnectedToLobby { get; private set; }
         private QueryResponse lobbies;
@@ -96,7 +97,7 @@ namespace Multiplayer {
 
                 ConnectedToLobby = await Lobbies.Instance.CreateLobbyAsync($"{playerName}'s Lobby", maxPlayers, options);
 
-                StartCoroutine(HeartBeatLobby(ConnectedToLobby.Id, 15));
+                StartCoroutine(HeartBeatLobby(ConnectedToLobby.Id, secondsBeforeShutdown));
 
                 unityTransport.SetHostRelayData(allocation.RelayServer.IpV4, (ushort) allocation.RelayServer.Port, allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData);
 
