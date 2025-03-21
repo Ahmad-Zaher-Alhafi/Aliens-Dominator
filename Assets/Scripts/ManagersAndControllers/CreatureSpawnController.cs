@@ -37,6 +37,7 @@ namespace ManagersAndControllers {
 
         [Header("Spawning Settings")]
         [SerializeField] private float timeBetweenEachCreatureSpawn = 10;
+        [SerializeField] private bool spawnCreaturesOnWaveStart = true;
 
         private readonly List<Creature> creatures = new();
         private bool finishedSpawningCreatures = true;
@@ -170,7 +171,6 @@ namespace ManagersAndControllers {
 #if UNITY_EDITOR
         [Space, Header("Editor Stuff")]
         [SerializeField, HideInInspector] private Creature testCreaturePrefab;
-        [SerializeField, HideInInspector] private bool spawnCreaturesOnWaveStart;
 
         [CustomEditor(typeof(CreatureSpawnController))]
         public class CreatureSpawnControllerEditor : Editor {

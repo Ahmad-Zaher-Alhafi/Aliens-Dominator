@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6d92801614477d9750f9111413ad5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondsBeforeShutdown: 60
   unityTransport: {fileID: 0}
 --- !u!1 &2113844618511439899
 GameObject:
