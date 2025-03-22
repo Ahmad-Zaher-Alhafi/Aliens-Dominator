@@ -16702,7 +16702,7 @@ MonoBehaviour:
   bulletCreatePoint: {fileID: 6591588923433466406}
   bulletsPerSecond: 2
   rocketsPerSecond: 1
-  useBursts: 1
+  useBursts: 0
   numOfRocketsInBurst: 5
   rocketsPerSecondInBurst: 5
   burstCoolDown: 1.5
@@ -16714,7 +16714,7 @@ MonoBehaviour:
   - {fileID: 201708389}
   - {fileID: 1695884081}
   weaponSensor: {fileID: 1968061742312605515}
-  activateOnStart: 1
+  activateOnStart: 0
   useInfiniteAmmo: 0
 --- !u!114 &3429880273745342631
 MonoBehaviour:

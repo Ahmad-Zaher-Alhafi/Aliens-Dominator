@@ -8,6 +8,7 @@ using Creatures;
 using FiniteStateMachine.FighterPlaneStateMachine;
 using FMODUnity;
 using Projectiles;
+using ScriptableObjects;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
@@ -132,6 +133,7 @@ namespace SecurityWeapons {
 
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            Ctx.Deps.EventsManager.WaveStarted += OnWaveStarted;
             if (IsServer) return;
 
             Destroy(fighterPlaneStateMachine);
@@ -139,12 +141,11 @@ namespace SecurityWeapons {
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
-            if (!IsSpawned) return;
+            if (!IsSpawned || !IsServer) return;
 
-            if (IsServer) {
-                networkPosition.Value = Vector3.zero;
-                networkRotation.Value = Quaternion.identity;
-            }
+            networkPosition.Value = Vector3.zero;
+            networkRotation.Value = Quaternion.identity;
+            Ctx.Deps.EventsManager.WaveStarted -= OnWaveStarted;
         }
 
         protected override void Awake() {
@@ -156,7 +157,15 @@ namespace SecurityWeapons {
         public override void Init() {
             base.Init();
             fighterPlaneStateMachine.Init(this, FighterPlaneStateType.Deactivated);
+            if (Ctx.Deps.WaveController.HasWaveStarted) {
+                IsAutomatingEnabled = true;
+            }
         }
+
+        private void OnWaveStarted(Wave obj) {
+            IsAutomatingEnabled = true;
+        }
+
 
         protected override void Update() {
             base.Update();
