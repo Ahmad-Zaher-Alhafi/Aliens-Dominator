@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Context;
+using ManagersAndControllers;
 using Multiplayer;
 using Placeables;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utils.Extensions;
 
@@ -53,17 +53,14 @@ namespace UI {
             if (!player.IsOwner) return;
 
             menuHolder.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update() {
-#if UNITY_EDITOR
-            if (Ctx.Deps.InputActions.SharedActions.PrimaryAction.WasPressedThisFrame() && !menuHolder.activeSelf && EventSystem.current.currentSelectedGameObject == null && Ctx.Deps.GameController.IsSpawned) {
-                Cursor.lockState = CursorLockMode.Locked;
-            } else if (Ctx.Deps.InputActions.SharedActions.SecondaryAction.WasPressedThisFrame()) {
-                Cursor.lockState = CursorLockMode.None;
-            }
-#endif
+            Cursor.lockState = Ctx.Deps.GameController.CurrentViewMode is GameController.ViewMode.TopDown
+                               || menuHolder.activeSelf
+                               || !Ctx.Deps.GameController.IsSpawned
+                ? CursorLockMode.None
+                : CursorLockMode.Locked;
 
             if (Ctx.Deps.InputActions.UIActions.Escape.WasPressedThisFrame()) {
                 MenuButtonClicked();
@@ -82,7 +79,6 @@ namespace UI {
 
         private void UpdateManuVisibilityState(bool showMenu) {
             menuHolder.SetActive(showMenu);
-            Cursor.lockState = showMenu || !Ctx.Deps.GameController.IsSpawned ? CursorLockMode.None : CursorLockMode.Locked;
             if (showMenu) {
                 ShowMainMenuClicked();
             }
