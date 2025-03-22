@@ -158,6 +158,7 @@ namespace Arrows {
             rig.isKinematic = true;
             rig.useGravity = false;
 
+            trailRenderer.Clear(); // To prevent it from playing from where it was landed on reusing it
             trailRenderer.enabled = false;
             PlayArrowHitSound();
 
