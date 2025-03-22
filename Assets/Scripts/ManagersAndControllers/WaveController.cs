@@ -37,15 +37,18 @@ namespace ManagersAndControllers {
 
         private readonly List<List<Vector3>> pathsToDraw = new();
 
-        private void Awake() {
-            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += UpdateWavesAirPathsTargetPoints;
-        }
-
         public override void OnNetworkSpawn() {
             base.OnNetworkSpawn();
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += UpdateWavesAirPathsTargetPoints;
+
             if (IsServer) {
                 InitWave(testWave);
             }
+        }
+
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= UpdateWavesAirPathsTargetPoints;
         }
 
         public void StartNextWave() {
@@ -57,6 +60,10 @@ namespace ManagersAndControllers {
             DrawWavePaths();
             HasWaveStarted = true;
             Ctx.Deps.EventsManager.TriggerWaveStarted(wave);
+        }
+
+        public void OnMatchQuit() {
+            HasWaveStarted = false;
         }
 
         private void InitWave(Wave wave) {
@@ -123,11 +130,6 @@ namespace ManagersAndControllers {
             foreach (Wave wave in waves) {
                 wave.ReassignAirTargetPoints();
             }
-        }
-
-        public override void OnDestroy() {
-            base.OnDestroy();
-            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= UpdateWavesAirPathsTargetPoints;
         }
     }
 }

@@ -41,7 +41,6 @@ namespace ManagersAndControllers {
 
         private readonly List<Creature> creatures = new();
         private bool finishedSpawningCreatures = true;
-        private TargetPoint playerTargetPoint;
 
         private void Awake() {
             Ctx.Deps.EventsManager.EnemyDied += OnEnemyDied;
@@ -56,6 +55,11 @@ namespace ManagersAndControllers {
             if (spawnCinematicCreatures) {
                 StartCoroutine(SpawnCinematicCreaturesDelayed());
             }
+        }
+
+        public void OnMatchQuit() {
+            creatures.Clear();
+            finishedSpawningCreatures = true;
         }
 
         /// <summary>

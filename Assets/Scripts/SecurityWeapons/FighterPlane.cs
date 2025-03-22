@@ -139,6 +139,8 @@ namespace SecurityWeapons {
 
         public override void OnNetworkDespawn() {
             base.OnNetworkDespawn();
+            if (!IsSpawned) return;
+
             if (IsServer) {
                 networkPosition.Value = Vector3.zero;
                 networkRotation.Value = Quaternion.identity;

@@ -22,8 +22,8 @@ namespace ManagersAndControllers {
 
         public float MusicBusVolume {
             get {
-                 musicBus.getVolume(out float volume);
-                 return volume;
+                musicBus.getVolume(out float volume);
+                return volume;
             }
         }
 
@@ -77,12 +77,18 @@ namespace ManagersAndControllers {
             PlayScreamSoundClientRPC();
         }
 
+        public void OnMatchQuit() {
+            PlayBackgroundMusic();
+            wasScreamSoundPlayed = false;
+        }
+
         private void PlayMainMusic() {
             bgMusic.Stop();
             mainMusic.Play();
         }
 
         private void PlayBackgroundMusic() {
+            mainMusic.Stop();
             bgMusic.Play();
         }
 

@@ -189,6 +189,9 @@ namespace ManagersAndControllers {
             StopAllCoroutines();
             SwitchViewModeTo(ViewMode.General);
             Ctx.Deps.Matchmaker.QuitMatch();
+            Ctx.Deps.WaveController.OnMatchQuit();
+            Ctx.Deps.AudioController.OnMatchQuit();
+            Ctx.Deps.CreatureSpawnController.OnMatchQuit();
         }
 
         public override void OnDestroy() {

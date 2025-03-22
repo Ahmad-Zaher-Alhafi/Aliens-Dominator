@@ -35,8 +35,6 @@ namespace UI {
             base.SetPlaceable(placeable);
             hasToSyncMotion = true;
             stateUIPlaceable = (StateUIPlaceable) placeable;
-
-            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
         }
 
         public override void OnNetworkSpawn() {
@@ -44,6 +42,13 @@ namespace UI {
             if (IsServer) {
                 InitClientRPC(stateUIPlaceable.HealthBarMaxValue, stateUIPlaceable.BackgroundColor, stateUIPlaceable.FillColor);
             }
+
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork += OnPlayerSpawnedOnNetwork;
+        }
+
+        public override void OnNetworkDespawn() {
+            base.OnNetworkDespawn();
+            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
         }
 
         private void OnPlayerSpawnedOnNetwork(Player.Player player) {
@@ -88,11 +93,6 @@ namespace UI {
                     transform.position = Vector3.LerpUnclamped(transform.position, networkPosition.Value, .1f);
                 }
             }
-        }
-
-        public override void OnDestroy() {
-            base.OnDestroy();
-            Ctx.Deps.EventsManager.PlayerSpawnedOnNetwork -= OnPlayerSpawnedOnNetwork;
         }
     }
 }
